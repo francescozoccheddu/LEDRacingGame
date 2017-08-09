@@ -1,0 +1,66 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.6</VERSION>
+ <DEVICE>"ATmega2560"</DEVICE>
+ <WORKING_DIR>C:\Users\zocch\OneDrive\Unica\ARE\ARE\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc</FILE>
+  <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.inc</FILE>
+  <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led.asm</FILE>
+  <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart.asm</FILE>
+  <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE>
+  <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\Debug\ARE.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>ARE.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>ARE.map</FILE>
+  <FILE>ARE.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <dsens_isr_oca><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>158</LINE></dsens_isr_oca>
+  <dsens_isr_echo_l><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>229</LINE></dsens_isr_echo_l>
+  <dsens_isr_echo_r><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>235</LINE></dsens_isr_echo_r>
+  <l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>16</LINE></l_reset>
+  <led_sr_toggle><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led.asm</FILE><LINE>19</LINE></led_sr_toggle>
+  <led_sr_on><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led.asm</FILE><LINE>31</LINE></led_sr_on>
+  <led_sr_off><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led.asm</FILE><LINE>40</LINE></led_sr_off>
+  <math_sr_div8><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>14</LINE></math_sr_div8>
+  <math_l_div8_1><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>24</LINE></math_l_div8_1>
+  <math_l_div8_2><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>26</LINE></math_l_div8_2>
+  <math_l_div8_3><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>34</LINE></math_l_div8_3>
+  <math_l_div8_4><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>36</LINE></math_l_div8_4>
+  <math_l_div8_5><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>44</LINE></math_l_div8_5>
+  <math_l_div8_6><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>46</LINE></math_l_div8_6>
+  <math_l_div8_7><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>54</LINE></math_l_div8_7>
+  <math_l_div8_8><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>56</LINE></math_l_div8_8>
+  <math_l_div8_9><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>64</LINE></math_l_div8_9>
+  <math_l_div8_10><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>66</LINE></math_l_div8_10>
+  <math_l_div8_11><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>74</LINE></math_l_div8_11>
+  <math_l_div8_12><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>76</LINE></math_l_div8_12>
+  <math_l_div8_13><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>84</LINE></math_l_div8_13>
+  <math_l_div8_14><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>86</LINE></math_l_div8_14>
+  <math_l_div8_15><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>94</LINE></math_l_div8_15>
+  <math_l_div8_16><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\math.asm</FILE><LINE>96</LINE></math_l_div8_16>
+  <uart_sr_send><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart.asm</FILE><LINE>100</LINE></uart_sr_send>
+  <uart_l_send_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart.asm</FILE><LINE>102</LINE></uart_l_send_loop>
+  <uart_sr_send_str><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart.asm</FILE><LINE>113</LINE></uart_sr_send_str>
+  <uart_l_send_str_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart.asm</FILE><LINE>115</LINE></uart_l_send_str_loop>
+  <uart_l_send_str_return><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart.asm</FILE><LINE>121</LINE></uart_l_send_str_return>
+  <uart_sr_send_int><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart.asm</FILE><LINE>127</LINE></uart_sr_send_int>
+  <uart_l_send_int_nd><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart.asm</FILE><LINE>141</LINE></uart_l_send_int_nd>
+  <uart_l_send_int_nd_f><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart.asm</FILE><LINE>149</LINE></uart_l_send_int_nd_f>
+  <uart_l_send_int_rd><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart.asm</FILE><LINE>153</LINE></uart_l_send_int_rd>
+  <dsens_l_oca_r><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>168</LINE></dsens_l_oca_r>
+  <l_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>40</LINE></l_loop>
+ </LABELS>
+</ASSEMBLER_INFO>
