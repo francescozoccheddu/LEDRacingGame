@@ -10,12 +10,12 @@
 
 .equ DSENS_DEBUG = 0
 
-.equ DSENS_OUT_MIN = 50
-.equ DSENS_OUT_MMAX = 350
-.equ DSENS_OUT_HOLD = 20
+.equ DSENS_OUT_MIN = 60
+.equ DSENS_OUT_MMAX = 320
+.equ DSENS_OUT_HOLD = 300
 
 .equ DSENS_MULI_FACT = INT( (1 << 16) / (DSENS_OUT_MMAX - DSENS_OUT_MIN) )
-.equ DSENS_OUT_CMAX = INT( (1 << 16) / DSENS_MULI_FACT )
+.equ DSENS_OUT_CMAX = INT( (1 << 16) / DSENS_MULI_FACT ) 
 
 .equ DSENS_PRESCALER = 64
 .equ DSENS_MAX_PERIOD_MS = (1 << 16) * DSENS_PRESCALER * 1000 / FOSC
@@ -163,12 +163,14 @@
 	;translate to 8-bit range
 	ldi r16, DSENS_MULI_FACT
 	mul dsens_time_h, r16
-	mov @4, r0
+	mov dsens_time_h, r0
 	mul dsens_time_l, r16
-	add @4, r1
+	add dsens_time_h, r1
+	add @4, dsens_time_h
+	ror @4
 	rjmp @3_end
 @3_smaller:
-	clr @4
+	lsr @4
 	rjmp @3_end
 @3_greater:
 	cpi dsens_time_l, LOW( DSENS_OUT_CMAX + DSENS_OUT_HOLD )
@@ -176,8 +178,17 @@
 	cpc dsens_time_h, r16
 	brsh @3_end
 	ser r16
-	mov @4, r16
+	add @4, r16
+	sbrc @4, 0
+	inc @4
+	ror @4
 @3_end:
+	;------------------TODO-----------------------------
+	;set r16 before rjmp here according to branch length
+    ldi  r16, 53
+@3_wait: 
+	dec  r16
+    brne @3_wait
 	;end trigger
 	lds r16, DSENS_TRIG_PORT
 	andi r16, !(1 << @0)
@@ -206,7 +217,6 @@ dsens_l_oca_r:
 
 ;params (0)'label' (1)'ECHO_EIMSK_BIT' (2)'ECHO_EICR_BIT'
 .macro DSENS_ISRM_ECHO
-	push r16
 	sbrc dsens_stat, DSENS_STAT_FALLING_BIT
 	rjmp @0_falling
 	;rising
@@ -216,6 +226,7 @@ dsens_l_oca_r:
 	;set stat to falling
 	ori dsens_stat, 1 << DSENS_STAT_FALLING_BIT
 	;disable interrupt
+	push r16
 	in r16, DSENS_ECHO_EIMSK
 	andi r16, !(1 << @1)
 	out DSENS_ECHO_EIMSK, r16
@@ -236,6 +247,7 @@ dsens_l_oca_r:
 @0_falling:
 	;falling
 	;save elapsed time
+	push r16
 	push r17
 	lds r16, DSENS_TCNTL
 	lds r17, DSENS_TCNTH
