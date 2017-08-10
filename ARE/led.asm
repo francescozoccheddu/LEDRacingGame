@@ -1,5 +1,5 @@
-.ifndef inC_LED_ASM
-.equ inC_LED_ASM = 0
+.ifndef INC_LED_ASM
+.equ INC_LED_ASM = 0
 
 .equ LED_PORTD = DDRB
 .equ LED_PORT = PORTB

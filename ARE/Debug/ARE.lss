@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Wed Aug 09 13:50:58 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Wed Aug 09 17:45:07 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -1928,7 +1928,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(14): Including file 'C:\Users\zoc
                                  
                                  .include "led.asm"
                                  
-                                 .equ inC_LED_ASM = 0
+                                 .equ INC_LED_ASM = 0
                                  
                                  .equ LED_PORTD = DDRB
                                  .equ LED_PORT = PORTB
@@ -2635,38 +2635,12 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(14): Including file 'C:\Users\zoc
 0001c7 e806
 0001c8 9300 00c2
 0001ca 910f                      	UART_SR_SETUP
-0001cb 930f
-0001cc b105
-0001cd 6800
-0001ce b904
-0001cf 910f                      	LED_SR_SETUP
-0001d0 930f
-0001d1 9100 0104
-0001d3 6003
-0001d4 9300 0104
-0001d6 b10a
-0001d7 7000
-0001d8 b90a
-0001d9 2700
-0001da 9300 0084
-0001dc 9300 0085
-0001de e40e
-0001df 9300 0089
-0001e1 e200
-0001e2 9300 0088
-0001e4 e002
-0001e5 9300 006f
-0001e7 e000
-0001e8 9300 0080
-0001ea e00b
-0001eb 9300 0081
-0001ed e000
-0001ee 9300 0082
-0001f0 910f                      	DSENS_SR_SETUP
+                                 	/*LED_SR_SETUP*/
+                                 /*	DSENS_SR_SETUP*/
                                  	;turn off led
-0001f1 940e 0081                 	call led_sr_off
+0001cb 940e 0081                 	call led_sr_off
                                  	;set interrupts
-0001f3 9478                      	SEI
+0001cd 9478                      	SEI
                                  
                                  l_loop:	
                                  	; lds r16, TCNT1L
@@ -2675,7 +2649,28 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(14): Including file 'C:\Users\zoc
                                  	; UART_SR_CI ':'
                                  	; UART_SR_I r16
                                  	; UART_SR_L 
-0001f4 cfff                      	rjmp l_loop
+0001ce c007
+0001cf 6943
+0001d0 6f61
+0001d1 6120
+0001d2 7420
+0001d3 7475
+0001d4 6974
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart.asm(89): warning: .cseg .db misalignment - padding zero byte
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(47): macro 'UART_SR_STRI_N' called here
+0001d5 0000
+0001d6 93ff
+0001d7 93ef
+0001d8 e0f3
+0001d9 e9ee
+0001da 940e 00d6
+0001dc 91ef
+0001dd 91ff                      	UART_SR_STRI "Ciao a tutti"
+0001de 939f
+0001df e09a
+0001e0 940e 00cd
+0001e2 919f                      	UART_SR_L
+0001e3 cfea                      	rjmp l_loop
 
 
 RESOURCE USE INFORMATION
@@ -2695,39 +2690,39 @@ counted separately from r26..r31 here.
 "ATmega2560" register use summary:
 x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16: 172 r17:  14 r18:   8 r19:   8 r20:  11 
-r21:   0 r22:  18 r23:  23 r24:  17 r25:  29 r26:   0 r27:   0 r28:   0 
-r29:   0 r30:   0 r31:   0 
-Registers used: 10 out of 35 (28.6%)
+r13:   0 r14:   0 r15:   0 r16: 144 r17:  14 r18:   8 r19:   8 r20:  11 
+r21:   0 r22:  18 r23:  23 r24:  17 r25:  32 r26:   0 r27:   0 r28:   0 
+r29:   0 r30:   3 r31:   3 
+Registers used: 12 out of 35 (34.3%)
 
 "ATmega2560" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   8 adiw  :   0 and   :   0 
-andi  :  14 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
+andi  :  13 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   8 brcs  :   0 break :   0 breq  :   3 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
 brne  :   1 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   9 cbi   :   0 cbr   :   0 
-clc   :   8 clh   :   0 cli   :   0 cln   :   0 clr   :   4 cls   :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :  11 cbi   :   0 cbr   :   0 
+clc   :   8 clh   :   0 cli   :   0 cln   :   0 clr   :   3 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   4 cpse  :   0 dec   :   0 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   1 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :  16 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  23 
-lds   :  18 lpm   :   1 lsl   :   0 lsr   :   0 mov   :  11 movw  :   2 
+in    :  14 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  20 
+lds   :  17 lpm   :   1 lsl   :   0 lsr   :   0 mov   :  11 movw  :   2 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   0 
-ori   :  18 out   :  20 pop   :  30 push  :  28 rcall :   6 ret   :   7 
-reti  :   6 rjmp  :  20 rol   :  17 ror   :   0 sbc   :   2 sbci  :   0 
+ori   :  16 out   :  18 pop   :  31 push  :  29 rcall :   6 ret   :   7 
+reti  :   6 rjmp  :  21 rol   :  17 ror   :   0 sbc   :   2 sbci  :   0 
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   3 
 sbrs  :   3 sec   :   8 seh   :   0 sei   :   1 sen   :   0 ser   :   1 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
-st    :   0 std   :   0 sts   :  25 sub   :  10 subi  :   3 swap  :   0 
+st    :   0 std   :   0 sts   :  16 sub   :  10 subi  :   3 swap  :   0 
 tst   :   0 wdr   :   0 
 Instructions used: 34 out of 116 (29.3%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0003ea    782      0    782  262144   0.3%
+[.cseg] 0x000000 0x0003c8    734     14    748  262144   0.3%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 
-Assembly complete, 0 errors, 0 warnings
+Assembly complete, 0 errors, 1 warnings

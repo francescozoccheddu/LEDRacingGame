@@ -38,10 +38,8 @@ l_reset:
 	SEI
 
 l_loop:	
-	; lds r16, TCNT1L
-	; lds r17, TCNT1H
-	; UART_SR_I r17 
-	; UART_SR_CI ':'
-	; UART_SR_I r16
-	; UART_SR_L 
+	UART_SR_I dsens_l 
+	UART_SR_CI ':'
+	UART_SR_I dsens_r
+	UART_SR_L 
 	rjmp l_loop

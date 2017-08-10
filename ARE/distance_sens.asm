@@ -4,11 +4,18 @@
 ;reserved
 .def dsens_time_l = r18
 .def dsens_time_h = r19
-.def dsens_l = r3
-.def dsens_r = r4
-.def dsens_stat = r20;
+.def dsens_l = r4
+.def dsens_r = r5
+.def dsens_stat = r20
 
 .equ DSENS_DEBUG = 0
+
+.equ DSENS_OUT_MIN = 50
+.equ DSENS_OUT_MMAX = 350
+.equ DSENS_OUT_HOLD = 20
+
+.equ DSENS_MULI_FACT = INT( (1 << 16) / (DSENS_OUT_MMAX - DSENS_OUT_MIN) )
+.equ DSENS_OUT_CMAX = INT( (1 << 16) / DSENS_MULI_FACT )
 
 .equ DSENS_PRESCALER = 64
 .equ DSENS_MAX_PERIOD_MS = (1 << 16) * DSENS_PRESCALER * 1000 / FOSC
@@ -115,7 +122,7 @@
 	pop r16
 .endmacro
 
-;params (0)'TRIG_PORT_BIT' (1)'ECHO_EICR_BIT' (2)'ECHO_EIMSK_BIT' (3)'label'
+;params (0)'TRIG_PORT_BIT' (1)'ECHO_EICR_BIT' (2)'ECHO_EIMSK_BIT' (3)'label' (4)'res'
 .macro DSENS_ISRM_OCA
 	push r16
 	;start 10us trigger
@@ -142,11 +149,34 @@
 	;skip if not done
 	sbrs dsens_stat, DSENS_STAT_DONE_BIT
 	rjmp @3_end
-	;------------------------------------- TODO ----------------
-	UART_SR_I dsens_time_h
-	UART_SR_CI ':'
-	UART_SR_I dsens_time_l
-	UART_SR_L
+	;clamping
+	;clear near noise
+	subi dsens_time_l, LOW( DSENS_OUT_MIN )
+	sbci dsens_time_h, HIGH( DSENS_OUT_MIN )
+	;skip if smaller
+	brcs @3_smaller
+	;skip if greater
+	cpi dsens_time_l, LOW( DSENS_OUT_CMAX )
+	ldi r16, HIGH( DSENS_OUT_CMAX )
+	cpc dsens_time_h, r16
+	brsh @3_greater
+	;translate to 8-bit range
+	ldi r16, DSENS_MULI_FACT
+	mul dsens_time_h, r16
+	mov @4, r0
+	mul dsens_time_l, r16
+	add @4, r1
+	rjmp @3_end
+@3_smaller:
+	clr @4
+	rjmp @3_end
+@3_greater:
+	cpi dsens_time_l, LOW( DSENS_OUT_CMAX + DSENS_OUT_HOLD )
+	ldi r16, HIGH( DSENS_OUT_CMAX + DSENS_OUT_HOLD )
+	cpc dsens_time_h, r16
+	brsh @3_end
+	ser r16
+	mov @4, r16
 @3_end:
 	;end trigger
 	lds r16, DSENS_TRIG_PORT
@@ -162,7 +192,7 @@ dsens_isr_oca:
 .if DSENS_DEBUG
 	UART_SR_CI 'R'
 .endif
-	DSENS_ISRM_OCA DSENS_TRIG_PORT_BIT_R, DSENS_ECHO_EICR_BIT_R, DSENS_ECHO_EIMSK_BIT_R, dsens_lm_oca_r
+	DSENS_ISRM_OCA DSENS_TRIG_PORT_BIT_R, DSENS_ECHO_EICR_BIT_R, DSENS_ECHO_EIMSK_BIT_R, dsens_lm_oca_r, dsens_r
 	ldi dsens_stat, 1 << DSENS_STAT_R_BIT
 	reti
 dsens_l_oca_r:
@@ -170,7 +200,7 @@ dsens_l_oca_r:
 .if DSENS_DEBUG
 	UART_SR_CI 'L'
 .endif
-	DSENS_ISRM_OCA DSENS_TRIG_PORT_BIT_L, DSENS_ECHO_EICR_BIT_L, DSENS_ECHO_EIMSK_BIT_L, dsens_lm_oca_l
+	DSENS_ISRM_OCA DSENS_TRIG_PORT_BIT_L, DSENS_ECHO_EICR_BIT_L, DSENS_ECHO_EIMSK_BIT_L, dsens_lm_oca_l, dsens_l
 	clr dsens_stat
 	reti
 
@@ -178,7 +208,7 @@ dsens_l_oca_r:
 .macro DSENS_ISRM_ECHO
 	push r16
 	sbrc dsens_stat, DSENS_STAT_FALLING_BIT
-	rjmp @0
+	rjmp @0_falling
 	;rising
 	;save current timer
 	lds dsens_time_l, DSENS_TCNTL
@@ -203,7 +233,7 @@ dsens_l_oca_r:
 .endif
 	pop r16
 	reti
-@0:
+@0_falling:
 	;falling
 	;save elapsed time
 	push r17
