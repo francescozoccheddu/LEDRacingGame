@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Wed Aug 09 13:51:03 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Thu Aug 10 11:58:02 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -1909,12 +1909,12 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(14): Including file 'C:\Users\zoc
                                  .equ DSENS_ECHO_ADDR_L = INT0addr
                                  
                                  .org DSENS_ECHO_ADDR_L
-000002 c160                      rjmp dsens_isr_echo_l
+000002 c162                      rjmp dsens_isr_echo_l
                                  
                                  .equ DSENS_ECHO_ADDR_R = INT1addr
                                  
                                  .org DSENS_ECHO_ADDR_R
-000004 c183                      rjmp dsens_isr_echo_r
+000004 c185                      rjmp dsens_isr_echo_r
                                  
                                  .endif
                                  
@@ -1922,13 +1922,13 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(14): Including file 'C:\Users\zoc
                                  .equ RESET_ADDR = 0
                                  
                                  .org RESET_ADDR
-000000 c1ac                      rjmp l_reset
+000000 c1ae                      rjmp l_reset
                                  
                                  .org INT_VECTORS_SIZE
                                  
                                  .include "led.asm"
                                  
-                                 .equ inC_LED_ASM = 0
+                                 .equ INC_LED_ASM = 0
                                  
                                  .equ LED_PORTD = DDRB
                                  .equ LED_PORT = PORTB
@@ -2248,11 +2248,18 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(14): Including file 'C:\Users\zoc
                                  ;reserved
                                  .def dsens_time_l = r18
                                  .def dsens_time_h = r19
-                                 .def dsens_l = r3
-                                 .def dsens_r = r4
-                                 .def dsens_stat = r20;
+                                 .def dsens_l = r4
+                                 .def dsens_r = r5
+                                 .def dsens_stat = r20
                                  
                                  .equ DSENS_DEBUG = 0
+                                 
+                                 .equ DSENS_OUT_MIN = 50
+                                 .equ DSENS_OUT_MMAX = 350
+                                 .equ DSENS_OUT_HOLD = 20
+                                 
+                                 .equ DSENS_MULI_FACT = INT( (1 << 16) / (DSENS_OUT_MMAX - DSENS_OUT_MIN) )
+                                 .equ DSENS_OUT_CMAX = INT( (1 << 16) / DSENS_MULI_FACT )
                                  
                                  .equ DSENS_PRESCALER = 64
                                  .equ DSENS_MAX_PERIOD_MS = (1 << 16) * DSENS_PRESCALER * 1000 / FOSC
@@ -2352,7 +2359,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(14): Including file 'C:\Users\zoc
                                  	pop r16
                                  .endmacro
                                  
-                                 ;params (0)'TRIG_PORT_BIT' (1)'ECHO_EICR_BIT' (2)'ECHO_EIMSK_BIT' (3)'label'
+                                 ;params (0)'TRIG_PORT_BIT' (1)'ECHO_EICR_BIT' (2)'ECHO_EIMSK_BIT' (3)'label' (4)'res'
                                  .macro DSENS_ISRM_OCA
                                  	push r16
                                  	;start 10us trigger
@@ -2379,11 +2386,34 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(14): Including file 'C:\Users\zoc
                                  	;skip if not done
                                  	sbrs dsens_stat, DSENS_STAT_DONE_BIT
                                  	rjmp @3_end
-                                 	;------------------------------------- TODO ----------------
-                                 	UART_SR_I dsens_time_h
-                                 	UART_SR_CI ':'
-                                 	UART_SR_I dsens_time_l
-                                 	UART_SR_L
+                                 	;clamping
+                                 	;clear near noise
+                                 	subi dsens_time_l, LOW( DSENS_OUT_MIN )
+                                 	sbci dsens_time_h, HIGH( DSENS_OUT_MIN )
+                                 	;skip if smaller
+                                 	brcs @3_smaller
+                                 	;skip if greater
+                                 	cpi dsens_time_l, LOW( DSENS_OUT_CMAX )
+                                 	ldi r16, HIGH( DSENS_OUT_CMAX )
+                                 	cpc dsens_time_h, r16
+                                 	brsh @3_greater
+                                 	;translate to 8-bit range
+                                 	ldi r16, DSENS_MULI_FACT
+                                 	mul dsens_time_h, r16
+                                 	mov @4, r0
+                                 	mul dsens_time_l, r16
+                                 	add @4, r1
+                                 	rjmp @3_end
+                                 @3_smaller:
+                                 	clr @4
+                                 	rjmp @3_end
+                                 @3_greater:
+                                 	cpi dsens_time_l, LOW( DSENS_OUT_CMAX + DSENS_OUT_HOLD )
+                                 	ldi r16, HIGH( DSENS_OUT_CMAX + DSENS_OUT_HOLD )
+                                 	cpc dsens_time_h, r16
+                                 	brsh @3_end
+                                 	ser r16
+                                 	mov @4, r16
                                  @3_end:
                                  	;end trigger
                                  	lds r16, DSENS_TRIG_PORT
@@ -2394,7 +2424,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(14): Including file 'C:\Users\zoc
                                  
                                  dsens_isr_oca:
 0000fd fd41                      	sbrc dsens_stat, DSENS_STAT_R_BIT
-0000fe c032                      	rjmp dsens_l_oca_r
+0000fe c033                      	rjmp dsens_l_oca_r
                                  	;set to right
                                  .if DSENS_DEBUG
                                  .endif
@@ -2415,79 +2445,89 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(14): Including file 'C:\Users\zoc
 000111 6002
 000112 bb0d
 000113 ff43
-000114 c014
-000115 938f
-000116 2f83
-000117 940e 00de
-000119 918f
-00011a 939f
-00011b e39a
-00011c 940e 00cd
-00011e 919f
-00011f 938f
-000120 2f82
-000121 940e 00de
-000123 918f
-000124 939f
-000125 e09a
-000126 940e 00cd
-000128 919f
-000129 9100 0105
-00012b 7000
-00012c 9300 0105
-00012e 910f                      	DSENS_ISRM_OCA DSENS_TRIG_PORT_BIT_R, DSENS_ECHO_EICR_BIT_R, DSENS_ECHO_EIMSK_BIT_R, dsens_lm_oca_r
-00012f e042                      	ldi dsens_stat, 1 << DSENS_STAT_R_BIT
-000130 9518                      	reti
+000114 c015
+000115 5322
+000116 4030
+000117 f050
+000118 322c
+000119 e001
+00011a 0730
+00011b f440
+00011c ed0a
+00011d 9f30
+00011e 2c50
+00011f 9f20
+000120 0c51
+000121 c008
+000122 2455
+000123 c006
+000124 3420
+000125 e001
+000126 0730
+000127 f410
+000128 ef0f
+000129 2e50
+00012a 9100 0105
+00012c 7000
+00012d 9300 0105
+00012f 910f                      	DSENS_ISRM_OCA DSENS_TRIG_PORT_BIT_R, DSENS_ECHO_EICR_BIT_R, DSENS_ECHO_EIMSK_BIT_R, dsens_lm_oca_r, dsens_r
+000130 e042                      	ldi dsens_stat, 1 << DSENS_STAT_R_BIT
+000131 9518                      	reti
                                  dsens_l_oca_r:
                                  	;set to left
                                  .if DSENS_DEBUG
                                  .endif
-000131 930f
-000132 9100 0105
-000134 6001
-000135 9300 0105
-000137 b30d
-000138 7000
-000139 bb0d
-00013a e003
-00013b bb0c
-00013c 9100 0069
-00013e 7000
-00013f 6003
-000140 9300 0069
-000142 b30d
-000143 6001
-000144 bb0d
-000145 ff43
-000146 c014
-000147 938f
-000148 2f83
-000149 940e 00de
-00014b 918f
-00014c 939f
-00014d e39a
-00014e 940e 00cd
-000150 919f
-000151 938f
-000152 2f82
-000153 940e 00de
-000155 918f
-000156 939f
-000157 e09a
-000158 940e 00cd
-00015a 919f
-00015b 9100 0105
-00015d 7000
-00015e 9300 0105
-000160 910f                      	DSENS_ISRM_OCA DSENS_TRIG_PORT_BIT_L, DSENS_ECHO_EICR_BIT_L, DSENS_ECHO_EIMSK_BIT_L, dsens_lm_oca_l
-000161 2744                      	clr dsens_stat
-000162 9518                      	reti
+000132 930f
+000133 9100 0105
+000135 6001
+000136 9300 0105
+000138 b30d
+000139 7000
+00013a bb0d
+00013b e003
+00013c bb0c
+00013d 9100 0069
+00013f 7000
+000140 6003
+000141 9300 0069
+000143 b30d
+000144 6001
+000145 bb0d
+000146 ff43
+000147 c015
+000148 5322
+000149 4030
+00014a f050
+00014b 322c
+00014c e001
+00014d 0730
+00014e f440
+00014f ed0a
+000150 9f30
+000151 2c40
+000152 9f20
+000153 0c41
+000154 c008
+000155 2444
+000156 c006
+000157 3420
+000158 e001
+000159 0730
+00015a f410
+00015b ef0f
+00015c 2e40
+00015d 9100 0105
+00015f 7000
+000160 9300 0105
+000162 910f                      	DSENS_ISRM_OCA DSENS_TRIG_PORT_BIT_L, DSENS_ECHO_EICR_BIT_L, DSENS_ECHO_EIMSK_BIT_L, dsens_lm_oca_l, dsens_l
+000163 2744                      	clr dsens_stat
+000164 9518                      	reti
                                  
                                  ;params (0)'label' (1)'ECHO_EIMSK_BIT' (2)'ECHO_EICR_BIT'
                                  .macro DSENS_ISRM_ECHO
                                  	push r16
                                  	sbrc dsens_stat, DSENS_STAT_FALLING_BIT
-                                 	rjmp @0
+                                 	rjmp @0_falling
                                  	;rising
                                  	;save current timer
                                  	lds dsens_time_l, DSENS_TCNTL
@@ -2512,7 +2552,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(14): Including file 'C:\Users\zoc
                                  .endif
                                  	pop r16
                                  	reti
-                                 @0:
+                                 @0_falling:
                                  	;falling
                                  	;save elapsed time
                                  	push r17
@@ -2538,144 +2578,154 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(14): Including file 'C:\Users\zoc
                                  dsens_isr_echo_l:
                                  .if DSENS_DEBUG
                                  .endif	
-000163 930f
-000164 fd42
-000165 c013
-000166 9120 0084
-000168 9130 0085
-00016a 6044
-00016b b30d
-00016c 7000
-00016d bb0d
-00016e 9100 0069
-000170 7000
-000171 6002
-000172 9300 0069
-000174 b30d
-000175 6001
-000176 bb0d
-000177 910f
-000178 9518
-000179 931f
-00017a 9100 0084
-00017c 9110 0085
-00017e 1b02
-00017f 0b13
-000180 0198
-000181 911f
-000182 6048
-000183 b30d
-000184 7000
-000185 bb0d
-000186 910f
-000187 9518                      	DSENS_ISRM_ECHO dsens_lm_echo_l, DSENS_ECHO_EIMSK_BIT_L, DSENS_ECHO_EICR_BIT_L
+000165 930f
+000166 fd42
+000167 c013
+000168 9120 0084
+00016a 9130 0085
+00016c 6044
+00016d b30d
+00016e 7000
+00016f bb0d
+000170 9100 0069
+000172 7000
+000173 6002
+000174 9300 0069
+000176 b30d
+000177 6001
+000178 bb0d
+000179 910f
+00017a 9518
+00017b 931f
+00017c 9100 0084
+00017e 9110 0085
+000180 1b02
+000181 0b13
+000182 0198
+000183 911f
+000184 6048
+000185 b30d
+000186 7000
+000187 bb0d
+000188 910f
+000189 9518                      	DSENS_ISRM_ECHO dsens_lm_echo_l, DSENS_ECHO_EIMSK_BIT_L, DSENS_ECHO_EICR_BIT_L
                                  
                                  dsens_isr_echo_r:
                                  .if DSENS_DEBUG
                                  .endif	
-000188 930f
-000189 fd42
-00018a c013
-00018b 9120 0084
-00018d 9130 0085
-00018f 6044
-000190 b30d
-000191 7000
-000192 bb0d
-000193 9100 0069
-000195 7000
-000196 6008
-000197 9300 0069
-000199 b30d
-00019a 6002
-00019b bb0d
-00019c 910f
-00019d 9518
-00019e 931f
-00019f 9100 0084
-0001a1 9110 0085
-0001a3 1b02
-0001a4 0b13
-0001a5 0198
-0001a6 911f
-0001a7 6048
-0001a8 b30d
-0001a9 7000
-0001aa bb0d
-0001ab 910f
-0001ac 9518                      	DSENS_ISRM_ECHO dsens_lm_echo_r, DSENS_ECHO_EIMSK_BIT_R, DSENS_ECHO_EICR_BIT_R
+00018a 930f
+00018b fd42
+00018c c013
+00018d 9120 0084
+00018f 9130 0085
+000191 6044
+000192 b30d
+000193 7000
+000194 bb0d
+000195 9100 0069
+000197 7000
+000198 6008
+000199 9300 0069
+00019b b30d
+00019c 6002
+00019d bb0d
+00019e 910f
+00019f 9518
+0001a0 931f
+0001a1 9100 0084
+0001a3 9110 0085
+0001a5 1b02
+0001a6 0b13
+0001a7 0198
+0001a8 911f
+0001a9 6048
+0001aa b30d
+0001ab 7000
+0001ac bb0d
+0001ad 910f
+0001ae 9518                      	DSENS_ISRM_ECHO dsens_lm_echo_r, DSENS_ECHO_EIMSK_BIT_R, DSENS_ECHO_EICR_BIT_R
                                  
                                  .endif
                                  
                                  l_reset:
                                  	;setup stack
-0001ad e201                      	ldi r16, HIGH(RAMEND)
-0001ae bf0e                      	out SPH, r16
-0001af ef0f                      	ldi r16, LOW(RAMEND)
-0001b0 bf0d                      	out SPL, r16
+0001af e201                      	ldi r16, HIGH(RAMEND)
+0001b0 bf0e                      	out SPH, r16
+0001b1 ef0f                      	ldi r16, LOW(RAMEND)
+0001b2 bf0d                      	out SPL, r16
                                  	;setup power reduction
-0001b1 e400                      	ldi r16, (1 << PRTIM2)
-0001b2 9300 0064                 	sts PRR0, r16
-0001b4 ef0f                      	ser r16
-0001b5 9300 0065                 	sts PRR1, r16
+0001b3 e400                      	ldi r16, (1 << PRTIM2)
+0001b4 9300 0064                 	sts PRR0, r16
+0001b6 ef0f                      	ser r16
+0001b7 9300 0065                 	sts PRR1, r16
                                  	;disable JTAG
-0001b7 b705                      	in r16, MCUCR
-0001b8 6800                      	ori r16, 1 << JTD 
-0001b9 bf05                      	out MCUCR, r16
+0001b9 b705                      	in r16, MCUCR
+0001ba 6800                      	ori r16, 1 << JTD 
+0001bb bf05                      	out MCUCR, r16
                                  	;setup modules
-0001ba 930f
-0001bb e607
-0001bc 9300 00c4
-0001be e000
-0001bf 9300 00c5
-0001c1 2700
-0001c2 9300 00c0
-0001c4 e008
-0001c5 9300 00c1
-0001c7 e806
-0001c8 9300 00c2
-0001ca 910f                      	UART_SR_SETUP
-0001cb 930f
-0001cc b105
-0001cd 6800
-0001ce b904
-0001cf 910f                      	LED_SR_SETUP
-0001d0 930f
-0001d1 9100 0104
-0001d3 6003
-0001d4 9300 0104
-0001d6 b10a
-0001d7 7000
-0001d8 b90a
-0001d9 2700
-0001da 9300 0084
-0001dc 9300 0085
-0001de e40e
-0001df 9300 0089
-0001e1 e200
-0001e2 9300 0088
-0001e4 e002
-0001e5 9300 006f
-0001e7 e000
-0001e8 9300 0080
-0001ea e00b
-0001eb 9300 0081
-0001ed e000
-0001ee 9300 0082
-0001f0 910f                      	DSENS_SR_SETUP
+0001bc 930f
+0001bd e607
+0001be 9300 00c4
+0001c0 e000
+0001c1 9300 00c5
+0001c3 2700
+0001c4 9300 00c0
+0001c6 e008
+0001c7 9300 00c1
+0001c9 e806
+0001ca 9300 00c2
+0001cc 910f                      	UART_SR_SETUP
+0001cd 930f
+0001ce b105
+0001cf 6800
+0001d0 b904
+0001d1 910f                      	LED_SR_SETUP
+0001d2 930f
+0001d3 9100 0104
+0001d5 6003
+0001d6 9300 0104
+0001d8 b10a
+0001d9 7000
+0001da b90a
+0001db 2700
+0001dc 9300 0084
+0001de 9300 0085
+0001e0 e40e
+0001e1 9300 0089
+0001e3 e200
+0001e4 9300 0088
+0001e6 e002
+0001e7 9300 006f
+0001e9 e000
+0001ea 9300 0080
+0001ec e00b
+0001ed 9300 0081
+0001ef e000
+0001f0 9300 0082
+0001f2 910f                      	DSENS_SR_SETUP
                                  	;turn off led
-0001f1 940e 0081                 	call led_sr_off
+0001f3 940e 0081                 	call led_sr_off
                                  	;set interrupts
-0001f3 9478                      	SEI
+0001f5 9478                      	SEI
                                  
                                  l_loop:	
-                                 	; lds r16, TCNT1L
-                                 	; lds r17, TCNT1H
-                                 	; UART_SR_I r17 
-                                 	; UART_SR_CI ':'
-                                 	; UART_SR_I r16
-                                 	; UART_SR_L 
-0001f4 cfff                      	rjmp l_loop
+0001f6 938f
+0001f7 2d84
+0001f8 940e 00de
+0001fa 918f                      	UART_SR_I dsens_l 
+0001fb 939f
+0001fc e39a
+0001fd 940e 00cd
+0001ff 919f                      	UART_SR_CI ':'
+000200 938f
+000201 2d85
+000202 940e 00de
+000204 918f                      	UART_SR_I dsens_r
+000205 939f
+000206 e09a
+000207 940e 00cd
+000209 919f                      	UART_SR_L 
+00020a cfeb                      	rjmp l_loop
 
 
 RESOURCE USE INFORMATION
@@ -2693,40 +2743,40 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega2560" register use summary:
-x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
-r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16: 172 r17:  14 r18:   8 r19:   8 r20:  11 
-r21:   0 r22:  18 r23:  23 r24:  17 r25:  29 r26:   0 r27:   0 r28:   0 
+x  :   0 y  :   0 z  :   1 r0 :   2 r1 :   2 r2 :   0 r3 :   0 r4 :   5 
+r5 :   5 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
+r13:   0 r14:   0 r15:   0 r16: 190 r17:  14 r18:  14 r19:  14 r20:  11 
+r21:   0 r22:  18 r23:  23 r24:  11 r25:  23 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
-Registers used: 10 out of 35 (28.6%)
+Registers used: 14 out of 35 (40.0%)
 
 "ATmega2560" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   0 add   :   8 adiw  :   0 and   :   0 
+.lds  :   0 .sts  :   0 adc   :   0 add   :  10 adiw  :   0 and   :   0 
 andi  :  14 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   8 brcs  :   0 break :   0 breq  :   3 brge  :   0 brhc  :   0 
+brcc  :   8 brcs  :   2 break :   0 breq  :   3 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   1 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   9 cbi   :   0 cbr   :   0 
-clc   :   8 clh   :   0 cli   :   0 cln   :   0 clr   :   4 cls   :   0 
-clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   4 cpse  :   0 dec   :   0 eicall:   0 eijmp :   0 elpm  :   0 
+brne  :   1 brpl  :   0 brsh  :   4 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   5 cbi   :   0 cbr   :   0 
+clc   :   8 clh   :   0 cli   :   0 cln   :   0 clr   :   6 cls   :   0 
+clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   4 
+cpi   :   8 cpse  :   0 dec   :   0 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   1 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :  16 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  23 
-lds   :  18 lpm   :   1 lsl   :   0 lsr   :   0 mov   :  11 movw  :   2 
-mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   0 
-ori   :  18 out   :  20 pop   :  30 push  :  28 rcall :   6 ret   :   7 
-reti  :   6 rjmp  :  20 rol   :  17 ror   :   0 sbc   :   2 sbci  :   0 
+in    :  16 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  27 
+lds   :  18 lpm   :   1 lsl   :   0 lsr   :   0 mov   :  13 movw  :   2 
+mul   :   4 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   0 
+ori   :  18 out   :  20 pop   :  26 push  :  24 rcall :   6 ret   :   7 
+reti  :   6 rjmp  :  24 rol   :  17 ror   :   0 sbc   :   2 sbci  :   2 
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   3 
-sbrs  :   3 sec   :   8 seh   :   0 sei   :   1 sen   :   0 ser   :   1 
+sbrs  :   3 sec   :   8 seh   :   0 sei   :   1 sen   :   0 ser   :   3 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
-st    :   0 std   :   0 sts   :  25 sub   :  10 subi  :   3 swap  :   0 
+st    :   0 std   :   0 sts   :  25 sub   :  10 subi  :   5 swap  :   0 
 tst   :   0 wdr   :   0 
-Instructions used: 34 out of 116 (29.3%)
+Instructions used: 39 out of 116 (33.6%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0003ea    782      0    782  262144   0.3%
+[.cseg] 0x000000 0x000416    826      0    826  262144   0.3%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 
