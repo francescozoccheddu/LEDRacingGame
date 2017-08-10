@@ -39,7 +39,5 @@ l_reset:
 
 l_loop:	
 	UART_SR_I dsens_l 
-	UART_SR_CI ':'
-	UART_SR_I dsens_r
 	UART_SR_L 
 	rjmp l_loop

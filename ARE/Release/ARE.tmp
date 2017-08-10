@@ -27,9 +27,9 @@
   <FILE>ARE.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <dsens_isr_oca><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>188</LINE></dsens_isr_oca>
-  <dsens_isr_echo_l><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>259</LINE></dsens_isr_echo_l>
-  <dsens_isr_echo_r><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>265</LINE></dsens_isr_echo_r>
+  <dsens_isr_oca><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>199</LINE></dsens_isr_oca>
+  <dsens_isr_echo_l><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>271</LINE></dsens_isr_echo_l>
+  <dsens_isr_echo_r><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>277</LINE></dsens_isr_echo_r>
   <l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>16</LINE></l_reset>
   <led_sr_toggle><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led.asm</FILE><LINE>19</LINE></led_sr_toggle>
   <led_sr_on><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led.asm</FILE><LINE>31</LINE></led_sr_on>
@@ -60,7 +60,7 @@
   <uart_l_send_int_nd><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart.asm</FILE><LINE>141</LINE></uart_l_send_int_nd>
   <uart_l_send_int_nd_f><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart.asm</FILE><LINE>149</LINE></uart_l_send_int_nd_f>
   <uart_l_send_int_rd><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart.asm</FILE><LINE>153</LINE></uart_l_send_int_rd>
-  <dsens_l_oca_r><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>198</LINE></dsens_l_oca_r>
+  <dsens_l_oca_r><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>209</LINE></dsens_l_oca_r>
   <l_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>40</LINE></l_loop>
  </LABELS>
 </ASSEMBLER_INFO>
