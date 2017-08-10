@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Thu Aug 10 13:19:46 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Thu Aug 10 19:29:42 2017
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1363,12 +1363,12 @@ EQU  INC_DSENS    00000000
 EQU  DSENS_OCA_ADDR 00000022
 CSEG dsens_isr_oca 000000fd
 EQU  DSENS_ECHO_ADDR_L 00000002
-CSEG dsens_isr_echo_l 00000175
+CSEG dsens_isr_echo_l 00000181
 EQU  DSENS_ECHO_ADDR_R 00000004
-CSEG dsens_isr_echo_r 0000019b
+CSEG dsens_isr_echo_r 000001a7
 EQU  FOSC         00f42400
 EQU  RESET_ADDR   00000000
-CSEG l_reset      000001c1
+CSEG l_reset      000001cd
 EQU  INC_LED_ASM  00000000
 EQU  LED_PORTD    00000004
 EQU  LED_PORT     00000005
@@ -1426,7 +1426,6 @@ DEF  dsens_time_h r19
 DEF  dsens_l      r4
 DEF  dsens_r      r5
 DEF  dsens_stat   r20
-EQU  DSENS_DEBUG  00000000
 EQU  DSENS_OUT_MIN 0000003c
 EQU  DSENS_OUT_MMAX 00000140
 EQU  DSENS_OUT_HOLD 0000012c
@@ -1473,15 +1472,15 @@ EQU  DSENS_OCRAH  00000089
 EQU  DSENS_OCRAL  00000088
 EQU  DSENS_TIMSK  0000006f
 EQU  DSENS_TIMSK_BITS 00000002
-CSEG dsens_l_oca_r 0000013a
-CSEG dsens_lm_oca_r_smaller@DSENS_ISRM_OCA@4225 00000124
-CSEG dsens_lm_oca_r_greater@DSENS_ISRM_OCA@4225 00000126
-CSEG dsens_lm_oca_r_end@DSENS_ISRM_OCA@4225 0000012f
-CSEG dsens_lm_oca_r_wait@DSENS_ISRM_OCA@4225 00000130
-CSEG dsens_lm_oca_l_smaller@DSENS_ISRM_OCA@4305 0000015f
-CSEG dsens_lm_oca_l_greater@DSENS_ISRM_OCA@4305 00000161
-CSEG dsens_lm_oca_l_end@DSENS_ISRM_OCA@4305 0000016a
-CSEG dsens_lm_oca_l_wait@DSENS_ISRM_OCA@4305 0000016b
-CSEG dsens_lm_echo_l_falling@DSENS_ISRM_ECHO@4438 0000018b
-CSEG dsens_lm_echo_r_falling@DSENS_ISRM_ECHO@4495 000001b1
-CSEG l_loop       00000208
+CSEG dsens_l_oca_r 00000140
+CSEG dsens_lm_oca_r_smaller@DSENS_ISRM_OCA@4228 00000127
+CSEG dsens_lm_oca_r_greater@DSENS_ISRM_OCA@4228 0000012a
+CSEG dsens_lm_oca_r_ggwait@DSENS_ISRM_OCA@4228 00000135
+CSEG dsens_lm_oca_r_wait@DSENS_ISRM_OCA@4228 00000136
+CSEG dsens_lm_oca_l_smaller@DSENS_ISRM_OCA@4313 00000168
+CSEG dsens_lm_oca_l_greater@DSENS_ISRM_OCA@4313 0000016b
+CSEG dsens_lm_oca_l_ggwait@DSENS_ISRM_OCA@4313 00000176
+CSEG dsens_lm_oca_l_wait@DSENS_ISRM_OCA@4313 00000177
+CSEG dsens_lm_echo_l_falling@DSENS_ISRM_ECHO@4445 00000197
+CSEG dsens_lm_echo_r_falling@DSENS_ISRM_ECHO@4493 000001bd
+CSEG l_loop       00000214

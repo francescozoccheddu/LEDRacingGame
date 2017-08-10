@@ -8,8 +8,6 @@
 .def dsens_r = r5
 .def dsens_stat = r20
 
-.equ DSENS_DEBUG = 0
-
 .equ DSENS_OUT_MIN = 60
 .equ DSENS_OUT_MMAX = 320
 .equ DSENS_OUT_HOLD = 300
@@ -148,7 +146,7 @@
 	;save measured time
 	;skip if not done
 	sbrs dsens_stat, DSENS_STAT_DONE_BIT
-	rjmp @3_end
+	rjmp @3_wait
 	;clamping
 	;clear near noise
 	subi dsens_time_l, LOW( DSENS_OUT_MIN )
@@ -168,25 +166,33 @@
 	add dsens_time_h, r1
 	add @4, dsens_time_h
 	ror @4
-	rjmp @3_end
+	;128 cycles wait
+	ldi r16, 42
+	nop
+	nop
+	rjmp @3_wait
 @3_smaller:
 	lsr @4
-	rjmp @3_end
+	;135 cycles wait
+	ldi r16, 45
+	rjmp @3_wait
 @3_greater:
 	cpi dsens_time_l, LOW( DSENS_OUT_CMAX + DSENS_OUT_HOLD )
 	ldi r16, HIGH( DSENS_OUT_CMAX + DSENS_OUT_HOLD )
 	cpc dsens_time_h, r16
-	brsh @3_end
+	brsh @3_ggwait
 	ser r16
 	add @4, r16
 	sbrc @4, 0
 	inc @4
 	ror @4
-@3_end:
-	;------------------TODO-----------------------------
-	;set r16 before rjmp here according to branch length
-    ldi  r16, 53
-@3_wait: 
+	;123 cycles wait
+	ldi r16, 41
+	rjmp @3_wait
+@3_ggwait:
+	;129 cycles wait
+	ldi r16, 43
+@3_wait:
 	dec  r16
     brne @3_wait
 	;end trigger
@@ -200,17 +206,11 @@ dsens_isr_oca:
 	sbrc dsens_stat, DSENS_STAT_R_BIT
 	rjmp dsens_l_oca_r
 	;set to right
-.if DSENS_DEBUG
-	UART_SR_CI 'R'
-.endif
 	DSENS_ISRM_OCA DSENS_TRIG_PORT_BIT_R, DSENS_ECHO_EICR_BIT_R, DSENS_ECHO_EIMSK_BIT_R, dsens_lm_oca_r, dsens_r
 	ldi dsens_stat, 1 << DSENS_STAT_R_BIT
 	reti
 dsens_l_oca_r:
 	;set to left
-.if DSENS_DEBUG
-	UART_SR_CI 'L'
-.endif
 	DSENS_ISRM_OCA DSENS_TRIG_PORT_BIT_L, DSENS_ECHO_EICR_BIT_L, DSENS_ECHO_EIMSK_BIT_L, dsens_lm_oca_l, dsens_l
 	clr dsens_stat
 	reti
@@ -239,9 +239,6 @@ dsens_l_oca_r:
 	in r16, DSENS_ECHO_EIMSK
 	ori r16, 1 << @1
 	out DSENS_ECHO_EIMSK, r16
-.if DSENS_DEBUG
-	UART_SR_CI '1'
-.endif
 	pop r16
 	reti
 @0_falling:
@@ -261,23 +258,14 @@ dsens_l_oca_r:
 	in r16, DSENS_ECHO_EIMSK
 	andi r16, !(1 << @1)
 	out DSENS_ECHO_EIMSK, r16
-.if DSENS_DEBUG
-	UART_SR_CI '0'
-.endif
 	pop r16
 	reti
 .endmacro
 
 dsens_isr_echo_l:
-.if DSENS_DEBUG
-	UART_SR_CI 'l'
-.endif	
 	DSENS_ISRM_ECHO dsens_lm_echo_l, DSENS_ECHO_EIMSK_BIT_L, DSENS_ECHO_EICR_BIT_L
 
 dsens_isr_echo_r:
-.if DSENS_DEBUG
-	UART_SR_CI 'r'
-.endif	
 	DSENS_ISRM_ECHO dsens_lm_echo_r, DSENS_ECHO_EIMSK_BIT_R, DSENS_ECHO_EICR_BIT_R
 
 .endif
