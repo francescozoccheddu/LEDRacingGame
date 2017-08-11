@@ -1,0 +1,7 @@
+Low Fuses:		0xFF
+High Fuses:		0xD9
+Extended Fuses:		0xFD
+Lock Bits:		0x3F
+
+avrdude -c usbasp -p m2560 -e
+avrdude -c usbasp -p m2560 -U lfuse:w:0xFF:m -U hfuse:w:0xD9:m -U efuse:w:0xFD:m -U lock:w:0x3F:m 
