@@ -1,6 +1,3 @@
-.ifndef INC_LED_ASM
-.equ INC_LED_ASM = 0
-
 .equ LED_PORTD = DDRB
 .equ LED_PORT = PORTB
 .equ LED_PORT_BIT = PORTB7
@@ -44,5 +41,3 @@ led_sr_off:
 	out LED_PORT, r16
 	pop r16
 	ret
-
-.endif

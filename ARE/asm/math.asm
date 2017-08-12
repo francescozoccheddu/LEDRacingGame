@@ -1,6 +1,3 @@
-.ifndef INC_MATH_ASM
-.equ INC_MATH_ASM = 0
-
 ;reserved
 .def math_dvd_res = r22
 .def math_dvr_rem = r23
@@ -98,5 +95,3 @@ math_l_div8_16:
 	mov math_dvr_rem, r16
 	pop r16
 	ret
-
-.endif

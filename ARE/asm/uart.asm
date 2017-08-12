@@ -1,11 +1,8 @@
-.ifndef INC_UART_ASM
-.equ INC_UART_ASM = 0
-
 ;reserved
 .def uart_int = r24
 .def uart_char = r25
 
-.include "math.asm"
+.include "asm/math.asm"
 
 .equ UART_BAUD_RATE = 9600
 .equ UART_UBRR = (FOSC / 16 / UART_BAUD_RATE - 1)
@@ -159,5 +156,3 @@ uart_l_send_int_rd:
 	pop math_dvd_res
 	pop uart_int
 	ret
-
-.endif

@@ -87,24 +87,41 @@
     <PostBuildEvent>avrdude -c usbasp -p m2560 -U flash:w:"$(OutputDirectory)\$(OutputFileName).hex":i</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="distance_sens.asm">
+    <Compile Include="asm\distance_sens.asm">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="distance_sens.inc">
+    <Compile Include="asm\distance_sens_v2.asm">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="led.asm">
+    <Compile Include="asm\led.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="asm\math.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="asm\uart.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="defs.inc">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="defs\timer_utils.inc">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="intv\distance_sens.inc">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="intv\distance_sens_v2.inc">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="main.asm">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="math.asm">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="uart.asm">
-      <SubType>Code</SubType>
-    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="intv" />
+    <Folder Include="asm" />
+    <Folder Include="defs" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Assembler.targets" />
 </Project>

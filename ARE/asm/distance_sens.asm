@@ -1,6 +1,3 @@
-.ifndef INC_DSENS_ASM
-.equ INC_DSENS_ASM = 0
-
 ;reserved
 .def dsens_time_l = r18
 .def dsens_time_h = r19
