@@ -2,6 +2,8 @@
 .def uart_int = r24
 .def uart_char = r25
 
+.set UART_MACROS_ENABLED = 1
+
 .include "asm/math.asm"
 
 .equ UART_BAUD_RATE = 9600
@@ -37,38 +39,47 @@
 ;fast print subroutine
 ;params (0)'immediate char'
 .macro UART_SR_CI
+.if UART_MACROS_ENABLED
 	push uart_char
 	ldi uart_char, @0
 	call uart_sr_send
 	pop uart_char
+.endif
 .endmacro
 
 ;fast print subroutine
 .macro UART_SR_L
+.if UART_MACROS_ENABLED
 	UART_SR_CI '\n'
+.endif
 .endmacro
 
 ;fast print subroutine
 ;params (0)'int register'
 .macro UART_SR_I
+.if UART_MACROS_ENABLED
 	push uart_int
 	mov uart_int, @0
 	call uart_sr_send_int
 	pop uart_int
+.endif
 .endmacro
 
 ;fast print subroutine
 ;params (0)'immediate int'
 .macro UART_SR_II
+.if UART_MACROS_ENABLED
 	push uart_int
 	ldi uart_int, @0
 	call uart_sr_send_int
 	pop uart_int
+.endif
 .endmacro
 
 ;fast print subroutine
 ;params (0)'str label'
 .macro UART_SR_STR
+.if UART_MACROS_ENABLED
 	push ZH
 	push ZL
 	ldi ZH, HIGH(2 * @0)
@@ -76,16 +87,19 @@
 	call uart_sr_send_str
 	pop ZL
 	pop ZH
+.endif
 .endmacro
 
 ;fast print subroutine
 ;params (0)'unique id' (1)'immediate str'
 .macro UART_SR_STRI_N
+.if UART_MACROS_ENABLED
 	rjmp UART_L_STRI_CODE@0
 	.set UART_L_STRI_STR@0 = PC
 	.db @1, 0
 	.set UART_L_STRI_CODE@0 = PC
 	UART_SR_STR UART_L_STRI_STR@0
+.endif
 .endmacro
 
 ;fast print subroutine

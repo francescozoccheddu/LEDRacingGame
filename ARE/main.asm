@@ -43,7 +43,4 @@ l_reset:
 	SEI
 
 l_loop:	
-	lds r16, ICR4L
-	UART_SR_I r16
-	UART_SR_L
 	rjmp l_loop

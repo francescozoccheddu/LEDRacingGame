@@ -1,12 +1,12 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Sat Aug 12 17:30:58 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Sat Aug 12 21:24:51 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\defs.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\defs.inc(8): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(5): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\intv/distance_sens_v2.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(15): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/uart.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/uart.asm(5): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/math.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/uart.asm(7): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/math.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(16): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\defs/timer_utils.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -14,7 +14,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(1): Including file 'C:\Users\zocc
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\defs.inc(8): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(5): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\intv/distance_sens_v2.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(15): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/uart.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/uart.asm(5): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/math.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/uart.asm(7): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/math.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(16): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\defs/timer_utils.inc'
                                  
@@ -1919,10 +1919,16 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  
 000052 c095                      rjmp dsens_isr_ic4
                                  
+                                 .org ICP5addr
+00005c c0e4                      rjmp dsens_isr_ic5
+                                 
                                  .org OC4Aaddr
-000054 c0a1                      
+000054 c0bc                      rjmp dsens_isr_oca4
+                                 
+                                 .org OC5Aaddr
+00005e c10b                      
                                  .org RESET_ADDR
-000000 c0f6                      rjmp l_reset
+000000 c199                      rjmp l_reset
                                  
                                  
                                  ;code space declaration
@@ -1933,6 +1939,8 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  
                                  .def uart_int = r24
                                  .def uart_char = r25
+                                 
+                                 .set UART_MACROS_ENABLED = 1
                                  
                                  .include "asm/math.asm"
                                  
@@ -2065,38 +2073,47 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  ;fast print subroutine
                                  ;params (0)'immediate char'
                                  .macro UART_SR_CI
+                                 .if UART_MACROS_ENABLED
                                  	push uart_char
                                  	ldi uart_char, @0
                                  	call uart_sr_send
                                  	pop uart_char
+                                 .endif
                                  .endmacro
                                  
                                  ;fast print subroutine
                                  .macro UART_SR_L
+                                 .if UART_MACROS_ENABLED
                                  	UART_SR_CI '\n'
+                                 .endif
                                  .endmacro
                                  
                                  ;fast print subroutine
                                  ;params (0)'int register'
                                  .macro UART_SR_I
+                                 .if UART_MACROS_ENABLED
                                  	push uart_int
                                  	mov uart_int, @0
                                  	call uart_sr_send_int
                                  	pop uart_int
+                                 .endif
                                  .endmacro
                                  
                                  ;fast print subroutine
                                  ;params (0)'immediate int'
                                  .macro UART_SR_II
+                                 .if UART_MACROS_ENABLED
                                  	push uart_int
                                  	ldi uart_int, @0
                                  	call uart_sr_send_int
                                  	pop uart_int
+                                 .endif
                                  .endmacro
                                  
                                  ;fast print subroutine
                                  ;params (0)'str label'
                                  .macro UART_SR_STR
+                                 .if UART_MACROS_ENABLED
                                  	push ZH
                                  	push ZL
                                  	ldi ZH, HIGH(2 * @0)
@@ -2104,16 +2121,19 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  	call uart_sr_send_str
                                  	pop ZL
                                  	pop ZH
+                                 .endif
                                  .endmacro
                                  
                                  ;fast print subroutine
                                  ;params (0)'unique id' (1)'immediate str'
                                  .macro UART_SR_STRI_N
+                                 .if UART_MACROS_ENABLED
                                  	rjmp UART_L_STRI_CODE@0
                                  	.set UART_L_STRI_STR@0 = PC
                                  	.db @1, 0
                                  	.set UART_L_STRI_CODE@0 = PC
                                  	UART_SR_STR UART_L_STRI_STR@0
+                                 .endif
                                  .endmacro
                                  
                                  ;fast print subroutine
@@ -2240,147 +2260,387 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  	.equ @2 = INT( (FOSC / (@0)) * (@1) )
                                  .endmacro
                                  
+                                 ;reserved PORTL, TIM4, TIM5, r2, r4, r5, r18, r19
+                                 ;reserved registers
+                                 .def dsens_out = r2
+                                 .def dsens_tl = r4
+                                 .def dsens_th = r5
+                                 .def dsens_tmp1 = r18
+                                 .def dsens_tmp2 = r19
+                                 
                                  ;params
-                                 .equ DSENS_ECHO_TIMEOUT_LOW_MS = 60
+                                 .equ DSENS_ECHO_TIMEOUT_LOW_MS = 1000
                                  .equ DSENS_ECHO_MIN_MS = 2
                                  .equ DSENS_ECHO_MAX_MS = 30
-                                 .equ DSENS_ECHO_TIMEOUT_HIGH_MS = 35
+                                 .equ DSENS_ECHO_TIMEOUT_HIGH_MS = 1000
+                                 
+                                 ;ports
+                                 .equ DSENS_PORT = PORTL
+                                 .equ DSENS_TRIG_PORT_L = 1 << PL6 ;digital pin 43
+                                 .equ DSENS_TRIG_PORT_R = 1 << PL7 ;digital pin 42
+                                 .equ DSENS_ECHO_PORT_L = 1 << PL0 ;digital pin 49
+                                 .equ DSENS_ECHO_PORT_R = 1 << PL1 ;digital pin 48
+                                 .equ DSENS_PORTD = DDRL
                                  
                                  ;autogenerated
                                  ;timer time values
-                                 TIMUTILS_M_PSCL (DSENS_ECHO_TIMEOUT_LOW_MS + DSENS_ECHO_TIMEOUT_HIGH_MS) / 1000.0, 16, DSENS_TIM_PSCL
-                                 TIMUTILS_M_CS DSENS_TIM_PSCL, DSENS_TIM_CS
-                                 TIMUTILS_M_TOP DSENS_TIM_PSCL, DSENS_ECHO_TIMEOUT_LOW_MS / 1000.0, DSENS_TIM_TIMEOUT_LOW_TOP
-                                 TIMUTILS_M_TOP DSENS_TIM_PSCL, DSENS_ECHO_TIMEOUT_HIGH_MS / 1000.0, DSENS_TIM_TIMEOUT_HIGH_TOP_DIFF
+                                 TIMUTILS_M_PSCL (DSENS_ECHO_TIMEOUT_LOW_MS + DSENS_ECHO_TIMEOUT_HIGH_MS) / 1000.0, 16, DSENS_PSCL
+                                 TIMUTILS_M_CS DSENS_PSCL, DSENS_CS
+                                 TIMUTILS_M_TOP DSENS_PSCL, DSENS_ECHO_TIMEOUT_LOW_MS / 1000.0, DSENS_TIMEOUT_LOW_TOP
+                                 TIMUTILS_M_TOP DSENS_PSCL, DSENS_ECHO_TIMEOUT_HIGH_MS / 1000.0, DSENS_TIMEOUT_HIGH_TOP_DIFF
                                  ;waveform generation mode
-                                 .equ DSENS_TIM_WGM = 4 ;clear timer on compare match A
-                                 ;compare output mode
-                                 .equ DSENS_TIM_COMA = 0 ;A disabled
-                                 .equ DSENS_TIM_COMB = 0 ;B disabled
-                                 .equ DSENS_TIM_COMC = 0 ;C disabled
+                                 .equ DSENS_WGM = 4 ;clear timer on compare match A
+                                 .equ DSENS_TCCRA_WGM = DSENS_WGM & 0b11
+                                 .equ DSENS_TCCRB_WGM = (DSENS_WGM >> 2) << 3
                                  ;input capture noise canceler
-                                 .equ DSENS_TIM_ICNC = 1 ;enabled
+                                 .equ DSENS_TCCRB_ICNC = 1 << 7
                                  ;input capture edge select
-                                 .equ DSENS_TIM_ICES_FALLING = 0
-                                 .equ DSENS_TIM_ICES_RISING = 1
-                                 ;force output compare
-                                 .equ DSENS_TIM_FOCA = 0 ;A disabled
-                                 .equ DSENS_TIM_FOCB = 0 ;B disabled
-                                 .equ DSENS_TIM_FOCC = 0 ;C disabled
+                                 .equ DSENS_TCCRB_ICES_FALLING = 0 << 6
+                                 .equ DSENS_TCCRB_ICES_RISING = 1 << 6
+                                 ;prescaler value
+                                 .equ DSENS_TCCRB_CS = DSENS_CS
                                  ;input capture interrupt mask
-                                 .equ DSENS_TIM_ICIE_ENABLED = 1 ;enabled
-                                 .equ DSENS_TIM_ICIE_DISABLED = 0 ;disabled
+                                 .equ DSENS_TIMSK_ICIE = 1 << 5
                                  ;output capture match interrupt mask
-                                 .equ DSENS_TIM_OCIEA = 1 ;A enabled
-                                 .equ DSENS_TIM_OCIEB = 0 ;B disabled
-                                 .equ DSENS_TIM_OCIEC = 0 ;C disabled
-                                 ;counter overflow interrupt mask
-                                 .equ DSENS_TIM_TOIE = 0 ;disabled
+                                 .equ DSENS_TIMSK_OCIEA = 1 << 1
+                                 ;input capture interrupt mask
+                                 .equ DSENS_TIFR_ICF = 1 << 5
+                                 ;output capture match interrupt flag
+                                 .equ DSENS_TIFR_OCFA = 1 << 1
+                                 
+                                 ;time to 4-bit values
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 0 / 16.0) / 1000.0, DSENS_TIME_0
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 1 / 16.0) / 1000.0, DSENS_TIME_1
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 2 / 16.0) / 1000.0, DSENS_TIME_2
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 3 / 16.0) / 1000.0, DSENS_TIME_3
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 4 / 16.0) / 1000.0, DSENS_TIME_4
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 5 / 16.0) / 1000.0, DSENS_TIME_5
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 6 / 16.0) / 1000.0, DSENS_TIME_6
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 7 / 16.0) / 1000.0, DSENS_TIME_7
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 8 / 16.0) / 1000.0, DSENS_TIME_8
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 9 / 16.0) / 1000.0, DSENS_TIME_9
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 10 / 16.0) / 1000.0, DSENS_TIME_10
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 11 / 16.0) / 1000.0, DSENS_TIME_11
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 12 / 16.0) / 1000.0, DSENS_TIME_12
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 13 / 16.0) / 1000.0, DSENS_TIME_13
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 14 / 16.0) / 1000.0, DSENS_TIME_14
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 15 / 16.0) / 1000.0, DSENS_TIME_15
+                                 
+                                 ;status
+                                 .equ DSENS_STAT_LOW = 0
+                                 .equ DSENS_STAT_HIGH = 1
                                  
                                  .macro DSENS_SR_SETUP
+                                 	;set trig port direction
+                                 	ldi dsens_tmp1, DSENS_TRIG_PORT_L | DSENS_TRIG_PORT_R
+                                 	sts DSENS_PORTD, dsens_tmp1
                                  	;clear counter
-                                 	clr r16
-                                 	sts TCNT4L, r16
-                                 	sts TCNT4H, r16
+                                 	clr dsens_tmp1
+                                 	sts TCNT4H, dsens_tmp1
+                                 	sts TCNT4L, dsens_tmp1
+                                 	sts TCNT5H, dsens_tmp1
+                                 	sts TCNT5L, dsens_tmp1
                                  	;set TCCRA (COMA1, COMA0, COMB1, COMB0, COMC1, COMC0, WGM1, WGM0)
-                                 	ldi r16, (DSENS_TIM_COMA << 6) | (DSENS_TIM_COMB << 4) | (DSENS_TIM_COMC << 2) | (DSENS_TIM_WGM & 0b11)
-                                 	sts TCCR4A, r16
+                                 	ldi dsens_tmp1, DSENS_TCCRA_WGM
+                                 	sts TCCR4A, dsens_tmp1
+                                 	sts TCCR5A, dsens_tmp1
                                  	;set TCCRB (ICNC, ICES, [0], WGM3, WGM2, CS2, CS1, CS0)
-                                 	ldi r16, (DSENS_TIM_ICNC << 7) | (DSENS_TIM_ICES_RISING << 6) | ((DSENS_TIM_WGM & 0b1100) << 1) | (DSENS_TIM_CS)
-                                 	sts TCCR4B, r16
+                                 	ldi dsens_tmp1, DSENS_TCCRB_ICNC | DSENS_TCCRB_ICES_FALLING | DSENS_TCCRB_WGM | DSENS_TCCRB_CS
+                                 	sts TCCR4B, dsens_tmp1
+                                 	ldi dsens_tmp1, DSENS_TCCRB_WGM
+                                 	sts TCCR5B, dsens_tmp1
                                  	;set TCCRC (FOCA, FOCB, FOCC, [0], [0], [0], [0], [0]) 
-                                 	ldi r16, (DSENS_TIM_FOCA << 7) | (DSENS_TIM_FOCB << 6) | (DSENS_TIM_FOCC << 5)
-                                 	sts TCCR4C, r16
+                                 	clr dsens_tmp1
+                                 	sts TCCR4C, dsens_tmp1
+                                 	sts TCCR5C, dsens_tmp1
                                  	;set TIMSK ([0], [0], ICIE, [0], OCIEC, OCIEB, OCIEA, TOIE)
-                                 	ldi r16, (DSENS_TIM_ICIE_ENABLED << 5) | (DSENS_TIM_OCIEC << 3) | (DSENS_TIM_OCIEB << 2) | (DSENS_TIM_OCIEA << 1) | (DSENS_TIM_TOIE)
-                                 	sts TIMSK4, r16
+                                 	ldi dsens_tmp1, DSENS_TIMSK_OCIEA
+                                 	sts TIMSK4, dsens_tmp1
+                                 	clr dsens_tmp1
+                                 	sts TIMSK5, dsens_tmp1
                                  	;set OCRA
-                                 	ldi r16, LOW( DSENS_TIM_TIMEOUT_LOW_TOP )
-                                 	sts OCR4AL, r16
-                                 	ldi r16, HIGH( DSENS_TIM_TIMEOUT_LOW_TOP )
-                                 	sts OCR4AH, r16
+                                 	ldi dsens_tmp1, LOW( DSENS_TIMEOUT_LOW_TOP )
+                                 	ldi dsens_tmp2, HIGH( DSENS_TIMEOUT_LOW_TOP )
+                                 	sts OCR4AH, dsens_tmp2
+                                 	sts OCR4AL, dsens_tmp1
+                                 .endmacro
+                                 
+                                 ;input capture event isr
+                                 ;params (0)'timer index'
+                                 .macro DSENS_ISR_ICI
+                                 	UART_SR_CI 'i'
+                                 	;end cycle if falling
+                                 	lds dsens_tmp1, TCCR@0B
+                                 	cpi dsens_tmp1, DSENS_TCCRB_ICNC | DSENS_TCCRB_ICES_FALLING | DSENS_TCCRB_WGM | DSENS_TCCRB_CS
+                                 	breq dsens_isr_oca@0
+                                 	;rising edge
+                                 	UART_SR_CI 'r'
+                                 	UART_SR_II @0
+                                 	UART_SR_L
+                                 	;save input capture register
+                                 	lds dsens_tl, ICR@0L
+                                 	lds dsens_th, ICR@0H
+                                 	;enable input capture interrupt on falling edge
+                                 	ldi dsens_tmp1, DSENS_TCCRB_ICNC | DSENS_TCCRB_ICES_FALLING | DSENS_TCCRB_WGM | DSENS_TCCRB_CS
+                                 	sts TCCR@0B, dsens_tmp1
+                                 	;set output compare match value
+                                 	movw dsens_tmp2:dsens_tmp1, dsens_th:dsens_tl
+                                 	subi dsens_tmp1, -LOW( DSENS_TIMEOUT_HIGH_TOP_DIFF )
+                                 	sbci dsens_tmp2, -HIGH( DSENS_TIMEOUT_HIGH_TOP_DIFF )
+                                 	sts OCR@0AH, dsens_tmp2
+                                 	sts OCR@0AL, dsens_tmp1
+                                 	;clear interrupt flags
+                                 	ldi dsens_tmp1, DSENS_TIFR_ICF | DSENS_TIFR_OCFA
+                                 	out TIFR@0, dsens_tmp1
+                                 	reti
+                                 .endmacro
+                                 
+                                 ;output compare match event isr
+                                 ;params (0)'timer index' (1)'opponent timer index' (2)'side lowercase' (3)'opponent side uppercase' 
+                                 .macro DSENS_ISR_OCA
+                                 	;start opponent trigger signal
+                                 	ldi dsens_tmp1, DSENS_TRIG_PORT_@3
+                                 	sts DSENS_PORT, dsens_tmp1
+                                 	;stop timer
+                                 	ldi dsens_tmp1, DSENS_TCCRB_WGM
+                                 	sts TCCR@0B, dsens_tmp1
+                                 	;disable timer interrupts
+                                 	clr dsens_tmp1
+                                 	sts TIMSK@0, dsens_tmp1
+                                 	;set opponent timer output compare match value
+                                 	ldi dsens_tmp1, LOW( DSENS_TIMEOUT_LOW_TOP )
+                                 	ldi dsens_tmp2, HIGH( DSENS_TIMEOUT_LOW_TOP )
+                                 	sts OCR@1AH, dsens_tmp2
+                                 	sts OCR@1AL, dsens_tmp1
+                                 	;clear opponent timer
+                                 	clr dsens_tmp1
+                                 	sts TCNT@1H, dsens_tmp1
+                                 	sts TCNT@1L, dsens_tmp1
+                                 	;calculate output
+                                 	UART_SR_CI 's'
+                                 	UART_SR_II @0
+                                 	UART_SR_L
+                                 	;start opponent timer
+                                 	ldi dsens_tmp1, DSENS_TCCRB_ICNC | DSENS_TCCRB_ICES_RISING | DSENS_TCCRB_WGM | DSENS_TCCRB_CS
+                                 	sts TCCR@1B, dsens_tmp1
+                                 	;set opponent timer interrupts
+                                 	ldi dsens_tmp1, DSENS_TIMSK_ICIE | DSENS_TIMSK_OCIEA
+                                 	sts TIMSK@1, dsens_tmp1
+                                 	;clear both timers interrupt flags
+                                 	ldi dsens_tmp1, DSENS_TIFR_ICF | DSENS_TIFR_OCFA
+                                 	out TIFR@0, dsens_tmp1
+                                 	out TIFR@1, dsens_tmp1
+                                 	;end all trigger signals
+                                 	clr dsens_tmp1
+                                 	sts DSENS_PORT, dsens_tmp1
+                                 	reti
                                  .endmacro
                                  
                                  dsens_isr_ic4:
-0000e8 c004
-0000e9 2d2d
-0000ea 2d2d
-0000eb 2d2d
-0000ec 002d
-0000ed 93ff
-0000ee 93ef
-0000ef e0f1
-0000f0 ede2
-0000f1 940e 00c1
-0000f3 91ef
-0000f4 91ff                      	UART_SR_STRI "-------"
-0000f5 9518                      	reti
+0000e8 939f
+0000e9 e699
+0000ea 940e 00b8
+0000ec 919f
+0000ed 9120 00a1
+0000ef 382d
+0000f0 f101
+0000f1 939f
+0000f2 e792
+0000f3 940e 00b8
+0000f5 919f
+0000f6 938f
+0000f7 e084
+0000f8 940e 00c9
+0000fa 918f
+0000fb 939f
+0000fc e09a
+0000fd 940e 00b8
+0000ff 919f
+000100 9040 00a6
+000102 9050 00a7
+000104 e82d
+000105 9320 00a1
+000107 0192
+000108 5f27
+000109 4c33
+00010a 9330 00a9
+00010c 9320 00a8
+00010e e222
+00010f bb29
+000110 9518                      	DSENS_ISR_ICI 4
                                  
                                  dsens_isr_oca4:
-0000f6 9518                      
+000111 e420
+000112 9320 010b
+000114 e028
+000115 9320 00a1
+000117 2722
+000118 9320 0072
+00011a e029
+00011b e33d
+00011c 9330 0129
+00011e 9320 0128
+000120 2722
+000121 9320 0125
+000123 9320 0124
+000125 939f
+000126 e793
+000127 940e 00b8
+000129 919f
+00012a 938f
+00012b e084
+00012c 940e 00c9
+00012e 918f
+00012f 939f
+000130 e09a
+000131 940e 00b8
+000133 919f
+000134 ec2d
+000135 9320 0121
+000137 e222
+000138 9320 0073
+00013a e222
+00013b bb29
+00013c bb2a
+00013d 2722
+00013e 9320 010b
+000140 9518                      	DSENS_ISR_OCA 4, 5, R, l
+                                 
+                                 dsens_isr_ic5:
+000141 939f
+000142 e699
+000143 940e 00b8
+000145 919f
+000146 9120 0121
+000148 382d
+000149 f101
+00014a 939f
+00014b e792
+00014c 940e 00b8
+00014e 919f
+00014f 938f
+000150 e085
+000151 940e 00c9
+000153 918f
+000154 939f
+000155 e09a
+000156 940e 00b8
+000158 919f
+000159 9040 0126
+00015b 9050 0127
+00015d e82d
+00015e 9320 0121
+000160 0192
+000161 5f27
+000162 4c33
+000163 9330 0129
+000165 9320 0128
+000167 e222
+000168 bb2a
+000169 9518                      	DSENS_ISR_ICI 5
+                                 
+                                 dsens_isr_oca5:
+00016a e820
+00016b 9320 010b
+00016d e028
+00016e 9320 0121
+000170 2722
+000171 9320 0073
+000173 e029
+000174 e33d
+000175 9330 00a9
+000177 9320 00a8
+000179 2722
+00017a 9320 00a5
+00017c 9320 00a4
+00017e 939f
+00017f e793
+000180 940e 00b8
+000182 919f
+000183 938f
+000184 e085
+000185 940e 00c9
+000187 918f
+000188 939f
+000189 e09a
+00018a 940e 00b8
+00018c 919f
+00018d ec2d
+00018e 9320 00a1
+000190 e222
+000191 9320 0072
+000193 e222
+000194 bb2a
+000195 bb29
+000196 2722
+000197 9320 010b
+000199 9518                      	DSENS_ISR_OCA 5, 4, L, r
+                                 
+                                 
                                  ;main space
                                  
                                  l_reset:
                                  	;setup stack
-0000f7 e201                      	ldi r16, HIGH(RAMEND)
-0000f8 bf0e                      	out SPH, r16
-0000f9 ef0f                      	ldi r16, LOW(RAMEND)
-0000fa bf0d                      	out SPL, r16
+00019a e201                      	ldi r16, HIGH(RAMEND)
+00019b bf0e                      	out SPH, r16
+00019c ef0f                      	ldi r16, LOW(RAMEND)
+00019d bf0d                      	out SPL, r16
                                  	;setup power reduction
                                  	/*ldi r16, (1 << PRTIM2)
                                  	sts PRR0, r16
                                  	ser r16
                                  	sts PRR1, r16*/
                                  	;disable JTAG
-0000fb b705                      	in r16, MCUCR
-0000fc 6800                      	ori r16, 1 << JTD 
-0000fd bf05                      	out MCUCR, r16
+00019e b705                      	in r16, MCUCR
+00019f 6800                      	ori r16, 1 << JTD 
+0001a0 bf05                      	out MCUCR, r16
                                  	;setup modules
-0000fe 2700
-0000ff 9300 00a4
-000101 9300 00a5
-000103 e000
-000104 9300 00a0
-000106 ec0b
-000107 9300 00a1
-000109 e000
-00010a 9300 00a2
-00010c e202
-00010d 9300 0072
-00010f e908
-000110 9300 00a8
-000112 e30a
-000113 9300 00a9                 	DSENS_SR_SETUP
-000115 930f
-000116 e607
-000117 9300 00c4
-000119 e000
-00011a 9300 00c5
-00011c 2700
-00011d 9300 00c0
-00011f e008
-000120 9300 00c1
-000122 e806
-000123 9300 00c2
-000125 910f                      	UART_SR_SETUP
+0001a1 ec20
+0001a2 9320 010a
+0001a4 2722
+0001a5 9320 00a5
+0001a7 9320 00a4
+0001a9 9320 0125
+0001ab 9320 0124
+0001ad e020
+0001ae 9320 00a0
+0001b0 9320 0120
+0001b2 e82d
+0001b3 9320 00a1
+0001b5 e028
+0001b6 9320 0121
+0001b8 2722
+0001b9 9320 00a2
+0001bb 9320 0122
+0001bd e022
+0001be 9320 0072
+0001c0 2722
+0001c1 9320 0073
+0001c3 e029
+0001c4 e33d
+0001c5 9330 00a9
+0001c7 9320 00a8                 	DSENS_SR_SETUP
+0001c9 930f
+0001ca e607
+0001cb 9300 00c4
+0001cd e000
+0001ce 9300 00c5
+0001d0 2700
+0001d1 9300 00c0
+0001d3 e008
+0001d4 9300 00c1
+0001d6 e806
+0001d7 9300 00c2
+0001d9 910f                      	UART_SR_SETUP
                                  /*	LED_SR_SETUP
                                  	DSENS_SR_SETUP*/
                                  	;turn off led
                                  	/*call led_sr_off*/
                                  	;set interrupts
-000126 9478                      	SEI
+0001da 9478                      	SEI
                                  
                                  l_loop:	
-000127 9100 00a6                 	lds r16, ICR4L
-000129 938f
-00012a 2f80
-00012b 940e 00c9
-00012d 918f                      	UART_SR_I r16
-00012e 939f
-00012f e09a
-000130 940e 00b8
-000132 919f                      	UART_SR_L
-000133 cff3                      	rjmp l_loop
+0001db cfff                      	rjmp l_loop
 
 
 RESOURCE USE INFORMATION
@@ -2398,40 +2658,40 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega2560" register use summary:
-x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
-r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  64 r17:   0 r18:   0 r19:   0 r20:   0 
-r21:   0 r22:  18 r23:  23 r24:   8 r25:  20 r26:   0 r27:   0 r28:   0 
-r29:   0 r30:   3 r31:   3 
-Registers used: 8 out of 35 (22.9%)
+x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   4 
+r5 :   4 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
+r13:   0 r14:   0 r15:   0 r16:  47 r17:   0 r18:  81 r19:  12 r20:   0 
+r21:   0 r22:  18 r23:  23 r24:  17 r25:  47 r26:   0 r27:   0 r28:   0 
+r29:   0 r30:   0 r31:   0 
+Registers used: 10 out of 35 (28.6%)
 
 "ATmega2560" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   8 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   8 brcs  :   0 break :   0 breq  :   3 brge  :   0 brhc  :   0 
+brcc  :   8 brcs  :   0 break :   0 breq  :   5 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
 brne  :   1 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   3 cbi   :   0 cbr   :   0 
-clc   :   8 clh   :   0 cli   :   0 cln   :   0 clr   :   3 cls   :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :  14 cbi   :   0 cbr   :   0 
+clc   :   8 clh   :   0 cli   :   0 cln   :   0 clr   :  11 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   4 cpse  :   0 dec   :   0 eicall:   0 eijmp :   0 elpm  :   0 
+cpi   :   6 cpse  :   0 dec   :   0 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   1 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  17 
-lds   :   2 lpm   :   1 lsl   :   0 lsr   :   0 mov   :   8 movw  :   0 
+in    :   1 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  47 
+lds   :   7 lpm   :   1 lsl   :   0 lsr   :   0 mov   :   7 movw  :   2 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   0 
-ori   :   1 out   :   3 pop   :  12 push  :  12 rcall :   6 ret   :   4 
-reti  :   2 rjmp  :  15 rol   :  17 ror   :   0 sbc   :   0 sbci  :   0 
+ori   :   1 out   :   9 pop   :  22 push  :  22 rcall :   6 ret   :   4 
+reti  :   4 rjmp  :  16 rol   :  17 ror   :   0 sbc   :   0 sbci  :   2 
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   0 
 sbrs  :   1 sec   :   8 seh   :   0 sei   :   1 sen   :   0 ser   :   0 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
-st    :   0 std   :   0 sts   :  14 sub   :   8 subi  :   3 swap  :   0 
+st    :   0 std   :   0 sts   :  47 sub   :   8 subi  :   5 swap  :   0 
 tst   :   0 wdr   :   0 
-Instructions used: 28 out of 116 (24.1%)
+Instructions used: 30 out of 116 (25.9%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000268    386      8    394  262144   0.2%
+[.cseg] 0x000000 0x0003b8    734      0    734  262144   0.3%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 
