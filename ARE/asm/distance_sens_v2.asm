@@ -5,7 +5,7 @@
 .set UART_MACROS_BACKUP = UART_MACROS_ENABLED
 .set UART_MACROS_ENABLED = DSENS_DEBUG
 
-;reserved PORTL, TIM4, TIM5, r2, r4, r5, r18, r19
+;reserved PORTL, TIM4, TIM5, r2, r3, r4, r5, r18, r19
 ;reserved registers
 .def dsens_out_l = r2
 .def dsens_out_r = r3
@@ -115,24 +115,16 @@ TIMUTILS_M_TOP DSENS_PSCL, DSENS_ECHO_TIMEOUT_HIGH_MS / 1000.0, DSENS_TIMEOUT_HI
 	reti
 .endmacro
 
-;---------------------TODO-------------
-;calculate output 4-bit value
-;params (tmp2:tmp1)'rising time' (th:th)'falling time'
-dsens_sr_output:
-	sub dsens_tl, dsens_tmp1
-	sbc dsens_th, dsens_tmp2
-	UART_SR_I dsens_th
-	UART_SR_CI ':'
-	UART_SR_I dsens_tl
-	UART_SR_L
-	ret
-;-------------------TODO END--------------
+;params (0)'timer index' (1)'side lowercase'
+.macro DSENS_SR_OUTPUT
+
+.endmacro
 
 ;output compare match event isr
 ;params (0)'timer index' (1)'opponent timer index' (2)'side lowercase' (3)'opposite side uppercase'
 .macro DSENS_ISR_OCA
 	;start opponent trigger signal
-	ldi dsens_tmp1, DSENS_TRIG_PORT_@2
+	ldi dsens_tmp1, DSENS_TRIG_PORT_@3
 	sts DSENS_PORT, dsens_tmp1
 	;stop timer
 	ldi dsens_tmp1, DSENS_TCCRB_WGM
@@ -150,17 +142,7 @@ dsens_sr_output:
 	sts TCNT@1H, dsens_tmp1
 	sts TCNT@1L, dsens_tmp1
 	;calculate output
-	movw dsens_tmp2:dsens_tmp1, dsens_th:dsens_tl
-	lds dsens_tl, ICR@0L
-	lds dsens_th, ICR@0H
-	;-----------------------DEBUG
-	UART_SR_II @0
-	UART_SR_CI ' '
-	rcall dsens_sr_output
-	;-----------------------DEBUG END
-	;start opponent timer
-	ldi dsens_tmp1, DSENS_TCCRB_ICNC | DSENS_TCCRB_ICES_RISING | DSENS_TCCRB_WGM | DSENS_TCCRB_CS
-	sts TCCR@1B, dsens_tmp1
+	DSENS_SR_OUTPUT @0, @2
 	;set opponent timer interrupts
 	ldi dsens_tmp1, DSENS_TIMSK_ICIE | DSENS_TIMSK_OCIEA
 	sts TIMSK@1, dsens_tmp1
@@ -171,6 +153,9 @@ dsens_sr_output:
 	;end all trigger signals
 	clr dsens_tmp1
 	sts DSENS_PORT, dsens_tmp1
+	;start opponent timer
+	ldi dsens_tmp1, DSENS_TCCRB_ICNC | DSENS_TCCRB_ICES_RISING | DSENS_TCCRB_WGM | DSENS_TCCRB_CS
+	sts TCCR@1B, dsens_tmp1
 	reti
 .endmacro
 

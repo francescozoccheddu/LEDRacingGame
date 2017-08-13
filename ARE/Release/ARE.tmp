@@ -28,10 +28,10 @@
   <FILE>ARE.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <dsens_isr_ic4><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>187</LINE></dsens_isr_ic4>
-  <dsens_isr_ic5><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>193</LINE></dsens_isr_ic5>
-  <dsens_isr_oca4><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>190</LINE></dsens_isr_oca4>
-  <dsens_isr_oca5><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>196</LINE></dsens_isr_oca5>
+  <dsens_isr_ic4><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>188</LINE></dsens_isr_ic4>
+  <dsens_isr_ic5><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>194</LINE></dsens_isr_ic5>
+  <dsens_isr_oca4><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>191</LINE></dsens_isr_oca4>
+  <dsens_isr_oca5><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>197</LINE></dsens_isr_oca5>
   <l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>20</LINE></l_reset>
   <math_sr_div8><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/math.asm</FILE><LINE>11</LINE></math_sr_div8>
   <math_l_div8_1><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/math.asm</FILE><LINE>21</LINE></math_l_div8_1>
