@@ -7,17 +7,18 @@
 
 ;reserved PORTL, TIM4, TIM5, r2, r4, r5, r18, r19
 ;reserved registers
-.def dsens_out = r2
+.def dsens_out_l = r2
+.def dsens_out_r = r3
 .def dsens_tl = r4
 .def dsens_th = r5
 .def dsens_tmp1 = r18
 .def dsens_tmp2 = r19
 
 ;params
-.equ DSENS_ECHO_TIMEOUT_LOW_MS = 1000
-.equ DSENS_ECHO_MIN_MS = 2
-.equ DSENS_ECHO_MAX_MS = 30
-.equ DSENS_ECHO_TIMEOUT_HIGH_MS = 1000
+.equ DSENS_ECHO_TIMEOUT_LOW_MS = 70
+.equ DSENS_ECHO_MIN_MS = 1
+.equ DSENS_ECHO_MAX_MS = 50
+.equ DSENS_ECHO_TIMEOUT_HIGH_MS = 60
 
 ;ports
 .equ DSENS_PORT = PORTL
@@ -52,28 +53,6 @@ TIMUTILS_M_TOP DSENS_PSCL, DSENS_ECHO_TIMEOUT_HIGH_MS / 1000.0, DSENS_TIMEOUT_HI
 .equ DSENS_TIFR_ICF = 1 << 5
 ;output capture match interrupt flag
 .equ DSENS_TIFR_OCFA = 1 << 1
-
-;time to 4-bit values
-TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 0 / 16.0) / 1000.0, DSENS_TIME_0
-TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 1 / 16.0) / 1000.0, DSENS_TIME_1
-TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 2 / 16.0) / 1000.0, DSENS_TIME_2
-TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 3 / 16.0) / 1000.0, DSENS_TIME_3
-TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 4 / 16.0) / 1000.0, DSENS_TIME_4
-TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 5 / 16.0) / 1000.0, DSENS_TIME_5
-TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 6 / 16.0) / 1000.0, DSENS_TIME_6
-TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 7 / 16.0) / 1000.0, DSENS_TIME_7
-TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 8 / 16.0) / 1000.0, DSENS_TIME_8
-TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 9 / 16.0) / 1000.0, DSENS_TIME_9
-TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 10 / 16.0) / 1000.0, DSENS_TIME_10
-TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 11 / 16.0) / 1000.0, DSENS_TIME_11
-TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 12 / 16.0) / 1000.0, DSENS_TIME_12
-TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 13 / 16.0) / 1000.0, DSENS_TIME_13
-TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 14 / 16.0) / 1000.0, DSENS_TIME_14
-TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 15 / 16.0) / 1000.0, DSENS_TIME_15
-
-;status
-.equ DSENS_STAT_LOW = 0
-.equ DSENS_STAT_HIGH = 1
 
 .macro DSENS_SR_SETUP
 	;set trig port direction
@@ -113,15 +92,11 @@ TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_
 ;input capture event isr
 ;params (0)'timer index'
 .macro DSENS_ISR_ICI
-	UART_SR_CI 'i'
 	;end cycle if falling
 	lds dsens_tmp1, TCCR@0B
 	cpi dsens_tmp1, DSENS_TCCRB_ICNC | DSENS_TCCRB_ICES_FALLING | DSENS_TCCRB_WGM | DSENS_TCCRB_CS
 	breq dsens_isr_oca@0
 	;rising edge
-	UART_SR_CI 'r'
-	UART_SR_II @0
-	UART_SR_L
 	;save input capture register
 	lds dsens_tl, ICR@0L
 	lds dsens_th, ICR@0H
@@ -140,11 +115,24 @@ TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_
 	reti
 .endmacro
 
+;---------------------TODO-------------
+;calculate output 4-bit value
+;params (tmp2:tmp1)'rising time' (th:th)'falling time'
+dsens_sr_output:
+	sub dsens_tl, dsens_tmp1
+	sbc dsens_th, dsens_tmp2
+	UART_SR_I dsens_th
+	UART_SR_CI ':'
+	UART_SR_I dsens_tl
+	UART_SR_L
+	ret
+;-------------------TODO END--------------
+
 ;output compare match event isr
-;params (0)'timer index' (1)'opponent timer index' (2)'side lowercase' (3)'opponent side uppercase' 
+;params (0)'timer index' (1)'opponent timer index' (2)'side lowercase' (3)'opposite side uppercase'
 .macro DSENS_ISR_OCA
 	;start opponent trigger signal
-	ldi dsens_tmp1, DSENS_TRIG_PORT_@3
+	ldi dsens_tmp1, DSENS_TRIG_PORT_@2
 	sts DSENS_PORT, dsens_tmp1
 	;stop timer
 	ldi dsens_tmp1, DSENS_TCCRB_WGM
@@ -162,9 +150,14 @@ TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_
 	sts TCNT@1H, dsens_tmp1
 	sts TCNT@1L, dsens_tmp1
 	;calculate output
-	UART_SR_CI 's'
+	movw dsens_tmp2:dsens_tmp1, dsens_th:dsens_tl
+	lds dsens_tl, ICR@0L
+	lds dsens_th, ICR@0H
+	;-----------------------DEBUG
 	UART_SR_II @0
-	UART_SR_L
+	UART_SR_CI ' '
+	rcall dsens_sr_output
+	;-----------------------DEBUG END
 	;start opponent timer
 	ldi dsens_tmp1, DSENS_TCCRB_ICNC | DSENS_TCCRB_ICES_RISING | DSENS_TCCRB_WGM | DSENS_TCCRB_CS
 	sts TCCR@1B, dsens_tmp1
@@ -185,12 +178,12 @@ dsens_isr_ic4:
 	DSENS_ISR_ICI 4
 
 dsens_isr_oca4:
-	DSENS_ISR_OCA 4, 5, R, l
+	DSENS_ISR_OCA 4, 5, l, R
 
 dsens_isr_ic5:
 	DSENS_ISR_ICI 5
 
 dsens_isr_oca5:
-	DSENS_ISR_OCA 5, 4, L, r
+	DSENS_ISR_OCA 5, 4, r, L
 
 .set UART_MACROS_ENABLED = UART_MACROS_BACKUP

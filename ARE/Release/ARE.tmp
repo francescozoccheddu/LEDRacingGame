@@ -28,10 +28,10 @@
   <FILE>ARE.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <dsens_isr_ic4><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>179</LINE></dsens_isr_ic4>
-  <dsens_isr_ic5><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>185</LINE></dsens_isr_ic5>
-  <dsens_isr_oca4><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>182</LINE></dsens_isr_oca4>
-  <dsens_isr_oca5><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>188</LINE></dsens_isr_oca5>
+  <dsens_isr_ic4><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>187</LINE></dsens_isr_ic4>
+  <dsens_isr_ic5><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>193</LINE></dsens_isr_ic5>
+  <dsens_isr_oca4><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>190</LINE></dsens_isr_oca4>
+  <dsens_isr_oca5><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>196</LINE></dsens_isr_oca5>
   <l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>20</LINE></l_reset>
   <math_sr_div8><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/math.asm</FILE><LINE>11</LINE></math_sr_div8>
   <math_l_div8_1><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/math.asm</FILE><LINE>21</LINE></math_l_div8_1>
@@ -59,6 +59,7 @@
   <uart_l_send_int_nd><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/uart.asm</FILE><LINE>152</LINE></uart_l_send_int_nd>
   <uart_l_send_int_nd_f><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/uart.asm</FILE><LINE>160</LINE></uart_l_send_int_nd_f>
   <uart_l_send_int_rd><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/uart.asm</FILE><LINE>164</LINE></uart_l_send_int_rd>
+  <dsens_sr_output><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm</FILE><LINE>127</LINE></dsens_sr_output>
   <l_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>45</LINE></l_loop>
  </LABELS>
 </ASSEMBLER_INFO>

@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Sat Aug 12 21:26:55 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Sat Aug 12 23:46:02 2017
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1362,11 +1362,11 @@ EQU  INT_VECTORS_SIZE 00000072
 EQU  INC_DEFS     00000000
 EQU  FOSC         00f42400
 EQU  RESET_ADDR   00000000
-CSEG dsens_isr_ic4 000000e8
-CSEG dsens_isr_ic5 00000141
-CSEG dsens_isr_oca4 00000111
-CSEG dsens_isr_oca5 0000016a
-CSEG l_reset      0000019a
+CSEG dsens_isr_ic4 00000144
+CSEG dsens_isr_ic5 000001a5
+CSEG dsens_isr_oca4 0000016d
+CSEG dsens_isr_oca5 000001ce
+CSEG l_reset      00000206
 DEF  uart_int     r24
 DEF  uart_char    r25
 SET  UART_MACROS_ENABLED 00000001
@@ -1418,7 +1418,8 @@ EQU  TIMUTILS_PSCL_4 00000100
 EQU  TIMUTILS_PSCL_5 00000400
 EQU  DSENS_DEBUG  00000001
 SET  UART_MACROS_BACKUP 00000001
-DEF  dsens_out    r2
+DEF  dsens_out_l  r2
+DEF  dsens_out_r  r3
 DEF  dsens_tl     r4
 DEF  dsens_th     r5
 DEF  dsens_tmp1   r18
@@ -1448,7 +1449,6 @@ EQU  DSENS_TIMSK_ICIE 00000020
 EQU  DSENS_TIMSK_OCIEA 00000002
 EQU  DSENS_TIFR_ICF 00000020
 EQU  DSENS_TIFR_OCFA 00000002
-EQU  DSENS_TIME_0 0000001f
 EQU  DSENS_TIME_1 0000003a
 EQU  DSENS_TIME_2 00000055
 EQU  DSENS_TIME_3 00000071
@@ -1466,4 +1466,23 @@ EQU  DSENS_TIME_14 0000019e
 EQU  DSENS_TIME_15 000001b9
 EQU  DSENS_STAT_LOW 00000000
 EQU  DSENS_STAT_HIGH 00000001
-CSEG l_loop       000001db
+CSEG dsens_sr_output 000000e8
+CSEG dsens_l_sr_output_0 0000012f
+CSEG dsens_l_sr_output_1 00000130
+CSEG dsens_l_sr_output_2 00000131
+CSEG dsens_l_sr_output_3 00000132
+CSEG dsens_l_sr_output_4 00000133
+CSEG dsens_l_sr_output_5 00000134
+CSEG dsens_l_sr_output_6 00000135
+CSEG dsens_l_sr_output_7 00000136
+CSEG dsens_l_sr_output_8 00000137
+CSEG dsens_l_sr_output_9 00000138
+CSEG dsens_l_sr_output_10 00000139
+CSEG dsens_l_sr_output_11 0000013a
+CSEG dsens_l_sr_output_12 0000013b
+CSEG dsens_l_sr_output_13 0000013c
+CSEG dsens_l_sr_output_14 0000013d
+CSEG dsens_l_sr_output_15 0000013e
+CSEG dsens_l_sr_output_ret 00000142
+CSEG dsens_l_sr_wait 00000140
+CSEG l_loop       00000247
