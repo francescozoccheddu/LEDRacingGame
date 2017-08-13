@@ -42,6 +42,11 @@ l_reset:
 	;set interrupts
 	SEI
 
+.equ TEST = 1500
+
 l_loop:	
-	
+	UART_SR_I dsens_out_l
+	UART_SR_CI ' '
+	UART_SR_I dsens_out_r
+	UART_SR_L
 	rjmp l_loop
