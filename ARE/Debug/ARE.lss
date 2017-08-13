@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Sat Aug 12 23:46:02 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Sun Aug 13 14:39:41 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\defs.inc'
@@ -1917,18 +1917,18 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  
                                  .include "intv/distance_sens_v2.inc"
                                  
-000052 c0f1                      rjmp dsens_isr_ic4
+000052 c0f6                      rjmp dsens_isr_ic4
                                  
                                  .org ICP5addr
-00005c c148                      rjmp dsens_isr_ic5
+00005c c141                      rjmp dsens_isr_ic5
                                  
                                  .org OC4Aaddr
-000054 c118                      rjmp dsens_isr_oca4
+000054 c109                      rjmp dsens_isr_oca4
                                  
                                  .org OC5Aaddr
-00005e c16f                      
+00005e c154                      
                                  .org RESET_ADDR
-000000 c205                      rjmp l_reset
+000000 c1f2                      rjmp l_reset
                                  
                                  
                                  ;code space declaration
@@ -2260,12 +2260,9 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  	.equ @2 = INT( (FOSC / (@0)) * (@1) )
                                  .endmacro
                                  
-                                 .equ DSENS_DEBUG = 1
+                                 .set UART_MACROS_ENABLED = 1
                                  
-                                 .set UART_MACROS_BACKUP = UART_MACROS_ENABLED
-                                 .set UART_MACROS_ENABLED = DSENS_DEBUG
-                                 
-                                 ;reserved PORTL, TIM4, TIM5, r2, r4, r5, r18, r19
+                                 ;reserved PORTL, TIM4, TIM5, r2, r3, r4, r5, r18, r19
                                  ;reserved registers
                                  .def dsens_out_l = r2
                                  .def dsens_out_r = r3
@@ -2275,10 +2272,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  .def dsens_tmp2 = r19
                                  
                                  ;params
-                                 .equ DSENS_ECHO_TIMEOUT_LOW_MS = 1000
-                                 .equ DSENS_ECHO_MIN_MS = 2
-                                 .equ DSENS_ECHO_MAX_MS = 30
-                                 .equ DSENS_ECHO_TIMEOUT_HIGH_MS = 1000
+                                 .equ DSENS_ECHO_TIMEOUT_LOW_MS = 50
+                                 .equ DSENS_ECHO_MIN_MS = 1
+                                 .equ DSENS_ECHO_MAX_MS = 20
+                                 .equ DSENS_ECHO_TIMEOUT_HIGH_MS = 25
+                                 .equ DSENS_SMOOTH = 0
                                  
                                  ;ports
                                  .equ DSENS_PORT = PORTL
@@ -2314,7 +2312,8 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  ;output capture match interrupt flag
                                  .equ DSENS_TIFR_OCFA = 1 << 1
                                  
-                                 ;time to 4-bit values
+                                 ;times
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 0 / 16.0) / 1000.0, DSENS_TIME_0
                                  TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 1 / 16.0) / 1000.0, DSENS_TIME_1
                                  TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 2 / 16.0) / 1000.0, DSENS_TIME_2
                                  TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 3 / 16.0) / 1000.0, DSENS_TIME_3
@@ -2330,10 +2329,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 13 / 16.0) / 1000.0, DSENS_TIME_13
                                  TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 14 / 16.0) / 1000.0, DSENS_TIME_14
                                  TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 15 / 16.0) / 1000.0, DSENS_TIME_15
-                                 
-                                 ;status
-                                 .equ DSENS_STAT_LOW = 0
-                                 .equ DSENS_STAT_HIGH = 1
+                                 TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 16 / 16.0) / 1000.0, DSENS_TIME_16
                                  
                                  .macro DSENS_SR_SETUP
                                  	;set trig port direction
@@ -2373,17 +2369,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  ;input capture event isr
                                  ;params (0)'timer index'
                                  .macro DSENS_ISR_ICI
-                                 	;debug
-                                 	UART_SR_CI 'i'
                                  	;end cycle if falling
                                  	lds dsens_tmp1, TCCR@0B
                                  	cpi dsens_tmp1, DSENS_TCCRB_ICNC | DSENS_TCCRB_ICES_FALLING | DSENS_TCCRB_WGM | DSENS_TCCRB_CS
                                  	breq dsens_isr_oca@0
                                  	;rising edge
-                                 	;debug
-                                 	UART_SR_CI 'r'
-                                 	UART_SR_II @0
-                                 	UART_SR_L
                                  	;save input capture register
                                  	lds dsens_tl, ICR@0L
                                  	lds dsens_th, ICR@0H
@@ -2402,142 +2392,148 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  	reti
                                  .endmacro
                                  
+                                 ;params (0)'compare' (1)'jump label'
+                                 .macro DSENS_SR_COMPARE
+                                 	ldi dsens_tmp2, HIGH( @0 )
+                                 	cpi dsens_tmp1, LOW( @0 )
+                                 	cpc dsens_th, dsens_tmp2
+                                 	brlo @1
+                                 .endmacro
                                  
-                                 ;calculate output 4-bit value
-                                 ;params (tmp2:tmp1)'rising time' (th:th)'falling time'
+                                 .equ DSENS_OUT_FAILURE_BIT = 7
+                                 
+                                 ;params (tmp2:tmp1)'falling time' (th:tl)'rising time'
+                                 ;result (tl[3:0])'result' (tl[OUT_FAILURE_BIT])'failure'
+                                 ;86 cycles
                                  dsens_sr_output:
-                                 
-                                 	;params (0)'value' (1)'jump target'
-                                 	.macro DSENS_SR_COMPARE
-                                 		ldi dsens_tmp2, HIGH(@0)
-                                 		cpi r16, LOW(@0)
-                                 		cpc dsens_th, dsens_tmp2
-                                 		brlo @1
-                                 	.endmacro
-                                 
-0000e8 930f                      	push r16
-0000e9 1a42                      	sub dsens_tl, dsens_tmp1
-0000ea 0a53                      	sbc dsens_th, dsens_tmp2
-0000eb 2d04                      	mov r16, dsens_tl
-                                 	;setup
-0000ec e02f                      	ldi dsens_tmp1, 15
-                                 	;comparisons
-0000ed e030
-0000ee 330a
-0000ef 0653
-0000f0 f1f0                      	DSENS_SR_COMPARE DSENS_TIME_1, dsens_l_sr_output_0
-0000f1 e030
-0000f2 3505
-0000f3 0653
-0000f4 f1d8                      	DSENS_SR_COMPARE DSENS_TIME_2, dsens_l_sr_output_1
-0000f5 e030
-0000f6 3701
+0000e8 1924                      	sub dsens_tmp1, dsens_tl
+0000e9 0935                      	sbc dsens_tmp2, dsens_th
+0000ea f439                      	brne dsens_l_sr_output_valid
+                                 	;output timed out
+                                 	;wait
+0000eb e820                      	ldi dsens_tmp1, 1 << DSENS_OUT_FAILURE_BIT
+0000ec 2e42                      	mov dsens_tl, dsens_tmp1
+0000ed e127                      	ldi  dsens_tmp1, 23
+                                 dsens_l_sr_output_invalid_wait:
+0000ee 952a                      L1: dec  dsens_tmp1
+0000ef f7f1                          brne dsens_l_sr_output_invalid_wait
+0000f0 c000                          rjmp PC+1
+0000f1 9508                      	ret
+                                 dsens_l_sr_output_valid:
+                                 	;output valid
+0000f2 2e53                      	mov dsens_th, dsens_tmp2
+0000f3 e03f                      	ldi dsens_tmp2, 15
+0000f4 2e43                      	mov dsens_tl, dsens_tmp2
+                                 	;state (th:tmp1)'measure' (tmp2)[free] (tl)'counter'
+0000f5 e032
+0000f6 3222
 0000f7 0653
-0000f8 f1c0                      	DSENS_SR_COMPARE DSENS_TIME_3, dsens_l_sr_output_2
-0000f9 e030
-0000fa 380c
+0000f8 f1e0                      	DSENS_SR_COMPARE DSENS_TIME_1, dsens_l_sr_output_0
+0000f9 e033
+0000fa 342b
 0000fb 0653
-0000fc f1a8                      	DSENS_SR_COMPARE DSENS_TIME_4, dsens_l_sr_output_3
-0000fd e030
-0000fe 3a07
+0000fc f1c8                      	DSENS_SR_COMPARE DSENS_TIME_2, dsens_l_sr_output_1
+0000fd e034
+0000fe 3724
 0000ff 0653
-000100 f190                      	DSENS_SR_COMPARE DSENS_TIME_5, dsens_l_sr_output_4
-000101 e030
-000102 3c03
+000100 f1b0                      	DSENS_SR_COMPARE DSENS_TIME_3, dsens_l_sr_output_2
+000101 e035
+000102 392d
 000103 0653
-000104 f178                      	DSENS_SR_COMPARE DSENS_TIME_6, dsens_l_sr_output_5
-000105 e030
-000106 3d0e
+000104 f198                      	DSENS_SR_COMPARE DSENS_TIME_4, dsens_l_sr_output_3
+000105 e036
+000106 3c26
 000107 0653
-000108 f160                      	DSENS_SR_COMPARE DSENS_TIME_7, dsens_l_sr_output_6
-000109 e030
-00010a 3f0a
+000108 f180                      	DSENS_SR_COMPARE DSENS_TIME_5, dsens_l_sr_output_4
+000109 e037
+00010a 3e2f
 00010b 0653
-00010c f148                      	DSENS_SR_COMPARE DSENS_TIME_8, dsens_l_sr_output_7
-00010d e031
-00010e 3105
+00010c f168                      	DSENS_SR_COMPARE DSENS_TIME_6, dsens_l_sr_output_5
+00010d e039
+00010e 3128
 00010f 0653
-000110 f130                      	DSENS_SR_COMPARE DSENS_TIME_9, dsens_l_sr_output_8
-000111 e031
-000112 3300
+000110 f150                      	DSENS_SR_COMPARE DSENS_TIME_7, dsens_l_sr_output_6
+000111 e03a
+000112 3421
 000113 0653
-000114 f118                      	DSENS_SR_COMPARE DSENS_TIME_10, dsens_l_sr_output_9
-000115 e031
-000116 340c
+000114 f138                      	DSENS_SR_COMPARE DSENS_TIME_8, dsens_l_sr_output_7
+000115 e03b
+000116 3629
 000117 0653
-000118 f100                      	DSENS_SR_COMPARE DSENS_TIME_11, dsens_l_sr_output_10
-000119 e031
-00011a 3607
+000118 f120                      	DSENS_SR_COMPARE DSENS_TIME_9, dsens_l_sr_output_8
+000119 e03c
+00011a 3922
 00011b 0653
-00011c f0e8                      	DSENS_SR_COMPARE DSENS_TIME_12, dsens_l_sr_output_11
-00011d e031
-00011e 3802
+00011c f108                      	DSENS_SR_COMPARE DSENS_TIME_10, dsens_l_sr_output_9
+00011d e03d
+00011e 3b2b
 00011f 0653
-000120 f0d0                      	DSENS_SR_COMPARE DSENS_TIME_13, dsens_l_sr_output_12
-000121 e031
-000122 390e
+000120 f0f0                      	DSENS_SR_COMPARE DSENS_TIME_11, dsens_l_sr_output_10
+000121 e03e
+000122 3e24
 000123 0653
-000124 f0b8                      	DSENS_SR_COMPARE DSENS_TIME_14, dsens_l_sr_output_13
-000125 e031
-000126 3b09
+000124 f0d8                      	DSENS_SR_COMPARE DSENS_TIME_12, dsens_l_sr_output_11
+000125 e130
+000126 302d
 000127 0653
-000128 f0a0                      	DSENS_SR_COMPARE DSENS_TIME_15, dsens_l_sr_output_14
-000129 e033
-00012a 3e08
+000128 f0c0                      	DSENS_SR_COMPARE DSENS_TIME_13, dsens_l_sr_output_12
+000129 e131
+00012a 3326
 00012b 0653
-00012c f088                      	DSENS_SR_COMPARE DSENS_ECHO_TIMEOUT_HIGH_MS, dsens_l_sr_output_15
-00012d ef3f                      	ser dsens_tmp2
-00012e c013                      	rjmp dsens_l_sr_output_ret
+00012c f0a8                      	DSENS_SR_COMPARE DSENS_TIME_14, dsens_l_sr_output_13
+00012d e132
+00012e 352f
+00012f 0653
+000130 f090                      	DSENS_SR_COMPARE DSENS_TIME_15, dsens_l_sr_output_14
+                                 	;synchronize
+000131 0000                      	nop
+000132 0000                      	nop
+000133 0000                      	nop
+000134 c00f                      	rjmp dsens_l_sr_output_15
                                  	;results
-                                 	dsens_l_sr_output_0:
-00012f 952a                      	dec dsens_tmp1
-                                 	dsens_l_sr_output_1:
-000130 952a                      	dec dsens_tmp1
-                                 	dsens_l_sr_output_2:
-000131 952a                      	dec dsens_tmp1
-                                 	dsens_l_sr_output_3:
-000132 952a                      	dec dsens_tmp1
-                                 	dsens_l_sr_output_4:
-000133 952a                      	dec dsens_tmp1
-                                 	dsens_l_sr_output_5:
-000134 952a                      	dec dsens_tmp1
-                                 	dsens_l_sr_output_6:
-000135 952a                      	dec dsens_tmp1
-                                 	dsens_l_sr_output_7:
-000136 952a                      	dec dsens_tmp1
-                                 	dsens_l_sr_output_8:
-000137 952a                      	dec dsens_tmp1
-                                 	dsens_l_sr_output_9:
-000138 952a                      	dec dsens_tmp1
-                                 	dsens_l_sr_output_10:
-000139 952a                      	dec dsens_tmp1
-                                 	dsens_l_sr_output_11:
-00013a 952a                      	dec dsens_tmp1
-                                 	dsens_l_sr_output_12:
-00013b 952a                      	dec dsens_tmp1
-                                 	dsens_l_sr_output_13:
-00013c 952a                      	dec dsens_tmp1
-                                 	dsens_l_sr_output_14:
-00013d 952a                      	dec dsens_tmp1
-                                 	dsens_l_sr_output_15:
-00013e e130                      	ldi dsens_tmp2, 16
-00013f 1b32                      	sub dsens_tmp2, dsens_tmp1
-                                 dsens_l_sr_wait:
-000140 953a                      	dec dsens_tmp2
-000141 f7f1                      	brne dsens_l_sr_wait
-                                 dsens_l_sr_output_ret:
-000142 910f                      	pop r16
-000143 9508                      	ret
+                                 dsens_l_sr_output_0:
+000135 944a                      	dec dsens_tl
+                                 dsens_l_sr_output_1:
+000136 944a                      	dec dsens_tl
+                                 dsens_l_sr_output_2:
+000137 944a                      	dec dsens_tl
+                                 dsens_l_sr_output_3:
+000138 944a                      	dec dsens_tl
+                                 dsens_l_sr_output_4:
+000139 944a                      	dec dsens_tl
+                                 dsens_l_sr_output_5:
+00013a 944a                      	dec dsens_tl
+                                 dsens_l_sr_output_6:
+00013b 944a                      	dec dsens_tl
+                                 dsens_l_sr_output_7:
+00013c 944a                      	dec dsens_tl
+                                 dsens_l_sr_output_8:
+00013d 944a                      	dec dsens_tl
+                                 dsens_l_sr_output_9:
+00013e 944a                      	dec dsens_tl
+                                 dsens_l_sr_output_10:
+00013f 944a                      	dec dsens_tl
+                                 dsens_l_sr_output_11:
+000140 944a                      	dec dsens_tl
+                                 dsens_l_sr_output_12:
+000141 944a                      	dec dsens_tl
+                                 dsens_l_sr_output_13:
+000142 944a                      	dec dsens_tl
+                                 dsens_l_sr_output_14:
+000143 944a                      	dec dsens_tl
+                                 dsens_l_sr_output_15:
+000144 e120                      	ldi dsens_tmp1, 16
+000145 1924                      	sub dsens_tmp1, dsens_tl
+                                 dsens_l_sr_output_wait:
+000146 952a                      	dec dsens_tmp1
+000147 f7f1                      	brne dsens_l_sr_output_wait
+000148 9508                      	ret
                                  
                                  ;output compare match event isr
                                  ;params (0)'timer index' (1)'opponent timer index' (2)'side lowercase' (3)'opposite side uppercase'
                                  .macro DSENS_ISR_OCA
-                                 	;debug
-                                 	UART_SR_CI 's'
-                                 	UART_SR_II @0
-                                 	UART_SR_L
                                  	;start opponent trigger signal
-                                 	ldi dsens_tmp1, DSENS_TRIG_PORT_@2
+                                 	ldi dsens_tmp1, DSENS_TRIG_PORT_@3
                                  	sts DSENS_PORT, dsens_tmp1
                                  	;stop timer
                                  	ldi dsens_tmp1, DSENS_TCCRB_WGM
@@ -2555,15 +2551,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  	sts TCNT@1H, dsens_tmp1
                                  	sts TCNT@1L, dsens_tmp1
                                  	;calculate output
-                                 	movw dsens_tmp2:dsens_tmp1, dsens_th:dsens_tl
-                                 	lds dsens_tl, ICR@0L
-                                 	lds dsens_th, ICR@0H
+                                 	lds dsens_tmp1, ICR@0L
+                                 	lds dsens_tmp2, ICR@0H
                                  	rcall dsens_sr_output
-                                 	sbrs dsens_tmp2, 0
-                                 	mov dsens_out_@3, dsens_tmp1
-                                 	;start opponent timer
-                                 	ldi dsens_tmp1, DSENS_TCCRB_ICNC | DSENS_TCCRB_ICES_RISING | DSENS_TCCRB_WGM | DSENS_TCCRB_CS
-                                 	sts TCCR@1B, dsens_tmp1
+                                 	sbrs dsens_tl, DSENS_OUT_FAILURE_BIT
+                                 	mov dsens_out_@2, dsens_tl
                                  	;set opponent timer interrupts
                                  	ldi dsens_tmp1, DSENS_TIMSK_ICIE | DSENS_TIMSK_OCIEA
                                  	sts TIMSK@1, dsens_tmp1
@@ -2571,229 +2563,224 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  	ldi dsens_tmp1, DSENS_TIFR_ICF | DSENS_TIFR_OCFA
                                  	out TIFR@0, dsens_tmp1
                                  	out TIFR@1, dsens_tmp1
+                                 	;start opponent timer
+                                 	ldi dsens_tmp1, DSENS_TCCRB_ICNC | DSENS_TCCRB_ICES_RISING | DSENS_TCCRB_WGM | DSENS_TCCRB_CS
+                                 	sts TCCR@1B, dsens_tmp1
+                                 	;wait for 10uS (117 cycles to 160 cycles)
+                                 	ldi  dsens_tmp1, 14
+                                 	dec  dsens_tmp1
+                                     brne PC - 1
+                                     nop
                                  	;end all trigger signals
                                  	clr dsens_tmp1
                                  	sts DSENS_PORT, dsens_tmp1
+                                 	;debug
+                                 	UART_SR_II @1
+                                 	UART_SR_L
+                                 	UART_SR_I dsens_out_@2
+                                 	UART_SR_L
                                  	reti
                                  .endmacro
                                  
                                  dsens_isr_ic4:
-000144 939f
-000145 e699
-000146 940e 00b8
-000148 919f
 000149 9120 00a1
-00014b 382d
-00014c f101
-00014d 939f
-00014e e792
-00014f 940e 00b8
-000151 919f
-000152 938f
-000153 e084
-000154 940e 00c9
-000156 918f
-000157 939f
-000158 e09a
-000159 940e 00b8
-00015b 919f
-00015c 9040 00a6
-00015e 9050 00a7
-000160 e82d
-000161 9320 00a1
-000163 0192
-000164 5f27
-000165 4c33
-000166 9330 00a9
-000168 9320 00a8
-00016a e222
-00016b bb29
-00016c 9518                      	DSENS_ISR_ICI 4
+00014b 382b
+00014c f089
+00014d 9040 00a6
+00014f 9050 00a7
+000151 e82b
+000152 9320 00a1
+000154 0192
+000155 5926
+000156 4e38
+000157 9330 00a9
+000159 9320 00a8
+00015b e222
+00015c bb29
+00015d 9518                      	DSENS_ISR_ICI 4
                                  
                                  dsens_isr_oca4:
-00016d 939f
-00016e e793
-00016f 940e 00b8
-000171 919f
-000172 938f
-000173 e084
-000174 940e 00c9
-000176 918f
-000177 939f
-000178 e09a
-000179 940e 00b8
-00017b 919f
-00017c e420
-00017d 9320 010b
-00017f e028
-000180 9320 00a1
-000182 2722
-000183 9320 0072
-000185 e029
-000186 e33d
-000187 9330 0129
-000189 9320 0128
-00018b 2722
-00018c 9320 0125
-00018e 9320 0124
-000190 0192
-000191 9040 00a6
-000193 9050 00a7
-000195 df52
-000196 ff30
-000197 2e32
-000198 ec2d
-000199 9320 0121
-00019b e222
-00019c 9320 0073
-00019e e222
-00019f bb29
-0001a0 bb2a
-0001a1 2722
-0001a2 9320 010b
-0001a4 9518                      	DSENS_ISR_OCA 4, 5, l, R
+00015e e820
+00015f 9320 010b
+000161 e028
+000162 9320 00a1
+000164 2722
+000165 9320 0072
+000167 ed24
+000168 e330
+000169 9330 0129
+00016b 9320 0128
+00016d 2722
+00016e 9320 0125
+000170 9320 0124
+000172 9120 00a6
+000174 9130 00a7
+000176 df71
+000177 fe47
+000178 2c24
+000179 e222
+00017a 9320 0073
+00017c e222
+00017d bb29
+00017e bb2a
+00017f ec2b
+000180 9320 0121
+000182 e02e
+000183 952a
+000184 f7f1
+000185 0000
+000186 2722
+000187 9320 010b
+000189 938f
+00018a e085
+00018b 940e 00c9
+00018d 918f
+00018e 939f
+00018f e09a
+000190 940e 00b8
+000192 919f
+000193 938f
+000194 2d82
+000195 940e 00c9
+000197 918f
+000198 939f
+000199 e09a
+00019a 940e 00b8
+00019c 919f
+00019d 9518                      	DSENS_ISR_OCA 4, 5, l, R
                                  
                                  dsens_isr_ic5:
-0001a5 939f
-0001a6 e699
-0001a7 940e 00b8
-0001a9 919f
-0001aa 9120 0121
-0001ac 382d
-0001ad f101
-0001ae 939f
-0001af e792
-0001b0 940e 00b8
-0001b2 919f
-0001b3 938f
-0001b4 e085
-0001b5 940e 00c9
-0001b7 918f
-0001b8 939f
-0001b9 e09a
-0001ba 940e 00b8
-0001bc 919f
-0001bd 9040 0126
-0001bf 9050 0127
-0001c1 e82d
-0001c2 9320 0121
-0001c4 0192
-0001c5 5f27
-0001c6 4c33
-0001c7 9330 0129
-0001c9 9320 0128
-0001cb e222
-0001cc bb2a
-0001cd 9518                      	DSENS_ISR_ICI 5
+00019e 9120 0121
+0001a0 382b
+0001a1 f089
+0001a2 9040 0126
+0001a4 9050 0127
+0001a6 e82b
+0001a7 9320 0121
+0001a9 0192
+0001aa 5926
+0001ab 4e38
+0001ac 9330 0129
+0001ae 9320 0128
+0001b0 e222
+0001b1 bb2a
+0001b2 9518                      	DSENS_ISR_ICI 5
                                  
                                  dsens_isr_oca5:
-0001ce 939f
-0001cf e793
-0001d0 940e 00b8
-0001d2 919f
-0001d3 938f
-0001d4 e085
-0001d5 940e 00c9
-0001d7 918f
-0001d8 939f
-0001d9 e09a
-0001da 940e 00b8
-0001dc 919f
-0001dd e820
-0001de 9320 010b
-0001e0 e028
-0001e1 9320 0121
-0001e3 2722
-0001e4 9320 0073
-0001e6 e029
-0001e7 e33d
-0001e8 9330 00a9
-0001ea 9320 00a8
-0001ec 2722
-0001ed 9320 00a5
-0001ef 9320 00a4
-0001f1 0192
-0001f2 9040 0126
-0001f4 9050 0127
-0001f6 def1
-0001f7 ff30
-0001f8 2e22
-0001f9 ec2d
-0001fa 9320 00a1
-0001fc e222
-0001fd 9320 0072
-0001ff e222
-000200 bb2a
-000201 bb29
-000202 2722
-000203 9320 010b
-000205 9518                      	DSENS_ISR_OCA 5, 4, r, L
-                                 
+0001b3 e420
+0001b4 9320 010b
+0001b6 e028
+0001b7 9320 0121
+0001b9 2722
+0001ba 9320 0073
+0001bc ed24
+0001bd e330
+0001be 9330 00a9
+0001c0 9320 00a8
+0001c2 2722
+0001c3 9320 00a5
+0001c5 9320 00a4
+0001c7 9120 0126
+0001c9 9130 0127
+0001cb df1c
+0001cc fe47
+0001cd 2c34
+0001ce e222
+0001cf 9320 0072
+0001d1 e222
+0001d2 bb2a
+0001d3 bb29
+0001d4 ec2b
+0001d5 9320 00a1
+0001d7 e02e
+0001d8 952a
+0001d9 f7f1
+0001da 0000
+0001db 2722
+0001dc 9320 010b
+0001de 938f
+0001df e084
+0001e0 940e 00c9
+0001e2 918f
+0001e3 939f
+0001e4 e09a
+0001e5 940e 00b8
+0001e7 919f
+0001e8 938f
+0001e9 2d83
+0001ea 940e 00c9
+0001ec 918f
+0001ed 939f
+0001ee e09a
+0001ef 940e 00b8
+0001f1 919f
+0001f2 9518                      	DSENS_ISR_OCA 5, 4, r, L
                                  
                                  ;main space
                                  
                                  l_reset:
                                  	;setup stack
-000206 e201                      	ldi r16, HIGH(RAMEND)
-000207 bf0e                      	out SPH, r16
-000208 ef0f                      	ldi r16, LOW(RAMEND)
-000209 bf0d                      	out SPL, r16
+0001f3 e201                      	ldi r16, HIGH(RAMEND)
+0001f4 bf0e                      	out SPH, r16
+0001f5 ef0f                      	ldi r16, LOW(RAMEND)
+0001f6 bf0d                      	out SPL, r16
                                  	;setup power reduction
                                  	/*ldi r16, (1 << PRTIM2)
                                  	sts PRR0, r16
                                  	ser r16
                                  	sts PRR1, r16*/
                                  	;disable JTAG
-00020a b705                      	in r16, MCUCR
-00020b 6800                      	ori r16, 1 << JTD 
-00020c bf05                      	out MCUCR, r16
+0001f7 b705                      	in r16, MCUCR
+0001f8 6800                      	ori r16, 1 << JTD 
+0001f9 bf05                      	out MCUCR, r16
                                  	;setup modules
-00020d ec20
-00020e 9320 010a
-000210 2722
-000211 9320 00a5
-000213 9320 00a4
-000215 9320 0125
-000217 9320 0124
-000219 e020
-00021a 9320 00a0
-00021c 9320 0120
-00021e e82d
-00021f 9320 00a1
-000221 e028
-000222 9320 0121
-000224 2722
-000225 9320 00a2
-000227 9320 0122
-000229 e022
-00022a 9320 0072
-00022c 2722
-00022d 9320 0073
-00022f e029
-000230 e33d
-000231 9330 00a9
-000233 9320 00a8                 	DSENS_SR_SETUP
-000235 930f
-000236 e607
-000237 9300 00c4
-000239 e000
-00023a 9300 00c5
-00023c 2700
-00023d 9300 00c0
-00023f e008
-000240 9300 00c1
-000242 e806
-000243 9300 00c2
-000245 910f                      	UART_SR_SETUP
+0001fa ec20
+0001fb 9320 010a
+0001fd 2722
+0001fe 9320 00a5
+000200 9320 00a4
+000202 9320 0125
+000204 9320 0124
+000206 e020
+000207 9320 00a0
+000209 9320 0120
+00020b e82b
+00020c 9320 00a1
+00020e e028
+00020f 9320 0121
+000211 2722
+000212 9320 00a2
+000214 9320 0122
+000216 e022
+000217 9320 0072
+000219 2722
+00021a 9320 0073
+00021c ed24
+00021d e330
+00021e 9330 00a9
+000220 9320 00a8                 	DSENS_SR_SETUP
+000222 930f
+000223 e607
+000224 9300 00c4
+000226 e000
+000227 9300 00c5
+000229 2700
+00022a 9300 00c0
+00022c e008
+00022d 9300 00c1
+00022f e806
+000230 9300 00c2
+000232 910f                      	UART_SR_SETUP
                                  /*	LED_SR_SETUP
                                  	DSENS_SR_SETUP*/
                                  	;turn off led
                                  	/*call led_sr_off*/
                                  	;set interrupts
-000246 9478                      	SEI
+000233 9478                      	SEI
                                  
                                  l_loop:	
-000247 cfff                      	rjmp l_loop
+                                 	
+000234 cfff                      	rjmp l_loop
 
 
 RESOURCE USE INFORMATION
@@ -2811,10 +2798,10 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega2560" register use summary:
-x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   1 r3 :   1 r4 :  10 
-r5 :  25 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  66 r17:   0 r18: 103 r19:  53 r20:   0 
-r21:   0 r22:  18 r23:  23 r24:  17 r25:  47 r26:   0 r27:   0 r28:   0 
+x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   2 r3 :   2 r4 :  27 
+r5 :  21 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
+r13:   0 r14:   0 r15:   0 r16:  47 r17:   0 r18: 110 r19:  48 r20:   0 
+r21:   0 r22:  18 r23:  23 r24:  17 r25:  29 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
 Registers used: 12 out of 35 (34.3%)
 
@@ -2822,20 +2809,20 @@ Registers used: 12 out of 35 (34.3%)
 .lds  :   0 .sts  :   0 adc   :   0 add   :   8 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   8 brcs  :   0 break :   0 breq  :   5 brge  :   0 brhc  :   0 
-brhs  :   0 brid  :   0 brie  :   0 brlo  :  16 brlt  :   0 brmi  :   0 
-brne  :   2 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :  14 cbi   :   0 cbr   :   0 
+brhs  :   0 brid  :   0 brie  :   0 brlo  :  15 brlt  :   0 brmi  :   0 
+brne  :   6 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   8 cbi   :   0 cbr   :   0 
 clc   :   8 clh   :   0 cli   :   0 cln   :   0 clr   :  11 cls   :   0 
-clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :  16 
-cpi   :  22 cpse  :   0 dec   :  16 eicall:   0 eijmp :   0 elpm  :   0 
+clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :  15 
+cpi   :  21 cpse  :   0 dec   :  19 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   1 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  65 
-lds   :  11 lpm   :   1 lsl   :   0 lsr   :   0 mov   :  10 movw  :   4 
-mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   0 
-ori   :   1 out   :   9 pop   :  23 push  :  23 rcall :   8 ret   :   5 
-reti  :   4 rjmp  :  17 rol   :  17 ror   :   0 sbc   :   1 sbci  :   2 
+in    :   1 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  60 
+lds   :  11 lpm   :   1 lsl   :   0 lsr   :   0 mov   :  14 movw  :   2 
+mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   5 or    :   0 
+ori   :   1 out   :   9 pop   :  16 push  :  16 rcall :   8 ret   :   6 
+reti  :   4 rjmp  :  18 rol   :  17 ror   :   0 sbc   :   1 sbci  :   2 
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   0 
-sbrs  :   3 sec   :   8 seh   :   0 sei   :   1 sen   :   0 ser   :   1 
+sbrs  :   3 sec   :   8 seh   :   0 sei   :   1 sen   :   0 ser   :   0 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
 st    :   0 std   :   0 sts   :  47 sub   :  10 subi  :   5 swap  :   0 
 tst   :   0 wdr   :   0 
@@ -2844,7 +2831,7 @@ Instructions used: 35 out of 116 (30.2%)
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000490    950      0    950  262144   0.4%
+[.cseg] 0x000000 0x00046a    912      0    912  262144   0.3%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 

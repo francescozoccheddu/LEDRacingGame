@@ -1,9 +1,6 @@
 .include "defs/timer_utils.inc"
 
-.equ DSENS_DEBUG = 1
-
-.set UART_MACROS_BACKUP = UART_MACROS_ENABLED
-.set UART_MACROS_ENABLED = DSENS_DEBUG
+.set UART_MACROS_ENABLED = 1
 
 ;reserved PORTL, TIM4, TIM5, r2, r3, r4, r5, r18, r19
 ;reserved registers
@@ -15,10 +12,11 @@
 .def dsens_tmp2 = r19
 
 ;params
-.equ DSENS_ECHO_TIMEOUT_LOW_MS = 70
+.equ DSENS_ECHO_TIMEOUT_LOW_MS = 50
 .equ DSENS_ECHO_MIN_MS = 1
-.equ DSENS_ECHO_MAX_MS = 50
-.equ DSENS_ECHO_TIMEOUT_HIGH_MS = 60
+.equ DSENS_ECHO_MAX_MS = 20
+.equ DSENS_ECHO_TIMEOUT_HIGH_MS = 25
+.equ DSENS_SMOOTH = 0
 
 ;ports
 .equ DSENS_PORT = PORTL
@@ -53,6 +51,25 @@ TIMUTILS_M_TOP DSENS_PSCL, DSENS_ECHO_TIMEOUT_HIGH_MS / 1000.0, DSENS_TIMEOUT_HI
 .equ DSENS_TIFR_ICF = 1 << 5
 ;output capture match interrupt flag
 .equ DSENS_TIFR_OCFA = 1 << 1
+
+;times
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 0 / 16.0) / 1000.0, DSENS_TIME_0
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 1 / 16.0) / 1000.0, DSENS_TIME_1
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 2 / 16.0) / 1000.0, DSENS_TIME_2
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 3 / 16.0) / 1000.0, DSENS_TIME_3
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 4 / 16.0) / 1000.0, DSENS_TIME_4
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 5 / 16.0) / 1000.0, DSENS_TIME_5
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 6 / 16.0) / 1000.0, DSENS_TIME_6
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 7 / 16.0) / 1000.0, DSENS_TIME_7
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 8 / 16.0) / 1000.0, DSENS_TIME_8
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 9 / 16.0) / 1000.0, DSENS_TIME_9
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 10 / 16.0) / 1000.0, DSENS_TIME_10
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 11 / 16.0) / 1000.0, DSENS_TIME_11
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 12 / 16.0) / 1000.0, DSENS_TIME_12
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 13 / 16.0) / 1000.0, DSENS_TIME_13
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 14 / 16.0) / 1000.0, DSENS_TIME_14
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 15 / 16.0) / 1000.0, DSENS_TIME_15
+TIMUTILS_M_TOP DSENS_PSCL, (DSENS_ECHO_MIN_MS + (DSENS_ECHO_MAX_MS - DSENS_ECHO_MIN_MS) * 16 / 16.0) / 1000.0, DSENS_TIME_16
 
 .macro DSENS_SR_SETUP
 	;set trig port direction
@@ -115,10 +132,97 @@ TIMUTILS_M_TOP DSENS_PSCL, DSENS_ECHO_TIMEOUT_HIGH_MS / 1000.0, DSENS_TIMEOUT_HI
 	reti
 .endmacro
 
-;params (0)'timer index' (1)'side lowercase'
-.macro DSENS_SR_OUTPUT
-
+;params (0)'compare' (1)'jump label'
+.macro DSENS_SR_COMPARE
+	ldi dsens_tmp2, HIGH( @0 )
+	cpi dsens_tmp1, LOW( @0 )
+	cpc dsens_th, dsens_tmp2
+	brlo @1
 .endmacro
+
+.equ DSENS_OUT_FAILURE_BIT = 7
+
+;params (tmp2:tmp1)'falling time' (th:tl)'rising time'
+;result (tl[3:0])'result' (tl[OUT_FAILURE_BIT])'failure'
+;86 cycles
+dsens_sr_output:
+	sub dsens_tmp1, dsens_tl
+	sbc dsens_tmp2, dsens_th
+	brne dsens_l_sr_output_valid
+	;output timed out
+	;wait
+	ldi dsens_tmp1, 1 << DSENS_OUT_FAILURE_BIT
+	mov dsens_tl, dsens_tmp1
+	ldi  dsens_tmp1, 23
+dsens_l_sr_output_invalid_wait:
+L1: dec  dsens_tmp1
+    brne dsens_l_sr_output_invalid_wait
+    rjmp PC+1
+	ret
+dsens_l_sr_output_valid:
+	;output valid
+	mov dsens_th, dsens_tmp2
+	ldi dsens_tmp2, 15
+	mov dsens_tl, dsens_tmp2
+	;state (th:tmp1)'measure' (tmp2)[free] (tl)'counter'
+	DSENS_SR_COMPARE DSENS_TIME_1, dsens_l_sr_output_0
+	DSENS_SR_COMPARE DSENS_TIME_2, dsens_l_sr_output_1
+	DSENS_SR_COMPARE DSENS_TIME_3, dsens_l_sr_output_2
+	DSENS_SR_COMPARE DSENS_TIME_4, dsens_l_sr_output_3
+	DSENS_SR_COMPARE DSENS_TIME_5, dsens_l_sr_output_4
+	DSENS_SR_COMPARE DSENS_TIME_6, dsens_l_sr_output_5
+	DSENS_SR_COMPARE DSENS_TIME_7, dsens_l_sr_output_6
+	DSENS_SR_COMPARE DSENS_TIME_8, dsens_l_sr_output_7
+	DSENS_SR_COMPARE DSENS_TIME_9, dsens_l_sr_output_8
+	DSENS_SR_COMPARE DSENS_TIME_10, dsens_l_sr_output_9
+	DSENS_SR_COMPARE DSENS_TIME_11, dsens_l_sr_output_10
+	DSENS_SR_COMPARE DSENS_TIME_12, dsens_l_sr_output_11
+	DSENS_SR_COMPARE DSENS_TIME_13, dsens_l_sr_output_12
+	DSENS_SR_COMPARE DSENS_TIME_14, dsens_l_sr_output_13
+	DSENS_SR_COMPARE DSENS_TIME_15, dsens_l_sr_output_14
+	;synchronize
+	nop
+	nop
+	nop
+	rjmp dsens_l_sr_output_15
+	;results
+dsens_l_sr_output_0:
+	dec dsens_tl
+dsens_l_sr_output_1:
+	dec dsens_tl
+dsens_l_sr_output_2:
+	dec dsens_tl
+dsens_l_sr_output_3:
+	dec dsens_tl
+dsens_l_sr_output_4:
+	dec dsens_tl
+dsens_l_sr_output_5:
+	dec dsens_tl
+dsens_l_sr_output_6:
+	dec dsens_tl
+dsens_l_sr_output_7:
+	dec dsens_tl
+dsens_l_sr_output_8:
+	dec dsens_tl
+dsens_l_sr_output_9:
+	dec dsens_tl
+dsens_l_sr_output_10:
+	dec dsens_tl
+dsens_l_sr_output_11:
+	dec dsens_tl
+dsens_l_sr_output_12:
+	dec dsens_tl
+dsens_l_sr_output_13:
+	dec dsens_tl
+dsens_l_sr_output_14:
+	dec dsens_tl
+dsens_l_sr_output_15:
+	ldi dsens_tmp1, 16
+	sub dsens_tmp1, dsens_tl
+dsens_l_sr_output_wait:
+	dec dsens_tmp1
+	brne dsens_l_sr_output_wait
+	ret
 
 ;output compare match event isr
 ;params (0)'timer index' (1)'opponent timer index' (2)'side lowercase' (3)'opposite side uppercase'
@@ -142,7 +246,11 @@ TIMUTILS_M_TOP DSENS_PSCL, DSENS_ECHO_TIMEOUT_HIGH_MS / 1000.0, DSENS_TIMEOUT_HI
 	sts TCNT@1H, dsens_tmp1
 	sts TCNT@1L, dsens_tmp1
 	;calculate output
-	DSENS_SR_OUTPUT @0, @2
+	lds dsens_tmp1, ICR@0L
+	lds dsens_tmp2, ICR@0H
+	rcall dsens_sr_output
+	sbrs dsens_tl, DSENS_OUT_FAILURE_BIT
+	mov dsens_out_@2, dsens_tl
 	;set opponent timer interrupts
 	ldi dsens_tmp1, DSENS_TIMSK_ICIE | DSENS_TIMSK_OCIEA
 	sts TIMSK@1, dsens_tmp1
@@ -150,12 +258,22 @@ TIMUTILS_M_TOP DSENS_PSCL, DSENS_ECHO_TIMEOUT_HIGH_MS / 1000.0, DSENS_TIMEOUT_HI
 	ldi dsens_tmp1, DSENS_TIFR_ICF | DSENS_TIFR_OCFA
 	out TIFR@0, dsens_tmp1
 	out TIFR@1, dsens_tmp1
-	;end all trigger signals
-	clr dsens_tmp1
-	sts DSENS_PORT, dsens_tmp1
 	;start opponent timer
 	ldi dsens_tmp1, DSENS_TCCRB_ICNC | DSENS_TCCRB_ICES_RISING | DSENS_TCCRB_WGM | DSENS_TCCRB_CS
 	sts TCCR@1B, dsens_tmp1
+	;wait for 10uS (117 cycles to 160 cycles)
+	ldi  dsens_tmp1, 14
+	dec  dsens_tmp1
+    brne PC - 1
+    nop
+	;end all trigger signals
+	clr dsens_tmp1
+	sts DSENS_PORT, dsens_tmp1
+	;debug
+	UART_SR_II @1
+	UART_SR_L
+	UART_SR_I dsens_out_@2
+	UART_SR_L
 	reti
 .endmacro
 
@@ -170,5 +288,3 @@ dsens_isr_ic5:
 
 dsens_isr_oca5:
 	DSENS_ISR_OCA 5, 4, r, L
-
-.set UART_MACROS_ENABLED = UART_MACROS_BACKUP
