@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Sun Aug 13 10:24:27 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Sun Aug 13 11:36:17 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\defs.inc'
@@ -2353,14 +2353,14 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  ;params (0)'timer index'
                                  .macro DSENS_ISR_ICI
                                  	;debug
-                                 	/*UART_SR_CI 'i'*/
+                                 /*	UART_SR_CI 'i'*/
                                  	;end cycle if falling
                                  	lds dsens_tmp1, TCCR@0B
                                  	cpi dsens_tmp1, DSENS_TCCRB_ICNC | DSENS_TCCRB_ICES_FALLING | DSENS_TCCRB_WGM | DSENS_TCCRB_CS
                                  	breq dsens_isr_oca@0
                                  	;rising edge
                                  	;debug
-                                 	/*UART_SR_CI 'r'
+                                 /*	UART_SR_CI 'r'
                                  	UART_SR_II @0
                                  	UART_SR_L*/
                                  	;save input capture register
@@ -2410,11 +2410,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  ;params (0)'timer index' (1)'opponent timer index' (2)'side lowercase' (3)'opposite side uppercase'
                                  .macro DSENS_ISR_OCA
                                  	;debug
-                                 	/*UART_SR_CI 's'
+                                 /*	UART_SR_CI 's'
                                  	UART_SR_II @0
                                  	UART_SR_L*/
                                  	;start opponent trigger signal
-                                 	ldi dsens_tmp1, DSENS_TRIG_PORT_@2
+                                 	ldi dsens_tmp1, DSENS_TRIG_PORT_@3
                                  	sts DSENS_PORT, dsens_tmp1
                                  	;stop timer
                                  	ldi dsens_tmp1, DSENS_TCCRB_WGM
@@ -2436,13 +2436,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  	lds dsens_tl, ICR@0L
                                  	lds dsens_th, ICR@0H
                                  	;-----------------------DEBUG
+                                 	;debug
                                  	UART_SR_II @0
                                  	UART_SR_CI ' '
                                  	rcall dsens_sr_output
                                  	;-----------------------DEBUG END
-                                 	;start opponent timer
-                                 	ldi dsens_tmp1, DSENS_TCCRB_ICNC | DSENS_TCCRB_ICES_RISING | DSENS_TCCRB_WGM | DSENS_TCCRB_CS
-                                 	sts TCCR@1B, dsens_tmp1
                                  	;set opponent timer interrupts
                                  	ldi dsens_tmp1, DSENS_TIMSK_ICIE | DSENS_TIMSK_OCIEA
                                  	sts TIMSK@1, dsens_tmp1
@@ -2453,6 +2451,9 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
                                  	;end all trigger signals
                                  	clr dsens_tmp1
                                  	sts DSENS_PORT, dsens_tmp1
+                                 	;start opponent timer
+                                 	ldi dsens_tmp1, DSENS_TCCRB_ICNC | DSENS_TCCRB_ICES_RISING | DSENS_TCCRB_WGM | DSENS_TCCRB_CS
+                                 	sts TCCR@1B, dsens_tmp1
                                  	reti
                                  .endmacro
                                  
@@ -2474,7 +2475,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
 000113 9518                      	DSENS_ISR_ICI 4
                                  
                                  dsens_isr_oca4:
-000114 e420
+000114 e820
 000115 9320 010b
 000117 e028
 000118 9320 00a1
@@ -2499,15 +2500,15 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
 000134 940e 00b8
 000136 919f
 000137 dfb0
-000138 ec2b
-000139 9320 0121
+000138 e222
+000139 9320 0073
 00013b e222
-00013c 9320 0073
-00013e e222
-00013f bb29
-000140 bb2a
-000141 2722
-000142 9320 010b
+00013c bb29
+00013d bb2a
+00013e 2722
+00013f 9320 010b
+000141 ec2b
+000142 9320 0121
 000144 9518                      	DSENS_ISR_OCA 4, 5, l, R
                                  
                                  dsens_isr_ic5:
@@ -2528,7 +2529,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
 000159 9518                      	DSENS_ISR_ICI 5
                                  
                                  dsens_isr_oca5:
-00015a e820
+00015a e420
 00015b 9320 010b
 00015d e028
 00015e 9320 0121
@@ -2553,15 +2554,15 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\asm/distance_sens_v2.asm(1): Including fil
 00017a 940e 00b8
 00017c 919f
 00017d df6a
-00017e ec2b
-00017f 9320 00a1
+00017e e222
+00017f 9320 0072
 000181 e222
-000182 9320 0072
-000184 e222
-000185 bb2a
-000186 bb29
-000187 2722
-000188 9320 010b
+000182 bb2a
+000183 bb29
+000184 2722
+000185 9320 010b
+000187 ec2b
+000188 9320 00a1
 00018a 9518                      	DSENS_ISR_OCA 5, 4, r, L
                                  
                                  
