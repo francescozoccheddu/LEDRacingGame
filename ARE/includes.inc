@@ -1,4 +1,3 @@
-#include "src/math.asm"
 #include "src/uart_comm.asm"
 #include "src/builtin_led.asm"
 #include "src/timer_utils.asm"

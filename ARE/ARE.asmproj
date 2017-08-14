@@ -96,9 +96,6 @@
     <Compile Include="src\builtin_led.asm">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="src\math.asm">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="src\timer_utils.asm">
       <SubType>Code</SubType>
     </Compile>
