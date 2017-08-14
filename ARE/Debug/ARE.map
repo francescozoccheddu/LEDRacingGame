@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm Mon Aug 14 23:48:53 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm Tue Aug 15 00:33:40 2017
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1361,8 +1361,6 @@ EQU  UTXC3addr    00000070
 EQU  INT_VECTORS_SIZE 00000072
 EQU  FOSC         00f42400
 SET  ENTRY_RAM_PTR 00000200
-DEF  uc_int       r24
-DEF  uc_char      r25
 SET  UC_MACROS_ENABLED 00000001
 EQU  UC_BAUD_RATE 00002580
 EQU  UC_UBRR      00000067
@@ -1386,11 +1384,11 @@ EQU  TIMUTILS_PSCL_4 00000100
 EQU  TIMUTILS_PSCL_5 00000400
 DEF  ds_out_l     r2
 DEF  ds_out_r     r3
-CSEG ds_isr_ic4   00000162
-CSEG ds_isr_ic5   000001a6
-CSEG ds_isr_oca4  00000177
-CSEG ds_isr_oca5  000001bb
-CSEG main         000001ea
+CSEG ds_isr_ic4   00000132
+CSEG ds_isr_ic5   00000176
+CSEG ds_isr_oca4  00000147
+CSEG ds_isr_oca5  0000018b
+CSEG main         000001ba
 DEF  math_dvd_res r22
 DEF  math_dvr_rem r23
 CSEG math_sr_div8 00000072
@@ -1410,18 +1408,9 @@ CSEG math_l_div8_13 000000ab
 CSEG math_l_div8_14 000000ac
 CSEG math_l_div8_15 000000b3
 CSEG math_l_div8_16 000000b4
-CSEG uc_sr_send   000000b8
-CSEG uc_l_send_loop 000000b9
-CSEG uc_sr_send_str 000000c1
-CSEG uc_l_send_str_loop 000000c2
-CSEG uc_l_send_str_return 000000c7
-CSEG uc_sr_send_int 000000c9
-CSEG uc_l_send_int_nd 000000d6
-CSEG uc_l_send_int_nd_f 000000dd
-CSEG uc_l_send_int_rd 000000e0
-CSEG bl_sr_toggle 000000e8
-CSEG bl_sr_on     000000f1
-CSEG bl_sr_off    000000f7
+CSEG bl_sr_toggle 000000b8
+CSEG bl_sr_on     000000c1
+CSEG bl_sr_off    000000c7
 DEF  ds_tl        r4
 DEF  ds_th        r5
 DEF  ds_tmp1      r18
@@ -1470,26 +1459,26 @@ EQU  DS_TIME_14   000001ba
 EQU  DS_TIME_15   000001d7
 EQU  DS_TIME_OVER 000002ee
 EQU  DS_OUT_FAILURE_BIT 00000007
-CSEG ds_sr_output 000000fd
-CSEG ds_l_sr_output_valid 00000106
-CSEG ds_l_sr_output_ret 0000015f
-CSEG ds_l_sr_output_0 0000014c
-CSEG ds_l_sr_output_1 0000014d
-CSEG ds_l_sr_output_2 0000014e
-CSEG ds_l_sr_output_3 0000014f
-CSEG ds_l_sr_output_4 00000150
-CSEG ds_l_sr_output_5 00000151
-CSEG ds_l_sr_output_6 00000152
-CSEG ds_l_sr_output_7 00000153
-CSEG ds_l_sr_output_8 00000154
-CSEG ds_l_sr_output_9 00000155
-CSEG ds_l_sr_output_10 00000156
-CSEG ds_l_sr_output_11 00000157
-CSEG ds_l_sr_output_12 00000158
-CSEG ds_l_sr_output_13 00000159
-CSEG ds_l_sr_output_14 0000015a
-CSEG ds_l_sr_output_15 0000015b
-CSEG ds_l_sr_output_ret_w1 00000160
-CSEG ds_l_sr_output_wait 0000015d
-CSEG l_reset      0000022c
-CSEG l_loop       0000022d
+CSEG ds_sr_output 000000cd
+CSEG ds_l_sr_output_valid 000000d6
+CSEG ds_l_sr_output_ret 0000012f
+CSEG ds_l_sr_output_0 0000011c
+CSEG ds_l_sr_output_1 0000011d
+CSEG ds_l_sr_output_2 0000011e
+CSEG ds_l_sr_output_3 0000011f
+CSEG ds_l_sr_output_4 00000120
+CSEG ds_l_sr_output_5 00000121
+CSEG ds_l_sr_output_6 00000122
+CSEG ds_l_sr_output_7 00000123
+CSEG ds_l_sr_output_8 00000124
+CSEG ds_l_sr_output_9 00000125
+CSEG ds_l_sr_output_10 00000126
+CSEG ds_l_sr_output_11 00000127
+CSEG ds_l_sr_output_12 00000128
+CSEG ds_l_sr_output_13 00000129
+CSEG ds_l_sr_output_14 0000012a
+CSEG ds_l_sr_output_15 0000012b
+CSEG ds_l_sr_output_ret_w1 00000130
+CSEG ds_l_sr_output_wait 0000012d
+CSEG l_reset      000001fc
+CSEG l_loop       000001fd
