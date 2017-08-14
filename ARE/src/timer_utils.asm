@@ -1,7 +1,4 @@
-.ifdef INC_TIMUTILS
-	.exit
-.endif
-.equ INC_TIMUTILS = 0
+#ifdef MACROS
 
 ;prescaler values
 .equ TIMUTILS_PSCL_1 = 1
@@ -52,3 +49,5 @@
 .macro TIMUTILS_M_TOP
 	.equ @2 = INT( (FOSC / (@0)) * (@1) )
 .endmacro
+
+#endif

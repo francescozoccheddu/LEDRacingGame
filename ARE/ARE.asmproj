@@ -15,7 +15,7 @@
     <Name>ARE</Name>
     <RootNamespace>ARE</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
-    <EntryFile>$(MSBuildProjectDirectory)\main.asm</EntryFile>
+    <EntryFile>$(MSBuildProjectDirectory)\entry.asm</EntryFile>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
@@ -87,31 +87,28 @@
     <PostBuildEvent>avrdude -c usbasp -p m2560 -U flash:w:"$(OutputDirectory)\$(OutputFileName).hex":i</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="asm\distance_sens.asm">
+    <Compile Include="src\buzzer.asm">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="asm\distance_sens_v2.asm">
+    <Compile Include="src\distance_sens.asm">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="asm\led.asm">
+    <Compile Include="src\builtin_led.asm">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="asm\math.asm">
+    <Compile Include="src\math.asm">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="asm\uart.asm">
+    <Compile Include="src\timer_utils.asm">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="defs.inc">
+    <Compile Include="src\uart_comm.asm">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="defs\timer_utils.inc">
+    <Compile Include="entry.asm">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="intv\distance_sens.inc">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="intv\distance_sens_v2.inc">
+    <Compile Include="includes.inc">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="main.asm">
@@ -119,9 +116,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="intv" />
-    <Folder Include="asm" />
-    <Folder Include="defs" />
+    <Folder Include="src" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Assembler.targets" />
 </Project>
