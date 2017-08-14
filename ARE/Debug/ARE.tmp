@@ -51,15 +51,6 @@
   <math_l_div8_14><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/math.asm</FILE><LINE>84</LINE></math_l_div8_14>
   <math_l_div8_15><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/math.asm</FILE><LINE>92</LINE></math_l_div8_15>
   <math_l_div8_16><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/math.asm</FILE><LINE>94</LINE></math_l_div8_16>
-  <uc_sr_send><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm</FILE><LINE>124</LINE></uc_sr_send>
-  <uc_l_send_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm</FILE><LINE>126</LINE></uc_l_send_loop>
-  <uc_sr_send_str><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm</FILE><LINE>135</LINE></uc_sr_send_str>
-  <uc_l_send_str_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm</FILE><LINE>137</LINE></uc_l_send_str_loop>
-  <uc_l_send_str_return><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm</FILE><LINE>143</LINE></uc_l_send_str_return>
-  <uc_sr_send_int><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm</FILE><LINE>148</LINE></uc_sr_send_int>
-  <uc_l_send_int_nd><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm</FILE><LINE>162</LINE></uc_l_send_int_nd>
-  <uc_l_send_int_nd_f><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm</FILE><LINE>170</LINE></uc_l_send_int_nd_f>
-  <uc_l_send_int_rd><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm</FILE><LINE>174</LINE></uc_l_send_int_rd>
   <bl_sr_toggle><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm</FILE><LINE>28</LINE></bl_sr_toggle>
   <bl_sr_on><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm</FILE><LINE>39</LINE></bl_sr_on>
   <bl_sr_off><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm</FILE><LINE>47</LINE></bl_sr_off>
