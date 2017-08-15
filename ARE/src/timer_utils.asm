@@ -1,11 +1,12 @@
 #ifdef MACROS
+;################# MACROS #################
 
-;prescaler values
-.equ TIMUTILS_PSCL_1 = 1
-.equ TIMUTILS_PSCL_2 = 8
-.equ TIMUTILS_PSCL_3 = 64
-.equ TIMUTILS_PSCL_4 = 256
-.equ TIMUTILS_PSCL_5 = 1024
+	;prescaler values
+	.equ TIMUTILS_PSCL_1 = 1
+	.equ TIMUTILS_PSCL_2 = 8
+	.equ TIMUTILS_PSCL_3 = 64
+	.equ TIMUTILS_PSCL_4 = 256
+	.equ TIMUTILS_PSCL_5 = 1024
 
 ;compute prescaler for timer and time
 ;params (0)'time sec' (1)'timer bits' (2)'equ export name'
@@ -50,4 +51,5 @@
 	.equ @2 = INT( (FOSC / (@0)) * (@1) )
 .endmacro
 
+;##########################################
 #endif

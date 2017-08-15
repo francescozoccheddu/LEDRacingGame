@@ -1,8 +1,6 @@
 #ifdef MACROS
 ;################# MACROS #################
 
-	.set UC_MACROS_ENABLED = 1
-
 	.equ UC_BAUD_RATE = 9600
 	.equ UC_UBRR = (FOSC / 16 / UC_BAUD_RATE - 1)
 
