@@ -4,8 +4,6 @@
 ;configuration defs
 .equ FOSC = 16000000
 
-;start
-
 ;include ram defs
 .set ENTRY_RAM_PTR = SRAM_START
 

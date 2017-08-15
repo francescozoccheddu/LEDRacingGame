@@ -1,68 +1,68 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm Tue Aug 15 00:58:01 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm Tue Aug 15 23:36:17 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(24): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(25): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(30): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(28): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(31): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(36): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(29): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(34): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(37): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(46): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(35): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(44): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(58): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(56): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(24): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(25): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(30): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(28): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(31): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(36): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(29): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(34): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(37): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(46): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(35): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(44): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(58): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(56): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
                                  
                                  ;device defs
                                  
@@ -1950,8 +1950,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zo
                                  ;configuration defs
                                  .equ FOSC = 16000000
                                  
-                                 ;start
-                                 
                                  ;include ram defs
                                  .set ENTRY_RAM_PTR = SRAM_START
                                  
@@ -1983,10 +1981,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zo
                                  
                                  #ifdef SETUP
                                  #endif
-                                 
-                                 
-                                 #ifdef CODE
-                                 #endif
                                  #include "src/timer_utils.asm"
                                  
                                  #endif
@@ -2013,8 +2007,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zo
                                  
                                  
                                  ;################# MACROS #################
-                                 
-                                 	.set UC_MACROS_ENABLED = 1
                                  
                                  	.equ UC_BAUD_RATE = 9600
                                  	.equ UC_UBRR = (FOSC / 16 / UC_BAUD_RATE - 1)
@@ -2066,25 +2058,52 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zo
                                  	.equ BL_PORT = PORTB
                                  	.equ BL_PORT_BIT = PORTB7
                                  
+                                 ;params (0)'dirty register'
+                                 .macro BL_SR_ON
+                                 	in @0, BL_PORT
+                                 	ori @0, 1 << BL_PORT_BIT
+                                 	out BL_PORT, @0
+                                 .endmacro
+                                 
+                                 ;params (0)'dirty register'
+                                 .macro BL_SR_OFF
+                                 	in @0, BL_PORT
+                                 	andi @0, !(1 << BL_PORT_BIT)
+                                 	out BL_PORT, @0
+                                 .endmacro
+                                 
+                                 ;params (0)'dirty register'
+                                 .macro BL_SR_TOGGLE
+                                 	in @0, BL_PORT
+                                 	andi @0, !(1 << BL_PORT_BIT)
+                                 	sbrs @0, BL_PORT_BIT
+                                 	ori @0, 1 << BL_PORT_BIT
+                                 	out BL_PORT, @0
+                                 .endmacro
+                                 
+                                 ;params (0)'subroutine'
+                                 .macro BL_M_SAFE
+                                 	push r16
+                                 	@0 r16
+                                 	pop r16
+                                 .endmacro
+                                 
                                  ;##########################################
                                  #endif
                                  
                                  
                                  #ifdef SETUP
                                  #endif
-                                 
-                                 
-                                 #ifdef CODE
-                                 #endif
                                  #include "src/timer_utils.asm"
                                  
+                                 ;################# MACROS #################
                                  
-                                 ;prescaler values
-                                 .equ TIMUTILS_PSCL_1 = 1
-                                 .equ TIMUTILS_PSCL_2 = 8
-                                 .equ TIMUTILS_PSCL_3 = 64
-                                 .equ TIMUTILS_PSCL_4 = 256
-                                 .equ TIMUTILS_PSCL_5 = 1024
+                                 	;prescaler values
+                                 	.equ TIMUTILS_PSCL_1 = 1
+                                 	.equ TIMUTILS_PSCL_2 = 8
+                                 	.equ TIMUTILS_PSCL_3 = 64
+                                 	.equ TIMUTILS_PSCL_4 = 256
+                                 	.equ TIMUTILS_PSCL_5 = 1024
                                  
                                  ;compute prescaler for timer and time
                                  ;params (0)'time sec' (1)'timer bits' (2)'equ export name'
@@ -2129,6 +2148,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zo
                                  	.equ @2 = INT( (FOSC / (@0)) * (@1) )
                                  .endmacro
                                  
+                                 ;##########################################
                                  #endif
                                  #include "src/distance_sens.asm"
                                  
@@ -2138,11 +2158,12 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zo
                                  #endif
                                  
                                  #ifdef MACROS
+                                 ;################# MACROS #################
                                  
-                                 ;reserved registers
-                                 .def ds_out_l = r2
-                                 .def ds_out_r = r3
+                                 	.def ds_out_l = r2
+                                 	.def ds_out_r = r3
                                  
+                                 ;##########################################
                                  #endif
                                  
                                  #ifdef CODE
@@ -2170,28 +2191,26 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zo
                                  
                                  #ifdef SETUP
                                  #endif
-                                 
-                                 
-                                 #ifdef CODE
-                                 #endif
                                  #include "src/timer_utils.asm"
                                  
                                  #endif
                                  #include "src/distance_sens.asm"
                                  
+                                 ;################## INTV ##################
                                  
-                                 .org ICP4addr
-000052 c099                      rjmp ds_isr_ic4
+                                 	.org ICP4addr
+000052 c084                      	rjmp ds_isr_ic4
                                  
-                                 .org ICP5addr
-00005c c0d3                      rjmp ds_isr_ic5
+                                 	.org ICP5addr
+00005c c0be                      	rjmp ds_isr_ic5
                                  
-                                 .org OC4Aaddr
-000054 c0ac                      rjmp ds_isr_oca4
+                                 	.org OC4Aaddr
+000054 c097                      	rjmp ds_isr_oca4
                                  
-                                 .org OC5Aaddr
-00005e c0e6                      rjmp ds_isr_oca5
+                                 	.org OC5Aaddr
+00005e c0d1                      	rjmp ds_isr_oca5
                                  
+                                 ;##########################################
                                  #endif
                                  
                                  #ifdef SETUP
@@ -2208,7 +2227,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zo
                                  #undef INTV
                                  
                                  .org 0
-000000 c173                      	rjmp main
+000000 c15e                      	rjmp main
                                  
                                  ;include subroutine defs
                                  #define CODE
@@ -2229,40 +2248,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zo
                                  
                                  #ifdef SETUP
                                  #endif
-                                 
-                                 
-                                 #ifdef CODE
-                                 ;################## CODE ##################
-                                 
-                                 bl_sr_toggle:
-000072 930f                      	push r16
-000073 931f                      	push r17
-000074 e810                      	ldi r17, 1 << BL_PORT_BIT
-000075 b105                      	in r16, BL_PORT
-000076 2701                      	eor r16, r17
-000077 b905                      	out BL_PORT, r16
-000078 911f                      	pop r17
-000079 910f                      	pop r16
-00007a 9508                      	ret
-                                 
-                                 bl_sr_on:
-00007b 930f                      	push r16
-00007c b105                      	in r16, BL_PORT
-00007d 6800                      	ori r16, 1 << BL_PORT_BIT
-00007e b905                      	out BL_PORT, r16
-00007f 910f                      	pop r16
-000080 9508                      	ret
-                                 
-                                 bl_sr_off:
-000081 930f                      	push r16
-000082 b105                      	in r16, BL_PORT
-000083 7000                      	andi r16, ! (1 << BL_PORT_BIT)
-000084 b905                      	out BL_PORT, r16
-000085 910f                      	pop r16
-000086 9508                      	ret
-                                 
-                                 ;##########################################
-                                 #endif
                                  #include "src/timer_utils.asm"
                                  
                                  #endif
@@ -2277,71 +2262,72 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zo
                                  #endif
                                  
                                  #ifdef CODE
+                                 ;################## CODE ##################
                                  
-                                 .def ds_tl = r4
-                                 .def ds_th = r5
-                                 .def ds_tmp1 = r18
-                                 .def ds_tmp2 = r19
+                                 	.def ds_tl = r4
+                                 	.def ds_th = r5
+                                 	.def ds_tmp1 = r18
+                                 	.def ds_tmp2 = r19
                                  
-                                 ;ports
-                                 .equ DS_PORT = PORTL
-                                 .equ DS_TRIG_PORT_L = 1 << PL6 ;digital pin 43
-                                 .equ DS_TRIG_PORT_R = 1 << PL7 ;digital pin 42
-                                 .equ DS_ECHO_PORT_L = 1 << PL0 ;digital pin 49
-                                 .equ DS_ECHO_PORT_R = 1 << PL1 ;digital pin 48
-                                 .equ DS_PORTD = DDRL
+                                 	;ports
+                                 	.equ DS_PORT = PORTL
+                                 	.equ DS_TRIG_PORT_L = 1 << PL6 ;digital pin 43
+                                 	.equ DS_TRIG_PORT_R = 1 << PL7 ;digital pin 42
+                                 	.equ DS_ECHO_PORT_L = 1 << PL0 ;digital pin 49
+                                 	.equ DS_ECHO_PORT_R = 1 << PL1 ;digital pin 48
+                                 	.equ DS_PORTD = DDRL
                                  
-                                 ;params
-                                 .equ DS_ECHO_TIMEOUT_LOW_US = 40000
-                                 .equ DS_ECHO_MIN_US = 150
-                                 .equ DS_ECHO_MAX_US = 2000
-                                 .equ DS_ECHO_MAX_HELD_US = 3000
-                                 .equ DS_ECHO_TIMEOUT_HIGH_US = 30000
+                                 	;params
+                                 	.equ DS_ECHO_TIMEOUT_LOW_US = 40000
+                                 	.equ DS_ECHO_MIN_US = 150
+                                 	.equ DS_ECHO_MAX_US = 2000
+                                 	.equ DS_ECHO_MAX_HELD_US = 3000
+                                 	.equ DS_ECHO_TIMEOUT_HIGH_US = 30000
                                  
-                                 ;autogenerated
-                                 ;timer time values
-                                 TIMUTILS_M_PSCL (DS_ECHO_TIMEOUT_LOW_US + DS_ECHO_TIMEOUT_HIGH_US) / 1000000.0, 16, DS_PSCL
-                                 TIMUTILS_M_CS DS_PSCL, DS_CS
-                                 TIMUTILS_M_TOP DS_PSCL, DS_ECHO_TIMEOUT_LOW_US / 1000000.0, DS_TIMEOUT_LOW_TOP
-                                 TIMUTILS_M_TOP DS_PSCL, DS_ECHO_TIMEOUT_HIGH_US / 1000000.0, DS_TIMEOUT_HIGH_TOP_DIFF
-                                 ;waveform generation mode
-                                 .equ DS_WGM = 4 ;clear timer on compare match A
-                                 .equ DS_TCCRA_WGM = DS_WGM & 0b11
-                                 .equ DS_TCCRB_WGM = (DS_WGM >> 2) << 3
-                                 ;input capture noise canceler
-                                 .equ DS_TCCRB_ICNC = 1 << 7
-                                 ;input capture edge select
-                                 .equ DS_TCCRB_ICES_FALLING = 0 << 6
-                                 .equ DS_TCCRB_ICES_RISING = 1 << 6
-                                 ;prescaler value
-                                 .equ DS_TCCRB_CS = DS_CS
-                                 ;input capture interrupt mask
-                                 .equ DS_TIMSK_ICIE = 1 << 5
-                                 ;output capture match interrupt mask
-                                 .equ DS_TIMSK_OCIEA = 1 << 1
-                                 ;input capture interrupt mask
-                                 .equ DS_TIFR_ICF = 1 << 5
-                                 ;output capture match interrupt flag
-                                 .equ DS_TIFR_OCFA = 1 << 1
+                                 	;autogenerated
+                                 	;timer time values
+                                 	TIMUTILS_M_PSCL (DS_ECHO_TIMEOUT_LOW_US + DS_ECHO_TIMEOUT_HIGH_US) / 1000000.0, 16, DS_PSCL
+                                 	TIMUTILS_M_CS DS_PSCL, DS_CS
+                                 	TIMUTILS_M_TOP DS_PSCL, DS_ECHO_TIMEOUT_LOW_US / 1000000.0, DS_TIMEOUT_LOW_TOP
+                                 	TIMUTILS_M_TOP DS_PSCL, DS_ECHO_TIMEOUT_HIGH_US / 1000000.0, DS_TIMEOUT_HIGH_TOP_DIFF
+                                 	;waveform generation mode
+                                 	.equ DS_WGM = 4 ;clear timer on compare match A
+                                 	.equ DS_TCCRA_WGM = DS_WGM & 0b11
+                                 	.equ DS_TCCRB_WGM = (DS_WGM >> 2) << 3
+                                 	;input capture noise canceler
+                                 	.equ DS_TCCRB_ICNC = 1 << 7
+                                 	;input capture edge select
+                                 	.equ DS_TCCRB_ICES_FALLING = 0 << 6
+                                 	.equ DS_TCCRB_ICES_RISING = 1 << 6
+                                 	;prescaler value
+                                 	.equ DS_TCCRB_CS = DS_CS
+                                 	;input capture interrupt mask
+                                 	.equ DS_TIMSK_ICIE = 1 << 5
+                                 	;output capture match interrupt mask
+                                 	.equ DS_TIMSK_OCIEA = 1 << 1
+                                 	;input capture interrupt mask
+                                 	.equ DS_TIFR_ICF = 1 << 5
+                                 	;output capture match interrupt flag
+                                 	.equ DS_TIFR_OCFA = 1 << 1
                                  
-                                 ;times
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 0 / 16.0) / 1000000.0, DS_TIME_0
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 1 / 16.0) / 1000000.0, DS_TIME_1
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 2 / 16.0) / 1000000.0, DS_TIME_2
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 3 / 16.0) / 1000000.0, DS_TIME_3
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 4 / 16.0) / 1000000.0, DS_TIME_4
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 5 / 16.0) / 1000000.0, DS_TIME_5
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 6 / 16.0) / 1000000.0, DS_TIME_6
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 7 / 16.0) / 1000000.0, DS_TIME_7
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 8 / 16.0) / 1000000.0, DS_TIME_8
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 9 / 16.0) / 1000000.0, DS_TIME_9
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 10 / 16.0) / 1000000.0, DS_TIME_10
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 11 / 16.0) / 1000000.0, DS_TIME_11
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 12 / 16.0) / 1000000.0, DS_TIME_12
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 13 / 16.0) / 1000000.0, DS_TIME_13
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 14 / 16.0) / 1000000.0, DS_TIME_14
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 15 / 16.0) / 1000000.0, DS_TIME_15
-                                 TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MAX_HELD_US) / 1000000.0, DS_TIME_OVER
+                                 	;times
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 0 / 16.0) / 1000000.0, DS_TIME_0
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 1 / 16.0) / 1000000.0, DS_TIME_1
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 2 / 16.0) / 1000000.0, DS_TIME_2
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 3 / 16.0) / 1000000.0, DS_TIME_3
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 4 / 16.0) / 1000000.0, DS_TIME_4
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 5 / 16.0) / 1000000.0, DS_TIME_5
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 6 / 16.0) / 1000000.0, DS_TIME_6
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 7 / 16.0) / 1000000.0, DS_TIME_7
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 8 / 16.0) / 1000000.0, DS_TIME_8
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 9 / 16.0) / 1000000.0, DS_TIME_9
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 10 / 16.0) / 1000000.0, DS_TIME_10
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 11 / 16.0) / 1000000.0, DS_TIME_11
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 12 / 16.0) / 1000000.0, DS_TIME_12
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 13 / 16.0) / 1000000.0, DS_TIME_13
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 14 / 16.0) / 1000000.0, DS_TIME_14
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MIN_US + (DS_ECHO_MAX_US - DS_ECHO_MIN_US) * 15 / 16.0) / 1000000.0, DS_TIME_15
+                                 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MAX_HELD_US) / 1000000.0, DS_TIME_OVER
                                  
                                  ;input capture event isr
                                  ;params (0)'timer index'
@@ -2383,135 +2369,135 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zo
                                  ;result (tl[3:0])'result' (tl[OUT_FAILURE_BIT])'failure'
                                  ;86 cycles
                                  ds_sr_output:
-000087 1924                      	sub ds_tmp1, ds_tl
-000088 0935                      	sbc ds_tmp2, ds_th
-000089 f431                      	brne ds_l_sr_output_valid
+000072 1924                      	sub ds_tmp1, ds_tl
+000073 0935                      	sbc ds_tmp2, ds_th
+000074 f431                      	brne ds_l_sr_output_valid
                                  	;output low timeout failure
                                  	;set result failure bit
-00008a e820                      	ldi ds_tmp1, 1 << DS_OUT_FAILURE_BIT
-00008b 2e42                      	mov ds_tl, ds_tmp1
+000075 e820                      	ldi ds_tmp1, 1 << DS_OUT_FAILURE_BIT
+000076 2e42                      	mov ds_tl, ds_tmp1
                                  	;wait
-00008c e127                      	ldi  ds_tmp1, 23
-00008d 952a                      	dec  ds_tmp1
-00008e f7f1                          brne PC - 1
-00008f c059                          rjmp ds_l_sr_output_ret
+000077 e127                      	ldi  ds_tmp1, 23
+000078 952a                      	dec  ds_tmp1
+000079 f7f1                          brne PC - 1
+00007a c059                          rjmp ds_l_sr_output_ret
                                  ds_l_sr_output_valid:
                                  	;output valid
-000090 2e53                      	mov ds_th, ds_tmp2
-000091 e03f                      	ldi ds_tmp2, 15
-000092 2e43                      	mov ds_tl, ds_tmp2
+00007b 2e53                      	mov ds_th, ds_tmp2
+00007c e03f                      	ldi ds_tmp2, 15
+00007d 2e43                      	mov ds_tl, ds_tmp2
                                  	;state (th:tmp1)'measure' (tmp2)[free] (tl)'counter'
-000093 e030
-000094 3422
-000095 0653
-000096 f1f8                      	DS_SR_COMPARE DS_TIME_1, ds_l_sr_output_0
-000097 e030
-000098 352f
-000099 0653
-00009a f1e0                      	DS_SR_COMPARE DS_TIME_2, ds_l_sr_output_1
-00009b e030
-00009c 372c
-00009d 0653
-00009e f1c8                      	DS_SR_COMPARE DS_TIME_3, ds_l_sr_output_2
-00009f e030
-0000a0 3929
-0000a1 0653
-0000a2 f1b0                      	DS_SR_COMPARE DS_TIME_4, ds_l_sr_output_3
-0000a3 e030
-0000a4 3b26
-0000a5 0653
-0000a6 f198                      	DS_SR_COMPARE DS_TIME_5, ds_l_sr_output_4
-0000a7 e030
-0000a8 3d22
-0000a9 0653
-0000aa f180                      	DS_SR_COMPARE DS_TIME_6, ds_l_sr_output_5
-0000ab e030
-0000ac 3e2f
-0000ad 0653
-0000ae f168                      	DS_SR_COMPARE DS_TIME_7, ds_l_sr_output_6
-0000af e031
-0000b0 302c
-0000b1 0653
-0000b2 f150                      	DS_SR_COMPARE DS_TIME_8, ds_l_sr_output_7
-0000b3 e031
-0000b4 3229
-0000b5 0653
-0000b6 f138                      	DS_SR_COMPARE DS_TIME_9, ds_l_sr_output_8
-0000b7 e031
-0000b8 3426
-0000b9 0653
-0000ba f120                      	DS_SR_COMPARE DS_TIME_10, ds_l_sr_output_9
-0000bb e031
-0000bc 3623
-0000bd 0653
-0000be f108                      	DS_SR_COMPARE DS_TIME_11, ds_l_sr_output_10
-0000bf e031
-0000c0 3820
-0000c1 0653
-0000c2 f0f0                      	DS_SR_COMPARE DS_TIME_12, ds_l_sr_output_11
-0000c3 e031
-0000c4 392d
-0000c5 0653
-0000c6 f0d8                      	DS_SR_COMPARE DS_TIME_13, ds_l_sr_output_12
-0000c7 e031
-0000c8 3b2a
-0000c9 0653
-0000ca f0c0                      	DS_SR_COMPARE DS_TIME_14, ds_l_sr_output_13
-0000cb e031
-0000cc 3d27
-0000cd 0653
-0000ce f0a8                      	DS_SR_COMPARE DS_TIME_15, ds_l_sr_output_14
-0000cf e032
-0000d0 3e2e
-0000d1 0653
-0000d2 f090                      	DS_SR_COMPARE DS_TIME_OVER, ds_l_sr_output_15
+00007e e030
+00007f 3422
+000080 0653
+000081 f1f8                      	DS_SR_COMPARE DS_TIME_1, ds_l_sr_output_0
+000082 e030
+000083 352f
+000084 0653
+000085 f1e0                      	DS_SR_COMPARE DS_TIME_2, ds_l_sr_output_1
+000086 e030
+000087 372c
+000088 0653
+000089 f1c8                      	DS_SR_COMPARE DS_TIME_3, ds_l_sr_output_2
+00008a e030
+00008b 3929
+00008c 0653
+00008d f1b0                      	DS_SR_COMPARE DS_TIME_4, ds_l_sr_output_3
+00008e e030
+00008f 3b26
+000090 0653
+000091 f198                      	DS_SR_COMPARE DS_TIME_5, ds_l_sr_output_4
+000092 e030
+000093 3d22
+000094 0653
+000095 f180                      	DS_SR_COMPARE DS_TIME_6, ds_l_sr_output_5
+000096 e030
+000097 3e2f
+000098 0653
+000099 f168                      	DS_SR_COMPARE DS_TIME_7, ds_l_sr_output_6
+00009a e031
+00009b 302c
+00009c 0653
+00009d f150                      	DS_SR_COMPARE DS_TIME_8, ds_l_sr_output_7
+00009e e031
+00009f 3229
+0000a0 0653
+0000a1 f138                      	DS_SR_COMPARE DS_TIME_9, ds_l_sr_output_8
+0000a2 e031
+0000a3 3426
+0000a4 0653
+0000a5 f120                      	DS_SR_COMPARE DS_TIME_10, ds_l_sr_output_9
+0000a6 e031
+0000a7 3623
+0000a8 0653
+0000a9 f108                      	DS_SR_COMPARE DS_TIME_11, ds_l_sr_output_10
+0000aa e031
+0000ab 3820
+0000ac 0653
+0000ad f0f0                      	DS_SR_COMPARE DS_TIME_12, ds_l_sr_output_11
+0000ae e031
+0000af 392d
+0000b0 0653
+0000b1 f0d8                      	DS_SR_COMPARE DS_TIME_13, ds_l_sr_output_12
+0000b2 e031
+0000b3 3b2a
+0000b4 0653
+0000b5 f0c0                      	DS_SR_COMPARE DS_TIME_14, ds_l_sr_output_13
+0000b6 e031
+0000b7 3d27
+0000b8 0653
+0000b9 f0a8                      	DS_SR_COMPARE DS_TIME_15, ds_l_sr_output_14
+0000ba e032
+0000bb 3e2e
+0000bc 0653
+0000bd f090                      	DS_SR_COMPARE DS_TIME_OVER, ds_l_sr_output_15
                                  	;output high timeout failure
                                  	;set result failure bit
-0000d3 e820                      	ldi ds_tmp1, 1 << DS_OUT_FAILURE_BIT
-0000d4 2e42                      	mov ds_tl, ds_tmp1
-0000d5 c014                      	rjmp ds_l_sr_output_ret_w1
+0000be e820                      	ldi ds_tmp1, 1 << DS_OUT_FAILURE_BIT
+0000bf 2e42                      	mov ds_tl, ds_tmp1
+0000c0 c014                      	rjmp ds_l_sr_output_ret_w1
                                  	;results
                                  ds_l_sr_output_0:
-0000d6 944a                      	dec ds_tl
+0000c1 944a                      	dec ds_tl
                                  ds_l_sr_output_1:
-0000d7 944a                      	dec ds_tl
+0000c2 944a                      	dec ds_tl
                                  ds_l_sr_output_2:
-0000d8 944a                      	dec ds_tl
+0000c3 944a                      	dec ds_tl
                                  ds_l_sr_output_3:
-0000d9 944a                      	dec ds_tl
+0000c4 944a                      	dec ds_tl
                                  ds_l_sr_output_4:
-0000da 944a                      	dec ds_tl
+0000c5 944a                      	dec ds_tl
                                  ds_l_sr_output_5:
-0000db 944a                      	dec ds_tl
+0000c6 944a                      	dec ds_tl
                                  ds_l_sr_output_6:
-0000dc 944a                      	dec ds_tl
+0000c7 944a                      	dec ds_tl
                                  ds_l_sr_output_7:
-0000dd 944a                      	dec ds_tl
+0000c8 944a                      	dec ds_tl
                                  ds_l_sr_output_8:
-0000de 944a                      	dec ds_tl
+0000c9 944a                      	dec ds_tl
                                  ds_l_sr_output_9:
-0000df 944a                      	dec ds_tl
+0000ca 944a                      	dec ds_tl
                                  ds_l_sr_output_10:
-0000e0 944a                      	dec ds_tl
+0000cb 944a                      	dec ds_tl
                                  ds_l_sr_output_11:
-0000e1 944a                      	dec ds_tl
+0000cc 944a                      	dec ds_tl
                                  ds_l_sr_output_12:
-0000e2 944a                      	dec ds_tl
+0000cd 944a                      	dec ds_tl
                                  ds_l_sr_output_13:
-0000e3 944a                      	dec ds_tl
+0000ce 944a                      	dec ds_tl
                                  ds_l_sr_output_14:
-0000e4 944a                      	dec ds_tl
+0000cf 944a                      	dec ds_tl
                                  ds_l_sr_output_15:
-0000e5 e120                      	ldi ds_tmp1, 16
-0000e6 1924                      	sub ds_tmp1, ds_tl
+0000d0 e120                      	ldi ds_tmp1, 16
+0000d1 1924                      	sub ds_tmp1, ds_tl
                                  ds_l_sr_output_wait:
-0000e7 952a                      	dec ds_tmp1
-0000e8 f7f1                      	brne ds_l_sr_output_wait
+0000d2 952a                      	dec ds_tmp1
+0000d3 f7f1                      	brne ds_l_sr_output_wait
                                  ds_l_sr_output_ret:
-0000e9 9508                      	ret
+0000d4 9508                      	ret
                                  ds_l_sr_output_ret_w1:
-0000ea 0000                      	nop
-0000eb 9508                      	ret
+0000d5 0000                      	nop
+0000d6 9508                      	ret
                                  
                                  ;output compare match event isr
                                  ;params (0)'timer index' (1)'opponent timer index' (2)'side lowercase' (3)'opposite side uppercase'
@@ -2564,118 +2550,119 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zo
                                  .endmacro
                                  
                                  ds_isr_ic4:
-0000ec 9120 00a1
-0000ee 382b
-0000ef f089
-0000f0 9040 00a6
-0000f2 9050 00a7
-0000f4 e82b
-0000f5 9320 00a1
-0000f7 0192
-0000f8 5b24
-0000f9 4e33
-0000fa 9330 00a9
-0000fc 9320 00a8
-0000fe e222
-0000ff bb29
-000100 9518                      	DS_ISR_ICI 4
+0000d7 9120 00a1
+0000d9 382b
+0000da f089
+0000db 9040 00a6
+0000dd 9050 00a7
+0000df e82b
+0000e0 9320 00a1
+0000e2 0192
+0000e3 5b24
+0000e4 4e33
+0000e5 9330 00a9
+0000e7 9320 00a8
+0000e9 e222
+0000ea bb29
+0000eb 9518                      	DS_ISR_ICI 4
                                  
                                  ds_isr_oca4:
-000101 e820
-000102 9320 010b
-000104 e028
-000105 9320 00a1
-000107 2722
-000108 9320 0072
-00010a e120
-00010b e237
-00010c 9330 0129
-00010e 9320 0128
-000110 2722
-000111 9320 0125
-000113 9320 0124
-000115 9120 00a6
-000117 9130 00a7
-000119 df6d
-00011a fe47
-00011b 2c24
-00011c e222
-00011d 9320 0073
-00011f e222
-000120 bb29
-000121 bb2a
-000122 ec2b
-000123 9320 0121
-000125 9040 0126
-000127 9050 0127
-000129 e02d
-00012a 952a
-00012b f7f1
-00012c 2722
-00012d 9320 010b
-00012f 9518                      	DS_ISR_OCA 4, 5, l, R
+0000ec e820
+0000ed 9320 010b
+0000ef e028
+0000f0 9320 00a1
+0000f2 2722
+0000f3 9320 0072
+0000f5 e120
+0000f6 e237
+0000f7 9330 0129
+0000f9 9320 0128
+0000fb 2722
+0000fc 9320 0125
+0000fe 9320 0124
+000100 9120 00a6
+000102 9130 00a7
+000104 df6d
+000105 fe47
+000106 2c24
+000107 e222
+000108 9320 0073
+00010a e222
+00010b bb29
+00010c bb2a
+00010d ec2b
+00010e 9320 0121
+000110 9040 0126
+000112 9050 0127
+000114 e02d
+000115 952a
+000116 f7f1
+000117 2722
+000118 9320 010b
+00011a 9518                      	DS_ISR_OCA 4, 5, l, R
                                  
                                  ds_isr_ic5:
-000130 9120 0121
-000132 382b
-000133 f089
-000134 9040 0126
-000136 9050 0127
-000138 e82b
-000139 9320 0121
-00013b 0192
-00013c 5b24
-00013d 4e33
-00013e 9330 0129
-000140 9320 0128
-000142 e222
-000143 bb2a
-000144 9518                      	DS_ISR_ICI 5
+00011b 9120 0121
+00011d 382b
+00011e f089
+00011f 9040 0126
+000121 9050 0127
+000123 e82b
+000124 9320 0121
+000126 0192
+000127 5b24
+000128 4e33
+000129 9330 0129
+00012b 9320 0128
+00012d e222
+00012e bb2a
+00012f 9518                      	DS_ISR_ICI 5
                                  
                                  ds_isr_oca5:
-000145 e420
-000146 9320 010b
-000148 e028
-000149 9320 0121
-00014b 2722
-00014c 9320 0073
-00014e e120
-00014f e237
-000150 9330 00a9
-000152 9320 00a8
-000154 2722
-000155 9320 00a5
-000157 9320 00a4
-000159 9120 0126
-00015b 9130 0127
-00015d df29
-00015e fe47
-00015f 2c34
-000160 e222
-000161 9320 0072
-000163 e222
-000164 bb2a
-000165 bb29
-000166 ec2b
-000167 9320 00a1
-000169 9040 00a6
-00016b 9050 00a7
-00016d e02d
-00016e 952a
-00016f f7f1
-000170 2722
-000171 9320 010b
-000173 9518                      	DS_ISR_OCA 5, 4, r, L
+000130 e420
+000131 9320 010b
+000133 e028
+000134 9320 0121
+000136 2722
+000137 9320 0073
+000139 e120
+00013a e237
+00013b 9330 00a9
+00013d 9320 00a8
+00013f 2722
+000140 9320 00a5
+000142 9320 00a4
+000144 9120 0126
+000146 9130 0127
+000148 df29
+000149 fe47
+00014a 2c34
+00014b e222
+00014c 9320 0072
+00014e e222
+00014f bb2a
+000150 bb29
+000151 ec2b
+000152 9320 00a1
+000154 9040 00a6
+000156 9050 00a7
+000158 e02d
+000159 952a
+00015a f7f1
+00015b 2722
+00015c 9320 010b
+00015e 9518                      	DS_ISR_OCA 5, 4, r, L
                                  
+                                 ;##########################################
                                  #endif
                                  #undef CODE
                                  
                                  main:
                                  	;setup stack
-000174 e201                      	ldi r16, HIGH(RAMEND)
-000175 bf0e                      	out SPH, r16
-000176 ef0f                      	ldi r16, LOW(RAMEND)
-000177 bf0d                      	out SPL, r16
+00015f e201                      	ldi r16, HIGH(RAMEND)
+000160 bf0e                      	out SPH, r16
+000161 ef0f                      	ldi r16, LOW(RAMEND)
+000162 bf0d                      	out SPL, r16
                                  
                                  ;setup includes
                                  #define SETUP
@@ -2688,18 +2675,18 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zo
                                  #ifdef SETUP
                                  ;################## SETUP #################
                                  
-000178 930f                      	push r16
-000179 e607                      	ldi r16, LOW(UC_UBRR)
-00017a 9300 00c4                 	sts UC_UBRRL, r16
-00017c e000                      	ldi r16, HIGH(UC_UBRR)
-00017d 9300 00c5                 	sts UC_UBRRH, r16
-00017f 2700                      	clr r16
-000180 9300 00c0                 	sts UC_UCSRA, r16
-000182 e008                      	ldi r16, (1 << UC_TXEN)
-000183 9300 00c1                 	sts UC_UCSRB, r16
-000185 e806                      	ldi r16, (2 << UC_UMSEL) | (3 << UC_UCSZ)
-000186 9300 00c2                 	sts UC_UCSRC, r16
-000188 910f                      	pop r16
+000163 930f                      	push r16
+000164 e607                      	ldi r16, LOW(UC_UBRR)
+000165 9300 00c4                 	sts UC_UBRRL, r16
+000167 e000                      	ldi r16, HIGH(UC_UBRR)
+000168 9300 00c5                 	sts UC_UBRRH, r16
+00016a 2700                      	clr r16
+00016b 9300 00c0                 	sts UC_UCSRA, r16
+00016d e008                      	ldi r16, (1 << UC_TXEN)
+00016e 9300 00c1                 	sts UC_UCSRB, r16
+000170 e806                      	ldi r16, (2 << UC_UMSEL) | (3 << UC_UCSZ)
+000171 9300 00c2                 	sts UC_UCSRC, r16
+000173 910f                      	pop r16
                                  
                                  ;##########################################
                                  #endif
@@ -2712,17 +2699,13 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zo
                                  #ifdef SETUP
                                  ;################## SETUP #################
                                  
-000189 930f                      	push r16
-00018a b105                      	in r16, BL_PORT
-00018b 6800                      	ori r16, 1 << BL_PORT_BIT
-00018c b904                      	out BL_PORTD, r16
-00018d 910f                      	pop r16
+000174 930f                      	push r16
+000175 b105                      	in r16, BL_PORT
+000176 6800                      	ori r16, 1 << BL_PORT_BIT
+000177 b904                      	out BL_PORTD, r16
+000178 910f                      	pop r16
                                  
                                  ;##########################################
-                                 #endif
-                                 
-                                 
-                                 #ifdef CODE
                                  #endif
                                  #include "src/timer_utils.asm"
                                  
@@ -2732,38 +2715,42 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zo
                                  #endif
                                  
                                  #ifdef SETUP
+                                 ;################## SETUP #################
+                                 
                                  	;set trig port direction
-00018e ec20                      	ldi ds_tmp1, DS_TRIG_PORT_L | DS_TRIG_PORT_R
-00018f 9320 010a                 	sts DS_PORTD, ds_tmp1
+000179 ec20                      	ldi ds_tmp1, DS_TRIG_PORT_L | DS_TRIG_PORT_R
+00017a 9320 010a                 	sts DS_PORTD, ds_tmp1
                                  	;clear counter
-000191 2722                      	clr ds_tmp1
-000192 9320 00a5                 	sts TCNT4H, ds_tmp1
-000194 9320 00a4                 	sts TCNT4L, ds_tmp1
-000196 9320 0125                 	sts TCNT5H, ds_tmp1
-000198 9320 0124                 	sts TCNT5L, ds_tmp1
+00017c 2722                      	clr ds_tmp1
+00017d 9320 00a5                 	sts TCNT4H, ds_tmp1
+00017f 9320 00a4                 	sts TCNT4L, ds_tmp1
+000181 9320 0125                 	sts TCNT5H, ds_tmp1
+000183 9320 0124                 	sts TCNT5L, ds_tmp1
                                  	;set TCCRA (COMA1, COMA0, COMB1, COMB0, COMC1, COMC0, WGM1, WGM0)
-00019a e020                      	ldi ds_tmp1, DS_TCCRA_WGM
-00019b 9320 00a0                 	sts TCCR4A, ds_tmp1
-00019d 9320 0120                 	sts TCCR5A, ds_tmp1
+000185 e020                      	ldi ds_tmp1, DS_TCCRA_WGM
+000186 9320 00a0                 	sts TCCR4A, ds_tmp1
+000188 9320 0120                 	sts TCCR5A, ds_tmp1
                                  	;set TCCRB (ICNC, ICES, [0], WGM3, WGM2, CS2, CS1, CS0)
-00019f e82b                      	ldi ds_tmp1, DS_TCCRB_ICNC | DS_TCCRB_ICES_FALLING | DS_TCCRB_WGM | DS_TCCRB_CS
-0001a0 9320 00a1                 	sts TCCR4B, ds_tmp1
-0001a2 e028                      	ldi ds_tmp1, DS_TCCRB_WGM
-0001a3 9320 0121                 	sts TCCR5B, ds_tmp1
+00018a e82b                      	ldi ds_tmp1, DS_TCCRB_ICNC | DS_TCCRB_ICES_FALLING | DS_TCCRB_WGM | DS_TCCRB_CS
+00018b 9320 00a1                 	sts TCCR4B, ds_tmp1
+00018d e028                      	ldi ds_tmp1, DS_TCCRB_WGM
+00018e 9320 0121                 	sts TCCR5B, ds_tmp1
                                  	;set TCCRC (FOCA, FOCB, FOCC, [0], [0], [0], [0], [0]) 
-0001a5 2722                      	clr ds_tmp1
-0001a6 9320 00a2                 	sts TCCR4C, ds_tmp1
-0001a8 9320 0122                 	sts TCCR5C, ds_tmp1
+000190 2722                      	clr ds_tmp1
+000191 9320 00a2                 	sts TCCR4C, ds_tmp1
+000193 9320 0122                 	sts TCCR5C, ds_tmp1
                                  	;set TIMSK ([0], [0], ICIE, [0], OCIEC, OCIEB, OCIEA, TOIE)
-0001aa e022                      	ldi ds_tmp1, DS_TIMSK_OCIEA
-0001ab 9320 0072                 	sts TIMSK4, ds_tmp1
-0001ad 2722                      	clr ds_tmp1
-0001ae 9320 0073                 	sts TIMSK5, ds_tmp1
+000195 e022                      	ldi ds_tmp1, DS_TIMSK_OCIEA
+000196 9320 0072                 	sts TIMSK4, ds_tmp1
+000198 2722                      	clr ds_tmp1
+000199 9320 0073                 	sts TIMSK5, ds_tmp1
                                  	;set OCRA
-0001b0 e120                      	ldi ds_tmp1, LOW( DS_TIMEOUT_LOW_TOP )
-0001b1 e237                      	ldi ds_tmp2, HIGH( DS_TIMEOUT_LOW_TOP )
-0001b2 9330 00a9                 	sts OCR4AH, ds_tmp2
-0001b4 9320 00a8                 	sts OCR4AL, ds_tmp1
+00019b e120                      	ldi ds_tmp1, LOW( DS_TIMEOUT_LOW_TOP )
+00019c e237                      	ldi ds_tmp2, HIGH( DS_TIMEOUT_LOW_TOP )
+00019d 9330 00a9                 	sts OCR4AH, ds_tmp2
+00019f 9320 00a8                 	sts OCR4AL, ds_tmp1
+                                 
+                                 ;##########################################
                                  #endif
                                  
                                  #ifdef MACROS
@@ -2777,39 +2764,41 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zo
                                  #define CODE
                                  #include "main.asm"
                                  
+                                 ;################## CODE ##################
                                  
                                  l_reset:
-0001b6 9478                      	SEI
+0001a1 9478                      	SEI
                                  
                                  l_loop:	
-0001b7 930f
-0001b8 9100 00c0
-0001ba ff05
-0001bb cffc
-0001bc e609
-0001bd 9300 00c6
-0001bf 910f                      	UC_SR_I 'i'
-0001c0 922f
-0001c1 9020 00c0
-0001c3 fe25
-0001c4 cffc
-0001c5 902f
-0001c6 9220 00c6                 	UC_SR ds_out_l
-0001c8 930f
-0001c9 9100 00c0
-0001cb ff05
-0001cc cffc
-0001cd e602
-0001ce 9300 00c6
-0001d0 910f                      	UC_SR_I 'b'
-0001d1 923f
-0001d2 9030 00c0
-0001d4 fe35
-0001d5 cffc
-0001d6 903f
-0001d7 9230 00c6                 	UC_SR ds_out_r
-0001d9 cfdd                      	rjmp l_loop
+0001a2 930f
+0001a3 9100 00c0
+0001a5 ff05
+0001a6 cffc
+0001a7 e609
+0001a8 9300 00c6
+0001aa 910f                      	UC_SR_I 'i'
+0001ab 922f
+0001ac 9020 00c0
+0001ae fe25
+0001af cffc
+0001b0 902f
+0001b1 9220 00c6                 	UC_SR ds_out_l
+0001b3 930f
+0001b4 9100 00c0
+0001b6 ff05
+0001b7 cffc
+0001b8 e602
+0001b9 9300 00c6
+0001bb 910f                      	UC_SR_I 'b'
+0001bc 923f
+0001bd 9030 00c0
+0001bf fe35
+0001c0 cffc
+0001c1 903f
+0001c2 9230 00c6                 	UC_SR ds_out_r
+0001c4 cfdd                      	rjmp l_loop
                                  
+                                 ;##########################################
                                  #endif
                                  #undef CODE
 
@@ -2831,14 +2820,14 @@ counted separately from r26..r31 here.
 "ATmega2560" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   6 r3 :   6 r4 :  30 
 r5 :  24 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  48 r17:   4 r18: 113 r19:  50 r20:   0 
+r13:   0 r14:   0 r15:   0 r16:  33 r17:   0 r18: 113 r19:  50 r20:   0 
 r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
-Registers used: 8 out of 35 (22.9%)
+Registers used: 7 out of 35 (20.0%)
 
 "ATmega2560" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
-andi  :   1 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
+andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   0 brcs  :   0 break :   0 breq  :   2 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :  16 brlt  :   0 brmi  :   0 
 brne  :   5 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
@@ -2846,23 +2835,23 @@ brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :  10 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :  16 
 cpi   :  18 cpse  :   0 dec   :  19 eicall:   0 eijmp :   0 elpm  :   0 
-eor   :   1 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   4 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  57 
+eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
+in    :   1 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  56 
 lds   :  18 lpm   :   0 lsl   :   0 lsr   :   0 mov   :   6 movw  :   2 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   1 or    :   0 
-ori   :   2 out   :  12 pop   :  10 push  :  10 rcall :   2 ret   :   5 
+ori   :   1 out   :   9 pop   :   6 push  :   6 rcall :   2 ret   :   2 
 reti  :   4 rjmp  :  12 rol   :   0 ror   :   0 sbc   :   1 sbci  :   2 
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   0 
 sbrs  :   6 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   0 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
 st    :   0 std   :   0 sts   :  50 sub   :   2 subi  :   2 swap  :   0 
 tst   :   0 wdr   :   0 
-Instructions used: 30 out of 116 (25.9%)
+Instructions used: 28 out of 116 (24.1%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0003b4    730      0    730  262144   0.3%
+[.cseg] 0x000000 0x00038a    688      0    688  262144   0.3%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 

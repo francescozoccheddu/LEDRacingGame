@@ -5,6 +5,36 @@
 	.equ BL_PORT = PORTB
 	.equ BL_PORT_BIT = PORTB7
 
+;params (0)'dirty register'
+.macro BL_SR_ON
+	in @0, BL_PORT
+	ori @0, 1 << BL_PORT_BIT
+	out BL_PORT, @0
+.endmacro
+
+;params (0)'dirty register'
+.macro BL_SR_OFF
+	in @0, BL_PORT
+	andi @0, !(1 << BL_PORT_BIT)
+	out BL_PORT, @0
+.endmacro
+
+;params (0)'dirty register'
+.macro BL_SR_TOGGLE
+	in @0, BL_PORT
+	andi @0, !(1 << BL_PORT_BIT)
+	sbrs @0, BL_PORT_BIT
+	ori @0, 1 << BL_PORT_BIT
+	out BL_PORT, @0
+.endmacro
+
+;params (0)'subroutine'
+.macro BL_M_SAFE
+	push r16
+	@0 r16
+	pop r16
+.endmacro
+
 ;##########################################
 #endif
 
@@ -17,40 +47,6 @@
 	ori r16, 1 << BL_PORT_BIT
 	out BL_PORTD, r16
 	pop r16
-
-;##########################################
-#endif
-
-
-#ifdef CODE
-;################## CODE ##################
-
-bl_sr_toggle:
-	push r16
-	push r17
-	ldi r17, 1 << BL_PORT_BIT
-	in r16, BL_PORT
-	eor r16, r17
-	out BL_PORT, r16
-	pop r17
-	pop r16
-	ret
-
-bl_sr_on:
-	push r16
-	in r16, BL_PORT
-	ori r16, 1 << BL_PORT_BIT
-	out BL_PORT, r16
-	pop r16
-	ret
-
-bl_sr_off:
-	push r16
-	in r16, BL_PORT
-	andi r16, ! (1 << BL_PORT_BIT)
-	out BL_PORT, r16
-	pop r16
-	ret
 
 ;##########################################
 #endif
