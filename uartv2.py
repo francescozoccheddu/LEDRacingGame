@@ -1,4 +1,3 @@
-import sys
 import argparse
 import serial
 import serial.tools.list_ports
@@ -42,29 +41,102 @@ class SerialWrapper:
             return True
         return False
 
-class EscapeHandler:
-    def __init__(self, char, processFunc):
-        self.char = char
-        self.processFunc = processFunc
-
-    def process(self, stream, session):
-        return self.processFunc(stream, session)
-
-    def getChar(self):
-        return self.char
-
-def proc(stream, session):
-    return str(session.byteToInt(stream.read(session.ser)))
 
 class Session:
 
-    escapeHandlers = [EscapeHandler("c", proc)]    
+    @staticmethod
+    def genEscapeHandlers():
+
+        class EscapeHandler:
+            def __init__(self, char, description):
+                self.char = char
+                self.description = description
+            
+            def process(self, stream, session):
+                raise NotImplementedError("Abstract EscapeHandler")
+
+            def getDescription(self):
+                return self.description
+
+            def getChar(self):
+                return self.char
+
+        handlers = []
+
+        #Binary byte
+        class BinByteEscapeHandler(EscapeHandler):
+            def process(self, stream, session):
+                return str(session.intToBin(session.byteToInt(stream.read(session.ser))))
+
+        handlers += [BinByteEscapeHandler("b", "print next byte as binary string")]
+
+        #Hex byte
+        class HexByteEscapeHandler(EscapeHandler):
+            def process(self, stream, session):
+                return str(session.intToHex(session.byteToInt(stream.read(session.ser))))
+
+        handlers += [HexByteEscapeHandler("h", "print next byte as hexadecimal string")]
+
+        #Integer byte
+        class IntegerByteEscapeHandler(EscapeHandler):
+            def process(self, stream, session):
+                return str(session.byteToInt(stream.read(session.ser)))
+
+        handlers += [IntegerByteEscapeHandler("i", "print next byte as decimal integer")]
+
+        #Integer word
+        class IntegerWordEscapeHandler(EscapeHandler):
+            def process(self, stream, session):
+                return str((session.byteToInt(stream.read(session.ser)) << 8) | session.byteToInt(stream.read(session.ser)))
+
+        handlers += [IntegerWordEscapeHandler("d", "print next word as decimal integer")]
+
+        #Ascii byte
+        class AsciiByteEscapeHandler(EscapeHandler):
+            def process(self, stream, session):
+                return str(chr(session.byteToInt(stream.read(session.ser))))
+
+        handlers += [AsciiByteEscapeHandler("a", "print next byte as ascii char")]
+
+        #Discard byte
+        class DiscardByteEscapeHandler(EscapeHandler):
+            def process(self, stream, session):
+                stream.read(session.ser)
+                return ""
+
+        handlers += [DiscardByteEscapeHandler("x", "discard next byte")]
+
+        #Recursive escape
+        class RecursiveByteEscapeHandler(EscapeHandler):
+            def process(self, stream, session):
+                resc = str(chr(session.byteToInt(stream.read(session.ser))))
+                if resc == self.getChar():
+                    return "<RECESC>"
+                return session.processEscape(resc, stream)
+
+        handlers += [RecursiveByteEscapeHandler("e", "use next byte as ascii escape char")]
+        
+        return handlers
+
+    escapeHandlers = genEscapeHandlers.__func__()    
+
+    @staticmethod
+    def printEscapeHandlers():
+        print("Available format chars:")
+        for h in Session.escapeHandlers:
+            print("  " + h.getChar() + "  " + h.getDescription())
 
     def __init__(self, ser, escape, byteorder, formats):
-        self.formats = formats
         self.ser = ser
         self.escape = escape
         self.byteorder = byteorder
+        if formats is None:
+            for h in Session.escapeHandlers:
+                if isinstance(h, "AsciiByteEscapeHandler"):
+                    self.formats = [escape + h.getChar()]
+                    break
+        else:
+            self.formats = formats
         self.streams = []
         for f in formats:
             stream = SerialStream()
@@ -73,10 +145,16 @@ class Session:
     def byteToInt(self, byte):
         return int.from_bytes(byte, byteorder=self.byteorder)
 
+    def intToBin(self, integer):
+        return bin(integer).lstrip("0b").zfill(8)
+
+    def intToHex(self, integer):
+        return hex(integer).lstrip("0x").zfill(2)        
+
     def processEscape(self, escape, stream):
-        for eh in Session.escapeHandlers:
-            if eh.getChar() == escape:
-                return eh.process(stream, self)
+        for h in Session.escapeHandlers:
+            if escape == h.getChar():
+                return h.process(stream, self)
         return "<BADESC>"
 
     def read(self):
@@ -140,12 +218,14 @@ def parseArgs():
     choices = "big", "little"
     fGroup.add_argument("-bo", "--byteorder", type=str, default=default, choices=choices, help="format byte order")
     #Help
-    fGroup.add_argument("-fh", "--fhelp", action="store_true", help="show format help message")
+    fGroup.add_argument("-fl", "--flist", action="store_true", help="list format chars")
 
     #Connection group
     cGroup = parser.add_argument_group("connection settings")
     #List
-    cGroup.add_argument("-l", "--list", action="store_true", help="list available ports")    
+    clGroup = cGroup.add_mutually_exclusive_group()
+    clGroup.add_argument("-l", "--list", action="store_true", help="list available ports")
+    clGroup.add_argument("-le", "--listex", action="store_true", help="list available ports and their description") 
     #Port
     cGroup.add_argument("-p", "--port", type=str, help="port to connect to")
     #Baud rate
@@ -172,15 +252,38 @@ def parseArgs():
     cGroup.add_argument("-rc", "--rtscts", action="store_true", help="enable RTS/CTS")
     #DSR/DTR
     cGroup.add_argument("-dd", "--dsrdtr", action="store_true", help="enable DSR/DTR")
+    
     return parser.parse_args()
 
 def main():
-    print()
     print("Serial monitor")
     print("Copyright (c) 2017 Francesco Zoccheddu")
-    print()
     args = parseArgs()
-    print(args.port)
+
+    if args.flist:
+        print()
+        Session.printEscapeHandlers()
+
+    if args.list or args.listex:
+        print()
+        ports = serial.tools.list_ports.comports()
+        if len(ports) > 0:
+            print("Avaliable ports:")
+            for p in ports:
+                if args.listex:
+                    print(p.device + "\t" + p.description)
+                else:
+                    print(p.device)
+        else:
+            print("No port available")
+
+    if args.port is not None:
+        print()
+        if args.port in serial.tools.list_ports.comports():
+            print("Port " + qt(args.port) + " available")
+            sw = 
+        else:
+            print("Port " + qt(args.port) + " not available")
 
 if __name__ == "__main__":
     main()
