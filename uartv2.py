@@ -1,13 +1,16 @@
 import argparse
 import serial
+import signal
+import collections
+import sys
 import serial.tools.list_ports
 
 class SerialStream:
     def __init__(self):
         self.ptr = 0
 
-    def read(self, ser):
-        byte = ser.peek(self.ptr)
+    def read(self, sw):
+        byte = sw.peek(self.ptr)
         self.ptr += 1
         return byte
 
@@ -35,7 +38,7 @@ class SerialWrapper:
         self.buf = self.buf[count:]
 
     def close(self):
-        if (self.ser is not None):
+        if self.ser is not None:
             self.ser.close()
             self.ser = None
             return True
@@ -66,42 +69,42 @@ class Session:
         #Binary byte
         class BinByteEscapeHandler(EscapeHandler):
             def process(self, stream, session):
-                return str(session.intToBin(session.byteToInt(stream.read(session.ser))))
+                return str(session.intToBin(session.byteToInt(stream.read(session.sw))))
 
         handlers += [BinByteEscapeHandler("b", "print next byte as binary string")]
 
         #Hex byte
         class HexByteEscapeHandler(EscapeHandler):
             def process(self, stream, session):
-                return str(session.intToHex(session.byteToInt(stream.read(session.ser))))
+                return str(session.intToHex(session.byteToInt(stream.read(session.sw))))
 
         handlers += [HexByteEscapeHandler("h", "print next byte as hexadecimal string")]
 
         #Integer byte
         class IntegerByteEscapeHandler(EscapeHandler):
             def process(self, stream, session):
-                return str(session.byteToInt(stream.read(session.ser)))
+                return str(session.byteToInt(stream.read(session.sw)))
 
         handlers += [IntegerByteEscapeHandler("i", "print next byte as decimal integer")]
 
         #Integer word
         class IntegerWordEscapeHandler(EscapeHandler):
             def process(self, stream, session):
-                return str((session.byteToInt(stream.read(session.ser)) << 8) | session.byteToInt(stream.read(session.ser)))
+                return str((session.byteToInt(stream.read(session.sw)) << 8) | session.byteToInt(stream.read(session.sw)))
 
         handlers += [IntegerWordEscapeHandler("d", "print next word as decimal integer")]
 
         #Ascii byte
         class AsciiByteEscapeHandler(EscapeHandler):
             def process(self, stream, session):
-                return str(chr(session.byteToInt(stream.read(session.ser))))
+                return str(chr(session.byteToInt(stream.read(session.sw))))
 
         handlers += [AsciiByteEscapeHandler("a", "print next byte as ascii char")]
 
         #Discard byte
         class DiscardByteEscapeHandler(EscapeHandler):
             def process(self, stream, session):
-                stream.read(session.ser)
+                stream.read(session.sw)
                 return ""
 
         handlers += [DiscardByteEscapeHandler("x", "discard next byte")]
@@ -109,12 +112,26 @@ class Session:
         #Recursive escape
         class RecursiveByteEscapeHandler(EscapeHandler):
             def process(self, stream, session):
-                resc = str(chr(session.byteToInt(stream.read(session.ser))))
+                resc = str(chr(session.byteToInt(stream.read(session.sw))))
                 if resc == self.getChar():
                     return "<RECESC>"
                 return session.processEscape(resc, stream)
 
         handlers += [RecursiveByteEscapeHandler("e", "use next byte as ascii escape char")]
+
+        #New line
+        class NewlineEscapeHandler(EscapeHandler):
+            def process(self, stream, session):
+                return "\n"
+
+        handlers += [NewlineEscapeHandler("n", "print new line")]
+
+        #Tab
+        class TabEscapeHandler(EscapeHandler):
+            def process(self, stream, session):
+                return "\t"
+
+        handlers += [TabEscapeHandler("t", "print tab")]
         
         return handlers
 
@@ -126,19 +143,14 @@ class Session:
         for h in Session.escapeHandlers:
             print("  " + h.getChar() + "  " + h.getDescription())
 
-    def __init__(self, ser, escape, byteorder, formats):
-        self.ser = ser
+    def __init__(self, sw, escape, byteorder, formats, buffer):
+        self.sw = sw
         self.escape = escape
         self.byteorder = byteorder
-        if formats is None:
-            for h in Session.escapeHandlers:
-                if isinstance(h, "AsciiByteEscapeHandler"):
-                    self.formats = [escape + h.getChar()]
-                    break
-        else:
-            self.formats = formats
+        self.formats = formats if formats is not None else [escape + "a"]
+        self.buffer = buffer
         self.streams = []
-        for f in formats:
+        for f in self.formats:
             stream = SerialStream()
             self.streams += [stream]
 
@@ -169,13 +181,21 @@ class Session:
                     buf += t[1:]
                 else:
                     buf += self.processEscape(self.escape, s)
-        minInd = None
-        for s in self.streams:
-            if minInd is None or minInd > s.getIndex():
-                minInd = s.getIndex()
-        for s in self.streams:
-            s.trim(minInd)
-        self.ser.pop(minInd)
+        if self.buffer:
+            minInd = None
+            for s in self.streams:
+                if minInd is None or minInd > s.getIndex():
+                    minInd = s.getIndex()
+            for s in self.streams:
+                s.trim(minInd)
+            self.sw.pop(minInd)
+        else:
+            maxInd = None
+            for s in self.streams:
+                if maxInd is None or maxInd < s.getIndex():
+                    maxInd = s.getIndex()
+                s.trim(s.getIndex())
+            self.sw.pop(maxInd)
         return buf
                 
                 
@@ -204,19 +224,21 @@ def parseArgs():
     oGroup.add_argument("-of", "--ofile", type=argparse.FileType('w'), action="append", help="output to file")
     #Char limit
     default = 65535
-    oGroup.add_argument("-om", "--omax", type=checkPositive, default=default, help="output to file characters limit")
+    oGroup.add_argument("-om", "--omax", type=checkPositive, default=default, help="output to file formatted line limit")
 
     #Format group
     fGroup = parser.add_argument_group("format settings")    
     #Format string
     fGroup.add_argument("-f", "--format", type=str, action='append', help="custom format strings")
     #Escape char
-    default = "\\"
+    default = "%"
     fGroup.add_argument("-e", "--escape", type=checkChar, default=default, help="format escape char")
     #Escape char
     default = "big"
     choices = "big", "little"
     fGroup.add_argument("-bo", "--byteorder", type=str, default=default, choices=choices, help="format byte order")
+    #Bufferize
+    fGroup.add_argument("-fb", "--fbuffer", action="store_true", help="allow asynchronous format strings with buffer")
     #Help
     fGroup.add_argument("-fl", "--flist", action="store_true", help="list format chars")
 
@@ -238,7 +260,7 @@ def parseArgs():
     #Parity bits
     default = "NONE"
     choices = ["NONE", "EVEN", "ODD", "SPACE", "MARK"]
-    cGroup.add_argument("-pb", "--parbits", choices=choices, default=default, help="set parity bits")
+    cGroup.add_argument("-pb", "--parity", choices=choices, default=default, help="set parity bits")
     #Stop bits
     default = "ONE"
     choices = ["ONE", "ONE_POINT_FIVE", "TWO"]
@@ -247,7 +269,7 @@ def parseArgs():
     default = 1
     cGroup.add_argument("-t", "--timeout", type=checkPositive, default=default, help="set timeout")
     #Software flow control 
-    cGroup.add_argument("-sfc", "--swfctl", action="store_true", help="enable software flow control")
+    cGroup.add_argument("-sfc", "--swflowctl", action="store_true", help="enable software flow control")
     #RTS/CTS
     cGroup.add_argument("-rc", "--rtscts", action="store_true", help="enable RTS/CTS")
     #DSR/DTR
@@ -277,11 +299,74 @@ def main():
         else:
             print("No port available")
 
+    if (args.fbuffer):
+        print()
+        print("Warning: Format buffer enabled")
+        print("This may cause high memory consumption")                
+
     if args.port is not None:
         print()
-        if args.port in serial.tools.list_ports.comports():
+        ports = serial.tools.list_ports.comports()
+        available = False
+        for p in ports:
+            if args.port == p.device:
+                available = True
+                break
+
+        if available:
             print("Port " + qt(args.port) + " available")
-            sw = 
+            sw = None
+            try:
+                sw = SerialWrapper(args.port, args.baudrate, args.bytesize, getattr(serial, "PARITY_" + args.parity), getattr(serial, "STOPBITS_" + args.stopbits), args.timeout, args.swflowctl, args.rtscts, args.dsrdtr)
+                print("Connection to port " + qt(args.port) + " opened")
+            except (ValueError, serial.SerialException) as err:
+                print("Error happened while connecting to port " + qt(args.port) + ":")
+                print(err)
+
+            if sw is not None:
+                session = Session(sw, args.escape, args.byteorder, args.format, args.fbuffer)
+                history = collections.deque([], maxlen=args.omax) if args.ofile is not None else None
+
+                try:
+                    running = True
+                    
+                    def quitSignal(signal, frame):
+                        nonlocal running
+                        if running:
+                            running = False
+                        else:
+                            print()
+                            print("Aborted by keyboard")
+                            sys.exit(0)
+                        return
+                    
+                    signal.signal(signal.SIGINT, quitSignal)
+                    signal.signal(signal.SIGTERM, quitSignal)
+
+                    while running:
+                        line = session.read()
+                        if history is not None:
+                            history.extend(line)
+                        sys.stdout.write(line)
+                        sys.stdout.flush()
+                
+                except serial.SerialException as err:
+                    print()
+                    print("Error happened while reading from port " + qt(args.port) + ":")
+                    print(err)
+    
+                if sw.close():
+                    print()                    
+                    print("Connection to port " + qt(args.port) + " closed")
+
+                if args.ofile is not None:
+                    print()
+                    print("Writing " + str(len(history)) + " formatted lines to output file" + ("s" if len(args.ofile) > 1 else ""))
+                    for f in args.ofile:
+                        for l in history:
+                            f.write(l)
+                        f.close()
+                        print("Succesfully written to file " + f.name)
         else:
             print("Port " + qt(args.port) + " not available")
 
