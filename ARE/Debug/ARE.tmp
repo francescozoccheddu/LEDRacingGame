@@ -54,7 +54,7 @@
   <ds_l_sr_output_15><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>245</LINE></ds_l_sr_output_15>
   <ds_l_sr_output_ret_w1><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>253</LINE></ds_l_sr_output_ret_w1>
   <ds_l_sr_output_wait><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>248</LINE></ds_l_sr_output_wait>
-  <l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>4</LINE></l_reset>
-  <l_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>7</LINE></l_loop>
+  <l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>6</LINE></l_reset>
+  <l_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>9</LINE></l_loop>
  </LABELS>
 </ASSEMBLER_INFO>
