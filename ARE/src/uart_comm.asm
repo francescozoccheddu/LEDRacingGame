@@ -36,6 +36,17 @@
 	pop r16
 .endmacro
 
+;params (0)'sram address'
+.macro UC_SR_R
+	push r16
+	lds r16, UC_UCSRA
+	sbrs r16, UC_UDRE
+	rjmp PC - 3
+	lds r16, @0
+	sts UC_UDR, r16
+	pop r16
+.endmacro
+
 ;##########################################
 #endif
 
