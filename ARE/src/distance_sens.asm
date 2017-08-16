@@ -55,11 +55,11 @@
 ;##########################################
 #endif
 
-#ifdef MACROS
-;################# MACROS #################
+#ifdef SRAM
+;################## SRAM ##################
 
-	.def ds_out_l = r2
-	.def ds_out_r = r3
+	sram_byte DS_R_OUT_L
+	sram_byte DS_R_OUT_R
 
 ;##########################################
 #endif
@@ -255,7 +255,7 @@ ds_l_sr_output_ret_w1:
 	ret
 
 ;output compare match event isr
-;params (0)'timer index' (1)'opponent timer index' (2)'side lowercase' (3)'opposite side uppercase'
+;params (0)'timer index' (1)'opponent timer index' (2)'side' (3)'opposite side'
 .macro DS_ISR_OCA
 	;start opponent trigger signal
 	ldi ds_tmp1, DS_TRIG_PORT_@3
@@ -280,7 +280,7 @@ ds_l_sr_output_ret_w1:
 	lds ds_tmp2, ICR@0H
 	rcall ds_sr_output
 	sbrs ds_tl, DS_OUT_FAILURE_BIT
-	mov ds_out_@2, ds_tl
+	sts DS_R_OUT_@2, ds_tl
 	;set opponent timer interrupts
 	ldi ds_tmp1, DS_TIMSK_ICIE | DS_TIMSK_OCIEA
 	sts TIMSK@1, ds_tmp1
@@ -294,7 +294,7 @@ ds_l_sr_output_ret_w1:
 	;clear records
 	lds ds_tl, ICR@1L
 	lds ds_th, ICR@1H
-	;wait for 10uS (117 cycles to 160 cycles)
+	;wait for 10uS (116 cycles to 160 cycles)
 	ldi  ds_tmp1, 13
 	dec  ds_tmp1
     brne PC - 1
@@ -308,13 +308,13 @@ ds_isr_ic4:
 	DS_ISR_ICI 4
 
 ds_isr_oca4:
-	DS_ISR_OCA 4, 5, l, R
+	DS_ISR_OCA 4, 5, L, R
 
 ds_isr_ic5:
 	DS_ISR_ICI 5
 
 ds_isr_oca5:
-	DS_ISR_OCA 5, 4, r, L
+	DS_ISR_OCA 5, 4, R, L
 
 ;##########################################
 #endif

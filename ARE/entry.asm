@@ -8,14 +8,14 @@
 .set ENTRY_RAM_PTR = SRAM_START
 
 ;params (0)'name' (1)'bytes'
-.macro def_sram_bytes
+.macro sram_bytes
 	.equ @0 = ENTRY_RAM_PTR
 	.set ENTRY_RAM_PTR = ENTRY_RAM_PTR + @1
 .endmacro
 
 ;params (0)'name'
-.macro def_sram_byte
-	def_ram_bytes @0, 1
+.macro sram_byte
+	sram_bytes @0, 1
 .endmacro
 
 #define SRAM
