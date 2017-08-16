@@ -1,6 +1,8 @@
 #ifdef CODE
 ;################## CODE ##################
 
+.error "TODO: Ram in Dsens"
+
 l_reset:
 	SEI
 
