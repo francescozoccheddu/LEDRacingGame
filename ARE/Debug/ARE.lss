@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm Wed Aug 16 15:36:23 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm Thu Aug 17 16:59:54 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -1970,7 +1970,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  
                                  #endif
                                  
-                                 
                                  #ifdef SETUP
                                  #endif
                                  
@@ -1986,18 +1985,21 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  #endif
                                  #include "src/distance_sens.asm"
                                  
-                                 #endif
-                                 
-                                 #ifdef SETUP
-                                 #endif
-                                 
-                                 #ifdef SRAM
                                  ;################## SRAM ##################
                                  
                                  	sram_byte DS_R_OUT_L
                                  	sram_byte DS_R_OUT_R
                                  
                                  ;##########################################
+                                 #endif
+                                 
+                                 #ifdef MACROS
+                                 #endif
+                                 
+                                 #ifdef INTV
+                                 #endif
+                                 
+                                 #ifdef SETUP
                                  #endif
                                  
                                  #ifdef CODE
@@ -2063,7 +2065,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  ;##########################################
                                  #endif
                                  
-                                 
                                  #ifdef SETUP
                                  #endif
                                  
@@ -2115,14 +2116,12 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  
                                  ;################# MACROS #################
                                  
-                                 	;prescaler values
                                  	.equ TIMUTILS_PSCL_1 = 1
                                  	.equ TIMUTILS_PSCL_2 = 8
                                  	.equ TIMUTILS_PSCL_3 = 64
                                  	.equ TIMUTILS_PSCL_4 = 256
                                  	.equ TIMUTILS_PSCL_5 = 1024
                                  
-                                 ;compute prescaler for timer and time
                                  ;params (0)'time sec' (1)'timer bits' (2)'equ export name'
                                  .macro TIMUTILS_M_PSCL
                                  	.if ( (@0) * FOSC < ((1 << (@1)) * TIMUTILS_PSCL_1) )
@@ -2141,7 +2140,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  .endmacro
                                  
                                  
-                                 ;compute CS for prescaler
                                  ;params (0)'prescaler' (1)'equ export name'
                                  .macro TIMUTILS_M_CS
                                  	.if ( (@0) == TIMUTILS_PSCL_1 )
@@ -2159,7 +2157,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  	.endif
                                  .endmacro
                                  
-                                 ;compute top for prescaler and time
                                  ;params (0)'prescaler' (1)'time sec' (2)'export name'
                                  .macro TIMUTILS_M_TOP
                                  	.equ @2 = INT( (FOSC / (@0)) * (@1) )
@@ -2171,10 +2168,21 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  
                                  #endif
                                  
-                                 #ifdef SETUP
+                                 #ifdef MACROS
+                                 ;################# MACROS #################
+                                 
+                                 	.def ds_tl = r4
+                                 	.def ds_th = r5
+                                 	.def ds_tmp1 = r18
+                                 	.def ds_tmp2 = r19
+                                 
+                                 ;##########################################
                                  #endif
                                  
-                                 #ifdef SRAM
+                                 #ifdef INTV
+                                 #endif
+                                 
+                                 #ifdef SETUP
                                  #endif
                                  
                                  #ifdef CODE
@@ -2191,7 +2199,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  
                                  #endif
                                  
-                                 
                                  #ifdef SETUP
                                  #endif
                                  
@@ -2207,6 +2214,12 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  #endif
                                  #include "src/distance_sens.asm"
                                  
+                                 #endif
+                                 
+                                 #ifdef MACROS
+                                 #endif
+                                 
+                                 #ifdef INTV
                                  ;################## INTV ##################
                                  
                                  	.org ICP4addr
@@ -2227,9 +2240,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  #ifdef SETUP
                                  #endif
                                  
-                                 #ifdef SRAM
-                                 #endif
-                                 
                                  #ifdef CODE
                                  #endif
                                  #include "main.asm"
@@ -2248,7 +2258,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  
                                  #endif
                                  
-                                 
                                  #ifdef SETUP
                                  #endif
                                  
@@ -2266,19 +2275,17 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  
                                  #endif
                                  
-                                 #ifdef SETUP
+                                 #ifdef MACROS
                                  #endif
                                  
-                                 #ifdef SRAM
+                                 #ifdef INTV
+                                 #endif
+                                 
+                                 #ifdef SETUP
                                  #endif
                                  
                                  #ifdef CODE
                                  ;################## CODE ##################
-                                 
-                                 	.def ds_tl = r4
-                                 	.def ds_th = r5
-                                 	.def ds_tmp1 = r18
-                                 	.def ds_tmp2 = r19
                                  
                                  	;ports
                                  	.equ DS_PORT = PORTL
@@ -2682,7 +2689,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  
                                  #endif
                                  
-                                 
                                  #ifdef SETUP
                                  ;################## SETUP #################
                                  
@@ -2725,6 +2731,12 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  
                                  #endif
                                  
+                                 #ifdef MACROS
+                                 #endif
+                                 
+                                 #ifdef INTV
+                                 #endif
+                                 
                                  #ifdef SETUP
                                  ;################## SETUP #################
                                  
@@ -2762,9 +2774,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
 0001a1 9320 00a8                 	sts OCR4AL, ds_tmp1
                                  
                                  ;##########################################
-                                 #endif
-                                 
-                                 #ifdef SRAM
                                  #endif
                                  
                                  #ifdef CODE
