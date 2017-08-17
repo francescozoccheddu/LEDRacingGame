@@ -1,3 +1,23 @@
+#ifdef SRAM
+;################## SRAM ##################
+
+	sram_byte DS_R_OUT_L
+	sram_byte DS_R_OUT_R
+
+;##########################################
+#endif
+
+#ifdef MACROS
+;################# MACROS #################
+
+	.def ds_tl = r4
+	.def ds_th = r5
+	.def ds_tmp1 = r18
+	.def ds_tmp2 = r19
+
+;##########################################
+#endif
+
 #ifdef INTV
 ;################## INTV ##################
 
@@ -55,22 +75,8 @@
 ;##########################################
 #endif
 
-#ifdef SRAM
-;################## SRAM ##################
-
-	sram_byte DS_R_OUT_L
-	sram_byte DS_R_OUT_R
-
-;##########################################
-#endif
-
 #ifdef CODE
 ;################## CODE ##################
-
-	.def ds_tl = r4
-	.def ds_th = r5
-	.def ds_tmp1 = r18
-	.def ds_tmp2 = r19
 
 	;ports
 	.equ DS_PORT = PORTL
