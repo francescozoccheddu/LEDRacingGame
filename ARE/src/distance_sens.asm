@@ -15,6 +15,30 @@
 	.def ds_tmp1 = r18
 	.def ds_tmp2 = r19
 
+	.equ DS_TCNTL_L = TCNT4L
+	.equ DS_TCNTH_L = TCNT4H
+	.equ DS_TCCRA_L = TCCR4A
+	.equ DS_TCCRB_L = TCCR4B
+	.equ DS_TCCRC_L = TCCR4C
+	.equ DS_TIMSK_L = TIMSK4
+	.equ DS_OCRAL_L = OCR4AL
+	.equ DS_OCRAH_L = OCR4AH
+	.equ DS_TIFR_L = TIFR4
+	.equ DS_ICRL_L = ICR4L
+	.equ DS_ICRH_L = ICR4H
+
+	.equ DS_TCNTL_R = TCNT5L
+	.equ DS_TCNTH_R = TCNT5H
+	.equ DS_TCCRA_R = TCCR5A
+	.equ DS_TCCRB_R = TCCR5B
+	.equ DS_TCCRC_R = TCCR5C
+	.equ DS_TIMSK_R = TIMSK5
+	.equ DS_OCRAL_R = OCR5AL
+	.equ DS_OCRAH_R = OCR5AH
+	.equ DS_TIFR_R = TIFR5
+	.equ DS_ICRL_R = ICR5L
+	.equ DS_ICRH_R = ICR5H
+
 ;##########################################
 #endif
 
@@ -22,16 +46,16 @@
 ;################## INTV ##################
 
 	.org ICP4addr
-	rjmp ds_isr_ic4
+	rjmp ds_isr_ic_l
 
 	.org ICP5addr
-	rjmp ds_isr_ic5
+	rjmp ds_isr_ic_r
 
 	.org OC4Aaddr
-	rjmp ds_isr_oca4
+	rjmp ds_isr_oca_l
 
 	.org OC5Aaddr
-	rjmp ds_isr_oca5
+	rjmp ds_isr_oca_r
 
 ;##########################################
 #endif
@@ -44,33 +68,33 @@
 	sts DS_PORTD, ds_tmp1
 	;clear counter
 	clr ds_tmp1
-	sts TCNT4H, ds_tmp1
-	sts TCNT4L, ds_tmp1
-	sts TCNT5H, ds_tmp1
-	sts TCNT5L, ds_tmp1
+	sts DS_TCNTH_L, ds_tmp1
+	sts DS_TCNTL_L, ds_tmp1
+	sts DS_TCNTH_R, ds_tmp1
+	sts DS_TCNTL_R, ds_tmp1
 	;set TCCRA (COMA1, COMA0, COMB1, COMB0, COMC1, COMC0, WGM1, WGM0)
 	ldi ds_tmp1, DS_TCCRA_WGM
-	sts TCCR4A, ds_tmp1
-	sts TCCR5A, ds_tmp1
+	sts DS_TCCRA_L, ds_tmp1
+	sts DS_TCCRA_R, ds_tmp1
 	;set TCCRB (ICNC, ICES, [0], WGM3, WGM2, CS2, CS1, CS0)
 	ldi ds_tmp1, DS_TCCRB_ICNC | DS_TCCRB_ICES_FALLING | DS_TCCRB_WGM | DS_TCCRB_CS
-	sts TCCR4B, ds_tmp1
+	sts DS_TCCRB_L, ds_tmp1
 	ldi ds_tmp1, DS_TCCRB_WGM
-	sts TCCR5B, ds_tmp1
+	sts DS_TCCRB_R, ds_tmp1
 	;set TCCRC (FOCA, FOCB, FOCC, [0], [0], [0], [0], [0]) 
 	clr ds_tmp1
-	sts TCCR4C, ds_tmp1
-	sts TCCR5C, ds_tmp1
+	sts DS_TCCRC_L, ds_tmp1
+	sts DS_TCCRC_R, ds_tmp1
 	;set TIMSK ([0], [0], ICIE, [0], OCIEC, OCIEB, OCIEA, TOIE)
 	ldi ds_tmp1, DS_TIMSK_OCIEA
-	sts TIMSK4, ds_tmp1
+	sts DS_TIMSK_L, ds_tmp1
 	clr ds_tmp1
-	sts TIMSK5, ds_tmp1
+	sts DS_TIMSK_R, ds_tmp1
 	;set OCRA
 	ldi ds_tmp1, LOW( DS_TIMEOUT_LOW_TOP )
 	ldi ds_tmp2, HIGH( DS_TIMEOUT_LOW_TOP )
-	sts OCR4AH, ds_tmp2
-	sts OCR4AL, ds_tmp1
+	sts DS_OCRAH_L, ds_tmp2
+	sts DS_OCRAL_L, ds_tmp1
 
 ;##########################################
 #endif
@@ -139,28 +163,28 @@
 	TIMUTILS_M_TOP DS_PSCL, (DS_ECHO_MAX_HELD_US) / 1000000.0, DS_TIME_OVER
 
 ;input capture event isr
-;params (0)'timer index'
+;params (0)'side'
 .macro DS_ISR_ICI
 	;end cycle if falling
-	lds ds_tmp1, TCCR@0B
+	lds ds_tmp1, DS_TCCRB_@0
 	cpi ds_tmp1, DS_TCCRB_ICNC | DS_TCCRB_ICES_FALLING | DS_TCCRB_WGM | DS_TCCRB_CS
-	breq ds_isr_oca@0
+	breq ds_isr_oca_@0
 	;rising edge
 	;save input capture register
-	lds ds_tl, ICR@0L
-	lds ds_th, ICR@0H
+	lds ds_tl, DS_ICRL_@0
+	lds ds_th, DS_ICRH_@0
 	;enable input capture interrupt on falling edge
 	ldi ds_tmp1, DS_TCCRB_ICNC | DS_TCCRB_ICES_FALLING | DS_TCCRB_WGM | DS_TCCRB_CS
-	sts TCCR@0B, ds_tmp1
+	sts DS_TCCRB_@0, ds_tmp1
 	;set output compare match value
 	movw ds_tmp2:ds_tmp1, ds_th:ds_tl
 	subi ds_tmp1, -LOW( DS_TIMEOUT_HIGH_TOP_DIFF )
 	sbci ds_tmp2, -HIGH( DS_TIMEOUT_HIGH_TOP_DIFF )
-	sts OCR@0AH, ds_tmp2
-	sts OCR@0AL, ds_tmp1
+	sts DS_OCRAH_@0, ds_tmp2
+	sts DS_OCRAL_@0, ds_tmp1
 	;clear interrupt flags
 	ldi ds_tmp1, DS_TIFR_ICF | DS_TIFR_OCFA
-	out TIFR@0, ds_tmp1
+	out DS_TIFR_@0, ds_tmp1
 	reti
 .endmacro
 
@@ -261,45 +285,45 @@ ds_l_sr_output_ret_w1:
 	ret
 
 ;output compare match event isr
-;params (0)'timer index' (1)'opponent timer index' (2)'side' (3)'opposite side'
+;params (0)'side' (1)'opponent side'
 .macro DS_ISR_OCA
 	;start opponent trigger signal
-	ldi ds_tmp1, DS_TRIG_PORT_@3
+	ldi ds_tmp1, DS_TRIG_PORT_@1
 	sts DS_PORT, ds_tmp1
 	;stop timer
 	ldi ds_tmp1, DS_TCCRB_WGM
-	sts TCCR@0B, ds_tmp1
+	sts DS_TCCRB_@0, ds_tmp1
 	;disable timer interrupts
 	clr ds_tmp1
-	sts TIMSK@0, ds_tmp1
+	sts DS_TIMSK_@0, ds_tmp1
 	;set opponent timer output compare match value
 	ldi ds_tmp1, LOW( DS_TIMEOUT_LOW_TOP )
 	ldi ds_tmp2, HIGH( DS_TIMEOUT_LOW_TOP )
-	sts OCR@1AH, ds_tmp2
-	sts OCR@1AL, ds_tmp1
+	sts DS_OCRAH_@1, ds_tmp2
+	sts DS_OCRAL_@1, ds_tmp1
 	;clear opponent timer
 	clr ds_tmp1
-	sts TCNT@1H, ds_tmp1
-	sts TCNT@1L, ds_tmp1
+	sts DS_TCNTH_@1, ds_tmp1
+	sts DS_TCNTL_@1, ds_tmp1
 	;calculate output
-	lds ds_tmp1, ICR@0L
-	lds ds_tmp2, ICR@0H
+	lds ds_tmp1, DS_ICRL_@0
+	lds ds_tmp2, DS_ICRH_@0
 	rcall ds_sr_output
 	sbrs ds_tl, DS_OUT_FAILURE_BIT
-	sts DS_R_OUT_@2, ds_tl
+	sts DS_R_OUT_@0, ds_tl
 	;set opponent timer interrupts
 	ldi ds_tmp1, DS_TIMSK_ICIE | DS_TIMSK_OCIEA
-	sts TIMSK@1, ds_tmp1
+	sts DS_TIMSK_@1, ds_tmp1
 	;clear both timers interrupt flags
 	ldi ds_tmp1, DS_TIFR_ICF | DS_TIFR_OCFA
-	out TIFR@0, ds_tmp1
-	out TIFR@1, ds_tmp1
+	out DS_TIFR_@0, ds_tmp1
+	out DS_TIFR_@1, ds_tmp1
 	;start opponent timer
 	ldi ds_tmp1, DS_TCCRB_ICNC | DS_TCCRB_ICES_RISING | DS_TCCRB_WGM | DS_TCCRB_CS
-	sts TCCR@1B, ds_tmp1
+	sts DS_TCCRB_@1, ds_tmp1
 	;clear records
-	lds ds_tl, ICR@1L
-	lds ds_th, ICR@1H
+	lds ds_tl, DS_ICRL_@1
+	lds ds_th, DS_ICRH_@1
 	;wait for 10uS (116 cycles to 160 cycles)
 	ldi  ds_tmp1, 13
 	dec  ds_tmp1
@@ -310,17 +334,17 @@ ds_l_sr_output_ret_w1:
 	reti
 .endmacro
 
-ds_isr_ic4:
-	DS_ISR_ICI 4
+ds_isr_ic_l:
+	DS_ISR_ICI L
 
-ds_isr_oca4:
-	DS_ISR_OCA 4, 5, L, R
+ds_isr_oca_l:
+	DS_ISR_OCA L, R
 
-ds_isr_ic5:
-	DS_ISR_ICI 5
+ds_isr_ic_r:
+	DS_ISR_ICI R
 
-ds_isr_oca5:
-	DS_ISR_OCA 5, 4, R, L
+ds_isr_oca_r:
+	DS_ISR_OCA R, L
 
 ;##########################################
 #endif
