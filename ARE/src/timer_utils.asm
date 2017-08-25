@@ -43,8 +43,13 @@
 .endmacro
 
 ;params (0)'prescaler' (1)'time sec' (2)'export name'
-.macro TIMUTILS_M_TOP
+.macro TIMUTILS_M_TOP_EQU
 	.equ @2 = INT( (FOSC / (@0)) * (@1) )
+.endmacro
+
+;params (0)'prescaler' (1)'time sec' (2)'export name'
+.macro TIMUTILS_M_TOP_SET
+	.set @2 = INT( (FOSC / (@0)) * (@1) )
 .endmacro
 
 ;##########################################
