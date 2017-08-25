@@ -1,5 +1,5 @@
-#ifdef MACROS
-;################# MACROS #################
+#ifdef CODE
+;################## CODE ##################
 
 	.equ TIMUTILS_PSCL_1 = 1
 	.equ TIMUTILS_PSCL_2 = 8

@@ -1,13 +1,3 @@
-#ifdef SRAM
-;################## SRAM ##################
-
-	.equ BZ_MAX_BUZZ_COUNT = 10
-	sram_bytes BZ_R_VEC, BZ_MAX_BUZZ_COUNT * 3
-	.equ BZ_R_VEC_END = BZ_R_VEC + BZ_MAX_BUZZ_COUNT * 3
-
-;##########################################
-#endif
-
 #ifdef INTV
 ;################## INTV ##################
 
@@ -17,8 +7,29 @@
 ;##########################################
 #endif
 
-#ifdef MACROS
-;################# MACROS #################
+#ifdef SETUP
+;################## SETUP #################
+
+	;set PWM port to output
+	in bz_tmp, BZ_PORTD
+	ori bz_tmp, 1 << BZ_PORT_BIT
+	out BZ_PORTD, bz_tmp
+	;set PWM timer TCCRA
+	ldi bz_tmp, (BZ_PWM_COM << BZ_PWM_COM_BIT) | (BZ_PWM_WGM & 0b11)
+	out BZ_PWM_TCCRA, bz_tmp
+	;enable SQ timer interrupt
+	ldi bz_tmp, BZ_SQ_OCIEA
+	sts BZ_SQ_TIMSK, bz_tmp
+
+;##########################################
+#endif
+
+#ifdef CODE
+;################## CODE ##################
+
+	.equ BZ_MAX_BUZZ_COUNT = 10
+	sram_bytes BZ_R_VEC, BZ_MAX_BUZZ_COUNT * 3
+	.equ BZ_R_VEC_END = BZ_R_VEC + BZ_MAX_BUZZ_COUNT * 3
 
 	.def bz_tmp = r22
 
@@ -115,29 +126,6 @@
 	.set BZ_ASQ_SIZE = 0
 	.set BZ_ASQ_IND = 0
 .endmacro
-;##########################################
-#endif
-
-
-#ifdef SETUP
-;################## SETUP #################
-
-	;set PWM port to output
-	in bz_tmp, BZ_PORTD
-	ori bz_tmp, 1 << BZ_PORT_BIT
-	out BZ_PORTD, bz_tmp
-	;set PWM timer TCCRA
-	ldi bz_tmp, (BZ_PWM_COM << BZ_PWM_COM_BIT) | (BZ_PWM_WGM & 0b11)
-	out BZ_PWM_TCCRA, bz_tmp
-	;enable SQ timer interrupt
-	ldi bz_tmp, BZ_SQ_OCIEA
-	sts BZ_SQ_TIMSK, bz_tmp
-
-;##########################################
-#endif
-
-#ifdef CODE
-;################## CODE ##################
 
 bz_isr_next:
 	;stop timer
