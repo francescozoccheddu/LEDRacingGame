@@ -15,6 +15,7 @@
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE>
+  <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/buzzer.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
@@ -28,33 +29,36 @@
   <FILE>ARE.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <ds_isr_ic_l><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>337</LINE></ds_isr_ic_l>
-  <ds_isr_ic_r><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>343</LINE></ds_isr_ic_r>
-  <ds_isr_oca_l><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>340</LINE></ds_isr_oca_l>
-  <ds_isr_oca_r><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>346</LINE></ds_isr_oca_r>
+  <ds_isr_ic_l><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>323</LINE></ds_isr_ic_l>
+  <ds_isr_ic_r><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>329</LINE></ds_isr_ic_r>
+  <ds_isr_oca_l><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>326</LINE></ds_isr_oca_l>
+  <ds_isr_oca_r><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>332</LINE></ds_isr_oca_r>
+  <bz_isr_next><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/buzzer.asm</FILE><LINE>116</LINE></bz_isr_next>
   <main><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm</FILE><LINE>47</LINE></main>
-  <ds_sr_output><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>204</LINE></ds_sr_output>
-  <ds_l_sr_output_valid><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>217</LINE></ds_l_sr_output_valid>
-  <ds_l_sr_output_ret><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>281</LINE></ds_l_sr_output_ret>
-  <ds_l_sr_output_0><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>245</LINE></ds_l_sr_output_0>
-  <ds_l_sr_output_1><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>247</LINE></ds_l_sr_output_1>
-  <ds_l_sr_output_2><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>249</LINE></ds_l_sr_output_2>
-  <ds_l_sr_output_3><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>251</LINE></ds_l_sr_output_3>
-  <ds_l_sr_output_4><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>253</LINE></ds_l_sr_output_4>
-  <ds_l_sr_output_5><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>255</LINE></ds_l_sr_output_5>
-  <ds_l_sr_output_6><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>257</LINE></ds_l_sr_output_6>
-  <ds_l_sr_output_7><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>259</LINE></ds_l_sr_output_7>
-  <ds_l_sr_output_8><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>261</LINE></ds_l_sr_output_8>
-  <ds_l_sr_output_9><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>263</LINE></ds_l_sr_output_9>
-  <ds_l_sr_output_10><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>265</LINE></ds_l_sr_output_10>
-  <ds_l_sr_output_11><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>267</LINE></ds_l_sr_output_11>
-  <ds_l_sr_output_12><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>269</LINE></ds_l_sr_output_12>
-  <ds_l_sr_output_13><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>271</LINE></ds_l_sr_output_13>
-  <ds_l_sr_output_14><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>273</LINE></ds_l_sr_output_14>
-  <ds_l_sr_output_15><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>275</LINE></ds_l_sr_output_15>
-  <ds_l_sr_output_ret_w1><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>283</LINE></ds_l_sr_output_ret_w1>
-  <ds_l_sr_output_wait><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>278</LINE></ds_l_sr_output_wait>
+  <ds_sr_output><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>190</LINE></ds_sr_output>
+  <ds_l_sr_output_valid><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>203</LINE></ds_l_sr_output_valid>
+  <ds_l_sr_output_ret><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>267</LINE></ds_l_sr_output_ret>
+  <ds_l_sr_output_0><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>231</LINE></ds_l_sr_output_0>
+  <ds_l_sr_output_1><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>233</LINE></ds_l_sr_output_1>
+  <ds_l_sr_output_2><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>235</LINE></ds_l_sr_output_2>
+  <ds_l_sr_output_3><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>237</LINE></ds_l_sr_output_3>
+  <ds_l_sr_output_4><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>239</LINE></ds_l_sr_output_4>
+  <ds_l_sr_output_5><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>241</LINE></ds_l_sr_output_5>
+  <ds_l_sr_output_6><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>243</LINE></ds_l_sr_output_6>
+  <ds_l_sr_output_7><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>245</LINE></ds_l_sr_output_7>
+  <ds_l_sr_output_8><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>247</LINE></ds_l_sr_output_8>
+  <ds_l_sr_output_9><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>249</LINE></ds_l_sr_output_9>
+  <ds_l_sr_output_10><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>251</LINE></ds_l_sr_output_10>
+  <ds_l_sr_output_11><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>253</LINE></ds_l_sr_output_11>
+  <ds_l_sr_output_12><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>255</LINE></ds_l_sr_output_12>
+  <ds_l_sr_output_13><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>257</LINE></ds_l_sr_output_13>
+  <ds_l_sr_output_14><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>259</LINE></ds_l_sr_output_14>
+  <ds_l_sr_output_15><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>261</LINE></ds_l_sr_output_15>
+  <ds_l_sr_output_ret_w1><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>269</LINE></ds_l_sr_output_ret_w1>
+  <ds_l_sr_output_wait><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>264</LINE></ds_l_sr_output_wait>
+  <bz_l_isr_next_end><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/buzzer.asm</FILE><LINE>150</LINE></bz_l_isr_next_end>
+  <bz_l_isr_next_mute><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/buzzer.asm</FILE><LINE>144</LINE></bz_l_isr_next_mute>
   <l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>4</LINE></l_reset>
-  <l_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>7</LINE></l_loop>
+  <l_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>16</LINE></l_loop>
  </LABELS>
 </ASSEMBLER_INFO>

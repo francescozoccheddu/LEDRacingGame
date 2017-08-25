@@ -2,3 +2,4 @@
 #include "src/builtin_led.asm"
 #include "src/timer_utils.asm"
 #include "src/distance_sens.asm"
+#include "src/buzzer.asm"
