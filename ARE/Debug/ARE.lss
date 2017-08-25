@@ -1,15 +1,8 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm Fri Aug 25 19:04:43 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm Fri Aug 25 20:53:50 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(5): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/buzzer.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(28): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
@@ -17,35 +10,22 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(5): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/buzzer.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(29): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(34): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(38): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(5): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/buzzer.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(35): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(44): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(54): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(5): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/buzzer.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(56): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(5): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/buzzer.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(55): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(5): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/buzzer.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(28): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
@@ -53,26 +33,20 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(5): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/buzzer.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(29): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(34): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(38): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(5): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/buzzer.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(35): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(44): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(54): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(5): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/buzzer.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(56): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(1): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/uart_comm.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(2): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/builtin_led.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(3): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/timer_utils.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(4): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(5): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/buzzer.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(55): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(63): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm'
                                  
                                  ;device defs
                                  
@@ -1974,39 +1948,49 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  	sram_bytes @0, 1
                                  .endmacro
                                  
-                                 #define SRAM
+                                 ;include interrupt subroutine defs
+                                 #define INTV
+                                 ;################## INTV ##################
+                                 
+                                 .org 0
+000000 c181                      	rjmp main
+                                 
                                  #include "includes.inc"
                                  
                                  
                                  #endif
                                  
-                                 #ifdef SETUP
+                                 #ifdef CODE
                                  #endif
+                                 
                                  
                                  #include "src/builtin_led.asm"
                                  
                                  #endif
                                  
-                                 
-                                 #ifdef SETUP
+                                 #ifdef CODE
                                  #endif
+                                 
                                  #include "src/timer_utils.asm"
                                  
                                  #endif
                                  #include "src/distance_sens.asm"
                                  
-                                 ;################## SRAM ##################
+                                 ;################## INTV ##################
                                  
-                                 	sram_byte DS_R_OUT_L
-                                 	sram_byte DS_R_OUT_R
+                                 	.org ICP4addr
+000052 c084                      	rjmp ds_isr_ic_l
+                                 
+                                 	.org ICP5addr
+00005c c0bf                      	rjmp ds_isr_ic_r
+                                 
+                                 	.org OC4Aaddr
+000054 c097                      	rjmp ds_isr_oca_l
+                                 
+                                 	.org OC5Aaddr
+00005e c0d2                      	rjmp ds_isr_oca_r
                                  
                                  ;##########################################
-                                 #endif
-                                 
-                                 #ifdef MACROS
-                                 #endif
-                                 
-                                 #ifdef INTV
                                  #endif
                                  
                                  #ifdef SETUP
@@ -2016,21 +2000,13 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  #endif
                                  #include "src/buzzer.asm"
                                  
-                                 ;################## SRAM ##################
+                                 ;################## INTV ##################
                                  
-                                 	.equ BZ_MAX_BUZZ_COUNT = 10
-                                 	sram_bytes BZ_R_VEC, BZ_MAX_BUZZ_COUNT * 3
-                                 	.equ BZ_R_VEC_END = BZ_R_VEC + BZ_MAX_BUZZ_COUNT * 3
+                                 	.org OC1Aaddr
+000022 c13e                      	rjmp bz_isr_next
                                  
                                  ;##########################################
                                  #endif
-                                 
-                                 #ifdef INTV
-                                 #endif
-                                 
-                                 #ifdef MACROS
-                                 #endif
-                                 
                                  
                                  #ifdef SETUP
                                  #endif
@@ -2040,14 +2016,21 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  #include "main.asm"
                                  
                                  #endif
-                                 #undef SRAM
                                  
-                                 ;include macro defs
-                                 #define MACROS
+                                 ;##########################################
+                                 #undef INTV
+                                 
+                                 .org INT_VECTORS_SIZE
+                                 #define CODE
+                                 ;################## CODE ##################
+                                 
                                  #include "includes.inc"
                                  
                                  
-                                 ;################# MACROS #################
+                                 #endif
+                                 
+                                 #ifdef CODE
+                                 ;################## CODE ##################
                                  
                                  	.equ UC_BAUD_RATE = 9600
                                  	.equ UC_UBRR = (FOSC / 16 / UC_BAUD_RATE - 1)
@@ -2098,12 +2081,13 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  ;##########################################
                                  #endif
                                  
-                                 #ifdef SETUP
-                                 #endif
                                  
                                  #include "src/builtin_led.asm"
                                  
-                                 ;################# MACROS #################
+                                 #endif
+                                 
+                                 #ifdef CODE
+                                 ;################## CODE ##################
                                  
                                  	.equ BL_PORTD = DDRB
                                  	.equ BL_PORT = PORTB
@@ -2133,12 +2117,9 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  ;##########################################
                                  #endif
                                  
-                                 
-                                 #ifdef SETUP
-                                 #endif
                                  #include "src/timer_utils.asm"
                                  
-                                 ;################# MACROS #################
+                                 ;################## CODE ##################
                                  
                                  	.equ TIMUTILS_PSCL_1 = 1
                                  	.equ TIMUTILS_PSCL_2 = 8
@@ -2197,8 +2178,14 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  
                                  #endif
                                  
-                                 #ifdef MACROS
-                                 ;################# MACROS #################
+                                 #ifdef SETUP
+                                 #endif
+                                 
+                                 #ifdef CODE
+                                 ;################## CODE ##################
+                                 
+                                 	sram_byte DS_R_OUT_L
+                                 	sram_byte DS_R_OUT_R
                                  
                                  	.def ds_tl = r4
                                  	.def ds_th = r5
@@ -2239,227 +2226,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  	.equ DS_TIFR_R = TIFR5
                                  	.equ DS_ICRL_R = ICR5L
                                  	.equ DS_ICRH_R = ICR5H
-                                 
-                                 ;##########################################
-                                 #endif
-                                 
-                                 #ifdef INTV
-                                 #endif
-                                 
-                                 #ifdef SETUP
-                                 #endif
-                                 
-                                 #ifdef CODE
-                                 #endif
-                                 #include "src/buzzer.asm"
-                                 
-                                 #endif
-                                 
-                                 #ifdef INTV
-                                 #endif
-                                 
-                                 #ifdef MACROS
-                                 ;################# MACROS #################
-                                 
-                                 	.def bz_tmp = r22
-                                 
-                                 	.equ BZ_PORT = PORTG
-                                 	.equ BZ_PORTD = DDRG
-                                 	.equ BZ_PORT_BIT = PG5 ;PWM pin 4
-                                 	
-                                 	.equ BZ_PWM_TCCRA = TCCR0A
-                                 	.equ BZ_PWM_TCCRB = TCCR0B
-                                 	.equ BZ_PWM_OCRA = OCR0A
-                                 	.equ BZ_PWM_WGM = 2
-                                 	.equ BZ_PWM_COM = 1
-                                 	.equ BZ_PWM_COM_BIT = COM0B0
-                                 	.equ BZ_PWM_CS_ON = 4
-                                 
-                                 	.equ BZ_SQ_TCCRB = TCCR1B
-                                 	.equ BZ_SQ_OCRAH = OCR1AH
-                                 	.equ BZ_SQ_OCRAL = OCR1AL
-                                 	.equ BZ_SQ_TIMSK = TIMSK1
-                                 	.equ BZ_SQ_TCNTH = TCNT1H
-                                 	.equ BZ_SQ_TCNTL = TCNT1L
-                                 	.equ BZ_SQ_TIFR = TIFR1
-                                 	.equ BZ_SQ_OCIEA = 1 << OCIE1A
-                                 	.equ BZ_SQ_OCFA = 1 << OCF1A
-                                 	.equ BZ_SQ_TCCRB_WGM = (4 >> 2) << 3	
-                                 
-                                 	.equ BZ_MAX_DURATION_MS = 1000
-                                 
-                                 	TIMUTILS_M_PSCL (BZ_MAX_DURATION_MS / 1000.0), 16, BZ_SQ_PSCL
-                                 	TIMUTILS_M_CS BZ_SQ_PSCL, BZ_SQ_CS
-                                 
-                                 ;params (0)'tone index' (1)'sequence size' (2)'duration sec' (3)'tone cycles or zero'
-                                 .macro BZ_SR_SQ_SET_TONE
-                                 	.if @0 >= BZ_MAX_BUZZ_COUNT || @0 < 0
-                                 		.error "Tone index out of bounds"
-                                 	.endif
-                                 	.if @1 > BZ_MAX_BUZZ_COUNT || @1 < 1 || @1 <= @0
-                                 		.error "Sequence size out of bounds"
-                                 	.endif
-                                 	TIMUTILS_M_TOP_SET BZ_SQ_PSCL, @2, BZ_SQ_TOP_TMP
-                                 	.if BZ_SQ_TOP_TMP < 1
-                                 		.error "Too short duration"
-                                 	.elif BZ_SQ_TOP_TMP >= 1 << 16
-                                 		.error "Too long duration"
-                                 	.endif
-                                 	ldi bz_tmp, HIGH( BZ_SQ_TOP_TMP )
-                                 	sts BZ_R_VEC + (@0 + BZ_MAX_BUZZ_COUNT - @1) * 3, bz_tmp
-                                 	ldi bz_tmp, LOW ( BZ_SQ_TOP_TMP )
-                                 	sts BZ_R_VEC + (@0 + BZ_MAX_BUZZ_COUNT - @1) * 3 + 1, bz_tmp
-                                 	ldi bz_tmp, @3
-                                 	sts BZ_R_VEC + (@0 + BZ_MAX_BUZZ_COUNT - @1) * 3 + 2, bz_tmp
-                                 .endmacro
-                                 
-                                 ;params (0)'tone index' (1)'sequence size' (2)'duration sec'
-                                 .macro BZ_SR_SQ_SET_MUTE
-                                 	BZ_SR_SQ_SET_TONE @0, @1, @2, 0
-                                 .endmacro
-                                 
-                                 ;params (0)'sequence size'
-                                 .macro BZ_SR_SQ_START
-                                 	.if @0 >= BZ_MAX_BUZZ_COUNT || @0 < 0
-                                 		.error "Tone index out of bounds"
-                                 	.endif
-                                 	;reset X
-                                 	ldi XH, HIGH( BZ_R_VEC_END - @0 * 3 )
-                                 	ldi XL, LOW( BZ_R_VEC_END - @0 * 3 )
-                                 	;manually jump to isr
-                                 	call bz_isr_next
-                                 .endmacro
-                                 
-                                 ;##########################################
-                                 #endif
-                                 
-                                 
-                                 #ifdef SETUP
-                                 #endif
-                                 
-                                 #ifdef CODE
-                                 #endif
-                                 #include "main.asm"
-                                 
-                                 #endif
-                                 #undef MACROS
-                                 
-                                 ;include interrupt subroutine defs
-                                 #define INTV
-                                 #include "includes.inc"
-                                 
-                                 
-                                 #endif
-                                 
-                                 #ifdef SETUP
-                                 #endif
-                                 
-                                 #include "src/builtin_led.asm"
-                                 
-                                 #endif
-                                 
-                                 
-                                 #ifdef SETUP
-                                 #endif
-                                 #include "src/timer_utils.asm"
-                                 
-                                 #endif
-                                 #include "src/distance_sens.asm"
-                                 
-                                 #endif
-                                 
-                                 #ifdef MACROS
-                                 #endif
-                                 
-                                 #ifdef INTV
-                                 ;################## INTV ##################
-                                 
-                                 	.org ICP4addr
-000052 c084                      	rjmp ds_isr_ic_l
-                                 
-                                 	.org ICP5addr
-00005c c0bf                      	rjmp ds_isr_ic_r
-                                 
-                                 	.org OC4Aaddr
-000054 c097                      	rjmp ds_isr_oca_l
-                                 
-                                 	.org OC5Aaddr
-00005e c0d2                      	rjmp ds_isr_oca_r
-                                 
-                                 ;##########################################
-                                 #endif
-                                 
-                                 #ifdef SETUP
-                                 #endif
-                                 
-                                 #ifdef CODE
-                                 #endif
-                                 #include "src/buzzer.asm"
-                                 
-                                 #endif
-                                 
-                                 #ifdef INTV
-                                 ;################## INTV ##################
-                                 
-                                 	.org OC1Aaddr
-000022 c13e                      	rjmp bz_isr_next
-                                 
-                                 ;##########################################
-                                 #endif
-                                 
-                                 #ifdef MACROS
-                                 #endif
-                                 
-                                 
-                                 #ifdef SETUP
-                                 #endif
-                                 
-                                 #ifdef CODE
-                                 #endif
-                                 #include "main.asm"
-                                 
-                                 #endif
-                                 #undef INTV
-                                 
-                                 .org 0
-000000 c181                      	rjmp main
-                                 
-                                 ;include subroutine defs
-                                 #define CODE
-                                 .org INT_VECTORS_SIZE
-                                 #include "includes.inc"
-                                 
-                                 
-                                 #endif
-                                 
-                                 #ifdef SETUP
-                                 #endif
-                                 
-                                 #include "src/builtin_led.asm"
-                                 
-                                 #endif
-                                 
-                                 
-                                 #ifdef SETUP
-                                 #endif
-                                 #include "src/timer_utils.asm"
-                                 
-                                 #endif
-                                 #include "src/distance_sens.asm"
-                                 
-                                 #endif
-                                 
-                                 #ifdef MACROS
-                                 #endif
-                                 
-                                 #ifdef INTV
-                                 #endif
-                                 
-                                 #ifdef SETUP
-                                 #endif
-                                 
-                                 #ifdef CODE
-                                 ;################## CODE ##################
                                  
                                  	;autogenerated
                                  	;timer time values
@@ -2834,18 +2600,111 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  
                                  #endif
                                  
-                                 #ifdef INTV
-                                 #endif
-                                 
-                                 #ifdef MACROS
-                                 #endif
-                                 
-                                 
                                  #ifdef SETUP
                                  #endif
                                  
                                  #ifdef CODE
                                  ;################## CODE ##################
+                                 
+                                 	.equ BZ_MAX_BUZZ_COUNT = 10
+                                 	sram_bytes BZ_R_VEC, BZ_MAX_BUZZ_COUNT * 3
+                                 	.equ BZ_R_VEC_END = BZ_R_VEC + BZ_MAX_BUZZ_COUNT * 3
+                                 
+                                 	.def bz_tmp = r22
+                                 
+                                 	.equ BZ_PORT = PORTG
+                                 	.equ BZ_PORTD = DDRG
+                                 	.equ BZ_PORT_BIT = PG5 ;PWM pin 4
+                                 	
+                                 	.equ BZ_PWM_TCCRA = TCCR0A
+                                 	.equ BZ_PWM_TCCRB = TCCR0B
+                                 	.equ BZ_PWM_OCRA = OCR0A
+                                 	.equ BZ_PWM_WGM = 2
+                                 	.equ BZ_PWM_COM = 1
+                                 	.equ BZ_PWM_COM_BIT = COM0B0
+                                 	.equ BZ_PWM_CS_ON = 4
+                                 
+                                 	.equ BZ_SQ_TCCRB = TCCR1B
+                                 	.equ BZ_SQ_OCRAH = OCR1AH
+                                 	.equ BZ_SQ_OCRAL = OCR1AL
+                                 	.equ BZ_SQ_TIMSK = TIMSK1
+                                 	.equ BZ_SQ_TCNTH = TCNT1H
+                                 	.equ BZ_SQ_TCNTL = TCNT1L
+                                 	.equ BZ_SQ_TIFR = TIFR1
+                                 	.equ BZ_SQ_OCIEA = 1 << OCIE1A
+                                 	.equ BZ_SQ_OCFA = 1 << OCF1A
+                                 	.equ BZ_SQ_TCCRB_WGM = (4 >> 2) << 3	
+                                 
+                                 	.equ BZ_MAX_DURATION_MS = 1000
+                                 
+                                 	TIMUTILS_M_PSCL (BZ_MAX_DURATION_MS / 1000.0), 16, BZ_SQ_PSCL
+                                 	TIMUTILS_M_CS BZ_SQ_PSCL, BZ_SQ_CS
+                                 
+                                 ;params (0)'tone index' (1)'sequence size' (2)'duration ms' (3)'tone cycles or zero'
+                                 .macro BZ_SR_SQ_SET_TONE
+                                 	.if @0 >= BZ_MAX_BUZZ_COUNT || @0 < 0
+                                 		.error "Tone index out of bounds"
+                                 	.endif
+                                 	.if @1 > BZ_MAX_BUZZ_COUNT || @1 < 1 || @1 <= @0
+                                 		.error "Sequence size out of bounds"
+                                 	.endif
+                                 	TIMUTILS_M_TOP_SET BZ_SQ_PSCL, @2 / 1000.0, BZ_SQ_TOP_TMP
+                                 	.if BZ_SQ_TOP_TMP < 1
+                                 		.error "Too short duration"
+                                 	.elif BZ_SQ_TOP_TMP >= 1 << 16
+                                 		.error "Too long duration"
+                                 	.endif
+                                 	ldi bz_tmp, HIGH( BZ_SQ_TOP_TMP )
+                                 	sts BZ_R_VEC + (@0 + BZ_MAX_BUZZ_COUNT - @1) * 3, bz_tmp
+                                 	ldi bz_tmp, LOW ( BZ_SQ_TOP_TMP )
+                                 	sts BZ_R_VEC + (@0 + BZ_MAX_BUZZ_COUNT - @1) * 3 + 1, bz_tmp
+                                 	ldi bz_tmp, @3
+                                 	sts BZ_R_VEC + (@0 + BZ_MAX_BUZZ_COUNT - @1) * 3 + 2, bz_tmp
+                                 .endmacro
+                                 
+                                 ;params (0)'sequence size'
+                                 .macro BZ_SR_SQ_START
+                                 	.if @0 >= BZ_MAX_BUZZ_COUNT || @0 < 0
+                                 		.error "Tone index out of bounds"
+                                 	.endif
+                                 	;reset X
+                                 	ldi XH, HIGH( BZ_R_VEC_END - @0 * 3 )
+                                 	ldi XL, LOW( BZ_R_VEC_END - @0 * 3 )
+                                 	;manually jump to isr
+                                 	call bz_isr_next
+                                 .endmacro
+                                 
+                                 ;auto
+                                 ;params (0)'sequence size'
+                                 .macro BZ_SR_ASQ_BEGIN
+                                 	.if @0 <= 0 || @0 > BZ_MAX_BUZZ_COUNT
+                                 		.error "Sequence size out of bounds"
+                                 	.endif
+                                 	.set BZ_ASQ_SIZE = @0
+                                 	.set BZ_ASQ_IND = 0
+                                 .endmacro
+                                 
+                                 ;params (0)'duration ms' (1)'tone cycles or zero'
+                                 .macro BZ_SR_ASQ_PUSH
+                                 	.if !BZ_ASQ_SIZE
+                                 		.error "Sequence not started"
+                                 	.elif BZ_ASQ_IND >= BZ_ASQ_SIZE
+                                 		.error "Sequence out of bounds"
+                                 	.endif
+                                 	BZ_SR_SQ_SET_TONE BZ_ASQ_IND, BZ_ASQ_SIZE, @0, @1
+                                 	.set BZ_ASQ_IND = BZ_ASQ_IND + 1
+                                 .endmacro
+                                 
+                                 .macro BZ_SR_ASQ_END
+                                 	.if !BZ_ASQ_SIZE
+                                 		.error "Sequence not started"
+                                 	.elif BZ_ASQ_IND != BZ_ASQ_SIZE
+                                 		.error "Sequence incomplete"
+                                 	.endif
+                                 	BZ_SR_SQ_START BZ_ASQ_SIZE
+                                 	.set BZ_ASQ_SIZE = 0
+                                 	.set BZ_ASQ_IND = 0
+                                 .endmacro
                                  
                                  bz_isr_next:
                                  	;stop timer
@@ -2890,6 +2749,8 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  
                                  ;##########################################
                                  #endif
+                                 
+                                 ;##########################################
                                  #undef CODE
                                  
                                  main:
@@ -2901,12 +2762,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  
                                  ;setup includes
                                  #define SETUP
+                                 ;################## SETUP #################
+                                 
                                  #include "includes.inc"
                                  
                                  
-                                 #endif
-                                 
-                                 #ifdef SETUP
                                  ;################## SETUP #################
                                  
 000186 930f                      	push r16
@@ -2925,12 +2785,12 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  ;##########################################
                                  #endif
                                  
-                                 #include "src/builtin_led.asm"
-                                 
+                                 #ifdef CODE
                                  #endif
                                  
                                  
-                                 #ifdef SETUP
+                                 #include "src/builtin_led.asm"
+                                 
                                  ;################## SETUP #################
                                  
 000197 930f                      	push r16
@@ -2941,17 +2801,15 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  
                                  ;##########################################
                                  #endif
+                                 
+                                 #ifdef CODE
+                                 #endif
+                                 
                                  #include "src/timer_utils.asm"
                                  
                                  #endif
                                  #include "src/distance_sens.asm"
                                  
-                                 #endif
-                                 
-                                 #ifdef MACROS
-                                 #endif
-                                 
-                                 #ifdef INTV
                                  #endif
                                  
                                  #ifdef SETUP
@@ -2991,13 +2849,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  
                                  #endif
                                  
-                                 #ifdef INTV
-                                 #endif
-                                 
-                                 #ifdef MACROS
-                                 #endif
-                                 
-                                 
                                  #ifdef SETUP
                                  ;################## SETUP #################
                                  
@@ -3017,10 +2868,16 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  
                                  #ifdef CODE
                                  #endif
+                                 #include "main.asm"
+                                 
+                                 #endif
+                                 
+                                 ;##########################################
                                  #undef SETUP
                                  
-                                 ;call main
                                  #define CODE
+                                 ;################## CODE ##################
+                                 
                                  #include "main.asm"
                                  
                                  ;################## CODE ##################
@@ -3028,57 +2885,48 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(61): Including file 'C:\Users\zo
                                  l_reset:
 0001c2 9478                      	sei
 0001c3 94f8                      	cli
+                                 	BZ_SR_ASQ_BEGIN 5
 0001c4 e168
-0001c5 9360 020b
+0001c5 9360 0211
 0001c7 e66a
-0001c8 9360 020c
+0001c8 9360 0212
 0001ca e268
-0001cb 9360 020d                 	BZ_SR_SQ_SET_TONE 0, 7, 100 / 1000.0, 40
-0001cd e168
-0001ce 9360 020e
-0001d0 e66a
-0001d1 9360 020f
+0001cb 9360 0213                 	BZ_SR_ASQ_PUSH 100, 40
+0001cd e360
+0001ce 9360 0214
+0001d0 ed64
+0001d1 9360 0215
 0001d3 e060
-0001d4 9360 0210                 	BZ_SR_SQ_SET_MUTE 1, 7, 100 / 1000.0
+0001d4 9360 0216                 	BZ_SR_ASQ_PUSH 200, 0
 0001d6 e168
-0001d7 9360 0211
+0001d7 9360 0217
 0001d9 e66a
-0001da 9360 0212
-0001dc e362
-0001dd 9360 0213                 	BZ_SR_SQ_SET_TONE 2, 7, 100 / 1000.0, 50
+0001da 9360 0218
+0001dc e268
+0001dd 9360 0219                 	BZ_SR_ASQ_PUSH 100, 40
 0001df e168
-0001e0 9360 0214
+0001e0 9360 021a
 0001e2 e66a
-0001e3 9360 0215
+0001e3 9360 021b
 0001e5 e060
-0001e6 9360 0216                 	BZ_SR_SQ_SET_MUTE 3, 7, 100 / 1000.0
-0001e8 e168
-0001e9 9360 0217
-0001eb e66a
-0001ec 9360 0218
-0001ee e36c
-0001ef 9360 0219                 	BZ_SR_SQ_SET_TONE 4, 7, 100 / 1000.0, 60
-0001f1 e168
-0001f2 9360 021a
-0001f4 e66a
-0001f5 9360 021b
-0001f7 e060
-0001f8 9360 021c                 	BZ_SR_SQ_SET_MUTE 5, 7, 100 / 1000.0
-0001fa e168
-0001fb 9360 021d
-0001fd e66a
-0001fe 9360 021e
-000200 e664
-000201 9360 021f                 	BZ_SR_SQ_SET_TONE 6, 7, 100 / 1000.0, 100
-000203 e0b2
-000204 e0ab
-000205 940e 0161                 	BZ_SR_SQ_START 7
+0001e6 9360 021c                 	BZ_SR_ASQ_PUSH 100, 0
+0001e8 e661
+0001e9 9360 021d
+0001eb ea68
+0001ec 9360 021e
+0001ee e16e
+0001ef 9360 021f                 	BZ_SR_ASQ_PUSH 400, 30
+0001f1 e0b2
+0001f2 e1a1
+0001f3 940e 0161                 	BZ_SR_ASQ_END
                                  
                                  l_loop:	
-000207 cfff                      	rjmp l_loop
+0001f5 cfff                      	rjmp l_loop
                                  
                                  ;##########################################
                                  #endif
+                                 
+                                 ;##########################################
                                  #undef CODE
 
 
@@ -3100,7 +2948,7 @@ counted separately from r26..r31 here.
 x  :   3 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :  30 
 r5 :  24 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
 r13:   0 r14:   0 r15:   0 r16:  21 r17:   0 r18: 107 r19:  50 r20:   0 
-r21:   0 r22:  70 r23:   0 r24:   0 r25:   0 r26:   2 r27:   2 r28:   0 
+r21:   0 r22:  58 r23:   0 r24:   0 r25:   0 r26:   2 r27:   2 r28:   0 
 r29:   0 r30:   0 r31:   0 
 Registers used: 9 out of 35 (25.7%)
 
@@ -3115,7 +2963,7 @@ clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :  11 cls   :   0
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :  17 
 cpi   :  19 cpse  :   0 dec   :  19 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   2 inc   :   0 jmp   :   0 ld    :   3 ldd   :   0 ldi   :  82 
+in    :   2 inc   :   0 jmp   :   0 ld    :   3 ldd   :   0 ldi   :  76 
 lds   :  14 lpm   :   0 lsl   :   0 lsr   :   0 mov   :   4 movw  :   2 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   1 or    :   0 
 ori   :   2 out   :  14 pop   :   2 push  :   2 rcall :   2 ret   :   2 
@@ -3123,14 +2971,14 @@ reti  :   6 rjmp  :   9 rol   :   0 ror   :   0 sbc   :   1 sbci  :   2
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   0 
 sbrs  :   2 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   0 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
-st    :   0 std   :   0 sts   :  73 sub   :   2 subi  :   2 swap  :   0 
+st    :   0 std   :   0 sts   :  67 sub   :   2 subi  :   2 swap  :   0 
 tst   :   1 wdr   :   0 
 Instructions used: 32 out of 116 (27.6%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000410    824      0    824  262144   0.3%
+[.cseg] 0x000000 0x0003ec    788      0    788  262144   0.3%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 

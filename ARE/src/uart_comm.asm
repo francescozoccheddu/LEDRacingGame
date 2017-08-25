@@ -1,5 +1,24 @@
-#ifdef MACROS
-;################# MACROS #################
+#ifdef SETUP
+;################## SETUP #################
+
+	push r16
+	ldi r16, LOW(UC_UBRR)
+	sts UC_UBRRL, r16
+	ldi r16, HIGH(UC_UBRR)
+	sts UC_UBRRH, r16
+	clr r16
+	sts UC_UCSRA, r16
+	ldi r16, (1 << UC_TXEN)
+	sts UC_UCSRB, r16
+	ldi r16, (2 << UC_UMSEL) | (3 << UC_UCSZ)
+	sts UC_UCSRC, r16
+	pop r16
+
+;##########################################
+#endif
+
+#ifdef CODE
+;################## CODE ##################
 
 	.equ UC_BAUD_RATE = 9600
 	.equ UC_UBRR = (FOSC / 16 / UC_BAUD_RATE - 1)
@@ -50,22 +69,4 @@
 ;##########################################
 #endif
 
-#ifdef SETUP
-;################## SETUP #################
-
-	push r16
-	ldi r16, LOW(UC_UBRR)
-	sts UC_UBRRL, r16
-	ldi r16, HIGH(UC_UBRR)
-	sts UC_UBRRH, r16
-	clr r16
-	sts UC_UCSRA, r16
-	ldi r16, (1 << UC_TXEN)
-	sts UC_UCSRB, r16
-	ldi r16, (2 << UC_UMSEL) | (3 << UC_UCSZ)
-	sts UC_UCSRC, r16
-	pop r16
-
-;##########################################
-#endif
 

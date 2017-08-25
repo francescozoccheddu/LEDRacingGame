@@ -18,30 +18,26 @@
 	sram_bytes @0, 1
 .endmacro
 
-#define SRAM
-#include "includes.inc"
-#include "main.asm"
-#undef SRAM
-
-;include macro defs
-#define MACROS
-#include "includes.inc"
-#include "main.asm"
-#undef MACROS
-
 ;include interrupt subroutine defs
 #define INTV
-#include "includes.inc"
-#include "main.asm"
-#undef INTV
+;################## INTV ##################
 
 .org 0
 	rjmp main
 
-;include subroutine defs
-#define CODE
-.org INT_VECTORS_SIZE
 #include "includes.inc"
+#include "main.asm"
+
+;##########################################
+#undef INTV
+
+.org INT_VECTORS_SIZE
+#define CODE
+;################## CODE ##################
+
+#include "includes.inc"
+
+;##########################################
 #undef CODE
 
 main:
@@ -53,10 +49,18 @@ main:
 
 ;setup includes
 #define SETUP
+;################## SETUP #################
+
 #include "includes.inc"
+#include "main.asm"
+
+;##########################################
 #undef SETUP
 
-;call main
 #define CODE
+;################## CODE ##################
+
 #include "main.asm"
+
+;##########################################
 #undef CODE

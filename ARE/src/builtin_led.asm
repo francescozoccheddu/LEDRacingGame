@@ -1,5 +1,17 @@
-#ifdef MACROS
-;################# MACROS #################
+#ifdef SETUP
+;################## SETUP #################
+
+	push r16
+	in r16, BL_PORT
+	ori r16, 1 << BL_BIT
+	out BL_PORTD, r16
+	pop r16
+
+;##########################################
+#endif
+
+#ifdef CODE
+;################## CODE ##################
 
 	.equ BL_PORTD = DDRB
 	.equ BL_PORT = PORTB
@@ -29,15 +41,3 @@
 ;##########################################
 #endif
 
-
-#ifdef SETUP
-;################## SETUP #################
-
-	push r16
-	in r16, BL_PORT
-	ori r16, 1 << BL_BIT
-	out BL_PORTD, r16
-	pop r16
-
-;##########################################
-#endif
