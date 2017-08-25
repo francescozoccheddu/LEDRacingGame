@@ -50,7 +50,7 @@
 	TIMUTILS_M_PSCL (BZ_MAX_DURATION_MS / 1000.0), 16, BZ_SQ_PSCL
 	TIMUTILS_M_CS BZ_SQ_PSCL, BZ_SQ_CS
 
-;params (0)'tone index' (1)'sequence size' (2)'duration sec' (3)'tone cycles or zero'
+;params (0)'tone index' (1)'sequence size' (2)'duration ms' (3)'tone cycles or zero'
 .macro BZ_SR_SQ_SET_TONE
 	.if @0 >= BZ_MAX_BUZZ_COUNT || @0 < 0
 		.error "Tone index out of bounds"
@@ -58,7 +58,7 @@
 	.if @1 > BZ_MAX_BUZZ_COUNT || @1 < 1 || @1 <= @0
 		.error "Sequence size out of bounds"
 	.endif
-	TIMUTILS_M_TOP_SET BZ_SQ_PSCL, @2, BZ_SQ_TOP_TMP
+	TIMUTILS_M_TOP_SET BZ_SQ_PSCL, @2 / 1000.0, BZ_SQ_TOP_TMP
 	.if BZ_SQ_TOP_TMP < 1
 		.error "Too short duration"
 	.elif BZ_SQ_TOP_TMP >= 1 << 16
@@ -70,11 +70,6 @@
 	sts BZ_R_VEC + (@0 + BZ_MAX_BUZZ_COUNT - @1) * 3 + 1, bz_tmp
 	ldi bz_tmp, @3
 	sts BZ_R_VEC + (@0 + BZ_MAX_BUZZ_COUNT - @1) * 3 + 2, bz_tmp
-.endmacro
-
-;params (0)'tone index' (1)'sequence size' (2)'duration sec'
-.macro BZ_SR_SQ_SET_MUTE
-	BZ_SR_SQ_SET_TONE @0, @1, @2, 0
 .endmacro
 
 ;params (0)'sequence size'
@@ -89,6 +84,37 @@
 	call bz_isr_next
 .endmacro
 
+;auto
+;params (0)'sequence size'
+.macro BZ_SR_ASQ_BEGIN
+	.if @0 <= 0 || @0 > BZ_MAX_BUZZ_COUNT
+		.error "Sequence size out of bounds"
+	.endif
+	.set BZ_ASQ_SIZE = @0
+	.set BZ_ASQ_IND = 0
+.endmacro
+
+;params (0)'duration ms' (1)'tone cycles or zero'
+.macro BZ_SR_ASQ_PUSH
+	.if !BZ_ASQ_SIZE
+		.error "Sequence not started"
+	.elif BZ_ASQ_IND >= BZ_ASQ_SIZE
+		.error "Sequence out of bounds"
+	.endif
+	BZ_SR_SQ_SET_TONE BZ_ASQ_IND, BZ_ASQ_SIZE, @0, @1
+	.set BZ_ASQ_IND = BZ_ASQ_IND + 1
+.endmacro
+
+.macro BZ_SR_ASQ_END
+	.if !BZ_ASQ_SIZE
+		.error "Sequence not started"
+	.elif BZ_ASQ_IND != BZ_ASQ_SIZE
+		.error "Sequence incomplete"
+	.endif
+	BZ_SR_SQ_START BZ_ASQ_SIZE
+	.set BZ_ASQ_SIZE = 0
+	.set BZ_ASQ_IND = 0
+.endmacro
 ;##########################################
 #endif
 
