@@ -87,6 +87,9 @@
     <PostBuildEvent>avrdude -c usbasp -p m2560 -U flash:w:"$(OutputDirectory)\$(OutputFileName).hex":i</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="src\led_matrix.asm">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\buzzer.asm">
       <SubType>Code</SubType>
     </Compile>

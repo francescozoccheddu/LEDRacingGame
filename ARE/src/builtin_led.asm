@@ -16,7 +16,7 @@
 	.equ BL_PORTD = DDRB
 	.equ BL_PORT = PORTB
 	.equ BL_PIN = PINB
-	.equ BL_BIT = PORTB7 ;digital pin 13
+	.equ BL_BIT = 7 ;digital pin 13
 
 ;params (0)'dirty register'
 .macro BL_SR_ON
@@ -28,7 +28,7 @@
 ;params (0)'dirty register'
 .macro BL_SR_OFF
 	in @0, BL_PORT
-	andi @0, !(1 << BL_BIT)
+	andi @0, ~(1 << BL_BIT)
 	out BL_PORT, @0
 .endmacro
 

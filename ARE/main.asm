@@ -3,17 +3,21 @@
 	
 l_reset:
 	sei
-	cli
-	BZ_SR_ASQ_BEGIN 5
-	BZ_SR_ASQ_PUSH 100, 40
-	BZ_SR_ASQ_PUSH 200, 0
-	BZ_SR_ASQ_PUSH 100, 40
-	BZ_SR_ASQ_PUSH 100, 0
-	BZ_SR_ASQ_PUSH 400, 30
-	BZ_SR_ASQ_END
 
 l_loop:	
+	ldi ZH, HIGH(lm_sr_setcol)
+	ldi ZL, LOW(lm_sr_setcol)
+	LM_SR_DRAW main
 	rjmp l_loop
+
+lm_sr_setcol:
+	lds r16, DS_R_OUT_L
+	cp lm_col, r16
+	brne rere
+	ser lm_cl
+	ser lm_ch
+	rere:
+	ret
 
 ;##########################################
 #endif

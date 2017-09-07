@@ -27,15 +27,15 @@
 #ifdef CODE
 ;################## CODE ##################
 
+	.def bz_tmp = r20
+
 	.equ BZ_MAX_BUZZ_COUNT = 10
 	sram_bytes BZ_R_VEC, BZ_MAX_BUZZ_COUNT * 3
 	.equ BZ_R_VEC_END = BZ_R_VEC + BZ_MAX_BUZZ_COUNT * 3
 
-	.def bz_tmp = r22
-
 	.equ BZ_PORT = PORTG
 	.equ BZ_PORTD = DDRG
-	.equ BZ_PORT_BIT = PG5 ;PWM pin 4
+	.equ BZ_PORT_BIT = 5 ;PWM pin 4
 	
 	.equ BZ_PWM_TCCRA = TCCR0A
 	.equ BZ_PWM_TCCRB = TCCR0B
@@ -58,8 +58,8 @@
 
 	.equ BZ_MAX_DURATION_MS = 1000
 
-	TIMUTILS_M_PSCL (BZ_MAX_DURATION_MS / 1000.0), 16, BZ_SQ_PSCL
-	TIMUTILS_M_CS BZ_SQ_PSCL, BZ_SQ_CS
+	TU_M_PSCL (BZ_MAX_DURATION_MS / 1000.0), 16, BZ_SQ_PSCL
+	TU_M_CS BZ_SQ_PSCL, BZ_SQ_CS
 
 ;params (0)'tone index' (1)'sequence size' (2)'duration ms' (3)'tone cycles or zero'
 .macro BZ_SR_SQ_SET_TONE
@@ -69,7 +69,7 @@
 	.if @1 > BZ_MAX_BUZZ_COUNT || @1 < 1 || @1 <= @0
 		.error "Sequence size out of bounds"
 	.endif
-	TIMUTILS_M_TOP_SET BZ_SQ_PSCL, @2 / 1000.0, BZ_SQ_TOP_TMP
+	TU_M_TOP_SET BZ_SQ_PSCL, @2 / 1000.0, BZ_SQ_TOP_TMP
 	.if BZ_SQ_TOP_TMP < 1
 		.error "Too short duration"
 	.elif BZ_SQ_TOP_TMP >= 1 << 16
@@ -103,6 +103,7 @@
 	.endif
 	.set BZ_ASQ_SIZE = @0
 	.set BZ_ASQ_IND = 0
+	cli
 .endmacro
 
 ;params (0)'duration ms' (1)'tone cycles or zero'
