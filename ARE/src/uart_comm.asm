@@ -34,36 +34,30 @@
 	.equ UC_UDR = UDR0
 	.equ UC_UCSZ = UCSZ00
 
-;params (0)'register'
+;params (0)'register' (1)'dirty register'
 .macro UC_SR
-	push @0
-	lds @0, UC_UCSRA
-	sbrs @0, UC_UDRE
+	lds @1, UC_UCSRA
+	sbrs @1, UC_UDRE
 	rjmp PC - 3
-	pop @0
 	sts UC_UDR, @0
 .endmacro
 
-;params (0)'immediate'
+;params (0)'immediate' (1)'dirty register'
 .macro UC_SR_I
-	push r16
-	lds r16, UC_UCSRA
+	lds @1, UC_UCSRA
 	sbrs r16, UC_UDRE
 	rjmp PC - 3
-	ldi r16, @0
-	sts UC_UDR, r16
-	pop r16
+	ldi @1, @0
+	sts UC_UDR, @1
 .endmacro
 
-;params (0)'sram address'
+;params (0)'sram address' (1)'dirty register'
 .macro UC_SR_R
-	push r16
-	lds r16, UC_UCSRA
-	sbrs r16, UC_UDRE
+	lds @1, UC_UCSRA
+	sbrs @1, UC_UDRE
 	rjmp PC - 3
-	lds r16, @0
-	sts UC_UDR, r16
-	pop r16
+	lds @1, @0
+	sts UC_UDR, @1
 .endmacro
 
 ;##########################################
