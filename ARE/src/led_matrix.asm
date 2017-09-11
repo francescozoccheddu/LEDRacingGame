@@ -20,56 +20,36 @@
 .equ LM_BIT_CLK = 6 ;digital pin 31
 .equ LM_BIT_LAT = 7 ;digital pin 30
 
-.def lm_row = r21
-.def lm_col = r22
-.def lm_out = r23
-.def lm_cl = r24
-.def lm_ch = r25
+.def lm_rowcnt = r21
+.def lm_outprt = r22
 
-;params (0)'branch label'
-.macro LM_SR_DRAW
-	;column loop
-	ldi lm_col, 0
-lm_lm_sr_draw_col_@0:
-	;column
-	;column callback
-	icall
-	;row loop
-	ldi lm_row, 16
-lm_lm_sr_draw_row_@0:
+;params (0)'column register' (1)'data high' (2)'data low' 
+.macro LM_SR_DRAW_COL
+	ldi lm_rowcnt, 16
 	;row
-	ldi lm_out, (1 << LM_BIT_G) | (1 << LM_BIT_DI)
-	lsr lm_ch
-	ror lm_cl
-	brcc lm_lm_sr_draw_dot_@0
-	ldi lm_out, (1 << LM_BIT_G)
-lm_lm_sr_draw_dot_@0:
-	out LM_PORT, lm_out
-	ori lm_out, 1 << LM_BIT_CLK
-	out LM_PORT, lm_out
-	andi lm_out, ~(1 << LM_BIT_CLK)
-	out LM_PORT, lm_out
+	ldi lm_outprt, (1 << LM_BIT_G) | (1 << LM_BIT_DI)
+	lsr @1
+	ror @2
+	brcc PC + 2
+	ldi lm_outprt, (1 << LM_BIT_G)
+	out LM_PORT, lm_outprt
+	ori lm_outprt, 1 << LM_BIT_CLK
+	out LM_PORT, lm_outprt
+	andi lm_outprt, ~(1 << LM_BIT_CLK)
+	out LM_PORT, lm_outprt
 	;loop
-	dec lm_row
-	brne lm_lm_sr_draw_row_@0
+	dec lm_rowcnt
+	brne PC - 11
 	;send LAT
-	ldi lm_out, (1 << LM_BIT_G) | (1 << LM_BIT_LAT)
-	out LM_PORT, lm_out
-	ldi lm_out, (1 << LM_BIT_G)
-	out LM_PORT, lm_out
+	ldi lm_outprt, (1 << LM_BIT_G) | (1 << LM_BIT_LAT)
+	out LM_PORT, lm_outprt
+	ldi lm_outprt, (1 << LM_BIT_G)
+	out LM_PORT, lm_outprt
 	;send col
-	or lm_out, lm_col
-	out LM_PORT, lm_out
+	or lm_outprt, @0
+	out LM_PORT, lm_outprt
 	;end G
-	out LM_PORT, lm_col
-	;wait
-	ldi  lm_row, 255
-    dec  lm_row
-    brne PC - 1
-	;loop
-	inc lm_col
-	cpi lm_col, 16
-	brne lm_lm_sr_draw_col_@0
+	out LM_PORT, @0
 .endmacro
 
 ;##########################################

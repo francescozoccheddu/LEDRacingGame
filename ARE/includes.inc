@@ -1,6 +1,6 @@
 //#include "src/uart_comm.asm"
 //#include "src/builtin_led.asm"
-#include "src/timer_utils.asm"
-#include "src/distance_sens.asm"
+//#include "src/timer_utils.asm"
+//#include "src/distance_sens.asm"
 //#include "src/buzzer.asm"
 #include "src/led_matrix.asm"
