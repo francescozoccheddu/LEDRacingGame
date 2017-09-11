@@ -3,21 +3,25 @@
 	
 l_reset:
 	sei
+	ldi r16, 0
 
 l_loop:	
-	ldi ZH, HIGH(lm_sr_setcol)
-	ldi ZL, LOW(lm_sr_setcol)
-	LM_SR_DRAW main
-	rjmp l_loop
+	ldi r24, 1 << 3
+	ldi r25, 1 << 1
+	LM_SR_DRAW_COL r16, r24, r25
 
-lm_sr_setcol:
-	lds r16, DS_R_OUT_L
-	cp lm_col, r16
-	brne rere
-	ser lm_cl
-	ser lm_ch
-	rere:
-	ret
+	ldi  r18, 3
+    ldi  r19, 19
+L1: dec  r19
+    brne L1
+    dec  r18
+    brne L1
+
+	inc r16
+	cpi r16, 16
+	brne l_loop
+	rjmp l_reset
+
 
 ;##########################################
 #endif
