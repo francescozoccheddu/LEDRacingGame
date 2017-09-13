@@ -55,8 +55,8 @@
 
 	.def ds_tl = r4
 	.def ds_th = r5
-	.def ds_tmp1 = r18
-	.def ds_tmp2 = r19
+	.def ds_tmp1 = r20
+	.def ds_tmp2 = r21
 
 	;ports
 	.equ DS_PORT = PORTL

@@ -99,6 +99,12 @@
     <Compile Include="src\builtin_led.asm">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\main_loop.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\scn_hello.asm">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\timer_utils.asm">
       <SubType>Code</SubType>
     </Compile>
@@ -109,9 +115,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="includes.inc">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="main.asm">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
