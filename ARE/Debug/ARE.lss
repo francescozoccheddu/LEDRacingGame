@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm Wed Sep 13 17:53:01 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm Wed Sep 13 19:21:26 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -2088,7 +2088,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(8): Including file 'C:\Users\
                                  #ifdef SETUP
                                  ;################## SETUP #################
                                  
-000098 e71d                      	ldi m_cl, M_TIM_TOP
+000098 e41e                      	ldi m_cl, M_TIM_TOP
 000099 9310 00b3                 	sts M_TIM_OCR, m_cl
 00009b e012                      	ldi m_cl, M_TIM_TIMSK_BITS
 00009c 9310 0070                 	sts M_TIM_TIMSK, m_cl
@@ -2104,7 +2104,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(8): Including file 'C:\Users\
                                  ;################## SETUP #################
                                  
 00009f e0f1                      	ldi ZH, HIGH( sh_sr_draw )
-0000a0 ebea                      	ldi ZL, LOW( sh_sr_draw )
+0000a0 ebea                      	ldi ZL, LOW( sh_sr_draw)
                                  
                                  ;##########################################
                                  #endif
@@ -2668,7 +2668,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(8): Including file 'C:\Users\
                                  	.def m_cl = r17
                                  	.def m_ch = r18
                                  
-                                 	.equ M_TIM_DELAY_US = 500
+                                 	.equ M_TIM_DELAY_US = 5000
                                  	TU_M_PSCL M_TIM_DELAY_US / 1000000.0, 8, M_TIM_PSCL
                                  	TU_M_CS M_TIM_PSCL, M_TIM_CS
                                  	TU_M_TOP_EQU M_TIM_PSCL, M_TIM_DELAY_US / 1000000.0, M_TIM_TOP
@@ -2708,7 +2708,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(8): Including file 'C:\Users\
 0001a7 b978
 0001a8 b908                      	LM_SR_DRAW_COL m_col, m_ch, m_cl
 0001a9 9310 00b2                 	sts M_TIM_TCNT, m_cl
-0001ab e013                      	ldi m_cl, M_TIM_CS
+0001ab e015                      	ldi m_cl, M_TIM_CS
 0001ac 9310 00b1                 	sts M_TIM_TCCRB, m_cl
                                  
 0001ae 9478                      	sei
@@ -2737,15 +2737,17 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(8): Including file 'C:\Users\
                                  ;################## CODE ##################
                                  
                                  sh_sr_draw:
-0001ba 3006                      	cpi m_col, 6
-0001bb f011                      	breq sh_l_draw_dot
-0001bc 3009                      	cpi m_col, 9
-0001bd f411                      	brne sh_l_draw_ret
-                                 sh_l_draw_dot:
-0001be e023                      	ldi m_ch, (1 << 0) | (1 << 1) 
-0001bf ec10                      	ldi m_cl, (1 << 6) | (1 << 7) 
+0001ba 2711                      	clr m_cl
+0001bb 2722                      	clr m_ch
+0001bc 9120 0200                 	lds m_ch, DS_R_OUT_L
+0001be 1702                      	cp m_col, m_ch
+0001bf f419                      	brne sh_l_draw_ret
+0001c0 e023                      	ldi m_ch, (1 << 0) | (1 << 1) 
+0001c1 ec10                      	ldi m_cl, (1 << 6) | (1 << 7)
+0001c2 9508                      	ret
                                  sh_l_draw_ret:
-0001c0 9508                      	ret 
+0001c3 2722                      	clr m_ch
+0001c4 9508                      	ret 
                                  
                                  ;##########################################
                                  #endif
@@ -2774,7 +2776,7 @@ counted separately from r26..r31 here.
 "ATmega2560" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :  30 
 r5 :  24 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  15 r17:  12 r18:   2 r19:   0 r20: 107 
+r13:   0 r14:   0 r15:   0 r16:  14 r17:  13 r18:   6 r19:   0 r20: 107 
 r21:  50 r22:   2 r23:  13 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   1 r31:   1 
 Registers used: 11 out of 35 (31.4%)
@@ -2782,30 +2784,30 @@ Registers used: 11 out of 35 (31.4%)
 "ATmega2560" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :   1 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   1 brcs  :   0 break :   0 breq  :   3 brge  :   0 brhc  :   0 
+brcc  :   1 brcs  :   0 break :   0 breq  :   2 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :  16 brlt  :   0 brmi  :   0 
 brne  :   9 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   2 cln   :   0 clr   :  10 cls   :   0 
-clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :  16 
-cpi   :  22 cpse  :   0 dec   :  20 eicall:   0 eijmp :   0 elpm  :   0 
+clc   :   0 clh   :   0 cli   :   2 cln   :   0 clr   :  13 cls   :   0 
+clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   1 cpc   :  16 
+cpi   :  20 cpse  :   0 dec   :  20 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   1 ijmp  :   0 
 in    :   0 inc   :   1 jmp   :   1 ld    :   0 ldd   :   0 ldi   :  61 
-lds   :  14 lpm   :   0 lsl   :   0 lsr   :   1 mov   :   4 movw  :   2 
+lds   :  15 lpm   :   0 lsl   :   0 lsr   :   1 mov   :   4 movw  :   2 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   1 or    :   1 
-ori   :   1 out   :  16 pop   :   1 push  :   1 rcall :   2 ret   :   3 
+ori   :   1 out   :  16 pop   :   1 push  :   1 rcall :   2 ret   :   4 
 reti  :   5 rjmp  :   9 rol   :   0 ror   :   1 sbc   :   1 sbci  :   2 
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   0 
 sbrs  :   2 sec   :   0 seh   :   0 sei   :   2 sen   :   0 ser   :   1 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
 st    :   0 std   :   0 sts   :  44 sub   :   2 subi  :   2 swap  :   0 
 tst   :   0 wdr   :   0 
-Instructions used: 37 out of 116 (31.9%)
+Instructions used: 38 out of 116 (32.8%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000382    682      0    682  262144   0.3%
+[.cseg] 0x000000 0x00038a    690      0    690  262144   0.3%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 

@@ -27,7 +27,7 @@
 #ifdef CODE
 ;################## CODE ##################
 
-	.def bz_tmp = r20
+	.def bz_tmp = r22
 
 	.equ BZ_MAX_BUZZ_COUNT = 10
 	sram_bytes BZ_R_VEC, BZ_MAX_BUZZ_COUNT * 3
