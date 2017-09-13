@@ -18,49 +18,40 @@
 	sram_bytes @0, 1
 .endmacro
 
-;include interrupt subroutine defs
+.org 0
+	rjmp entry_l_pre_reset
+
 #define INTV
 ;################## INTV ##################
 
-.org 0
-	rjmp main
-
 #include "includes.inc"
-#include "main.asm"
 
 ;##########################################
 #undef INTV
 
 .org INT_VECTORS_SIZE
-#define CODE
-;################## CODE ##################
-
-#include "includes.inc"
-
-;##########################################
-#undef CODE
-
-main:
+entry_l_pre_reset:
 	;setup stack
 	ldi r16, HIGH(RAMEND)
 	out SPH, r16
 	ldi r16, LOW(RAMEND)
 	out SPL, r16
 
-;setup includes
 #define SETUP
 ;################## SETUP #################
 
 #include "includes.inc"
-#include "main.asm"
 
 ;##########################################
 #undef SETUP
 
+jmp entry_l_reset
+
 #define CODE
 ;################## CODE ##################
 
-#include "main.asm"
+#include "includes.inc"
 
 ;##########################################
 #undef CODE
+

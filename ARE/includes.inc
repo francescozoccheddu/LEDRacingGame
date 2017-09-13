@@ -4,3 +4,6 @@
 #include "src/distance_sens.asm"
 //#include "src/buzzer.asm"
 #include "src/led_matrix.asm"
+#include "src/main_loop.asm"
+#include "src/scn_hello.asm"
+

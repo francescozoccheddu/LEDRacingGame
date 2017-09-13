@@ -20,8 +20,8 @@
 .equ LM_BIT_CLK = 6 ;digital pin 31
 .equ LM_BIT_LAT = 7 ;digital pin 30
 
-.def lm_rowcnt = r21
-.def lm_outprt = r22
+.def lm_rowcnt = r22
+.def lm_outprt = r23
 
 ;params (0)'column register' (1)'data high' (2)'data low' 
 .macro LM_SR_DRAW_COL
