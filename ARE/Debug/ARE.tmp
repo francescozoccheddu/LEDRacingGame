@@ -29,10 +29,10 @@
  </OUTPUT_FILES>
  <LABELS>
   <entry_l_pre_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm</FILE><LINE>33</LINE></entry_l_pre_reset>
-  <ds_isr_ic_l><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>311</LINE></ds_isr_ic_l>
-  <ds_isr_ic_r><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>317</LINE></ds_isr_ic_r>
-  <ds_isr_oca_l><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>314</LINE></ds_isr_oca_l>
-  <ds_isr_oca_r><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>320</LINE></ds_isr_oca_r>
+  <ds_isr_ic_l><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>313</LINE></ds_isr_ic_l>
+  <ds_isr_ic_r><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>319</LINE></ds_isr_ic_r>
+  <ds_isr_oca_l><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>316</LINE></ds_isr_oca_l>
+  <ds_isr_oca_r><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/distance_sens.asm</FILE><LINE>322</LINE></ds_isr_oca_r>
   <m_isr_draw_unlock><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/main_loop.asm</FILE><LINE>63</LINE></m_isr_draw_unlock>
   <sh_sr_draw><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/scn_hello.asm</FILE><LINE>13</LINE></sh_sr_draw>
   <entry_l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/main_loop.asm</FILE><LINE>40</LINE></entry_l_reset>
