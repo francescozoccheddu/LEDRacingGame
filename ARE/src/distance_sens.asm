@@ -68,9 +68,9 @@
 
 	;params
 	.equ DS_ECHO_TIMEOUT_LOW_US = 40000
-	.equ DS_ECHO_MIN_US = 150
-	.equ DS_ECHO_MAX_US = 2000
-	.equ DS_ECHO_MAX_HELD_US = 3000
+	.equ DS_ECHO_MIN_US = 300
+	.equ DS_ECHO_MAX_US = 1000
+	.equ DS_ECHO_MAX_HELD_US = 2000
 	.equ DS_ECHO_TIMEOUT_HIGH_US = 30000
 
 	.equ DS_TCNTL_L = TCNT4L
@@ -283,7 +283,9 @@ ds_l_sr_output_ret_w1:
 	lds ds_tmp1, DS_ICRL_@0
 	lds ds_tmp2, DS_ICRH_@0
 	rcall ds_sr_output
-	sbrs ds_tl, DS_OUT_FAILURE_BIT
+	ldi ds_tmp1, 16
+	sbrc ds_tl, DS_OUT_FAILURE_BIT
+	mov ds_tl, ds_tmp1
 	sts DS_R_OUT_@0, ds_tl
 	;set opponent timer interrupts
 	ldi ds_tmp1, DS_TIMSK_ICIE | DS_TIMSK_OCIEA

@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm Thu Sep 14 10:24:14 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm Thu Sep 14 11:08:34 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm(2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -1962,13 +1962,13 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(8): Including file 'C:\Users\
 000052 c0b5                      	rjmp ds_isr_ic_l
                                  
                                  	.org ICP5addr
-00005c c0f0                      	rjmp ds_isr_ic_r
+00005c c0f2                      	rjmp ds_isr_ic_r
                                  
                                  	.org OC4Aaddr
 000054 c0c8                      	rjmp ds_isr_oca_l
                                  
                                  	.org OC5Aaddr
-00005e c103                      	rjmp ds_isr_oca_r
+00005e c105                      	rjmp ds_isr_oca_r
                                  
                                  ;##########################################
                                  #endif
@@ -1990,7 +1990,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(8): Including file 'C:\Users\
                                  ;################## INTV ##################
                                  
                                  .org OC2Aaddr
-00001a c19c                      	rjmp m_isr_draw_unlock
+00001a c1a0                      	rjmp m_isr_draw_unlock
                                  
                                  ;##########################################
                                  #endif
@@ -2104,7 +2104,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(8): Including file 'C:\Users\
                                  ;################## SETUP #################
                                  
 00009f e0f1                      	ldi ZH, HIGH( sh_sr_draw )
-0000a0 ebeb                      	ldi ZL, LOW( sh_sr_draw)
+0000a0 ebef                      	ldi ZL, LOW( sh_sr_draw)
                                  
                                  ;##########################################
                                  #endif
@@ -2117,7 +2117,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(8): Including file 'C:\Users\
                                  ;##########################################
                                  #undef SETUP
                                  
-0000a1 940c 0192                 jmp entry_l_reset
+0000a1 940c 0196                 jmp entry_l_reset
                                  
                                  #define CODE
                                  ;################## CODE ##################
@@ -2210,9 +2210,9 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(8): Including file 'C:\Users\
                                  
                                  	;params
                                  	.equ DS_ECHO_TIMEOUT_LOW_US = 40000
-                                 	.equ DS_ECHO_MIN_US = 150
-                                 	.equ DS_ECHO_MAX_US = 2000
-                                 	.equ DS_ECHO_MAX_HELD_US = 3000
+                                 	.equ DS_ECHO_MIN_US = 300
+                                 	.equ DS_ECHO_MAX_US = 1000
+                                 	.equ DS_ECHO_MAX_HELD_US = 2000
                                  	.equ DS_ECHO_TIMEOUT_HIGH_US = 30000
                                  
                                  	.equ DS_TCNTL_L = TCNT4L
@@ -2337,67 +2337,67 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(8): Including file 'C:\Users\
 0000ae 2e45                      	mov ds_tl, ds_tmp2
                                  	;state (th:tmp1)'measure' (tmp2)[free] (tl)'counter'
 0000af e050
-0000b0 3442
+0000b0 3545
 0000b1 0655
 0000b2 f1f8                      	DS_SR_COMPARE DS_TIME_1, ds_l_sr_output_0
 0000b3 e050
-0000b4 354f
+0000b4 3640
 0000b5 0655
 0000b6 f1e0                      	DS_SR_COMPARE DS_TIME_2, ds_l_sr_output_1
 0000b7 e050
-0000b8 374c
+0000b8 364b
 0000b9 0655
 0000ba f1c8                      	DS_SR_COMPARE DS_TIME_3, ds_l_sr_output_2
 0000bb e050
-0000bc 3949
+0000bc 3746
 0000bd 0655
 0000be f1b0                      	DS_SR_COMPARE DS_TIME_4, ds_l_sr_output_3
 0000bf e050
-0000c0 3b46
+0000c0 3841
 0000c1 0655
 0000c2 f198                      	DS_SR_COMPARE DS_TIME_5, ds_l_sr_output_4
 0000c3 e050
-0000c4 3d42
+0000c4 384c
 0000c5 0655
 0000c6 f180                      	DS_SR_COMPARE DS_TIME_6, ds_l_sr_output_5
 0000c7 e050
-0000c8 3e4f
+0000c8 3947
 0000c9 0655
 0000ca f168                      	DS_SR_COMPARE DS_TIME_7, ds_l_sr_output_6
-0000cb e051
-0000cc 304c
+0000cb e050
+0000cc 3a42
 0000cd 0655
 0000ce f150                      	DS_SR_COMPARE DS_TIME_8, ds_l_sr_output_7
-0000cf e051
-0000d0 3249
+0000cf e050
+0000d0 3a4d
 0000d1 0655
 0000d2 f138                      	DS_SR_COMPARE DS_TIME_9, ds_l_sr_output_8
-0000d3 e051
-0000d4 3446
+0000d3 e050
+0000d4 3b48
 0000d5 0655
 0000d6 f120                      	DS_SR_COMPARE DS_TIME_10, ds_l_sr_output_9
-0000d7 e051
-0000d8 3643
+0000d7 e050
+0000d8 3c43
 0000d9 0655
 0000da f108                      	DS_SR_COMPARE DS_TIME_11, ds_l_sr_output_10
-0000db e051
-0000dc 3840
+0000db e050
+0000dc 3c4e
 0000dd 0655
 0000de f0f0                      	DS_SR_COMPARE DS_TIME_12, ds_l_sr_output_11
-0000df e051
-0000e0 394d
+0000df e050
+0000e0 3d49
 0000e1 0655
 0000e2 f0d8                      	DS_SR_COMPARE DS_TIME_13, ds_l_sr_output_12
-0000e3 e051
-0000e4 3b4a
+0000e3 e050
+0000e4 3e44
 0000e5 0655
 0000e6 f0c0                      	DS_SR_COMPARE DS_TIME_14, ds_l_sr_output_13
-0000e7 e051
-0000e8 3d47
+0000e7 e050
+0000e8 3e4f
 0000e9 0655
 0000ea f0a8                      	DS_SR_COMPARE DS_TIME_15, ds_l_sr_output_14
-0000eb e052
-0000ec 3e4e
+0000eb e051
+0000ec 3f44
 0000ed 0655
 0000ee f090                      	DS_SR_COMPARE DS_TIME_OVER, ds_l_sr_output_15
                                  	;output high timeout failure
@@ -2473,7 +2473,9 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(8): Including file 'C:\Users\
                                  	lds ds_tmp1, DS_ICRL_@0
                                  	lds ds_tmp2, DS_ICRH_@0
                                  	rcall ds_sr_output
-                                 	sbrs ds_tl, DS_OUT_FAILURE_BIT
+                                 	ldi ds_tmp1, 16
+                                 	sbrc ds_tl, DS_OUT_FAILURE_BIT
+                                 	mov ds_tl, ds_tmp1
                                  	sts DS_R_OUT_@0, ds_tl
                                  	;set opponent timer interrupts
                                  	ldi ds_tmp1, DS_TIMSK_ICIE | DS_TIMSK_OCIEA
@@ -2532,75 +2534,79 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(8): Including file 'C:\Users\
 000131 9140 00a6
 000133 9150 00a7
 000135 df6d
-000136 fe47
-000137 9240 0200
-000139 e242
-00013a 9340 0073
-00013c e242
-00013d bb49
-00013e bb4a
-00013f ec4b
-000140 9340 0121
-000142 9040 0126
-000144 9050 0127
-000146 e04d
-000147 954a
-000148 f7f1
-000149 2744
-00014a 9340 010b
-00014c 9518                      	DS_ISR_OCA L, R
+000136 e140
+000137 fc47
+000138 2e44
+000139 9240 0200
+00013b e242
+00013c 9340 0073
+00013e e242
+00013f bb49
+000140 bb4a
+000141 ec4b
+000142 9340 0121
+000144 9040 0126
+000146 9050 0127
+000148 e04d
+000149 954a
+00014a f7f1
+00014b 2744
+00014c 9340 010b
+00014e 9518                      	DS_ISR_OCA L, R
                                  
                                  ds_isr_ic_r:
-00014d 9140 0121
-00014f 384b
-000150 f089
-000151 9040 0126
-000153 9050 0127
-000155 e84b
-000156 9340 0121
-000158 01a2
-000159 5b44
-00015a 4e53
-00015b 9350 0129
-00015d 9340 0128
-00015f e242
-000160 bb4a
-000161 9518                      	DS_ISR_ICI R
+00014f 9140 0121
+000151 384b
+000152 f089
+000153 9040 0126
+000155 9050 0127
+000157 e84b
+000158 9340 0121
+00015a 01a2
+00015b 5b44
+00015c 4e53
+00015d 9350 0129
+00015f 9340 0128
+000161 e242
+000162 bb4a
+000163 9518                      	DS_ISR_ICI R
                                  
                                  ds_isr_oca_r:
-000162 e440
-000163 9340 010b
-000165 e048
-000166 9340 0121
-000168 2744
-000169 9340 0073
-00016b e140
-00016c e257
-00016d 9350 00a9
-00016f 9340 00a8
-000171 2744
-000172 9340 00a5
-000174 9340 00a4
-000176 9140 0126
-000178 9150 0127
-00017a df28
-00017b fe47
-00017c 9240 0201
-00017e e242
-00017f 9340 0072
-000181 e242
-000182 bb4a
-000183 bb49
-000184 ec4b
-000185 9340 00a1
-000187 9040 00a6
-000189 9050 00a7
-00018b e04d
-00018c 954a
-00018d f7f1
-00018e 2744
-00018f 9340 010b
-000191 9518                      	DS_ISR_OCA R, L
+000164 e440
+000165 9340 010b
+000167 e048
+000168 9340 0121
+00016a 2744
+00016b 9340 0073
+00016d e140
+00016e e257
+00016f 9350 00a9
+000171 9340 00a8
+000173 2744
+000174 9340 00a5
+000176 9340 00a4
+000178 9140 0126
+00017a 9150 0127
+00017c df26
+00017d e140
+00017e fc47
+00017f 2e44
+000180 9240 0201
+000182 e242
+000183 9340 0072
+000185 e242
+000186 bb4a
+000187 bb49
+000188 ec4b
+000189 9340 00a1
+00018b 9040 00a6
+00018d 9050 00a7
+00018f e04d
+000190 954a
+000191 f7f1
+000192 2744
+000193 9340 010b
+000195 9518                      	DS_ISR_OCA R, L
                                  
                                  ;##########################################
                                  #endif
@@ -2681,50 +2687,50 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(8): Including file 'C:\Users\
                                  	
                                  entry_l_reset:
                                  m_l_draw_start:
-000192 9478                      	sei
-000193 2700                      	clr m_col
+000196 9478                      	sei
+000197 2700                      	clr m_col
                                  
                                  m_l_draw_loop:
-000194 9478                      	sei
-000195 9509                      	icall
-000196 94f8                      	cli
-000197 e160
-000198 e370
-000199 9526
-00019a 9517
-00019b f408
-00019c e170
-00019d b978
-00019e 6470
-00019f b978
-0001a0 7b7f
+000198 9478                      	sei
+000199 9509                      	icall
+00019a 94f8                      	cli
+00019b e160
+00019c e370
+00019d 9526
+00019e 9517
+00019f f408
+0001a0 e170
 0001a1 b978
-0001a2 956a
-0001a3 f7a1
-0001a4 e970
+0001a2 6470
+0001a3 b978
+0001a4 7b7f
 0001a5 b978
-0001a6 e170
-0001a7 b978
-0001a8 2b70
+0001a6 956a
+0001a7 f7a1
+0001a8 e970
 0001a9 b978
-0001aa b908                      	LM_SR_DRAW_COL m_col, m_ch, m_cl
-0001ab 9310 00b2                 	sts M_TIM_TCNT, m_cl
-0001ad e015                      	ldi m_cl, M_TIM_CS
-0001ae 9310 00b1                 	sts M_TIM_TCCRB, m_cl
-0001b0 9478                      	sei
+0001aa e170
+0001ab b978
+0001ac 2b70
+0001ad b978
+0001ae b908                      	LM_SR_DRAW_COL m_col, m_ch, m_cl
+0001af 9310 00b2                 	sts M_TIM_TCNT, m_cl
+0001b1 e015                      	ldi m_cl, M_TIM_CS
+0001b2 9310 00b1                 	sts M_TIM_TCCRB, m_cl
+0001b4 9478                      	sei
                                  m_l_draw_lock:
-0001b1 3010                      	cpi m_cl, 0
-0001b2 f7f1                      	brne m_l_draw_lock
+0001b5 3010                      	cpi m_cl, 0
+0001b6 f7f1                      	brne m_l_draw_lock
                                  
-0001b3 9503                      	inc m_col
-0001b4 3100                      	cpi m_col, 16
-0001b5 f6f1                      	brne m_l_draw_loop
-0001b6 cfdb                      	rjmp m_l_draw_start
+0001b7 9503                      	inc m_col
+0001b8 3100                      	cpi m_col, 16
+0001b9 f6f1                      	brne m_l_draw_loop
+0001ba cfdb                      	rjmp m_l_draw_start
                                  
                                  m_isr_draw_unlock:
-0001b7 2711                      	clr m_cl
-0001b8 9310 00b1                 	sts M_TIM_TCCRB, m_cl
-0001ba 9508                      	ret
+0001bb 2711                      	clr m_cl
+0001bc 9310 00b1                 	sts M_TIM_TCCRB, m_cl
+0001be 9508                      	ret
                                  
                                  ;##########################################
                                  #endif
@@ -2736,17 +2742,17 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\includes.inc(8): Including file 'C:\Users\
                                  ;################## CODE ##################
                                  
                                  sh_sr_draw:
-0001bb 2711                      	clr m_cl
-0001bc 2722                      	clr m_ch
-0001bd 9120 0200                 	lds m_ch, DS_R_OUT_L
-0001bf 1702                      	cp m_col, m_ch
-0001c0 f419                      	brne sh_l_draw_ret
-0001c1 e023                      	ldi m_ch, (1 << 0) | (1 << 1) 
-0001c2 ec10                      	ldi m_cl, (1 << 6) | (1 << 7)
-0001c3 9508                      	ret
+0001bf 2711                      	clr m_cl
+0001c0 2722                      	clr m_ch
+0001c1 9120 0200                 	lds m_ch, DS_R_OUT_L
+0001c3 1702                      	cp m_col, m_ch
+0001c4 f419                      	brne sh_l_draw_ret
+0001c5 e023                      	ldi m_ch, (1 << 0) | (1 << 1) 
+0001c6 ec10                      	ldi m_cl, (1 << 6) | (1 << 7)
+0001c7 9508                      	ret
                                  sh_l_draw_ret:
-0001c4 2722                      	clr m_ch
-0001c5 9508                      	ret 
+0001c8 2722                      	clr m_ch
+0001c9 9508                      	ret 
                                  
                                  ;##########################################
                                  #endif
@@ -2773,9 +2779,9 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega2560" register use summary:
-x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :  30 
+x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :  32 
 r5 :  24 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  14 r17:  13 r18:   6 r19:   0 r20: 107 
+r13:   0 r14:   0 r15:   0 r16:  14 r17:  13 r18:   6 r19:   0 r20: 111 
 r21:  50 r22:   2 r23:  13 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   1 r31:   1 
 Registers used: 11 out of 35 (31.4%)
@@ -2791,13 +2797,13 @@ clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :  13 cls   :   0
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   1 cpc   :  16 
 cpi   :  20 cpse  :   0 dec   :  20 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   1 ijmp  :   0 
-in    :   0 inc   :   1 jmp   :   1 ld    :   0 ldd   :   0 ldi   :  61 
-lds   :  15 lpm   :   0 lsl   :   0 lsr   :   1 mov   :   4 movw  :   2 
+in    :   0 inc   :   1 jmp   :   1 ld    :   0 ldd   :   0 ldi   :  63 
+lds   :  15 lpm   :   0 lsl   :   0 lsr   :   1 mov   :   6 movw  :   2 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   1 or    :   1 
 ori   :   1 out   :  16 pop   :   1 push  :   1 rcall :   2 ret   :   5 
 reti  :   4 rjmp  :   9 rol   :   0 ror   :   1 sbc   :   1 sbci  :   2 
-sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   0 
-sbrs  :   2 sec   :   0 seh   :   0 sei   :   4 sen   :   0 ser   :   1 
+sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   2 
+sbrs  :   0 sec   :   0 seh   :   0 sei   :   4 sen   :   0 ser   :   1 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
 st    :   0 std   :   0 sts   :  44 sub   :   2 subi  :   2 swap  :   0 
 tst   :   0 wdr   :   0 
@@ -2806,7 +2812,7 @@ Instructions used: 38 out of 116 (32.8%)
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x00038c    692      0    692  262144   0.3%
+[.cseg] 0x000000 0x000394    700      0    700  262144   0.3%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 
