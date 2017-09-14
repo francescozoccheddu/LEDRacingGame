@@ -39,22 +39,21 @@
 	
 entry_l_reset:
 m_l_draw_start:
+	sei
 	clr m_col
 
-m_l_draw_loop:	
-	cli
+m_l_draw_loop:
+	sei
 	icall
-
+	cli
 	LM_SR_DRAW_COL m_col, m_ch, m_cl
 	sts M_TIM_TCNT, m_cl
 	ldi m_cl, M_TIM_CS
 	sts M_TIM_TCCRB, m_cl
-
 	sei
 m_l_draw_lock:
 	cpi m_cl, 0
 	brne m_l_draw_lock
-	cli
 
 	inc m_col
 	cpi m_col, 16
@@ -64,7 +63,7 @@ m_l_draw_lock:
 m_isr_draw_unlock:
 	clr m_cl
 	sts M_TIM_TCCRB, m_cl
-	reti
+	ret
 
 ;##########################################
 #endif
