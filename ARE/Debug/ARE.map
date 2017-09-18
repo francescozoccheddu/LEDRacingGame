@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm Thu Sep 14 11:08:34 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\entry.asm Mon Sep 18 13:37:21 2017
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1485,4 +1485,3 @@ EQU  M_TIM_TCNT   000000b2
 CSEG m_l_draw_start 00000196
 CSEG m_l_draw_loop 00000198
 CSEG m_l_draw_lock 000001b5
-CSEG sh_l_draw_ret 000001c8
