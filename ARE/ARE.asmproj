@@ -105,6 +105,9 @@
     <Compile Include="src\scn_hello.asm">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\timer_callback.asm">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\timer_utils.asm">
       <SubType>Code</SubType>
     </Compile>

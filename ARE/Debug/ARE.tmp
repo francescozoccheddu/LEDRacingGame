@@ -60,6 +60,5 @@
   <m_l_draw_start><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/main_loop.asm</FILE><LINE>41</LINE></m_l_draw_start>
   <m_l_draw_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/main_loop.asm</FILE><LINE>45</LINE></m_l_draw_loop>
   <m_l_draw_lock><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/main_loop.asm</FILE><LINE>54</LINE></m_l_draw_lock>
-  <sh_l_draw_ret><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src/scn_hello.asm</FILE><LINE>22</LINE></sh_l_draw_ret>
  </LABELS>
 </ASSEMBLER_INFO>
