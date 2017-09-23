@@ -1,43 +1,37 @@
-#ifdef SETUP
-;################## SETUP #################
+; Francesco Zoccheddu
+; ARE
+; builtin LED
 
-	push r16
-	in r16, BL_PORT
-	ori r16, 1 << BL_BIT
-	out BL_PORTD, r16
-	pop r16
+.equ BL_DDR = DDRB
+.equ BL_PORT = PORTB
+.equ BL_PIN = PINB
+.equ BL_BIT = 7
 
-;##########################################
-#endif
+; @0 (dirty immediate register)
+.macro BL_SRC_SETUP
+	in @0, BL_DDR
+	ori @0, 1 << BL_BIT
+	out BL_DDR, @0
+.endmacro
 
-#ifdef CODE
-;################## CODE ##################
-
-	.equ BL_PORTD = DDRB
-	.equ BL_PORT = PORTB
-	.equ BL_PIN = PINB
-	.equ BL_BIT = 7 ;digital pin 13
-
-;params (0)'dirty register'
-.macro BL_SR_ON
+; @0 (dirty immediate register)
+.macro BL_SRC_ON
 	in @0, BL_PORT
 	ori @0, 1 << BL_BIT
 	out BL_PORT, @0
 .endmacro
 
-;params (0)'dirty register'
-.macro BL_SR_OFF
+; @0 (dirty immediate register)
+.macro BL_SRC_OFF
 	in @0, BL_PORT
 	andi @0, ~(1 << BL_BIT)
 	out BL_PORT, @0
 .endmacro
 
-;params (0)'dirty register'
-.macro BL_SR_TOGGLE
+; @0 (dirty immediate register)
+.macro BL_SRC_TOGGLE
 	ldi @0, 1 << BL_BIT
 	out BL_PIN, @0
 .endmacro
 
-;##########################################
-#endif
 
