@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sat Sep 23 22:39:57 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sat Sep 23 22:41:31 2017
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1367,3 +1367,5 @@ EQU  BL_BIT       00000007
 SET  INTVECM_PC   00000072
 CSEG m_l_reset    00000072
 DEF  m_tmp        r16
+CSEG m_l_loop     00000079
+CSEG L1           0000007c

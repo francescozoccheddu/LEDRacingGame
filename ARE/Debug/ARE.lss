@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sat Sep 23 22:39:57 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sat Sep 23 22:41:31 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(10): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -1966,6 +1966,23 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(21): Including file 'C:\Users
 000076 b104
 000077 6800
 000078 b904                      	BL_SRC_SETUP m_tmp
+                                 
+                                 m_l_loop:
+                                 	
+000079 e029                          ldi  r18, 9
+00007a e13e                          ldi  r19, 30
+00007b ee45                          ldi  r20, 229
+00007c 954a                      L1: dec  r20
+00007d f7f1                          brne L1
+00007e 953a                          dec  r19
+00007f f7e1                          brne L1
+000080 952a                          dec  r18
+000081 f7d1                          brne L1
+000082 0000                          nop
+                                 
+000083 e800
+000084 b903                      	BL_SRC_TOGGLE m_tmp
+                                 
 
 
 RESOURCE USE INFORMATION
@@ -1985,38 +2002,38 @@ counted separately from r26..r31 here.
 "ATmega2560" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:   7 r17:   0 r18:   0 r19:   0 r20:   0 
+r13:   0 r14:   0 r15:   0 r16:   9 r17:   0 r18:   2 r19:   2 r20:   2 
 r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
-Registers used: 1 out of 35 (2.9%)
+Registers used: 4 out of 35 (11.4%)
 
 "ATmega2560" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   0 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   0 cpse  :   0 dec   :   0 eicall:   0 eijmp :   0 elpm  :   0 
+cpi   :   0 cpse  :   0 dec   :   3 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   1 inc   :   0 jmp   :   1 ld    :   0 ldd   :   0 ldi   :   2 
+in    :   1 inc   :   0 jmp   :   1 ld    :   0 ldd   :   0 ldi   :   6 
 lds   :   0 lpm   :   0 lsl   :   0 lsr   :   0 mov   :   0 movw  :   0 
-mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   0 
-ori   :   1 out   :   3 pop   :   0 push  :   0 rcall :   0 ret   :   0 
+mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   1 or    :   0 
+ori   :   1 out   :   4 pop   :   0 push  :   0 rcall :   0 ret   :   0 
 reti  :   0 rjmp  :   1 rol   :   0 ror   :   0 sbc   :   0 sbci  :   0 
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   0 
 sbrs  :   0 sec   :   0 seh   :   0 sei   :   0 sen   :   0 ser   :   0 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
 st    :   0 std   :   0 sts   :   0 sub   :   0 subi  :   0 swap  :   0 
 tst   :   0 wdr   :   0 
-Instructions used: 6 out of 116 (5.2%)
+Instructions used: 9 out of 116 (7.8%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0000f4     20      0     20  262144   0.0%
+[.cseg] 0x000000 0x00010c     44      0     44  262144   0.0%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 
