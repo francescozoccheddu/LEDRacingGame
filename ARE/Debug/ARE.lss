@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Fri Sep 29 20:22:11 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Fri Sep 29 20:37:47 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(10): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -1914,12 +1914,14 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(22): Including file 'C:\Users
                                  
                                  ; ARE
                                  ; builtin LED
+                                 ; dirty PORTB[7], DDRB[7], PINB[7]
                                  
                                  .equ BL_DDR = DDRB
                                  .equ BL_PORT = PORTB
                                  .equ BL_PIN = PINB
                                  .equ BL_BIT = 7
                                  
+                                 ; [SOURCE] setup
                                  ; @0 (dirty immediate register)
                                  .macro BL_SRC_SETUP
                                  	in @0, BL_DDR
@@ -1927,6 +1929,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(22): Including file 'C:\Users
                                  	out BL_DDR, @0
                                  .endmacro
                                  
+                                 ; [SOURCE] turn builtin LED on
                                  ; @0 (dirty immediate register)
                                  .macro BL_SRC_ON
                                  	in @0, BL_PORT
@@ -1934,6 +1937,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(22): Including file 'C:\Users
                                  	out BL_PORT, @0
                                  .endmacro
                                  
+                                 ; [SOURCE] turn builtin LED off
                                  ; @0 (dirty immediate register)
                                  .macro BL_SRC_OFF
                                  	in @0, BL_PORT
@@ -1941,6 +1945,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(22): Including file 'C:\Users
                                  	out BL_PORT, @0
                                  .endmacro
                                  
+                                 ; [SOURCE] toggle builtin LED state
                                  ; @0 (dirty immediate register)
                                  .macro BL_SRC_TOGGLE
                                  	ldi @0, 1 << BL_BIT
@@ -1952,6 +1957,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(22): Including file 'C:\Users
                                  
                                  ; ARE
                                  ; LED matrix
+                                 ; dirty PORTC, DDRC, PINC
                                  
                                  .equ LM_PORT = PORTC
                                  .equ LM_DDR = DDRC
@@ -1961,43 +1967,45 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(22): Including file 'C:\Users
                                  .equ LM_BIT_CLK = 6 ;digital pin 31
                                  .equ LM_BIT_LAT = 7 ;digital pin 30
                                  
+                                 ; [SOURCE] setup
                                  ; @0 (dirty immediate register)
                                  .macro LM_SRC_SETUP
                                  	ser @0
                                  	out LM_DDR, @0
                                  .endmacro
                                  
-                                 ; @0 (dirty immediate register)
-                                 ; @1 (dirty immediate register)
-                                 ; @2 (column data high register)
-                                 ; @3 (column data low register)
-                                 ; @4 (column index register)
+                                 ; [SOURCE] send column data '@0:@1' with column index '@2' 
+                                 ; @0 (column data high register)
+                                 ; @1 (column data low register)
+                                 ; @2 (column index register)
+                                 ; @3 (dirty immediate register)
+                                 ; @4 (dirty immediate register)
                                  .macro LM_SRC_SEND_COL
-                                 	ldi @0, 16
+                                 	ldi @3, 16
                                  	;row
-                                 	ldi @1, (1 << LM_BIT_G) | (1 << LM_BIT_DI)
-                                 	lsr @2
-                                 	ror @3
+                                 	ldi @4, (1 << LM_BIT_G) | (1 << LM_BIT_DI)
+                                 	lsr @0
+                                 	ror @1
                                  	brcc PC + 2
-                                 	ldi @1, (1 << LM_BIT_G)
-                                 	out LM_PORT, @1
-                                 	ori @1, 1 << LM_BIT_CLK
-                                 	out LM_PORT, @1
-                                 	andi @1, ~(1 << LM_BIT_CLK)
-                                 	out LM_PORT, @1
+                                 	ldi @4, (1 << LM_BIT_G)
+                                 	out LM_PORT, @4
+                                 	ori @4, 1 << LM_BIT_CLK
+                                 	out LM_PORT, @4
+                                 	andi @4, ~(1 << LM_BIT_CLK)
+                                 	out LM_PORT, @4
                                  	;loop
-                                 	dec @0
+                                 	dec @3
                                  	brne PC - 11
                                  	;send LAT
-                                 	ldi @1, (1 << LM_BIT_G) | (1 << LM_BIT_LAT)
-                                 	out LM_PORT, @1
-                                 	ldi @1, (1 << LM_BIT_G)
-                                 	out LM_PORT, @1
-                                 	;send col
-                                 	or @1, @4
-                                 	out LM_PORT, @1
-                                 	;end G
+                                 	ldi @4, (1 << LM_BIT_G) | (1 << LM_BIT_LAT)
                                  	out LM_PORT, @4
+                                 	ldi @4, (1 << LM_BIT_G)
+                                 	out LM_PORT, @4
+                                 	;send col
+                                 	or @4, @2
+                                 	out LM_PORT, @4
+                                 	;end G
+                                 	out LM_PORT, @2
                                  .endmacro
                                  
                                  
@@ -2056,7 +2064,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(22): Including file 'C:\Users
 00008e b948
 00008f 2b40
 000090 b948
-000091 b908                      	LM_SRC_SEND_COL r19, r20, m_ch, m_cl, m_col 
+000091 b908                      	LM_SRC_SEND_COL m_ch, m_cl, m_col, r19, r20
                                  
                                  	;wait
 000092 ef3f                      	ldi r19, 255
