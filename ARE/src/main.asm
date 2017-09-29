@@ -20,6 +20,7 @@
 
 .include "builtin_led.asm"
 .include "led_matrix.asm"
+.include "uart_comm.asm"
 
 .org INT_VECTORS_SIZE
 
@@ -35,15 +36,18 @@ m_l_reset:
 	out SPH, m_tmp
 	ldi m_tmp, LOW(RAMEND)
 	out SPL, m_tmp
-	;setup modules
-	;setup builtin LED
+	; setup modules
+	; setup builtin LED
 	BL_SRC_SETUP m_tmp
-	;setup LED matrix
+	; setup LED matrix
 	LM_SRC_SETUP m_tmp
+	; setup UART communication
+	UC_SRC_SETUP m_tmp
 
 .undef m_tmp
 
 m_l_loop:
+	UC_SR_I 154, r24
 	
 	.def m_col = r16
 	.def m_ch = r17
@@ -60,6 +64,7 @@ m_l_cloop:
 m_l_wait:
 	dec r19
 	brne m_l_wait
+
 
 	;loop col
 	dec m_col

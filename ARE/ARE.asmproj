@@ -99,6 +99,9 @@
     <Compile Include="src\old\buzzer.asm">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\uart_comm.asm">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src" />

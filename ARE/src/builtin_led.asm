@@ -11,6 +11,7 @@
 ; [SOURCE] setup
 ; @0 (dirty immediate register)
 .macro BL_SRC_SETUP
+	; set data direction register to output for LED pin
 	in @0, BL_DDR
 	ori @0, 1 << BL_BIT
 	out BL_DDR, @0

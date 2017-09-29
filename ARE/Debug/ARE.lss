@@ -1,14 +1,16 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Fri Sep 29 20:37:47 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Fri Sep 29 21:23:01 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(10): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(10): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
                                  
                                  ; Francesco Zoccheddu
                                  
@@ -1924,6 +1926,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(22): Including file 'C:\Users
                                  ; [SOURCE] setup
                                  ; @0 (dirty immediate register)
                                  .macro BL_SRC_SETUP
+                                 	; set data direction register to output for LED pin
                                  	in @0, BL_DDR
                                  	ori @0, 1 << BL_BIT
                                  	out BL_DDR, @0
@@ -2009,6 +2012,49 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(22): Including file 'C:\Users
                                  .endmacro
                                  
                                  
+                                 .include "uart_comm.asm"
+                                 
+                                 ; ARE
+                                 ; UART communication
+                                 
+                                 .equ UC_BAUDRATE = 9600
+                                 .equ UC_UBRR = FOSC / 16 / UC_BAUDRATE - 1
+                                 
+                                 .equ UC_UBRRH = UBRR0H
+                                 .equ UC_UBRRL = UBRR0L
+                                 .equ UC_UDR = UDR0
+                                 .equ UC_UCSRA = UCSR0A
+                                 .equ UC_UCSRA_VAL = 0
+                                 .equ UC_UCSRB = UCSR0B
+                                 .equ UC_UCSRB_VAL = (0 << RXEN0) | (1 << TXEN0)
+                                 .equ UC_UCSRC = UCSR0C
+                                 .equ UC_UCSRC_VAL = (2 << UMSEL0) | (3 << UCSZ00)
+                                 
+                                 ; [SOURCE] setup
+                                 ; @0 (dirty immediate register)
+                                 .macro UC_SRC_SETUP
+                                 	; set UBRRR
+                                 	ldi @0, LOW( UC_UBRR )
+                                 	sts UC_UBRRL, @0
+                                 	ldi @0, HIGH( UC_UBRR )
+                                 	sts UC_UBRRH, @0
+                                 	; set UCSRA
+                                 	ldi @0, UC_UCSRA_VAL
+                                 	sts UC_UCSRA, @0
+                                 	; set UCSRB
+                                 	ldi @0, UC_UCSRB_VAL
+                                 	sts UC_UCSRB, @0
+                                 	; set UCSRC
+                                 	ldi @0, UC_UCSRC_VAL
+                                 	sts UC_UCSRC, @0
+                                 .endmacro
+                                 
+                                 .macro UC_SR_I
+                                 	lds @1, UC_UCSRA
+                                 	sbrs @1, UDRE0
+                                 	rjmp PC - 3
+                                 	ldi @1, @0
+                                 	sts UC_UDR, @1
                                  
                                  .org INT_VECTORS_SIZE
                                  
@@ -2024,57 +2070,74 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(22): Including file 'C:\Users
 000073 bf0e                      	out SPH, m_tmp
 000074 ef0f                      	ldi m_tmp, LOW(RAMEND)
 000075 bf0d                      	out SPL, m_tmp
-                                 	;setup modules
-                                 	;setup builtin LED
+                                 	; setup modules
+                                 	; setup builtin LED
 000076 b104
 000077 6800
 000078 b904                      	BL_SRC_SETUP m_tmp
-                                 	;setup LED matrix
+                                 	; setup LED matrix
 000079 ef0f
 00007a b907                      	LM_SRC_SETUP m_tmp
+                                 	; setup UART communication
+00007b e607
+00007c 9300 00c4
+00007e e000
+00007f 9300 00c5
+000081 e000
+000082 9300 00c0
+000084 e008
+000085 9300 00c1
+000087 e806
+000088 9300 00c2                 	UC_SRC_SETUP m_tmp
                                  
                                  .undef m_tmp
                                  
                                  m_l_loop:
+00008a 9180 00c0
+00008c ff85
+00008d cffc
+00008e e98a
+00008f 9380 00c6                 	UC_SR_I 154, r24
                                  	
                                  	.def m_col = r16
                                  	.def m_ch = r17
                                  	.def m_cl = r18
                                  	
-00007b e100                      	ldi m_col, 16
+000091 e100                      	ldi m_col, 16
                                  m_l_cloop:
-00007c 2f10                      	mov m_ch, m_col
-00007d e023                      	ldi m_cl, 3
-00007e e130
-00007f e340
-000080 9516
-000081 9527
-000082 f408
-000083 e140
-000084 b948
-000085 6440
-000086 b948
-000087 7b4f
-000088 b948
-000089 953a
-00008a f7a1
-00008b e940
-00008c b948
-00008d e140
-00008e b948
-00008f 2b40
-000090 b948
-000091 b908                      	LM_SRC_SEND_COL m_ch, m_cl, m_col, r19, r20
+000092 2f10                      	mov m_ch, m_col
+000093 e023                      	ldi m_cl, 3
+000094 e130
+000095 e340
+000096 9516
+000097 9527
+000098 f408
+000099 e140
+00009a b948
+00009b 6440
+00009c b948
+00009d 7b4f
+00009e b948
+00009f 953a
+0000a0 f7a1
+0000a1 e940
+0000a2 b948
+0000a3 e140
+0000a4 b948
+0000a5 2b40
+0000a6 b948
+0000a7 b908                      	LM_SRC_SEND_COL m_ch, m_cl, m_col, r19, r20
                                  
                                  	;wait
-000092 ef3f                      	ldi r19, 255
+0000a8 ef3f                      	ldi r19, 255
                                  m_l_wait:
-000093 953a                      	dec r19
-000094 f7f1                      	brne m_l_wait
+0000a9 953a                      	dec r19
+0000aa f7f1                      	brne m_l_wait
+                                 
                                  
                                  	;loop col
-000095 950a                      	dec m_col
-000096 f729                      	brne m_l_cloop
+0000ab 950a                      	dec m_col
+0000ac f729                      	brne m_l_cloop
                                  
                                  	;loop draw
 
@@ -2096,10 +2159,10 @@ counted separately from r26..r31 here.
 "ATmega2560" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  14 r17:   2 r18:   2 r19:   4 r20:  13 
-r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
+r13:   0 r14:   0 r15:   0 r16:  24 r17:   2 r18:   2 r19:   4 r20:  13 
+r21:   0 r22:   0 r23:   0 r24:   4 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
-Registers used: 5 out of 35 (14.3%)
+Registers used: 6 out of 35 (17.1%)
 
 "ATmega2560" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
@@ -2112,22 +2175,22 @@ clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   0 cpse  :   0 dec   :   3 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   1 inc   :   0 jmp   :   1 ld    :   0 ldd   :   0 ldi   :  10 
-lds   :   0 lpm   :   0 lsl   :   0 lsr   :   1 mov   :   1 movw  :   0 
+in    :   1 inc   :   0 jmp   :   1 ld    :   0 ldd   :   0 ldi   :  16 
+lds   :   1 lpm   :   0 lsl   :   0 lsr   :   1 mov   :   1 movw  :   0 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   1 
 ori   :   2 out   :  11 pop   :   0 push  :   0 rcall :   0 ret   :   0 
-reti  :   0 rjmp  :   1 rol   :   0 ror   :   1 sbc   :   0 sbci  :   0 
+reti  :   0 rjmp  :   2 rol   :   0 ror   :   1 sbc   :   0 sbci  :   0 
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   0 
-sbrs  :   0 sec   :   0 seh   :   0 sei   :   0 sen   :   0 ser   :   1 
+sbrs  :   1 sec   :   0 seh   :   0 sei   :   0 sen   :   0 ser   :   1 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
-st    :   0 std   :   0 sts   :   0 sub   :   0 subi  :   0 swap  :   0 
+st    :   0 std   :   0 sts   :   6 sub   :   0 subi  :   0 swap  :   0 
 tst   :   0 wdr   :   0 
-Instructions used: 15 out of 116 (12.9%)
+Instructions used: 18 out of 116 (15.5%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000130     80      0     80  262144   0.0%
+[.cseg] 0x000000 0x00015c    124      0    124  262144   0.0%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 
