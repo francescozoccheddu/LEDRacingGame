@@ -53,7 +53,7 @@ m_l_loop:
 m_l_cloop:
 	mov m_ch, m_col
 	ldi m_cl, 3
-	LM_SRC_SEND_COL r19, r20, m_ch, m_cl, m_col 
+	LM_SRC_SEND_COL m_ch, m_cl, m_col, r19, r20
 
 	;wait
 	ldi r19, 255
