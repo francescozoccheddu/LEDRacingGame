@@ -24,5 +24,7 @@
  </OUTPUT_FILES>
  <LABELS>
   <m_l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>31</LINE></m_l_reset>
+  <m_l_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>41</LINE></m_l_loop>
+  <L1><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>46</LINE></L1>
  </LABELS>
 </ASSEMBLER_INFO>

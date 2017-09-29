@@ -37,4 +37,20 @@ m_l_reset:
 	;setup modules
 	;setup builtin LED
 	BL_SRC_SETUP m_tmp
-	rjmp m_l_reset
+
+m_l_loop:
+	
+    ldi  r18, 9
+    ldi  r19, 30
+    ldi  r20, 229
+L1: dec  r20
+    brne L1
+    dec  r19
+    brne L1
+    dec  r18
+    brne L1
+    nop
+
+	BL_SRC_TOGGLE m_tmp
+
+	rjmp m_l_loop
