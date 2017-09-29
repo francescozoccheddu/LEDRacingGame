@@ -90,13 +90,13 @@
     <Compile Include="src\builtin_led.asm">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\led_matrix.asm">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\main.asm">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\old\buzzer.asm">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\old\led_matrix.asm">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

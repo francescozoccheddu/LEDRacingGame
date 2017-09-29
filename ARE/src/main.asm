@@ -19,6 +19,7 @@
 .endmacro
 
 .include "builtin_led.asm"
+.include "led_matrix.asm"
 
 .org INT_VECTORS_SIZE
 
@@ -37,20 +38,32 @@ m_l_reset:
 	;setup modules
 	;setup builtin LED
 	BL_SRC_SETUP m_tmp
+	;setup LED matrix
+	LM_SRC_SETUP m_tmp
+
+.undef m_tmp
 
 m_l_loop:
 	
-    ldi  r18, 9
-    ldi  r19, 30
-    ldi  r20, 229
-L1: dec  r20
-    brne L1
-    dec  r19
-    brne L1
-    dec  r18
-    brne L1
-    nop
+	.def m_col = r16
+	.def m_ch = r17
+	.def m_cl = r18
+	
+	ldi m_col, 16
+m_l_cloop:
+	mov m_ch, m_col
+	ldi m_cl, 3
+	LM_SRC_SEND_COL r19, r20, m_ch, m_cl, m_col 
 
-	BL_SRC_TOGGLE m_tmp
+	;wait
+	ldi r19, 255
+m_l_wait:
+	dec r19
+	brne m_l_wait
 
+	;loop col
+	dec m_col
+	brne m_l_cloop
+
+	;loop draw
 	rjmp m_l_loop
