@@ -12,6 +12,7 @@
   <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm</FILE>
+  <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\Debug\ARE.obj</FILE>
@@ -24,9 +25,9 @@
   <FILE>ARE.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <m_l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>32</LINE></m_l_reset>
-  <m_l_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>46</LINE></m_l_loop>
-  <m_l_cloop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>53</LINE></m_l_cloop>
-  <m_l_wait><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>60</LINE></m_l_wait>
+  <m_l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>33</LINE></m_l_reset>
+  <m_l_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>49</LINE></m_l_loop>
+  <m_l_cloop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>57</LINE></m_l_cloop>
+  <m_l_wait><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>64</LINE></m_l_wait>
  </LABELS>
 </ASSEMBLER_INFO>
