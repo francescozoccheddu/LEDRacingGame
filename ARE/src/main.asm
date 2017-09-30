@@ -22,7 +22,7 @@
 
 ; define ISR entry '@1' for interrupt address '@0'
 ; @0 (interrupt vector address)
-; @1 (isr entry label)
+; @1 (ISR entry label)
 .macro ISRJ
 	.set ISR_PC = PC
 	.org @0
@@ -86,8 +86,15 @@ m_l_wait:
 	;loop draw
 	rjmp m_l_loop
 
-ISR UC_URXCaddr
+ISR UC_RCOMPLETE_INTaddr
 m_isr_tx:
 	BL_SRC_TOGGLE r25
-	lds r25, UC_UDR
+	UC_SRC_FR r25
+	UC_SRC_TREADY_INTE 1, r26
+	reti
+
+ISR UC_TREADY_INTaddr
+m_isr_e:
+	UC_SRC_FT r25
+	UC_SRC_TREADY_INTE 0, r26
 	reti

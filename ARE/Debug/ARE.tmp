@@ -25,10 +25,11 @@
   <FILE>ARE.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <m_l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>34</LINE></m_l_reset>
-  <m_l_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>53</LINE></m_l_loop>
-  <m_l_cloop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>60</LINE></m_l_cloop>
-  <m_l_wait><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>67</LINE></m_l_wait>
-  <m_isr_tx><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>80</LINE></m_isr_tx>
+  <m_l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>44</LINE></m_l_reset>
+  <m_l_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>63</LINE></m_l_loop>
+  <m_l_cloop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>70</LINE></m_l_cloop>
+  <m_l_wait><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>77</LINE></m_l_wait>
+  <m_isr_tx><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>90</LINE></m_isr_tx>
+  <m_isr_e><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>97</LINE></m_isr_e>
  </LABELS>
 </ASSEMBLER_INFO>
