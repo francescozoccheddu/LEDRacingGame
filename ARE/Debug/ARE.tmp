@@ -27,11 +27,19 @@
   <FILE>ARE.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <m_l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>27</LINE></m_l_reset>
-  <m_l_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>42</LINE></m_l_loop>
-  <m_l_cloop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>49</LINE></m_l_cloop>
-  <m_l_wait><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>56</LINE></m_l_wait>
-  <m_isr_tx><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>69</LINE></m_isr_tx>
-  <m_isr_e><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>76</LINE></m_isr_e>
+  <ds_isr_trig><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>107</LINE></ds_isr_trig>
+  <L1><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>119</LINE></L1>
+  <_ds_ram_ltimeh><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>135</LINE></_ds_ram_ltimeh>
+  <_ds_ram_ltimel><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>136</LINE></_ds_ram_ltimel>
+  <_ds_l_isr_icp_falling><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>156</LINE></_ds_l_isr_icp_falling>
+  <_ds_l_isr_icp_rising><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>147</LINE></_ds_l_isr_icp_rising>
+  <b1><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>164</LINE></b1>
+  <b2><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>169</LINE></b2>
+  <m_l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>37</LINE></m_l_reset>
+  <m_l_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>55</LINE></m_l_loop>
+  <m_l_cloop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>62</LINE></m_l_cloop>
+  <m_l_wait><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>69</LINE></m_l_wait>
+  <m_isr_tx><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>82</LINE></m_isr_tx>
+  <m_isr_e><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>88</LINE></m_isr_e>
  </LABELS>
 </ASSEMBLER_INFO>

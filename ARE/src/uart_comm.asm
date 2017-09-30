@@ -18,10 +18,10 @@
 ; @0 (dirty immediate register)
 .macro UC_SRC_SETUP
 	; set UBRRR
-	ldi @0, LOW( _UC_UBRR )
-	sts UBRR0L, @0
 	ldi @0, HIGH( _UC_UBRR )
 	sts UBRR0H, @0
+	ldi @0, LOW( _UC_UBRR )
+	sts UBRR0L, @0
 	; set UCSRA
 	ldi @0, _UC_UCSRA_VAL
 	sts UCSR0A, @0

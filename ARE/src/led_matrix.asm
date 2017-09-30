@@ -6,11 +6,11 @@
 #define _LM_IO C
 
 IO_DEF _LM, _LM_IO
-.equ _LM_BIT_ABCD = 0 ;digital pin 34-37
-.equ _LM_BIT_G = 4 ;digital pin 33
-.equ _LM_BIT_DI = 5 ;digital pin 32
-.equ _LM_BIT_CLK = 6 ;digital pin 31
-.equ _LM_BIT_LAT = 7 ;digital pin 30
+.equ _LM_BIT_ABCD = 0 ; digital pin 34-37
+.equ _LM_BIT_G = 4 ; digital pin 33
+.equ _LM_BIT_DI = 5 ; digital pin 32
+.equ _LM_BIT_CLK = 6 ; digital pin 31
+.equ _LM_BIT_LAT = 7 ; digital pin 30
 
 ; [SOURCE] setup
 ; @0 (dirty immediate register)

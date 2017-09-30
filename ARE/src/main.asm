@@ -6,18 +6,28 @@
 
 .cseg
 .nooverlap
+.org INT_VECTORS_SIZE
 
 .include "m2560def.inc"
 #include "utils.inc"
 
 .equ FOSC = 16000000
 
+.def intr0 = r17
+.def intr1 = r18
+.def intr2 = r19
+.def intr3 = r20
+.def intr4 = r2
+.def intr5 = r3
+.def intr6 = r4
+.def intr7 = r5
+.def intr8 = r6
+.def intr9 = r7
+
 .include "builtin_led.asm"
 .include "led_matrix.asm"
 .include "uart_comm.asm"
 .include "distance_sens.asm"
-
-.org INT_VECTORS_SIZE
 
 ; main
 
@@ -34,6 +44,9 @@ m_l_reset:
 	LM_SRC_SETUP m_tmp
 	; setup UART communication
 	UC_SRC_SETUP m_tmp
+	;setup distance sensor
+	DS_SRC_SETUP m_tmp
+	call ds_isr_trig
 	;enable interrupts
 	sei
 
@@ -41,9 +54,9 @@ m_l_reset:
 
 m_l_loop:
 	
-	.def m_col = r16
-	.def m_ch = r17
-	.def m_cl = r18
+	.def m_col = r23
+	.def m_ch = r24
+	.def m_cl = r25
 	
 	ldi m_col, 16
 m_l_cloop:
@@ -52,9 +65,9 @@ m_l_cloop:
 	LM_SRC_SEND_COL m_ch, m_cl, m_col, r19, r20
 
 	;wait
-	ldi r19, 255
+	ldi m_cl, 255
 m_l_wait:
-	dec r19
+	dec m_cl
 	brne m_l_wait
 
 
@@ -67,13 +80,13 @@ m_l_wait:
 
 ISR UC_RCOMPLETE_INTaddr
 m_isr_tx:
-	BL_SRC_TOGGLE r25
-	UC_SRC_FR r25
-	UC_SRC_TREADY_INTE 1, r26
+	UC_SRC_FR intr1
+	UC_SRC_TREADY_INTE 1, intr1
 	reti
 
 ISR UC_TREADY_INTaddr
 m_isr_e:
-	UC_SRC_FT r25
-	UC_SRC_TREADY_INTE 0, r26
+	ldi intr1, '+'
+	UC_SRC_FT intr1
+	UC_SRC_TREADY_INTE 0, intr1
 	reti
