@@ -1,16 +1,16 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sat Sep 30 10:14:56 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sat Sep 30 10:52:33 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(10): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(25): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(33): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(34): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(35): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(10): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(25): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(33): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(34): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(35): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
                                  
                                  ; Francesco Zoccheddu
                                  
@@ -1914,6 +1914,16 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(25): Including file 'C:\Users
                                  	.org ISR_PC
                                  .endmacro
                                  
+                                 ; define ISR entry '@1' for interrupt address '@0'
+                                 ; @0 (interrupt vector address)
+                                 ; @1 (ISR entry label)
+                                 .macro ISRJ
+                                 	.set ISR_PC = PC
+                                 	.org @0
+                                 		jmp @1
+                                 	.org ISR_PC
+                                 .endmacro
+                                 
                                  .include "builtin_led.asm"
                                  
                                  ; ARE
@@ -2030,12 +2040,16 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(25): Including file 'C:\Users
                                  .equ UC_UCSRA_VAL = 0
                                  .equ UC_UCSRB = UCSR0B
                                  .equ UC_UCSRB_VAL = (1 << RXCIE0) | (1 << RXEN0) | (1 << TXEN0)
+                                 .equ UC_UDRE_VAL = (1 << UDRIE0)
                                  .equ UC_UCSRC = UCSR0C
                                  .equ UC_UCSRC_VAL = (2 << UMSEL0) | (3 << UCSZ00)
                                  
                                  .equ UC_UDREaddr = UDRE0addr
                                  .equ UC_UTXCaddr = UTXC0addr
                                  .equ UC_URXCaddr = URXC0addr
+                                 
+                                 .equ UC_TREADY_INTaddr = UC_UDREaddr
+                                 .equ UC_RCOMPLETE_INTaddr = UC_URXCaddr
                                  
                                  ; [SOURCE] setup
                                  ; @0 (dirty immediate register)
@@ -2056,19 +2070,24 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(25): Including file 'C:\Users
                                  	sts UC_UCSRC, @0
                                  .endmacro
                                  
-                                 .macro UC_SR_SENDI
-                                 	lds @1, UC_UCSRA
-                                 	sbrs @1, UDRE0
-                                 	rjmp PC - 3
-                                 	ldi @1, @0
-                                 	sts UC_UDR, @1
+                                 ; [SOURCE] transmit '@0' data without checking whether the buffer is empty
+                                 ; @0 (data register)
+                                 .macro UC_SRC_FT
+                                 	sts UC_UDR, @0
                                  .endmacro
                                  
-                                 .macro UC_SR_SEND
-                                 	lds @1, UC_UCSRA
-                                 	sbrs @1, UDRE0
-                                 	rjmp PC - 3
-                                 	sts UC_UDR, @0
+                                 ; [SOURCE] receive to '@0' register without checking whether the buffer is not empty
+                                 ; @0 (data register)
+                                 .macro UC_SRC_FR
+                                 	lds @0, UC_UDR
+                                 .endmacro
+                                 
+                                 ; [SOURCE] enable / disable empty transmit buffer interrupt
+                                 ; @0 (boolean interrupt state)
+                                 ; @1 (dirty immediate register)
+                                 .macro UC_SRC_TREADY_INTE
+                                 	ldi @1, @0 ? ( UC_UCSRB_VAL | UC_UDRE_VAL ) : UC_UCSRB_VAL
+                                 	sts UC_UCSRB, @1
                                  
                                  .org INT_VECTORS_SIZE
                                  
@@ -2155,12 +2174,20 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(25): Including file 'C:\Users
                                  	;loop draw
 0000aa cfe3                      	rjmp m_l_loop
                                  
-000032 940c 00ab                 ISR UC_URXCaddr
+000032 940c 00ab                 ISR UC_RCOMPLETE_INTaddr
                                  m_isr_tx:
 0000ab e890
 0000ac b993                      	BL_SRC_TOGGLE r25
-0000ad 9190 00c6                 	lds r25, UC_UDR
-0000af 9518                      	reti
+0000ad 9190 00c6                 	UC_SRC_FR r25
+0000af eba8
+0000b0 93a0 00c1                 	UC_SRC_TREADY_INTE 1, r26
+0000b2 9518                      	reti
+                                 
+000034 940c 00b3                 ISR UC_TREADY_INTaddr
+                                 m_isr_e:
+0000b3 9390 00c6                 	UC_SRC_FT r25
+0000b5 e9a8
+0000b6 93a0 00c1                 	UC_SRC_TREADY_INTE 0, r26
 
 
 RESOURCE USE INFORMATION
@@ -2181,9 +2208,9 @@ counted separately from r26..r31 here.
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
 r13:   0 r14:   0 r15:   0 r16:  27 r17:   2 r18:   2 r19:   4 r20:  13 
-r21:   0 r22:   0 r23:   0 r24:   0 r25:   3 r26:   0 r27:   0 r28:   0 
+r21:   0 r22:   0 r23:   0 r24:   0 r25:   4 r26:   4 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
-Registers used: 6 out of 35 (17.1%)
+Registers used: 7 out of 35 (20.0%)
 
 "ATmega2560" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
@@ -2196,22 +2223,22 @@ clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   0 cpse  :   0 dec   :   3 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   2 inc   :   0 jmp   :   2 ld    :   0 ldd   :   0 ldi   :  16 
+in    :   2 inc   :   0 jmp   :   3 ld    :   0 ldd   :   0 ldi   :  18 
 lds   :   1 lpm   :   0 lsl   :   0 lsr   :   1 mov   :   1 movw  :   0 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   1 
 ori   :   2 out   :  13 pop   :   0 push  :   0 rcall :   0 ret   :   0 
-reti  :   1 rjmp  :   1 rol   :   0 ror   :   1 sbc   :   0 sbci  :   0 
+reti  :   2 rjmp  :   1 rol   :   0 ror   :   1 sbc   :   0 sbci  :   0 
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   0 
 sbrs  :   0 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   1 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
-st    :   0 std   :   0 sts   :   5 sub   :   0 subi  :   0 swap  :   0 
+st    :   0 std   :   0 sts   :   8 sub   :   0 subi  :   0 swap  :   0 
 tst   :   0 wdr   :   0 
 Instructions used: 19 out of 116 (16.4%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000160    132      0    132  262144   0.1%
+[.cseg] 0x000000 0x000172    154      0    154  262144   0.1%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 

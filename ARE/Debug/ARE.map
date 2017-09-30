@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sat Sep 30 10:14:56 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sat Sep 30 10:52:33 2017
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1380,19 +1380,23 @@ EQU  UC_UCSRA     000000c0
 EQU  UC_UCSRA_VAL 00000000
 EQU  UC_UCSRB     000000c1
 EQU  UC_UCSRB_VAL 00000098
+EQU  UC_UDRE_VAL  00000020
 EQU  UC_UCSRC     000000c2
 EQU  UC_UCSRC_VAL 00000086
 EQU  UC_UDREaddr  00000034
 EQU  UC_UTXCaddr  00000036
 EQU  UC_URXCaddr  00000032
-SET  ISR_PC       000000ab
+EQU  UC_TREADY_INTaddr 00000034
+EQU  UC_RCOMPLETE_INTaddr 00000032
+SET  ISR_PC       000000b3
 CSEG m_l_reset    00000072
 CSEG m_l_loop     0000008e
 DEF  m_col        r16
 DEF  m_ch         r17
 DEF  m_cl         r18
 CSEG m_l_cloop    0000008f
-CSEG lm_l_src_send_col_row@LM_SRC_SEND_COL@3925 00000092
-CSEG lm_l_src_send_col_out_dot@LM_SRC_SEND_COL@3925 00000097
+CSEG lm_l_src_send_col_row@LM_SRC_SEND_COL@3944 00000092
+CSEG lm_l_src_send_col_out_dot@LM_SRC_SEND_COL@3944 00000097
 CSEG m_l_wait     000000a6
 CSEG m_isr_tx     000000ab
+CSEG m_isr_e      000000b3
