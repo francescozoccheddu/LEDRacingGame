@@ -70,11 +70,56 @@
 #define TCS_MIN_8(s) _TCS_MIN(255, s)
 #define TCS_MIN_16(s) _TCS_MIN(65535, s)
 
-#define TCCRA_VAL(wgm, coma, comb, comc) ((coma << 6) | (comb << 4) | (comc << 2) | (wgm & 0b11))
-#define TCCRB_VAL(cs, wgm, ices, icn) ((icn << 7) | (ices << 6) | ((wgm >> 2) << 3) | cs)
-#define TCCRC_VAL(foca, focb, focc) ((foca << 7) | (focb << 6) | (focc << 5))
-#define TIMSK_VAL(toie, icie, ociea, ocieb, ociec) ((icie << 5) | (ociec << 3) | (ocieb << 2) | (ociea << 1) | toie)
-#define TIFR_VAL(tov, icf, ocfa, ocfb, ocfc) ((icf << 5) | (ocfc << 3) | (ocfb << 2) | (ocfa << 1) | tov)
+#define COMA 6
+#define COMA_MSK(x) (x & 0b11)
+#define COMA_VAL(x) (COMA_MSK(x) << COMA)
+#define COMB 4
+#define COMB_MSK(x) (x & 0b11)
+#define COMB_VAL(x) (COMB_MSK(x) << COMB)
+#define COMC 2
+#define COMC_MSK(x) (x & 0b11)
+#define COMC_VAL(x) (COMC_MSK(x) << COMC)
+#define WGMA 0
+#define WGMA_MSK(x) (x & 0b11)
+#define WGMA_VAL(x) (WGMA_MSK(x) << WGMA)
+#define WGMB 3
+#define WGMB_MSK(x) (x >> 2)
+#define WGMB_VAL(x) (WGMB_MSK(x) << WGMB)
+#define CS 0
+#define CS_MSK(x) (x & 0b111)
+#define CS_VAL(x) (CS_MSK(x) << CS)
+#define ICN 7
+#define ICES 6
+#define FOCA 7
+#define FOCB 6
+#define FOCC 5
+#define ICIE 5
+#define OCIEC 3
+#define OCIEB 2
+#define OCIEA 1
+#define TOIE 0
+#define ICF 5
+#define OCFC 3
+#define OCFB 2
+#define OCFA 1
+#define TOV 0
+#define ICN_VAL (1 << 7)
+#define ICES_VAL (1 << 6)
+#define FOCA_VAL (1 << 7)
+#define FOCB_VAL (1 << 6)
+#define FOCC_VAL (1 << 5)
+#define ICIE_VAL (1 << 5)
+#define OCIEC_VAL (1 << 3)
+#define OCIEB_VAL (1 << 2)
+#define OCIEA_VAL (1 << 1)
+#define TOIE_VAL (1 << 0)
+#define ICF_VAL (1 << 5)
+#define OCFC_VAL (1 << 3)
+#define OCFB_VAL (1 << 2)
+#define OCFA_VAL (1 << 1)
+#define TOV_VAL (1 << 0)
+
+
 
 ; define timer macros
 ; @0 (prefix)
@@ -97,6 +142,7 @@
 		.else
 			.equ @0_TCCRC = TCCR@1C
 			.equ @0_OCCaddr = OC@1Caddr
+			.equ @0_ICPaddr = ICP@1addr
 			_U_16R_DEF @0_ICR, ICR@1
 			_U_16R_DEF @0_TCNT, TCNT@1
 			_U_16R_DEF @0_OCRA, OCR@1A

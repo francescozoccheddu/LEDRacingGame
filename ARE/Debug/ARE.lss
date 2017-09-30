@@ -1,20 +1,20 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sat Sep 30 13:00:25 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sat Sep 30 22:52:47 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(10): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(11): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\utils.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(15): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(16): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(17): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(18): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(11): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(12): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\utils.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(27): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(28): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(29): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(30): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(10): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(11): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\utils.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(15): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(16): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(17): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(18): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(11): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(12): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\utils.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(27): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(28): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(29): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(30): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm'
                                  
                                  ; Francesco Zoccheddu
                                  
@@ -1861,6 +1861,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(18): Including file 'C:\Users
                                  
                                  .cseg
                                  .nooverlap
+                                 .org INT_VECTORS_SIZE
                                  
                                  .include "m2560def.inc"
                                  
@@ -1979,11 +1980,56 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(18): Including file 'C:\Users
                                  #define TCS_MIN_8(s) _TCS_MIN(255, s)
                                  #define TCS_MIN_16(s) _TCS_MIN(65535, s)
                                  
-                                 #define TCCRA_VAL(wgm, coma, comb, comc) ((coma << 6) | (comb << 4) | (comc << 2) | (wgm & 0b11))
-                                 #define TCCRB_VAL(cs, wgm, ices, icn) ((icn << 7) | (ices << 6) | ((wgm >> 2) << 3) | cs)
-                                 #define TCCRC_VAL(foca, focb, focc) ((foca << 7) | (focb << 6) | (focc << 5))
-                                 #define TIMSK_VAL(toie, icie, ociea, ocieb, ociec) ((icie << 5) | (ociec << 3) | (ocieb << 2) | (ociea << 1) | toie)
-                                 #define TIFR_VAL(tov, icf, ocfa, ocfb, ocfc) ((icf << 5) | (ocfc << 3) | (ocfb << 2) | (ocfa << 1) | tov)
+                                 #define COMA 6
+                                 #define COMA_MSK(x) (x & 0b11)
+                                 #define COMA_VAL(x) (COMA_MSK(x) << COMA)
+                                 #define COMB 4
+                                 #define COMB_MSK(x) (x & 0b11)
+                                 #define COMB_VAL(x) (COMB_MSK(x) << COMB)
+                                 #define COMC 2
+                                 #define COMC_MSK(x) (x & 0b11)
+                                 #define COMC_VAL(x) (COMC_MSK(x) << COMC)
+                                 #define WGMA 0
+                                 #define WGMA_MSK(x) (x & 0b11)
+                                 #define WGMA_VAL(x) (WGMA_MSK(x) << WGMA)
+                                 #define WGMB 3
+                                 #define WGMB_MSK(x) (x >> 2)
+                                 #define WGMB_VAL(x) (WGMB_MSK(x) << WGMB)
+                                 #define CS 0
+                                 #define CS_MSK(x) (x & 0b111)
+                                 #define CS_VAL(x) (CS_MSK(x) << CS)
+                                 #define ICN 7
+                                 #define ICES 6
+                                 #define FOCA 7
+                                 #define FOCB 6
+                                 #define FOCC 5
+                                 #define ICIE 5
+                                 #define OCIEC 3
+                                 #define OCIEB 2
+                                 #define OCIEA 1
+                                 #define TOIE 0
+                                 #define ICF 5
+                                 #define OCFC 3
+                                 #define OCFB 2
+                                 #define OCFA 1
+                                 #define TOV 0
+                                 #define ICN_VAL (1 << 7)
+                                 #define ICES_VAL (1 << 6)
+                                 #define FOCA_VAL (1 << 7)
+                                 #define FOCB_VAL (1 << 6)
+                                 #define FOCC_VAL (1 << 5)
+                                 #define ICIE_VAL (1 << 5)
+                                 #define OCIEC_VAL (1 << 3)
+                                 #define OCIEB_VAL (1 << 2)
+                                 #define OCIEA_VAL (1 << 1)
+                                 #define TOIE_VAL (1 << 0)
+                                 #define ICF_VAL (1 << 5)
+                                 #define OCFC_VAL (1 << 3)
+                                 #define OCFB_VAL (1 << 2)
+                                 #define OCFA_VAL (1 << 1)
+                                 #define TOV_VAL (1 << 0)
+                                 
+                                 
                                  
                                  ; define timer macros
                                  ; @0 (prefix)
@@ -2006,6 +2052,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(18): Including file 'C:\Users
                                  		.else
                                  			.equ @0_TCCRC = TCCR@1C
                                  			.equ @0_OCCaddr = OC@1Caddr
+                                 			.equ @0_ICPaddr = ICP@1addr
                                  			_U_16R_DEF @0_ICR, ICR@1
                                  			_U_16R_DEF @0_TCNT, TCNT@1
                                  			_U_16R_DEF @0_OCRA, OCR@1A
@@ -2030,43 +2077,64 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(18): Including file 'C:\Users
                                  
                                  .equ FOSC = 16000000
                                  
+                                 .def intr0 = r17
+                                 .def intr1 = r18
+                                 .def intr2 = r19
+                                 .def intr3 = r20
+                                 .def intr4 = r2
+                                 .def intr5 = r3
+                                 .def intr6 = r4
+                                 .def intr7 = r5
+                                 .def intr8 = r6
+                                 .def intr9 = r7
+                                 
                                  .include "builtin_led.asm"
                                  
                                  ; ARE
                                  ; builtin LED
                                  ; dirty PORTB[7], DDRB[7], PINB[7]
                                  
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm(6): warning: TODO: stop keeping PORTB[6:0] clean
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(15): 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm' included form here
-                                 .warning "TODO: stop keeping PORTB[6:0] clean"
-                                 
                                  #define _BL_IO B
                                  
                                  IO_DEF _BL, _BL_IO
                                  .equ _BL_BIT = 7
                                  
+                                 .equ _BL_BACKUP_EXTRA_PINS = 0
+                                 
                                  ; [SOURCE] setup
                                  ; @0 (dirty immediate register)
                                  .macro BL_SRC_SETUP
                                  	; set data direction register to output for LED pin
-                                 	in @0, _BL_DDR
-                                 	ori @0, 1 << _BL_BIT
+                                 	.if _BL_BACKUP_EXTRA_PINS
+                                 		in @0, _BL_DDR
+                                 		ori @0, 1 << _BL_BIT
+                                 	.else
+                                 		ldi @0, 1 << _BL_BIT
+                                 	.endif
                                  	out _BL_DDR, @0
                                  .endmacro
                                  
                                  ; [SOURCE] turn builtin LED on
                                  ; @0 (dirty immediate register)
                                  .macro BL_SRC_ON
-                                 	in @0, _BL_PORT
-                                 	ori @0, 1 << _BL_BIT
+                                 	.if _BL_BACKUP_EXTRA_PINS
+                                 		in @0, _BL_PORT
+                                 		ori @0, 1 << _BL_BIT
+                                 	.else
+                                 		ldi @0, 1 << _BL_BIT
+                                 	.endif
                                  	out _BL_PORT, @0
                                  .endmacro
                                  
                                  ; [SOURCE] turn builtin LED off
                                  ; @0 (dirty immediate register)
                                  .macro BL_SRC_OFF
-                                 	in @0, _BL_PORT
-                                 	andi @0, ~(1 << _BL_BIT)
+                                 	.if _BL_BACKUP_EXTRA_PINS
+                                 		in @0, _BL_PORT
+                                 		andi @0, ~(1 << _BL_BIT)
+                                 	.else
+                                 		clr @0
+                                 	.endif
                                  	out _BL_PORT, @0
                                  .endmacro
                                  
@@ -2087,11 +2155,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(15): 'C:\Users\zocch\OneDrive
                                  #define _LM_IO C
                                  
                                  IO_DEF _LM, _LM_IO
-                                 .equ _LM_BIT_ABCD = 0 ;digital pin 34-37
-                                 .equ _LM_BIT_G = 4 ;digital pin 33
-                                 .equ _LM_BIT_DI = 5 ;digital pin 32
-                                 .equ _LM_BIT_CLK = 6 ;digital pin 31
-                                 .equ _LM_BIT_LAT = 7 ;digital pin 30
+                                 .equ _LM_BIT_ABCD = 0 ; digital pin 34-37
+                                 .equ _LM_BIT_G = 4 ; digital pin 33
+                                 .equ _LM_BIT_DI = 5 ; digital pin 32
+                                 .equ _LM_BIT_CLK = 6 ; digital pin 31
+                                 .equ _LM_BIT_LAT = 7 ; digital pin 30
                                  
                                  ; [SOURCE] setup
                                  ; @0 (dirty immediate register)
@@ -2157,10 +2225,10 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(15): 'C:\Users\zocch\OneDrive
                                  ; @0 (dirty immediate register)
                                  .macro UC_SRC_SETUP
                                  	; set UBRRR
-                                 	ldi @0, LOW( _UC_UBRR )
-                                 	sts UBRR0L, @0
                                  	ldi @0, HIGH( _UC_UBRR )
                                  	sts UBRR0H, @0
+                                 	ldi @0, LOW( _UC_UBRR )
+                                 	sts UBRR0L, @0
                                  	; set UCSRA
                                  	ldi @0, _UC_UCSRA_VAL
                                  	sts UCSR0A, @0
@@ -2196,107 +2264,292 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(15): 'C:\Users\zocch\OneDrive
                                  ; distance sensor
                                  
                                  #define _DS_TIMER 4
+                                 #define _DS_IO L
                                  
                                  TIM_DEF _DS, _DS_TIMER
+                                 IO_DEF _DS, _DS_IO
                                  
-                                 .org INT_VECTORS_SIZE
+                                 .equ _DS_ICP_BIT = 0 ; digital pin 49
+                                 .equ _DS_TRIG_BIT = 6 ; digital pin 43
+                                 
+                                 #define _DS_MAX_WAIT_TIME TMS(60)
+                                 .equ _DS_PSCL = TPSCL_MIN_16(_DS_MAX_WAIT_TIME)
+                                 .equ _DS_CS = TCS_MIN_16(_DS_MAX_WAIT_TIME)
+                                 .equ _DS_TOP = int( TTOP(_DS_PSCL, _DS_MAX_WAIT_TIME) + 0.5 )
+                                 
+                                 ; [SOURCE] setup
+                                 ; @0 (dirty immediate register)
+                                 .macro DS_SRC_SETUP
+                                 	; set timer control register A
+                                 	clr @0
+                                 	sts _DS_TCCRA, @0
+                                 	; set timer control register B
+                                 	ldi @0, ICN_VAL
+                                 	sts _DS_TCCRB, @0
+                                 	; set timer control register C
+                                 	clr @0
+                                 	sts _DS_TCCRC, @0
+                                 	; clear timer counter
+                                 	clr @0
+                                 	sts _DS_TCNTH, @0
+                                 	sts _DS_TCNTL, @0
+                                 	; set timer interrupt mask
+                                 	ldi @0, ICIE_VAL | OCIEA_VAL
+                                 	sts _DS_TIMSK, @0
+                                 	; set timer output compare value A
+                                 	ldi @0, HIGH( _DS_TOP )
+                                 	sts _DS_OCRAH, @0
+                                 	ldi @0, LOW( _DS_TOP )
+                                 	sts _DS_OCRAL, @0
+                                 	; set data direction register to output for trig pin
+                                 	ldi @0, 1 << _DS_TRIG_BIT
+                                 	sts _DS_DDR, @0
+                                 .endmacro
+                                 
+                                 #define _DS_OUT intr4
+                                 
+                                 ; [SOURCE] clamp input '@0:@1' between '@2:@3' and '@4:@5' and return '_DS_OUT' between '@6' and '@7'
+                                 ; @0 (input h)
+                                 ; @1 (input l)
+                                 ; @2 (input bottom l)
+                                 ; @3 (input bottom h)
+                                 ; @4 (input top h)
+                                 ; @5 (input top l)
+                                 ; @6 (output bottom)
+                                 ; @7 (output high)
+                                 ; @8 (dirty register)
+                                 ; @9 (dirty register)
+                                 .macro DS_SRC_CLAMP
+                                 	.equ _DS_SRC_CLAMP_BACKUP_CURS = 1
+                                 	.if _DS_SRC_CLAMP_BACKUP_CURS
+                                 		push @8
+                                 		push @9
+                                 	.endif
+                                 	movw @8:@9, @4:@5
+                                 	mov _DS_OUT, @7
+                                 _ds_l_sr_clamp_loop:
+                                 	sub @7, @6
+                                 	dec @7
+                                 	breq _ds_l_sr_clamp_return
+                                 	add @7, @6
+                                 	inc @7
+                                 	cp @9, @1
+                                 	cpc @8, @0
+                                 	breq _ds_l_sr_clamp_return
+                                 	brsh _ds_l_sr_clamp_smaller
+                                 _ds_l_sr_clamp_greater:
+                                 	movw @2:@3, @8:@9
+                                 	mov @6, _DS_OUT
+                                 	add @9, @5
+                                 	adc @8, @4
+                                 	ror @8
+                                 	ror @9
+                                 	add _DS_OUT, @7
+                                 	ror _DS_OUT
+                                 	rjmp _ds_l_sr_clamp_loop
+                                 _ds_l_sr_clamp_smaller:
+                                 	movw @4:@5, @8:@9
+                                 	mov @7, _DS_OUT
+                                 	add @9, @3
+                                 	adc @8, @2
+                                 	ror @8
+                                 	ror @9
+                                 	add _DS_OUT, @6
+                                 	ror _DS_OUT
+                                 	rjmp _ds_l_sr_clamp_loop
+                                 _ds_l_sr_clamp_stop:
+                                 	.if _DS_SRC_CLAMP_BACKUP_CURS
+                                 		pop @9
+                                 		pop @8
+                                 	.endif
+                                 .endmacro
+                                 
+000054 940c 0072                 ISR _DS_OCAaddr
+                                 ds_isr_trig:
+                                 	; start trig
+000072 e410                      	ldi intr0, 1 << _DS_TRIG_BIT
+000073 9310 010b                 	sts _DS_PORT, intr0
+                                 	; stop timer
+000075 2711                      	clr intr0
+000076 9310 00a1                 	sts _DS_TCCRB, intr0
+                                 	; clear counter
+000078 9310 00a5                 	sts _DS_TCNTH, intr0
+00007a 9310 00a4                 	sts _DS_TCNTL, intr0
+                                 	
+00007c e315                          ldi  intr0, 53
+00007d 951a                      L1: dec  intr0
+00007e f7f1                          brne L1
+00007f 0000                          nop
+                                 
+                                 	; enable interrupts
+000080 e212                      	ldi intr0, ICIE_VAL | OCIEA_VAL
+000081 9310 0072                 	sts _DS_TIMSK, intr0
+                                 	; stop trig
+000083 2711                      	clr intr0
+000084 9310 010b                 	sts _DS_PORT, intr0
+                                 	; start timer
+000086 ec13                      	ldi intr0, CS_VAL(_DS_CS) | ICES_VAL | ICN_VAL
+000087 9310 00a1                 	sts _DS_TCCRB, intr0
+000089 9518                      	reti
+                                 
+                                 .dseg
+000200                           _ds_ram_ltimeh: .byte 1
+000201                           _ds_ram_ltimel: .byte 1
+                                 .cseg
+                                 
+000052 940c 008a                 ISR _DS_ICPaddr
+                                 	; load ICR
+00008a 9110 00a6                 	lds intr0, _DS_ICRL
+00008c 9120 00a7                 	lds intr1, _DS_ICRH
+                                 	; check if rising or falling edge
+00008e 9130 00a1                 	lds intr2, _DS_TCCRB
+000090 ff36                      	sbrs intr2, ICES
+000091 c00a                      	rjmp _ds_l_isr_icp_falling
+                                 _ds_l_isr_icp_rising:
+                                 	; save ICR to sram
+000092 9320 0200                 	sts _ds_ram_ltimeh, intr1
+000094 9310 0201                 	sts _ds_ram_ltimel, intr0
+                                 	; set input capture to falling edge
+000096 9110 00a1                 	lds intr0, _DS_TCCRB
+000098 7b1f                      	andi intr0, ~(ICES_VAL)
+000099 9310 00a1                 	sts _DS_TCCRB, intr0
+00009b 9518                      	reti
+                                 _ds_l_isr_icp_falling:
+                                 	; save difference to sram
+00009c 9130 0201                 	lds intr2, _ds_ram_ltimel
+00009e 9140 0200                 	lds intr3, _ds_ram_ltimeh
+0000a0 1b13                      	sub intr0, intr2
+0000a1 0b24                      	sbc intr1, intr3
+0000a2 9320 0200                 	sts _ds_ram_ltimeh, intr1
+0000a4 9310 0201                 	sts _ds_ram_ltimel, intr0
+                                 b1:
+0000a6 9130 00c0                 lds intr2, UCSR0A
+0000a8 ff35                      sbrs intr2, UDRE0
+0000a9 cffc                      rjmp b1
+0000aa 9320 00c6                 sts UDR0, intr1
+                                 b2:
+0000ac 9130 00c0                 lds intr2, UCSR0A
+0000ae ff35                      sbrs intr2, UDRE0
+0000af cffc                      rjmp b2
+0000b0 9310 00c6                 sts UDR0, intr0
+                                 	; disable input capture interrupt
+0000b2 e012                      	ldi intr0, OCIEA_VAL
+0000b3 9310 0072                 	sts _DS_TIMSK, intr0
+0000b5 9518                      	reti
+                                 
                                  
                                  ; main
                                  
                                  .def m_tmp = r16
                                  
-000000 940c 0072                 ISR 0
+000000 940c 00b6                 ISR 0
                                  m_l_reset:
                                  	; setup stack
-000072 e201
-000073 bf0e
-000074 ef0f
-000075 bf0d                      	STACK_SETUP m_tmp
+0000b6 e201
+0000b7 bf0e
+0000b8 ef0f
+0000b9 bf0d                      	STACK_SETUP m_tmp
                                  	; setup builtin LED
-000076 b104
-000077 6800
-000078 b904                      	BL_SRC_SETUP m_tmp
-000079 b105
-00007a 770f
-00007b b905                      	BL_SRC_OFF m_tmp
+0000ba e800
+0000bb b904                      	BL_SRC_SETUP m_tmp
+0000bc 2700
+0000bd b905                      	BL_SRC_OFF m_tmp
                                  	; setup LED matrix
-00007c ef0f
-00007d b907                      	LM_SRC_SETUP m_tmp
+0000be ef0f
+0000bf b907                      	LM_SRC_SETUP m_tmp
                                  	; setup UART communication
-00007e e607
-00007f 9300 00c4
-000081 e000
-000082 9300 00c5
-000084 e000
-000085 9300 00c0
-000087 e908
-000088 9300 00c1
-00008a e806
-00008b 9300 00c2                 	UC_SRC_SETUP m_tmp
+0000c0 e000
+0000c1 9300 00c5
+0000c3 e607
+0000c4 9300 00c4
+0000c6 e000
+0000c7 9300 00c0
+0000c9 e908
+0000ca 9300 00c1
+0000cc e806
+0000cd 9300 00c2                 	UC_SRC_SETUP m_tmp
+                                 	;setup distance sensor
+0000cf 2700
+0000d0 9300 00a0
+0000d2 e800
+0000d3 9300 00a1
+0000d5 2700
+0000d6 9300 00a2
+0000d8 2700
+0000d9 9300 00a5
+0000db 9300 00a4
+0000dd e202
+0000de 9300 0072
+0000e0 e30a
+0000e1 9300 00a9
+0000e3 e908
+0000e4 9300 00a8
+0000e6 e400
+0000e7 9300 010a                 	DS_SRC_SETUP m_tmp
+0000e9 940e 0072                 	call ds_isr_trig
                                  	;enable interrupts
-00008d 9478                      	sei
+0000eb 9478                      	sei
                                  
                                  .undef m_tmp
                                  
                                  m_l_loop:
                                  	
-                                 	.def m_col = r16
-                                 	.def m_ch = r17
-                                 	.def m_cl = r18
+                                 	.def m_col = r23
+                                 	.def m_ch = r24
+                                 	.def m_cl = r25
                                  	
-00008e e100                      	ldi m_col, 16
+0000ec e170                      	ldi m_col, 16
                                  m_l_cloop:
-00008f 2f10                      	mov m_ch, m_col
-000090 e023                      	ldi m_cl, 3
-000091 e130
-000092 e340
-000093 9516
-000094 9527
-000095 f408
-000096 e140
-000097 b948
-000098 6440
-000099 b948
-00009a 7b4f
-00009b b948
-00009c 953a
-00009d f7a1
-00009e e940
-00009f b948
-0000a0 e140
-0000a1 b948
-0000a2 2b40
-0000a3 b948
-0000a4 b908                      	LM_SRC_SEND_COL m_ch, m_cl, m_col, r19, r20
+0000ed 2f87                      	mov m_ch, m_col
+0000ee e093                      	ldi m_cl, 3
+0000ef e130
+0000f0 e340
+0000f1 9586
+0000f2 9597
+0000f3 f408
+0000f4 e140
+0000f5 b948
+0000f6 6440
+0000f7 b948
+0000f8 7b4f
+0000f9 b948
+0000fa 953a
+0000fb f7a1
+0000fc e940
+0000fd b948
+0000fe e140
+0000ff b948
+000100 2b47
+000101 b948
+000102 b978                      	LM_SRC_SEND_COL m_ch, m_cl, m_col, r19, r20
                                  
                                  	;wait
-0000a5 ef3f                      	ldi r19, 255
+000103 ef9f                      	ldi m_cl, 255
                                  m_l_wait:
-0000a6 953a                      	dec r19
-0000a7 f7f1                      	brne m_l_wait
+000104 959a                      	dec m_cl
+000105 f7f1                      	brne m_l_wait
                                  
                                  
                                  	;loop col
-0000a8 950a                      	dec m_col
-0000a9 f729                      	brne m_l_cloop
+000106 957a                      	dec m_col
+000107 f729                      	brne m_l_cloop
                                  
                                  	;loop draw
-0000aa cfe3                      	rjmp m_l_loop
+000108 cfe3                      	rjmp m_l_loop
                                  
-000032 940c 00ab                 ISR UC_RCOMPLETE_INTaddr
+000032 940c 0109                 ISR UC_RCOMPLETE_INTaddr
                                  m_isr_tx:
-0000ab e890
-0000ac b993                      	BL_SRC_TOGGLE r25
-0000ad 9190 00c6                 	UC_SRC_FR r25
-0000af eba8
-0000b0 93a0 00c1                 	UC_SRC_TREADY_INTE 1, r26
-0000b2 9518                      	reti
+000109 9120 00c6                 	UC_SRC_FR intr1
+00010b eb28
+00010c 9320 00c1                 	UC_SRC_TREADY_INTE 1, intr1
+00010e 9518                      	reti
                                  
-000034 940c 00b3                 ISR UC_TREADY_INTaddr
+000034 940c 010f                 ISR UC_TREADY_INTaddr
                                  m_isr_e:
-0000b3 9390 00c6                 	UC_SRC_FT r25
-0000b5 e9a8
-0000b6 93a0 00c1                 	UC_SRC_TREADY_INTE 0, r26
+00010f e22b                      	ldi intr1, '+'
+000110 9320 00c6                 	UC_SRC_FT intr1
+000112 e928
+000113 9320 00c1                 	UC_SRC_TREADY_INTE 0, intr1
 
 
 RESOURCE USE INFORMATION
@@ -2316,39 +2569,39 @@ counted separately from r26..r31 here.
 "ATmega2560" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  27 r17:   2 r18:   2 r19:   4 r20:  13 
-r21:   0 r22:   0 r23:   0 r24:   0 r25:   4 r26:   4 r27:   0 r28:   0 
+r13:   0 r14:   0 r15:   0 r16:  37 r17:  24 r18:  12 r19:  10 r20:  15 
+r21:   0 r22:   0 r23:   5 r24:   2 r25:   4 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
-Registers used: 7 out of 35 (20.0%)
+Registers used: 8 out of 35 (22.9%)
 
 "ATmega2560" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :   2 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   1 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
+brne  :   4 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   1 cbi   :   0 cbr   :   0 
+clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   6 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   0 cpse  :   0 dec   :   3 eicall:   0 eijmp :   0 elpm  :   0 
+cpi   :   0 cpse  :   0 dec   :   4 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   2 inc   :   0 jmp   :   3 ld    :   0 ldd   :   0 ldi   :  18 
-lds   :   1 lpm   :   0 lsl   :   0 lsr   :   1 mov   :   1 movw  :   0 
-mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   1 
-ori   :   2 out   :  13 pop   :   0 push  :   0 rcall :   0 ret   :   0 
-reti  :   2 rjmp  :   1 rol   :   0 ror   :   1 sbc   :   0 sbci  :   0 
+in    :   0 inc   :   0 jmp   :   5 ld    :   0 ldd   :   0 ldi   :  29 
+lds   :   9 lpm   :   0 lsl   :   0 lsr   :   1 mov   :   1 movw  :   0 
+mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   1 or    :   1 
+ori   :   1 out   :  12 pop   :   0 push  :   0 rcall :   0 ret   :   0 
+reti  :   5 rjmp  :   4 rol   :   0 ror   :   1 sbc   :   1 sbci  :   0 
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   0 
-sbrs  :   0 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   1 
+sbrs  :   3 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   1 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
-st    :   0 std   :   0 sts   :   8 sub   :   0 subi  :   0 swap  :   0 
+st    :   0 std   :   0 sts   :  32 sub   :   1 subi  :   0 swap  :   0 
 tst   :   0 wdr   :   0 
-Instructions used: 19 out of 116 (16.4%)
+Instructions used: 24 out of 116 (20.7%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000172    154      0    154  262144   0.1%
-[.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
+[.cseg] 0x000000 0x00022c    348      0    348  262144   0.1%
+[.dseg] 0x000200 0x000202      0      2      2    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 
-Assembly complete, 0 errors, 1 warnings
+Assembly complete, 0 errors, 0 warnings
