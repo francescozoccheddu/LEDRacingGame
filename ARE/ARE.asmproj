@@ -90,9 +90,6 @@
     <Compile Include="src\builtin_led.asm">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="src\buzzer.asm">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="src\distance_sens.asm">
       <SubType>Code</SubType>
     </Compile>
@@ -110,7 +107,7 @@
     <Folder Include="src" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\timer_utils.inc">
+    <Compile Include="src\utils.inc">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -1,16 +1,20 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sat Sep 30 10:55:17 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sat Sep 30 13:00:25 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(10): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(33): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(34): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(35): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(11): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\utils.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(15): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(16): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(17): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(18): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(10): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(33): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(34): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(35): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(11): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\utils.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(15): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(16): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(17): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(18): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm'
                                  
                                  ; Francesco Zoccheddu
                                  
@@ -1902,8 +1906,30 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(35): Including file 'C:\Users
                                  #endif  /* _M2560DEF_INC_ */
                                  
                                  ; ***** END OF FILE ******************************************************
+                                 #include "utils.inc"
                                  
-                                 .equ FOSC = 16000000
+                                 ; ARE
+                                 ; utils
+                                 
+                                 #ifndef _INC_UTILS
+                                 #define _INC_UTILS
+                                 
+                                 ; [SOURCE] stack setup
+                                 ; @0 (dirty immediate register)
+                                 .macro STACK_SETUP
+                                 	ldi @0, HIGH(RAMEND)
+                                 	out SPH, @0
+                                 	ldi @0, LOW(RAMEND)
+                                 	out SPL, @0
+                                 .endmacro
+                                 
+                                 ; define 16 bit register H / L macros
+                                 ; @0 (name)
+                                 ; @1 (value)
+                                 .macro _U_16R_DEF
+                                 	.equ @0H = @1H
+                                 	.equ @0L = @1L
+                                 .endmacro
                                  
                                  ; define ISR for interrupt address '@0'
                                  ; @0 (interrupt vector address)
@@ -1924,47 +1950,131 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(35): Including file 'C:\Users
                                  	.org ISR_PC
                                  .endmacro
                                  
+                                 ; timer
+                                 
+                                 #define _TPSCL_0 0
+                                 #define _TPSCL_1 1
+                                 #define _TPSCL_2 8
+                                 #define _TPSCL_3 64
+                                 #define _TPSCL_4 256
+                                 #define _TPSCL_5 1024
+                                 
+                                 #define _TCS_0 0
+                                 #define _TCS_1 1
+                                 #define _TCS_8 2
+                                 #define _TCS_64 3
+                                 #define _TCS_256 4
+                                 #define _TCS_1024 5
+                                 
+                                 #define TMS(s) (s / 1000.0)
+                                 #define TUS(s) (s / 1000000.0)
+                                 #define TNS(s) (s / 1000000000.0)
+                                 
+                                 #define TTOP(pscl, s) (s * FOSC / pscl)
+                                 #define _TPSCL_OK(pscl, m, s) ((s * FOSC) < (pscl * m))
+                                 #define _TPSCL_MIN(m, s) (_TPSCL_OK(_TPSCL_1, m, s) ? _TPSCL_1 : (_TPSCL_OK(_TPSCL_2, m, s) ? _TPSCL_2 : (_TPSCL_OK(_TPSCL_3, m, s) ? _TPSCL_3 : (_TPSCL_OK(_TPSCL_4, m, s) ? _TPSCL_4 : (_TPSCL_OK(_TPSCL_5, m, s) ? _TPSCL_5 : -1)))))
+                                 #define TPSCL_MIN_8(s) _TPSCL_MIN(255, s)
+                                 #define TPSCL_MIN_16(s) _TPSCL_MIN(65535, s)
+                                 #define _TCS_MIN(m, s) (_TPSCL_OK(_TPSCL_1, m, s) ? 1 : (_TPSCL_OK(_TPSCL_2, m, s) ? 2 : (_TPSCL_OK(_TPSCL_3, m, s) ? 3 : (_TPSCL_OK(_TPSCL_4, m, s) ? 4 : (_TPSCL_OK(_TPSCL_5, m, s) ? 5 : -1)))))
+                                 #define TCS_MIN_8(s) _TCS_MIN(255, s)
+                                 #define TCS_MIN_16(s) _TCS_MIN(65535, s)
+                                 
+                                 #define TCCRA_VAL(wgm, coma, comb, comc) ((coma << 6) | (comb << 4) | (comc << 2) | (wgm & 0b11))
+                                 #define TCCRB_VAL(cs, wgm, ices, icn) ((icn << 7) | (ices << 6) | ((wgm >> 2) << 3) | cs)
+                                 #define TCCRC_VAL(foca, focb, focc) ((foca << 7) | (focb << 6) | (focc << 5))
+                                 #define TIMSK_VAL(toie, icie, ociea, ocieb, ociec) ((icie << 5) | (ociec << 3) | (ocieb << 2) | (ociea << 1) | toie)
+                                 #define TIFR_VAL(tov, icf, ocfa, ocfb, ocfc) ((icf << 5) | (ocfc << 3) | (ocfb << 2) | (ocfa << 1) | tov)
+                                 
+                                 ; define timer macros
+                                 ; @0 (prefix)
+                                 ; @1 (timer index)
+                                 .macro TIM_DEF
+                                 	.if (@1 != 0) && (@1 != 1) && (@1 != 2) && (@1 != 3) && (@1 != 4) && (@1 != 5) 
+                                 		.error "Bad timer index"
+                                 	.else
+                                 		.equ @0_TCCRA = TCCR@1A
+                                 		.equ @0_TCCRB = TCCR@1B
+                                 		.equ @0_TIMSK = TIMSK@1
+                                 		.equ @0_TIFR = TIFR@1
+                                 		.equ @0_OCAaddr = OC@1Aaddr
+                                 		.equ @0_OCBaddr = OC@1Baddr
+                                 		.equ @0_OVFaddr = OVF@1addr
+                                 		.if (@1 == 0) || (@1 == 2)
+                                 			.equ @0_TCNT = TCNT@1
+                                 			.equ @0_OCRA = OCR@1A
+                                 			.equ @0_OCRB = OCR@1B
+                                 		.else
+                                 			.equ @0_TCCRC = TCCR@1C
+                                 			.equ @0_OCCaddr = OC@1Caddr
+                                 			_U_16R_DEF @0_ICR, ICR@1
+                                 			_U_16R_DEF @0_TCNT, TCNT@1
+                                 			_U_16R_DEF @0_OCRA, OCR@1A
+                                 			_U_16R_DEF @0_OCRB, OCR@1B
+                                 			_U_16R_DEF @0_OCRC, OCR@1C
+                                 		.endif
+                                 	.endif
+                                 .endmacro
+                                 
+                                 ; IO
+                                 
+                                 ; define IO macros
+                                 ; @0 (prefix)
+                                 ; @1 (IO letter)
+                                 .macro IO_DEF
+                                 	.equ @0_PIN = PIN@1
+                                 	.equ @0_PORT = PORT@1
+                                 	.equ @0_DDR = DDR@1
+                                 .endmacro
+                                 
+                                 #endif
+                                 
+                                 .equ FOSC = 16000000
+                                 
                                  .include "builtin_led.asm"
                                  
                                  ; ARE
                                  ; builtin LED
                                  ; dirty PORTB[7], DDRB[7], PINB[7]
                                  
-                                 .equ BL_DDR = DDRB
-                                 .equ BL_PORT = PORTB
-                                 .equ BL_PIN = PINB
-                                 .equ BL_BIT = 7
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm(6): warning: TODO: stop keeping PORTB[6:0] clean
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(15): 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm' included form here
+                                 .warning "TODO: stop keeping PORTB[6:0] clean"
+                                 
+                                 #define _BL_IO B
+                                 
+                                 IO_DEF _BL, _BL_IO
+                                 .equ _BL_BIT = 7
                                  
                                  ; [SOURCE] setup
                                  ; @0 (dirty immediate register)
                                  .macro BL_SRC_SETUP
                                  	; set data direction register to output for LED pin
-                                 	in @0, BL_DDR
-                                 	ori @0, 1 << BL_BIT
-                                 	out BL_DDR, @0
+                                 	in @0, _BL_DDR
+                                 	ori @0, 1 << _BL_BIT
+                                 	out _BL_DDR, @0
                                  .endmacro
                                  
                                  ; [SOURCE] turn builtin LED on
                                  ; @0 (dirty immediate register)
                                  .macro BL_SRC_ON
-                                 	in @0, BL_PORT
-                                 	ori @0, 1 << BL_BIT
-                                 	out BL_PORT, @0
+                                 	in @0, _BL_PORT
+                                 	ori @0, 1 << _BL_BIT
+                                 	out _BL_PORT, @0
                                  .endmacro
                                  
                                  ; [SOURCE] turn builtin LED off
                                  ; @0 (dirty immediate register)
                                  .macro BL_SRC_OFF
-                                 	in @0, BL_PORT
-                                 	andi @0, ~(1 << BL_BIT)
-                                 	out BL_PORT, @0
+                                 	in @0, _BL_PORT
+                                 	andi @0, ~(1 << _BL_BIT)
+                                 	out _BL_PORT, @0
                                  .endmacro
                                  
                                  ; [SOURCE] toggle builtin LED state
                                  ; @0 (dirty immediate register)
                                  .macro BL_SRC_TOGGLE
-                                 	ldi @0, 1 << BL_BIT
-                                 	out BL_PIN, @0
+                                 	ldi @0, 1 << _BL_BIT
+                                 	out _BL_PIN, @0
                                  .endmacro
                                  
                                  
@@ -1974,19 +2084,20 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(35): Including file 'C:\Users
                                  ; LED matrix
                                  ; dirty PORTC, DDRC, PINC
                                  
-                                 .equ LM_PORT = PORTC
-                                 .equ LM_DDR = DDRC
-                                 .equ LM_BIT_ABCD = 0 ;digital pin 34-37
-                                 .equ LM_BIT_G = 4 ;digital pin 33
-                                 .equ LM_BIT_DI = 5 ;digital pin 32
-                                 .equ LM_BIT_CLK = 6 ;digital pin 31
-                                 .equ LM_BIT_LAT = 7 ;digital pin 30
+                                 #define _LM_IO C
+                                 
+                                 IO_DEF _LM, _LM_IO
+                                 .equ _LM_BIT_ABCD = 0 ;digital pin 34-37
+                                 .equ _LM_BIT_G = 4 ;digital pin 33
+                                 .equ _LM_BIT_DI = 5 ;digital pin 32
+                                 .equ _LM_BIT_CLK = 6 ;digital pin 31
+                                 .equ _LM_BIT_LAT = 7 ;digital pin 30
                                  
                                  ; [SOURCE] setup
                                  ; @0 (dirty immediate register)
                                  .macro LM_SRC_SETUP
                                  	ser @0
-                                 	out LM_DDR, @0
+                                 	out _LM_DDR, @0
                                  .endmacro
                                  
                                  ; [SOURCE] send column data '@0:@1' with column index '@2' 
@@ -1997,31 +2108,31 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(35): Including file 'C:\Users
                                  ; @4 (dirty immediate register)
                                  .macro LM_SRC_SEND_COL
                                  	ldi @3, 16
-                                 lm_l_src_send_col_row:
-                                 	ldi @4, (1 << LM_BIT_G) | (1 << LM_BIT_DI)
+                                 _lm_l_src_send_col_row:
+                                 	ldi @4, (1 << _LM_BIT_G) | (1 << _LM_BIT_DI)
                                  	lsr @0
                                  	ror @1
-                                 	brcc lm_l_src_send_col_out_dot
-                                 	ldi @4, (1 << LM_BIT_G)
-                                 lm_l_src_send_col_out_dot:
-                                 	out LM_PORT, @4
-                                 	ori @4, 1 << LM_BIT_CLK
-                                 	out LM_PORT, @4
-                                 	andi @4, ~(1 << LM_BIT_CLK)
-                                 	out LM_PORT, @4
+                                 	brcc _lm_l_src_send_col_out_dot
+                                 	ldi @4, (1 << _LM_BIT_G)
+                                 _lm_l_src_send_col_out_dot:
+                                 	out _LM_PORT, @4
+                                 	ori @4, 1 << _LM_BIT_CLK
+                                 	out _LM_PORT, @4
+                                 	andi @4, ~(1 << _LM_BIT_CLK)
+                                 	out _LM_PORT, @4
                                  	;loop
                                  	dec @3
-                                 	brne lm_l_src_send_col_row
+                                 	brne _lm_l_src_send_col_row
                                  	;send LAT
-                                 	ldi @4, (1 << LM_BIT_G) | (1 << LM_BIT_LAT)
-                                 	out LM_PORT, @4
-                                 	ldi @4, (1 << LM_BIT_G)
-                                 	out LM_PORT, @4
+                                 	ldi @4, (1 << _LM_BIT_G) | (1 << _LM_BIT_LAT)
+                                 	out _LM_PORT, @4
+                                 	ldi @4, (1 << _LM_BIT_G)
+                                 	out _LM_PORT, @4
                                  	;send col
                                  	or @4, @2
-                                 	out LM_PORT, @4
+                                 	out _LM_PORT, @4
                                  	;end G
-                                 	out LM_PORT, @2
+                                 	out _LM_PORT, @2
                                  .endmacro
                                  
                                  
@@ -2029,65 +2140,64 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(35): Including file 'C:\Users
                                  
                                  ; ARE
                                  ; UART communication
+                                 ; dirty USART0 module and registers
                                  
-                                 .equ UC_BAUDRATE = 9600
-                                 .equ UC_UBRR = FOSC / 16 / UC_BAUDRATE - 1
+                                 .equ _UC_BAUDRATE = 9600
                                  
-                                 .equ UC_UBRRH = UBRR0H
-                                 .equ UC_UBRRL = UBRR0L
-                                 .equ UC_UDR = UDR0
-                                 .equ UC_UCSRA = UCSR0A
-                                 .equ UC_UCSRA_VAL = 0
-                                 .equ UC_UCSRB = UCSR0B
-                                 .equ UC_UCSRB_VAL = (1 << RXCIE0) | (1 << RXEN0) | (1 << TXEN0)
-                                 .equ UC_UDRE_VAL = (1 << UDRIE0)
-                                 .equ UC_UCSRC = UCSR0C
-                                 .equ UC_UCSRC_VAL = (2 << UMSEL0) | (3 << UCSZ00)
+                                 .equ _UC_UCSRA_VAL = 0
+                                 .equ _UC_UCSRB_VAL = (1 << RXCIE0) | (1 << RXEN0) | (1 << TXEN0)
+                                 .equ _UC_UCSRC_VAL = (2 << UMSEL0) | (3 << UCSZ00)
+                                 .equ _UC_UDRE_VAL = (1 << UDRIE0)
+                                 .equ _UC_UBRR = FOSC / 16 / _UC_BAUDRATE - 1
                                  
-                                 .equ UC_UDREaddr = UDRE0addr
-                                 .equ UC_UTXCaddr = UTXC0addr
-                                 .equ UC_URXCaddr = URXC0addr
-                                 
-                                 .equ UC_TREADY_INTaddr = UC_UDREaddr
-                                 .equ UC_RCOMPLETE_INTaddr = UC_URXCaddr
+                                 .equ UC_TREADY_INTaddr = UDRE0addr
+                                 .equ UC_RCOMPLETE_INTaddr = URXC0addr
                                  
                                  ; [SOURCE] setup
                                  ; @0 (dirty immediate register)
                                  .macro UC_SRC_SETUP
                                  	; set UBRRR
-                                 	ldi @0, LOW( UC_UBRR )
-                                 	sts UC_UBRRL, @0
-                                 	ldi @0, HIGH( UC_UBRR )
-                                 	sts UC_UBRRH, @0
+                                 	ldi @0, LOW( _UC_UBRR )
+                                 	sts UBRR0L, @0
+                                 	ldi @0, HIGH( _UC_UBRR )
+                                 	sts UBRR0H, @0
                                  	; set UCSRA
-                                 	ldi @0, UC_UCSRA_VAL
-                                 	sts UC_UCSRA, @0
+                                 	ldi @0, _UC_UCSRA_VAL
+                                 	sts UCSR0A, @0
                                  	; set UCSRB
-                                 	ldi @0, UC_UCSRB_VAL
-                                 	sts UC_UCSRB, @0
+                                 	ldi @0, _UC_UCSRB_VAL
+                                 	sts UCSR0B, @0
                                  	; set UCSRC
-                                 	ldi @0, UC_UCSRC_VAL
-                                 	sts UC_UCSRC, @0
+                                 	ldi @0, _UC_UCSRC_VAL
+                                 	sts UCSR0C, @0
                                  .endmacro
                                  
                                  ; [SOURCE] transmit '@0' data without checking whether the buffer is empty
                                  ; @0 (data register)
                                  .macro UC_SRC_FT
-                                 	sts UC_UDR, @0
+                                 	sts UDR0, @0
                                  .endmacro
                                  
                                  ; [SOURCE] receive to '@0' register without checking whether the buffer is not empty
                                  ; @0 (data register)
                                  .macro UC_SRC_FR
-                                 	lds @0, UC_UDR
+                                 	lds @0, UDR0
                                  .endmacro
                                  
                                  ; [SOURCE] enable / disable transmit ready interrupt
                                  ; @0 (boolean interrupt state)
                                  ; @1 (dirty immediate register)
                                  .macro UC_SRC_TREADY_INTE
-                                 	ldi @1, @0 ? ( UC_UCSRB_VAL | UC_UDRE_VAL ) : UC_UCSRB_VAL
-                                 	sts UC_UCSRB, @1
+                                 	ldi @1, @0 ? ( _UC_UCSRB_VAL | _UC_UDRE_VAL ) : _UC_UCSRB_VAL
+                                 	sts UCSR0B, @1
+                                 .include "distance_sens.asm"
+                                 
+                                 ; ARE
+                                 ; distance sensor
+                                 
+                                 #define _DS_TIMER 4
+                                 
+                                 TIM_DEF _DS, _DS_TIMER
                                  
                                  .org INT_VECTORS_SIZE
                                  
@@ -2098,11 +2208,10 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(35): Including file 'C:\Users
 000000 940c 0072                 ISR 0
                                  m_l_reset:
                                  	; setup stack
-000072 e201                      	ldi m_tmp, HIGH(RAMEND)
-000073 bf0e                      	out SPH, m_tmp
-000074 ef0f                      	ldi m_tmp, LOW(RAMEND)
-000075 bf0d                      	out SPL, m_tmp
-                                 	; setup modules
+000072 e201
+000073 bf0e
+000074 ef0f
+000075 bf0d                      	STACK_SETUP m_tmp
                                  	; setup builtin LED
 000076 b104
 000077 6800
@@ -2242,4 +2351,4 @@ Segment   Begin    End      Code   Data   Used    Size   Use%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 
-Assembly complete, 0 errors, 0 warnings
+Assembly complete, 0 errors, 1 warnings
