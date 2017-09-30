@@ -26,12 +26,13 @@
 ; @4 (dirty immediate register)
 .macro LM_SRC_SEND_COL
 	ldi @3, 16
-	;row
+lm_l_src_send_col_row:
 	ldi @4, (1 << LM_BIT_G) | (1 << LM_BIT_DI)
 	lsr @0
 	ror @1
-	brcc PC + 2
+	brcc lm_l_src_send_col_out_dot
 	ldi @4, (1 << LM_BIT_G)
+lm_l_src_send_col_out_dot:
 	out LM_PORT, @4
 	ori @4, 1 << LM_BIT_CLK
 	out LM_PORT, @4
@@ -39,7 +40,7 @@
 	out LM_PORT, @4
 	;loop
 	dec @3
-	brne PC - 11
+	brne lm_l_src_send_col_row
 	;send LAT
 	ldi @4, (1 << LM_BIT_G) | (1 << LM_BIT_LAT)
 	out LM_PORT, @4

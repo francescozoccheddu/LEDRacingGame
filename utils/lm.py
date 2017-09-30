@@ -1,7 +1,7 @@
 import tkinter
 
 ds_w = 16
-ds_hb = 1
+ds_hb = 2
 ds_byteSize = 8
 ds_prefix = "datalabel:"
 ds_str = ".db %d "
