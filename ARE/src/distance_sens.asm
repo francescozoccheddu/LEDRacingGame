@@ -1,6 +1,7 @@
-/*
- * distance_sens.asm
- *
- *  Created: 30-Sep-17 11:30:50
- *   Author: zocch
- */ 
+; Francesco Zoccheddu
+; ARE
+; distance sensor
+
+#define _DS_TIMER 4
+
+TIM_DEF _DS, _DS_TIMER

@@ -8,31 +8,14 @@
 .nooverlap
 
 .include "m2560def.inc"
+#include "utils.inc"
 
 .equ FOSC = 16000000
-
-; define ISR for interrupt address '@0'
-; @0 (interrupt vector address)
-.macro ISR
-	.set ISR_PC = PC
-	.org @0
-		jmp ISR_PC
-	.org ISR_PC
-.endmacro
-
-; define ISR entry '@1' for interrupt address '@0'
-; @0 (interrupt vector address)
-; @1 (ISR entry label)
-.macro ISRJ
-	.set ISR_PC = PC
-	.org @0
-		jmp @1
-	.org ISR_PC
-.endmacro
 
 .include "builtin_led.asm"
 .include "led_matrix.asm"
 .include "uart_comm.asm"
+.include "distance_sens.asm"
 
 .org INT_VECTORS_SIZE
 
@@ -43,11 +26,7 @@
 ISR 0
 m_l_reset:
 	; setup stack
-	ldi m_tmp, HIGH(RAMEND)
-	out SPH, m_tmp
-	ldi m_tmp, LOW(RAMEND)
-	out SPL, m_tmp
-	; setup modules
+	STACK_SETUP m_tmp
 	; setup builtin LED
 	BL_SRC_SETUP m_tmp
 	BL_SRC_OFF m_tmp
