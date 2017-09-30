@@ -11,11 +11,23 @@
 
 .equ FOSC = 16000000
 
-.macro INTVEC
-	.set INTVECM_PC = PC
+; define ISR for interrupt address '@0'
+; @0 (interrupt vector address)
+.macro ISR
+	.set ISR_PC = PC
+	.org @0
+		jmp ISR_PC
+	.org ISR_PC
+.endmacro
+
+; define ISR entry '@1' for interrupt address '@0'
+; @0 (interrupt vector address)
+; @1 (isr entry label)
+.macro ISRJ
+	.set ISR_PC = PC
 	.org @0
 		jmp @1
-	.org INTVECM_PC
+	.org ISR_PC
 .endmacro
 
 .include "builtin_led.asm"
@@ -26,10 +38,9 @@
 
 ; main
 
-INTVEC 0, m_l_reset
-
 .def m_tmp = r16
 
+ISR 0
 m_l_reset:
 	; setup stack
 	ldi m_tmp, HIGH(RAMEND)
@@ -39,15 +50,17 @@ m_l_reset:
 	; setup modules
 	; setup builtin LED
 	BL_SRC_SETUP m_tmp
+	BL_SRC_OFF m_tmp
 	; setup LED matrix
 	LM_SRC_SETUP m_tmp
 	; setup UART communication
 	UC_SRC_SETUP m_tmp
+	;enable interrupts
+	sei
 
 .undef m_tmp
 
 m_l_loop:
-	UC_SR_I 154, r24
 	
 	.def m_col = r16
 	.def m_ch = r17
@@ -72,3 +85,9 @@ m_l_wait:
 
 	;loop draw
 	rjmp m_l_loop
+
+ISR UC_URXCaddr
+m_isr_tx:
+	BL_SRC_TOGGLE r25
+	lds r25, UC_UDR
+	reti

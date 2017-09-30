@@ -11,9 +11,13 @@
 .equ UC_UCSRA = UCSR0A
 .equ UC_UCSRA_VAL = 0
 .equ UC_UCSRB = UCSR0B
-.equ UC_UCSRB_VAL = (0 << RXEN0) | (1 << TXEN0)
+.equ UC_UCSRB_VAL = (1 << RXCIE0) | (1 << RXEN0) | (1 << TXEN0)
 .equ UC_UCSRC = UCSR0C
 .equ UC_UCSRC_VAL = (2 << UMSEL0) | (3 << UCSZ00)
+
+.equ UC_UDREaddr = UDRE0addr
+.equ UC_UTXCaddr = UTXC0addr
+.equ UC_URXCaddr = URXC0addr
 
 ; [SOURCE] setup
 ; @0 (dirty immediate register)
@@ -34,7 +38,7 @@
 	sts UC_UCSRC, @0
 .endmacro
 
-.macro UC_SR_I
+.macro UC_SR_SENDI
 	lds @1, UC_UCSRA
 	sbrs @1, UDRE0
 	rjmp PC - 3
@@ -42,7 +46,7 @@
 	sts UC_UDR, @1
 .endmacro
 
-.macro UC_SR
+.macro UC_SR_SEND
 	lds @1, UC_UCSRA
 	sbrs @1, UDRE0
 	rjmp PC - 3
