@@ -90,13 +90,16 @@
     <Compile Include="src\builtin_led.asm">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\buzzer.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\distance_sens.asm">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\led_matrix.asm">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\main.asm">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\old\buzzer.asm">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\uart_comm.asm">
@@ -105,7 +108,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src" />
-    <Folder Include="src\old" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\timer_utils.inc">
