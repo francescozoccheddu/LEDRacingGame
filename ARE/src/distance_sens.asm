@@ -1,6 +1,7 @@
 ; Francesco Zoccheddu
 ; ARE
 ; distance sensor
+; dirty timer 4 module and registers
 
 #define _DS_TIMER 4
 #define _DS_IO L

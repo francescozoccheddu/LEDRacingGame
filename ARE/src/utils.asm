@@ -2,9 +2,6 @@
 ; ARE
 ; utils
 
-#ifndef _INC_UTILS
-#define _INC_UTILS
-
 ; interrupt registers
 ; immediate
 .def ria = r16
@@ -181,6 +178,88 @@
 	.endif
 .endmacro
 
+#define T16_PROPF 15625
+#define T16_MAX 4.194304
+#define T8_PROPF 4000000
+#define T8_MAX 0.016384
+
+#define _t_tl @0
+#define _t_th @1
+#define _t_cs @2
+
+#define _t_comp1 64
+#define _t_comp2 512
+#define _t_comp3 4096
+#define _t_comp4 16384
+
+; [SOURCE] calculate cs
+; @0 (time * propf l)
+; @1 (time * propf h)
+; @2 (cs out)
+.macro T_SRC_SR_CALC
+	mov _t_cs, _t_tl
+	andi _t_tl, ~LOW(_t_comp1 - 1)
+	brne _t_src_cs_2m
+	tst _t_th
+	breq _t_src_cs_1
+_t_src_cs_2m:
+	mov _t_tl, _t_cs
+	mov _t_cs, _t_th 
+	andi _t_th, ~HIGH(_t_comp2 - 1)
+	breq _t_src_cs_2
+	andi _t_th, ~HIGH(_t_comp3 - 1)
+	breq _t_src_cs_3
+	andi _t_th, ~HIGH(_t_comp4 - 1)
+	breq _t_src_cs_4
+_t_src_cs_5:
+	mov _t_th, _t_cs
+	ldi _t_cs, 5
+	ret
+_t_src_cs_1:
+	mov _t_th, _t_cs
+	lsl _t_th
+	lsl _t_th
+	ldi _t_cs, 1
+	ret
+_t_src_cs_2:
+	bst _t_cs, 0
+	bld _t_th, 7
+	clr _t_cs
+	lsr _t_tl
+	ror _t_cs
+	or _t_th, _t_tl
+	mov _t_tl, _t_cs
+	ldi _t_cs, 2
+	ret
+_t_src_cs_3:
+	swap _t_tl 
+	mov _t_th, _t_tl
+	andi _t_th, 0b00001111
+	andi _t_tl, 0b11110000
+	swap _t_cs
+	andi _t_cs, 0b11110000
+	or _t_th, _t_cs
+	ldi _t_cs, 3
+	ret
+_t_src_cs_4:
+	mov _t_th, _t_cs
+	lsl _t_tl
+	rol _t_th
+	lsl _t_tl
+	rol _t_th
+	ldi _t_cs, 4
+	ret
+.endmacro
+
+#undef _t_comp1
+#undef _t_comp2
+#undef _t_comp3
+#undef _t_comp4
+
+#undef _t_tl
+#undef _t_th
+#undef _t_cs
+
 ; IO
 
 ; define IO macros
@@ -192,4 +271,3 @@
 	.equ @0_DDR = DDR@1
 .endmacro
 
-#endif

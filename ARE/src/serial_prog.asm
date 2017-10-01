@@ -1,6 +1,7 @@
 ; Francesco Zoccheddu
 ; ARE
 ; serial programming
+; dirty UART RX complete interrupt
 
 #define _sp_data ric
 #define _sp_tmp rib

@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sun Oct 01 18:55:37 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sun Oct 01 23:46:23 2017
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1434,19 +1434,18 @@ CSEG _ds_isr_trig_done 000000b8
 CSEG _ds_l_isr_icp_falling 000000d6
 CSEG _ds_l_isr_icp_rising 000000cc
 CSEG _sp_sr_ut    000000e4
-CSEG _uc_l_src_t@UC_SRC_T@4483 000000e4
+CSEG _uc_l_src_t@UC_SRC_T@4563 000000e4
 CSEG _sp_sr_ur    000000eb
-CSEG _uc_l_src_r@UC_SRC_R@4497 000000eb
+CSEG _uc_l_src_r@UC_SRC_R@4577 000000eb
 CSEG _sp_l_isr_incoming_addr_ram 0000010a
-CSEG _ep_l_src_wait@EP_SRC_WAIT@4539 000000fc
+CSEG _ep_l_src_wait@EP_SRC_WAIT@4619 000000fc
 CSEG _sp_l_isr_incoming_eeprom_write 00000106
 CSEG _sp_l_isr_incoming_sram_write 00000112
 CSEG _sp_l_isr_incoming_sram_done 00000113
 CSEG m_l_reset    00000116
-CSEG m_l_loop     0000015e
-CSEG m_l_cloop    0000015f
-CSEG ciao         0000016a
-CSEG go           0000016d
-CSEG _lm_l_src_send_col_row@LM_SRC_SEND_COL@4735 0000016f
-CSEG _lm_l_src_send_col_out_dot@LM_SRC_SEND_COL@4735 00000174
-CSEG m_l_wait     00000184
+CSEG _ml_l_src_loop_begin@ML_SRC_LOOP@4852 0000015e
+CSEG _ml_l_src_loop_column@ML_SRC_LOOP@4852 0000015f
+CSEG ciao@ML_SRC_LOOP@4852 0000016b
+CSEG go@ML_SRC_LOOP@4852 0000016e
+CSEG _lm_l_src_send_col_row@LM_SRC_SEND_COL@4876 00000170
+CSEG _lm_l_src_send_col_out_dot@LM_SRC_SEND_COL@4876 00000175
