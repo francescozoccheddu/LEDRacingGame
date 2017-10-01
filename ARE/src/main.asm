@@ -13,16 +13,22 @@
 
 .equ FOSC = 16000000
 
-.def intr0 = r17
-.def intr1 = r18
-.def intr2 = r19
-.def intr3 = r20
-.def intr4 = r2
-.def intr5 = r3
-.def intr6 = r4
-.def intr7 = r5
-.def intr8 = r6
-.def intr9 = r7
+; interrupt registers
+
+; immediate
+.def ria = r18
+.def rib = r19
+.def ric = r20
+.def rid = r21
+; non-immediate
+.def ri0 = r2
+.def ri1 = r3
+.def ri2 = r4
+.def ri3 = r5
+.def ri4 = r6
+.def ri5 = r7
+.def ri6 = r8
+.def ri7 = r9
 
 .include "builtin_led.asm"
 .include "led_matrix.asm"
@@ -54,15 +60,29 @@ m_l_reset:
 
 m_l_loop:
 	
-	.def m_col = r23
-	.def m_ch = r24
-	.def m_cl = r25
+	.def m_col = r16
+	.def m_ch = r23
+	.def m_cl = r24
 	
-	ldi m_col, 16
+	ldi m_col, 15
 m_l_cloop:
-	mov m_ch, m_col
-	ldi m_cl, 3
+	lds m_cl, ds_ram_out_val
+	lsr m_cl
+	lsr m_cl
+	lsr m_cl
+	lsr m_cl
+	cp m_cl, m_col
+	breq ciao
+	clr m_cl
+	clr m_ch
+	rjmp go
+ciao:
+	lds m_cl, ds_ram_out_state
+	ser m_ch
+go:
+	cli
 	LM_SRC_SEND_COL m_ch, m_cl, m_col, r19, r20
+	sei
 
 	;wait
 	ldi m_cl, 255
@@ -73,6 +93,7 @@ m_l_wait:
 
 	;loop col
 	dec m_col
+	cpi m_col, 255
 	brne m_l_cloop
 
 	;loop draw
@@ -80,13 +101,11 @@ m_l_wait:
 
 ISR UC_RCOMPLETE_INTaddr
 m_isr_tx:
-	UC_SRC_FR intr1
-	UC_SRC_TREADY_INTE 1, intr1
 	reti
 
 ISR UC_TREADY_INTaddr
 m_isr_e:
-	ldi intr1, '+'
-	UC_SRC_FT intr1
-	UC_SRC_TREADY_INTE 0, intr1
+	lds ria, ds_ram_out_val
+	UC_SRC_FT ria
+	UC_SRC_TREADY_INTE 0, ria
 	reti
