@@ -1,6 +1,7 @@
 ; Francesco Zoccheddu
 ; ARE
 ; EEPROM programming
+; dirty EEPROM module and registers
 
 #define _ep_addrl @0
 #define _ep_addrh @1

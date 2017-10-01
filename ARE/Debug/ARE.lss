@@ -1,24 +1,26 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sun Oct 01 18:55:37 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sun Oct 01 23:46:23 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(11): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(12): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\utils.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(18): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(19): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(20): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\eeprom_prog.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(16): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\utils.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(17): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(18): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(19): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(20): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\eeprom_prog.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main_loop.asm'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(11): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(12): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\utils.inc'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(18): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(19): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(20): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\eeprom_prog.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(16): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\utils.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(17): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(18): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(19): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(20): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\eeprom_prog.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main_loop.asm'
                                  
                                  ; Francesco Zoccheddu
                                  
@@ -1867,6 +1869,8 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  .nooverlap
                                  .org INT_VECTORS_SIZE
                                  
+                                 #define FOSC 16000000
+                                 
                                  #include "m2560def.inc"
                                  
                                  ;***** Created: 2011-02-09 12:03 ******* Source: ATmega2560.xml **********
@@ -1911,13 +1915,12 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  #endif  /* _M2560DEF_INC_ */
                                  
                                  ; ***** END OF FILE ******************************************************
-                                 #include "utils.inc"
+                                 
+                                 
+                                 #include "utils.asm"
                                  
                                  ; ARE
                                  ; utils
-                                 
-                                 #ifndef _INC_UTILS
-                                 #define _INC_UTILS
                                  
                                  ; interrupt registers
                                  ; immediate
@@ -2095,6 +2098,88 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  	.endif
                                  .endmacro
                                  
+                                 #define T16_PROPF 15625
+                                 #define T16_MAX 4.194304
+                                 #define T8_PROPF 4000000
+                                 #define T8_MAX 0.016384
+                                 
+                                 #define _t_tl @0
+                                 #define _t_th @1
+                                 #define _t_cs @2
+                                 
+                                 #define _t_comp1 64
+                                 #define _t_comp2 512
+                                 #define _t_comp3 4096
+                                 #define _t_comp4 16384
+                                 
+                                 ; [SOURCE] calculate cs
+                                 ; @0 (time * propf l)
+                                 ; @1 (time * propf h)
+                                 ; @2 (cs out)
+                                 .macro T_SRC_SR_CALC
+                                 	mov _t_cs, _t_tl
+                                 	andi _t_tl, ~LOW(_t_comp1 - 1)
+                                 	brne _t_src_cs_2m
+                                 	tst _t_th
+                                 	breq _t_src_cs_1
+                                 _t_src_cs_2m:
+                                 	mov _t_tl, _t_cs
+                                 	mov _t_cs, _t_th 
+                                 	andi _t_th, ~HIGH(_t_comp2 - 1)
+                                 	breq _t_src_cs_2
+                                 	andi _t_th, ~HIGH(_t_comp3 - 1)
+                                 	breq _t_src_cs_3
+                                 	andi _t_th, ~HIGH(_t_comp4 - 1)
+                                 	breq _t_src_cs_4
+                                 _t_src_cs_5:
+                                 	mov _t_th, _t_cs
+                                 	ldi _t_cs, 5
+                                 	ret
+                                 _t_src_cs_1:
+                                 	mov _t_th, _t_cs
+                                 	lsl _t_th
+                                 	lsl _t_th
+                                 	ldi _t_cs, 1
+                                 	ret
+                                 _t_src_cs_2:
+                                 	bst _t_cs, 0
+                                 	bld _t_th, 7
+                                 	clr _t_cs
+                                 	lsr _t_tl
+                                 	ror _t_cs
+                                 	or _t_th, _t_tl
+                                 	mov _t_tl, _t_cs
+                                 	ldi _t_cs, 2
+                                 	ret
+                                 _t_src_cs_3:
+                                 	swap _t_tl 
+                                 	mov _t_th, _t_tl
+                                 	andi _t_th, 0b00001111
+                                 	andi _t_tl, 0b11110000
+                                 	swap _t_cs
+                                 	andi _t_cs, 0b11110000
+                                 	or _t_th, _t_cs
+                                 	ldi _t_cs, 3
+                                 	ret
+                                 _t_src_cs_4:
+                                 	mov _t_th, _t_cs
+                                 	lsl _t_tl
+                                 	rol _t_th
+                                 	lsl _t_tl
+                                 	rol _t_th
+                                 	ldi _t_cs, 4
+                                 	ret
+                                 .endmacro
+                                 
+                                 #undef _t_comp1
+                                 #undef _t_comp2
+                                 #undef _t_comp3
+                                 #undef _t_comp4
+                                 
+                                 #undef _t_tl
+                                 #undef _t_th
+                                 #undef _t_cs
+                                 
                                  ; IO
                                  
                                  ; define IO macros
@@ -2105,12 +2190,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  	.equ @0_PORT = PORT@1
                                  	.equ @0_DDR = DDR@1
                                  .endmacro
-                                 
-                                 #endif
-                                 
-                                 #define FOSC 16000000
-                                 
-                                 ; interrupt registers
                                  
                                  #include "builtin_led.asm"
                                  
@@ -2328,6 +2407,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  
                                  ; ARE
                                  ; distance sensor
+                                 ; dirty timer 4 module and registers
                                  
                                  #define _DS_TIMER 4
                                  #define _DS_IO L
@@ -2583,6 +2663,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  
                                  ; ARE
                                  ; EEPROM programming
+                                 ; dirty EEPROM module and registers
                                  
                                  #define _ep_addrl @0
                                  #define _ep_addrh @1
@@ -2624,6 +2705,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  
                                  ; ARE
                                  ; serial programming
+                                 ; dirty UART RX complete interrupt
                                  
                                  #define _sp_data ric
                                  #define _sp_tmp rib
@@ -2706,6 +2788,64 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  
                                  #undef _sp_data
                                  #undef _sp_tmp
+                                 #include "main_loop.asm"
+                                 
+                                 ; ARE
+                                 ; EEPROM programming
+                                 ; dirty timer 0 and registers
+                                 
+                                 #define _ml_tmp
+                                 
+                                 ; [SOURCE] setup
+                                 ; @0 (dirty immediate register)
+                                 .macro ML_SRC_SETUP
+                                 
+                                 .endmacro
+                                 
+                                 #undef _ml_tmp
+                                 
+                                 #define _ml_col @0
+                                 #define _ml_cl @1
+                                 #define _ml_ch @2
+                                 
+                                 ; [SOURCE] main loop
+                                 ; @0 (dirty immediate register)
+                                 ; @1 (dirty immediate register)
+                                 ; @2 (dirty immediate register)
+                                 .macro ML_SRC_LOOP
+                                 _ml_l_src_loop_begin:
+                                 	ldi _ml_col, 16
+                                 _ml_l_src_loop_column:
+                                 	dec _ml_col
+                                 
+                                 	;debug
+                                 	lds _ml_cl, ds_ram_out_val
+                                 	lsr _ml_cl
+                                 	lsr _ml_cl
+                                 	lsr _ml_cl
+                                 	lsr _ml_cl
+                                 	cp _ml_cl, _ml_col
+                                 	breq ciao
+                                 	clr _ml_cl
+                                 	clr _ml_ch
+                                 	rjmp go
+                                 ciao:
+                                 	lds _ml_cl, ds_ram_out_state
+                                 	ser _ml_ch
+                                 go:
+                                 	
+                                 	cli
+                                 	LM_SRC_SEND_COL _ml_ch, _ml_cl, _ml_col, rmd, rme
+                                 	sei
+                                 
+                                 	tst _ml_col
+                                 	brne _ml_l_src_loop_column
+                                 	rjmp _ml_l_src_loop_begin
+                                 .endmacro
+                                 
+                                 #undef _ml_col
+                                 #undef _ml_cl
+                                 #undef _ml_ch
                                  
                                  ; main
                                  
@@ -2768,75 +2908,53 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
 000158 e041
 000159 9340 0205                 	DS_SRC_SETUP m_tmp
 00015b 940e 0072                 	call ds_isr_trig
-                                 	;enable interrupts
+                                 	; setup draw loop
+                                 	ML_SRC_SETUP m_tmp
+                                 	; enable interrupts
 00015d 9478                      	sei
-                                 
+                                 	; enter main loop
+00015e e140
+00015f 954a
+000160 9150 0206
+000162 9556
+000163 9556
+000164 9556
+000165 9556
+000166 1754
+000167 f019
+000168 2755
+000169 2766
+00016a c003
+00016b 9150 0207
+00016d ef6f
+00016e 94f8
+00016f e170
+000170 e380
+000171 9556
+000172 9567
+000173 f408
+000174 e180
+000175 b988
+000176 6480
+000177 b988
+000178 7b8f
+000179 b988
+00017a 957a
+00017b f7a1
+00017c e980
+00017d b988
+00017e e180
+00017f b988
+000180 2b84
+000181 b988
+000182 b948
+000183 9478
+000184 2344
+000185 f6c9
+000186 cfd7                      	ML_SRC_LOOP rma, rmb, rmc
                                  
                                  #undef m_tmp
                                  
-                                 #define m_col rma
-                                 #define m_cl rmb
-                                 #define m_ch rmc
-                                 
-                                 m_l_loop:	
-                                 	
-00015e e04f                      	ldi m_col, 15
-                                 m_l_cloop:
-00015f 9150 0206                 	lds m_cl, ds_ram_out_val
-000161 9556                      	lsr m_cl
-000162 9556                      	lsr m_cl
-000163 9556                      	lsr m_cl
-000164 9556                      	lsr m_cl
-000165 1754                      	cp m_cl, m_col
-000166 f019                      	breq ciao
-000167 2755                      	clr m_cl
-000168 2766                      	clr m_ch
-000169 c003                      	rjmp go
-                                 ciao:
-00016a 9150 0207                 	lds m_cl, ds_ram_out_state
-00016c ef6f                      	ser m_ch
-                                 go:
-00016d 94f8                      	cli
-00016e e170
-00016f e380
-000170 9556
-000171 9567
-000172 f408
-000173 e180
-000174 b988
-000175 6480
-000176 b988
-000177 7b8f
-000178 b988
-000179 957a
-00017a f7a1
-00017b e980
-00017c b988
-00017d e180
-00017e b988
-00017f 2b84
-000180 b988
-000181 b948                      	LM_SRC_SEND_COL m_ch, m_cl, m_col, rmd, rme
-000182 9478                      	sei
-                                 
-                                 	;wait
-000183 ef5f                      	ldi m_cl, 255
-                                 m_l_wait:
-000184 955a                      	dec m_cl
-000185 f7f1                      	brne m_l_wait
-                                 
-                                 
-                                 	;loop col
-000186 954a                      	dec m_col
-000187 3f4f                      	cpi m_col, 255
-000188 f6b1                      	brne m_l_cloop
-                                 
-                                 	;loop draw
-000189 cfd4                      	rjmp m_l_loop
-                                 
-                                 #undef m_col
-                                 #undef m_cl
-                                 #undef m_ch
 
 
 RESOURCE USE INFORMATION
@@ -2857,7 +2975,7 @@ counted separately from r26..r31 here.
 x  :   0 y  :   0 z  :   2 r0 :   0 r1 :   0 r2 :  13 r3 :   7 r4 :   3 
 r5 :   3 r6 :   4 r7 :   4 r8 :   8 r9 :   0 r10:   0 r11:   0 r12:   0 
 r13:   0 r14:   0 r15:   0 r16:  39 r17:  18 r18:  15 r19:   8 r20:  55 
-r21:  11 r22:   3 r23:   2 r24:  13 r25:   0 r26:   0 r27:   0 r28:   0 
+r21:   9 r22:   3 r23:   2 r24:  13 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   3 r31:   3 
 Registers used: 19 out of 35 (54.3%)
 
@@ -2866,13 +2984,13 @@ Registers used: 19 out of 35 (54.3%)
 andi  :   3 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   1 brcs  :   0 break :   0 breq  :   4 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   3 brpl  :   0 brsh  :   2 brtc  :   0 brts  :   0 brvc  :   0 
+brne  :   2 brpl  :   0 brsh  :   2 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   1 cbi   :   0 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :  10 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   3 cpc   :   2 
-cpi   :   1 cpse  :   0 dec   :   4 eicall:   0 eijmp :   0 elpm  :   0 
+cpi   :   0 cpse  :   0 dec   :   3 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   1 inc   :   1 jmp   :   4 ld    :   1 ldd   :   0 ldi   :  30 
+in    :   1 inc   :   1 jmp   :   4 ld    :   1 ldd   :   0 ldi   :  29 
 lds   :  20 lpm   :   0 lsl   :   0 lsr   :   5 mov   :   6 movw  :   4 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   1 
 ori   :   1 out   :  15 pop   :   2 push  :   2 rcall :   5 ret   :   2 
@@ -2881,13 +2999,13 @@ sbi   :   3 sbic  :   1 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   5
 sbrs  :   3 sec   :   0 seh   :   0 sei   :   2 sen   :   0 ser   :   4 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
 st    :   1 std   :   0 sts   :  36 sub   :   2 subi  :   0 swap  :   0 
-tst   :   0 wdr   :   0 
+tst   :   1 wdr   :   0 
 Instructions used: 43 out of 116 (37.1%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000314    576      0    576  262144   0.2%
+[.cseg] 0x000000 0x00030e    570      0    570  262144   0.2%
 [.dseg] 0x000200 0x00020a      0     10     10    8192   0.1%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 
