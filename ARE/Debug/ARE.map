@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sun Oct 01 18:20:41 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sun Oct 01 18:55:37 2017
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1389,14 +1389,6 @@ EQU  _BL_DDR      00000004
 EQU  _LM_PIN      00000006
 EQU  _LM_PORT     00000008
 EQU  _LM_DDR      00000007
-EQU  _UC_BAUDRATE 00002580
-EQU  _UC_UCSRA_VAL 00000000
-EQU  _UC_UCSRB_VAL 00000098
-EQU  _UC_UCSRC_VAL 00000086
-EQU  _UC_UDRE_VAL 00000020
-EQU  _UC_UBRR     00000067
-EQU  UC_TREADY_INTaddr 00000034
-EQU  UC_RCOMPLETE_INTaddr 00000032
 EQU  _DS_TCCRA    000000a0
 EQU  _DS_TCCRB    000000a1
 EQU  _DS_TIMSK    00000072
@@ -1428,7 +1420,7 @@ DSEG _ds_ram_in_ehil 00000204
 DSEG _ds_ram_in_ehih 00000205
 DSEG ds_ram_out_val 00000206
 DSEG ds_ram_out_state 00000207
-SET  ISR_PC       0000011a
+SET  ISR_PC       00000116
 CSEG ds_isr_trig  00000072
 CSEG _ds_isr_trig_bad 000000b7
 DSEG _ds_ram_ltimel 00000208
@@ -1445,16 +1437,16 @@ CSEG _sp_sr_ut    000000e4
 CSEG _uc_l_src_t@UC_SRC_T@4483 000000e4
 CSEG _sp_sr_ur    000000eb
 CSEG _uc_l_src_r@UC_SRC_R@4497 000000eb
-CSEG _sp_l_isr_incoming_addr_ram 0000010e
-CSEG _ep_l_src_wait@EP_SRC_WAIT@4557 00000100
-CSEG _sp_l_isr_incoming_eeprom_write 0000010a
-CSEG _sp_l_isr_incoming_sram_write 00000116
-CSEG _sp_l_isr_incoming_sram_done 00000117
-CSEG m_l_reset    0000011a
-CSEG m_l_loop     00000162
-CSEG m_l_cloop    00000163
-CSEG ciao         0000016e
-CSEG go           00000171
-CSEG _lm_l_src_send_col_row@LM_SRC_SEND_COL@4753 00000173
-CSEG _lm_l_src_send_col_out_dot@LM_SRC_SEND_COL@4753 00000178
-CSEG m_l_wait     00000188
+CSEG _sp_l_isr_incoming_addr_ram 0000010a
+CSEG _ep_l_src_wait@EP_SRC_WAIT@4539 000000fc
+CSEG _sp_l_isr_incoming_eeprom_write 00000106
+CSEG _sp_l_isr_incoming_sram_write 00000112
+CSEG _sp_l_isr_incoming_sram_done 00000113
+CSEG m_l_reset    00000116
+CSEG m_l_loop     0000015e
+CSEG m_l_cloop    0000015f
+CSEG ciao         0000016a
+CSEG go           0000016d
+CSEG _lm_l_src_send_col_row@LM_SRC_SEND_COL@4735 0000016f
+CSEG _lm_l_src_send_col_out_dot@LM_SRC_SEND_COL@4735 00000174
+CSEG m_l_wait     00000184

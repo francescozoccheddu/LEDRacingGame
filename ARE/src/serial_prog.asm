@@ -21,7 +21,6 @@ _sp_sr_ur:
 #define _sp_b2 ria
 
 ISR UC_RCOMPLETE_INTaddr
-	BL_SRC_ON rid
 	; store bit 1 in 'b1'
 	rcall _sp_sr_ur 
 	mov _sp_b1, _sp_data
@@ -31,7 +30,6 @@ ISR UC_RCOMPLETE_INTaddr
 	; eventually store bit 3 in 'data'
 	sbrc _sp_b1, _SP_OPCODE_R_W
 	rcall _sp_sr_ur
-	BL_SRC_OFF rid
 	; store address h in 'tmp'
 	mov _sp_tmp, _sp_b1
 	andi _sp_tmp, _SP_OPCODE_MSK
