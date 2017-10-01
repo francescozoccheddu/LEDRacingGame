@@ -1,7 +1,7 @@
 ; Francesco Zoccheddu
 ; ARE
 ; builtin LED
-; dirty PORTB[7], DDRB[7], PINB[7]
+; dirty PORTB, DDRB, PINB
 
 #define _BL_IO B
 

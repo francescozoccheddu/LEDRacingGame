@@ -3,16 +3,16 @@
 ; UART communication
 ; dirty USART0 module and registers
 
-.equ _UC_BAUDRATE = 9600
+#define _UC_BAUDRATE 9600
 
-.equ _UC_UCSRA_VAL = 0
-.equ _UC_UCSRB_VAL = (1 << RXCIE0) | (1 << RXEN0) | (1 << TXEN0)
-.equ _UC_UCSRC_VAL = (2 << UMSEL0) | (3 << UCSZ00)
-.equ _UC_UDRE_VAL = (1 << UDRIE0)
-.equ _UC_UBRR = FOSC / 16 / _UC_BAUDRATE - 1
+#define _UC_UCSRA_VAL 0
+#define _UC_UCSRB_VAL (1 << RXCIE0) | (1 << RXEN0) | (1 << TXEN0)
+#define _UC_UCSRC_VAL (2 << UMSEL0) | (3 << UCSZ00)
+#define _UC_UDRE_VAL (1 << UDRIE0)
+#define _UC_UBRR FOSC / 16 / _UC_BAUDRATE - 1
 
-.equ UC_TREADY_INTaddr = UDRE0addr
-.equ UC_RCOMPLETE_INTaddr = URXC0addr
+#define UC_TREADY_INTaddr UDRE0addr
+#define UC_RCOMPLETE_INTaddr URXC0addr
 
 #define _uc_tmp @0
 

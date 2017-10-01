@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sun Oct 01 18:20:41 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sun Oct 01 18:55:37 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(11): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -2116,7 +2116,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  
                                  ; ARE
                                  ; builtin LED
-                                 ; dirty PORTB[7], DDRB[7], PINB[7]
+                                 ; dirty PORTB, DDRB, PINB
                                  
                                  #define _BL_IO B
                                  
@@ -2244,16 +2244,16 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  ; UART communication
                                  ; dirty USART0 module and registers
                                  
-                                 .equ _UC_BAUDRATE = 9600
+                                 #define _UC_BAUDRATE 9600
                                  
-                                 .equ _UC_UCSRA_VAL = 0
-                                 .equ _UC_UCSRB_VAL = (1 << RXCIE0) | (1 << RXEN0) | (1 << TXEN0)
-                                 .equ _UC_UCSRC_VAL = (2 << UMSEL0) | (3 << UCSZ00)
-                                 .equ _UC_UDRE_VAL = (1 << UDRIE0)
-                                 .equ _UC_UBRR = FOSC / 16 / _UC_BAUDRATE - 1
+                                 #define _UC_UCSRA_VAL 0
+                                 #define _UC_UCSRB_VAL (1 << RXCIE0) | (1 << RXEN0) | (1 << TXEN0)
+                                 #define _UC_UCSRC_VAL (2 << UMSEL0) | (3 << UCSZ00)
+                                 #define _UC_UDRE_VAL (1 << UDRIE0)
+                                 #define _UC_UBRR FOSC / 16 / _UC_BAUDRATE - 1
                                  
-                                 .equ UC_TREADY_INTaddr = UDRE0addr
-                                 .equ UC_RCOMPLETE_INTaddr = URXC0addr
+                                 #define UC_TREADY_INTaddr UDRE0addr
+                                 #define UC_RCOMPLETE_INTaddr URXC0addr
                                  
                                  #define _uc_tmp @0
                                  
@@ -2650,60 +2650,56 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  #define _sp_b2 ria
                                  
 000032 940c 00f2                 ISR UC_RCOMPLETE_INTaddr
-0000f2 e830
-0000f3 b935                      	BL_SRC_ON rid
                                  	; store bit 1 in 'b1'
-0000f4 dff6                      	rcall _sp_sr_ur 
-0000f5 2e22                      	mov _sp_b1, _sp_data
+0000f2 dff8                      	rcall _sp_sr_ur 
+0000f3 2e22                      	mov _sp_b1, _sp_data
                                  	; store bit 2 in 'b2'
-0000f6 dff4                      	rcall _sp_sr_ur 
-0000f7 2f02                      	mov _sp_b2, _sp_data
+0000f4 dff6                      	rcall _sp_sr_ur 
+0000f5 2f02                      	mov _sp_b2, _sp_data
                                  	; eventually store bit 3 in 'data'
-0000f8 fc27                      	sbrc _sp_b1, _SP_OPCODE_R_W
-0000f9 dff1                      	rcall _sp_sr_ur
-0000fa 2733
-0000fb b935                      	BL_SRC_OFF rid
+0000f6 fc27                      	sbrc _sp_b1, _SP_OPCODE_R_W
+0000f7 dff3                      	rcall _sp_sr_ur
                                  	; store address h in 'tmp'
-0000fc 2d12                      	mov _sp_tmp, _sp_b1
-0000fd 731f                      	andi _sp_tmp, _SP_OPCODE_MSK
-0000fe fc26                      	sbrc _sp_b1, _SP_OPCODE_EEPR_RAM
-0000ff c00e                      	rjmp _sp_l_isr_incoming_addr_ram
+0000f8 2d12                      	mov _sp_tmp, _sp_b1
+0000f9 731f                      	andi _sp_tmp, _SP_OPCODE_MSK
+0000fa fc26                      	sbrc _sp_b1, _SP_OPCODE_EEPR_RAM
+0000fb c00e                      	rjmp _sp_l_isr_incoming_addr_ram
                                  	; EEPROM address
-000100 99f9
-000101 cffe                      	EP_SRC_WAIT
-000102 bd01
-000103 bd12                      	EP_SRC_ADDR _sp_b2, _sp_tmp
-000104 fc27                      	sbrc _sp_b1, _SP_OPCODE_R_W
-000105 c004                      	rjmp _sp_l_isr_incoming_eeprom_write
+0000fc 99f9
+0000fd cffe                      	EP_SRC_WAIT
+0000fe bd01
+0000ff bd12                      	EP_SRC_ADDR _sp_b2, _sp_tmp
+000100 fc27                      	sbrc _sp_b1, _SP_OPCODE_R_W
+000101 c004                      	rjmp _sp_l_isr_incoming_eeprom_write
                                  	; EEPROM read
-000106 9af8
-000107 b520                      	EP_SRC_FREAD _sp_data
-000108 dfdb                      	rcall _sp_sr_ut
-000109 9518                      	reti
+000102 9af8
+000103 b520                      	EP_SRC_FREAD _sp_data
+000104 dfdf                      	rcall _sp_sr_ut
+000105 9518                      	reti
                                  _sp_l_isr_incoming_eeprom_write:
                                  	; EEPROM write
-00010a bd20
-00010b 9afa
-00010c 9af9                      	EP_SRC_FWRITE _sp_data
-00010d 9518                      	reti
+000106 bd20
+000107 9afa
+000108 9af9                      	EP_SRC_FWRITE _sp_data
+000109 9518                      	reti
                                  _sp_l_isr_incoming_addr_ram:
                                  	; SRAM address
-00010e 93ef                      	push ZL
-00010f 93ff                      	push ZH
-000110 01f8                      	movw ZH:ZL, _sp_tmp:_sp_b2
-000111 fc27                      	sbrc _sp_b1, _SP_OPCODE_R_W
-000112 c003                      	rjmp _sp_l_isr_incoming_sram_write
+00010a 93ef                      	push ZL
+00010b 93ff                      	push ZH
+00010c 01f8                      	movw ZH:ZL, _sp_tmp:_sp_b2
+00010d fc27                      	sbrc _sp_b1, _SP_OPCODE_R_W
+00010e c003                      	rjmp _sp_l_isr_incoming_sram_write
                                  	; EEPROM read
-000113 8120                      	ld _sp_data, Z
-000114 dfcf                      	rcall _sp_sr_ut
-000115 c001                      	rjmp _sp_l_isr_incoming_sram_done
+00010f 8120                      	ld _sp_data, Z
+000110 dfd3                      	rcall _sp_sr_ut
+000111 c001                      	rjmp _sp_l_isr_incoming_sram_done
                                  _sp_l_isr_incoming_sram_write:
                                  	; EEPROM write
-000116 8320                      	st Z, _sp_data
+000112 8320                      	st Z, _sp_data
                                  _sp_l_isr_incoming_sram_done:
-000117 91ff                      	pop ZH
-000118 91ef                      	pop ZL
-000119 9518                      	reti
+000113 91ff                      	pop ZH
+000114 91ef                      	pop ZL
+000115 9518                      	reti
                                  
                                  #undef _sp_b1
                                  #undef _sp_b2
@@ -2715,65 +2711,65 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  
                                  #define m_tmp rma
                                  
-000000 940c 011a                 ISR 0
+000000 940c 0116                 ISR 0
                                  m_l_reset:
                                  	; setup stack
-00011a e241
-00011b bf4e
-00011c ef4f
-00011d bf4d                      	STACK_SETUP m_tmp
+000116 e241
+000117 bf4e
+000118 ef4f
+000119 bf4d                      	STACK_SETUP m_tmp
                                  	; setup builtin LED
-00011e e840
-00011f b944                      	BL_SRC_SETUP m_tmp
-000120 2744
-000121 b945                      	BL_SRC_OFF m_tmp
+00011a e840
+00011b b944                      	BL_SRC_SETUP m_tmp
+00011c 2744
+00011d b945                      	BL_SRC_OFF m_tmp
                                  	; setup LED matrix
-000122 ef4f
-000123 b947                      	LM_SRC_SETUP m_tmp
+00011e ef4f
+00011f b947                      	LM_SRC_SETUP m_tmp
                                  	; setup UART communication
-000124 e040
-000125 9340 00c5
-000127 e647
-000128 9340 00c4
-00012a e040
-00012b 9340 00c0
-00012d e948
-00012e 9340 00c1
-000130 e846
-000131 9340 00c2                 	UC_SRC_SETUP m_tmp
+000120 e040
+000121 9340 00c5
+000123 e647
+000124 9340 00c4
+000126 e040
+000127 9340 00c0
+000129 e948
+00012a 9340 00c1
+00012c e846
+00012d 9340 00c2                 	UC_SRC_SETUP m_tmp
                                  	;setup distance sensor
-000133 2744
-000134 9340 00a0
-000136 e840
-000137 9340 00a1
-000139 2744
-00013a 9340 00a2
-00013c 2744
-00013d 9340 00a5
-00013f 9340 00a4
-000141 e242
-000142 9340 0072
-000144 e34a
-000145 9340 00a9
-000147 e948
-000148 9340 00a8
-00014a e440
-00014b 9340 010a
-00014d e446
-00014e 9340 0200
-000150 e040
-000151 9340 0201
-000153 ef4a
-000154 9340 0202
-000156 e040
-000157 9340 0203
-000159 e24c
-00015a 9340 0204
-00015c e041
-00015d 9340 0205                 	DS_SRC_SETUP m_tmp
-00015f 940e 0072                 	call ds_isr_trig
+00012f 2744
+000130 9340 00a0
+000132 e840
+000133 9340 00a1
+000135 2744
+000136 9340 00a2
+000138 2744
+000139 9340 00a5
+00013b 9340 00a4
+00013d e242
+00013e 9340 0072
+000140 e34a
+000141 9340 00a9
+000143 e948
+000144 9340 00a8
+000146 e440
+000147 9340 010a
+000149 e446
+00014a 9340 0200
+00014c e040
+00014d 9340 0201
+00014f ef4a
+000150 9340 0202
+000152 e040
+000153 9340 0203
+000155 e24c
+000156 9340 0204
+000158 e041
+000159 9340 0205                 	DS_SRC_SETUP m_tmp
+00015b 940e 0072                 	call ds_isr_trig
                                  	;enable interrupts
-000161 9478                      	sei
+00015d 9478                      	sei
                                  
                                  
                                  #undef m_tmp
@@ -2784,59 +2780,59 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  
                                  m_l_loop:	
                                  	
-000162 e04f                      	ldi m_col, 15
+00015e e04f                      	ldi m_col, 15
                                  m_l_cloop:
-000163 9150 0206                 	lds m_cl, ds_ram_out_val
-000165 9556                      	lsr m_cl
-000166 9556                      	lsr m_cl
-000167 9556                      	lsr m_cl
-000168 9556                      	lsr m_cl
-000169 1754                      	cp m_cl, m_col
-00016a f019                      	breq ciao
-00016b 2755                      	clr m_cl
-00016c 2766                      	clr m_ch
-00016d c003                      	rjmp go
+00015f 9150 0206                 	lds m_cl, ds_ram_out_val
+000161 9556                      	lsr m_cl
+000162 9556                      	lsr m_cl
+000163 9556                      	lsr m_cl
+000164 9556                      	lsr m_cl
+000165 1754                      	cp m_cl, m_col
+000166 f019                      	breq ciao
+000167 2755                      	clr m_cl
+000168 2766                      	clr m_ch
+000169 c003                      	rjmp go
                                  ciao:
-00016e 9150 0207                 	lds m_cl, ds_ram_out_state
-000170 ef6f                      	ser m_ch
+00016a 9150 0207                 	lds m_cl, ds_ram_out_state
+00016c ef6f                      	ser m_ch
                                  go:
-000171 94f8                      	cli
-000172 e170
-000173 e380
-000174 9556
-000175 9567
-000176 f408
-000177 e180
+00016d 94f8                      	cli
+00016e e170
+00016f e380
+000170 9556
+000171 9567
+000172 f408
+000173 e180
+000174 b988
+000175 6480
+000176 b988
+000177 7b8f
 000178 b988
-000179 6480
-00017a b988
-00017b 7b8f
+000179 957a
+00017a f7a1
+00017b e980
 00017c b988
-00017d 957a
-00017e f7a1
-00017f e980
+00017d e180
+00017e b988
+00017f 2b84
 000180 b988
-000181 e180
-000182 b988
-000183 2b84
-000184 b988
-000185 b948                      	LM_SRC_SEND_COL m_ch, m_cl, m_col, rmd, rme
-000186 9478                      	sei
+000181 b948                      	LM_SRC_SEND_COL m_ch, m_cl, m_col, rmd, rme
+000182 9478                      	sei
                                  
                                  	;wait
-000187 ef5f                      	ldi m_cl, 255
+000183 ef5f                      	ldi m_cl, 255
                                  m_l_wait:
-000188 955a                      	dec m_cl
-000189 f7f1                      	brne m_l_wait
+000184 955a                      	dec m_cl
+000185 f7f1                      	brne m_l_wait
                                  
                                  
                                  	;loop col
-00018a 954a                      	dec m_col
-00018b 3f4f                      	cpi m_col, 255
-00018c f6b1                      	brne m_l_cloop
+000186 954a                      	dec m_col
+000187 3f4f                      	cpi m_col, 255
+000188 f6b1                      	brne m_l_cloop
                                  
                                  	;loop draw
-00018d cfd4                      	rjmp m_l_loop
+000189 cfd4                      	rjmp m_l_loop
                                  
                                  #undef m_col
                                  #undef m_cl
@@ -2860,7 +2856,7 @@ counted separately from r26..r31 here.
 "ATmega2560" register use summary:
 x  :   0 y  :   0 z  :   2 r0 :   0 r1 :   0 r2 :  13 r3 :   7 r4 :   3 
 r5 :   3 r6 :   4 r7 :   4 r8 :   8 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  39 r17:  18 r18:  15 r19:  12 r20:  55 
+r13:   0 r14:   0 r15:   0 r16:  39 r17:  18 r18:  15 r19:   8 r20:  55 
 r21:  11 r22:   3 r23:   2 r24:  13 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   3 r31:   3 
 Registers used: 19 out of 35 (54.3%)
@@ -2872,14 +2868,14 @@ brcc  :   1 brcs  :   0 break :   0 breq  :   4 brge  :   0 brhc  :   0
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
 brne  :   3 brpl  :   0 brsh  :   2 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   1 cbi   :   0 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :  11 cls   :   0 
+clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :  10 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   3 cpc   :   2 
 cpi   :   1 cpse  :   0 dec   :   4 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   1 inc   :   1 jmp   :   4 ld    :   1 ldd   :   0 ldi   :  31 
+in    :   1 inc   :   1 jmp   :   4 ld    :   1 ldd   :   0 ldi   :  30 
 lds   :  20 lpm   :   0 lsl   :   0 lsr   :   5 mov   :   6 movw  :   4 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   1 
-ori   :   1 out   :  17 pop   :   2 push  :   2 rcall :   5 ret   :   2 
+ori   :   1 out   :  15 pop   :   2 push  :   2 rcall :   5 ret   :   2 
 reti  :   6 rjmp  :  14 rol   :   0 ror   :   7 sbc   :   1 sbci  :   0 
 sbi   :   3 sbic  :   1 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   5 
 sbrs  :   3 sec   :   0 seh   :   0 sei   :   2 sen   :   0 ser   :   4 
@@ -2891,7 +2887,7 @@ Instructions used: 43 out of 116 (37.1%)
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x00031c    584      0    584  262144   0.2%
+[.cseg] 0x000000 0x000314    576      0    576  262144   0.2%
 [.dseg] 0x000200 0x00020a      0     10     10    8192   0.1%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 
