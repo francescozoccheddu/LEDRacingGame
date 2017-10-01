@@ -93,10 +93,16 @@
     <Compile Include="src\distance_sens.asm">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\eeprom_prog.asm">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\led_matrix.asm">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\main.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\serial_prog.asm">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\uart_comm.asm">

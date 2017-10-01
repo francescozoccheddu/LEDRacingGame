@@ -8,60 +8,48 @@
 TIM_DEF _DS, _DS_TIMER
 IO_DEF _DS, _DS_IO
 
-.equ _DS_ICP_BIT = 0 ; digital pin 49
-.equ _DS_TRIG_BIT = 6 ; digital pin 43
+#define _DS_ICP_BIT 0 ; digital pin 49
+#define _DS_TRIG_BIT 6 ; digital pin 43
 
 #define _DS_MAX_WAIT_TIME TMS(60)
-.equ _DS_PSCL = TPSCL_MIN_16(_DS_MAX_WAIT_TIME)
-.equ _DS_CS = TCS_MIN_16(_DS_MAX_WAIT_TIME)
-.equ _DS_TOP = int( TTOP(_DS_PSCL, _DS_MAX_WAIT_TIME) + 0.5 )
+#define _DS_PSCL TPSCL_MIN_16(_DS_MAX_WAIT_TIME)
+#define _DS_CS TCS_MIN_16(_DS_MAX_WAIT_TIME)
+#define _DS_TOP int( TTOP(_DS_PSCL, _DS_MAX_WAIT_TIME) + 0.5 )
+
+#define _ds_tmp @0
 
 ; [SOURCE] setup
 ; @0 (dirty immediate register)
 .macro DS_SRC_SETUP
 	; set timer control register A
-	clr @0
-	sts _DS_TCCRA, @0
+	clr _ds_tmp
+	sts _DS_TCCRA, _ds_tmp
 	; set timer control register B
-	ldi @0, ICN_VAL
-	sts _DS_TCCRB, @0
+	ldi _ds_tmp, ICN_VAL
+	sts _DS_TCCRB, _ds_tmp
 	; set timer control register C
-	clr @0
-	sts _DS_TCCRC, @0
+	clr _ds_tmp
+	sts _DS_TCCRC, _ds_tmp
 	; clear timer counter
-	clr @0
-	sts _DS_TCNTH, @0
-	sts _DS_TCNTL, @0
+	clr _ds_tmp
+	sts _DS_TCNTH, _ds_tmp
+	sts _DS_TCNTL, _ds_tmp
 	; set timer interrupt mask
-	ldi @0, ICIE_VAL | OCIEA_VAL
-	sts _DS_TIMSK, @0
+	ldi _ds_tmp, ICIE_VAL | OCIEA_VAL
+	sts _DS_TIMSK, _ds_tmp
 	; set timer output compare value A
-	ldi @0, HIGH( _DS_TOP )
-	sts _DS_OCRAH, @0
-	ldi @0, LOW( _DS_TOP )
-	sts _DS_OCRAL, @0
+	ldi _ds_tmp, HIGH( _DS_TOP )
+	sts _DS_OCRAH, _ds_tmp
+	ldi _ds_tmp, LOW( _DS_TOP )
+	sts _DS_OCRAL, _ds_tmp
 	; set data direction register to output for trig pin
-	ldi @0, 1 << _DS_TRIG_BIT
-	sts _DS_DDR, @0
-	PARS @0
-.endmacro
+	ldi _ds_tmp, 1 << _DS_TRIG_BIT
+	sts _DS_DDR, _ds_tmp
 
 #define DS_EMAX 300
 #define DS_MAX 250
 #define DS_MIN 70
-
-.dseg
-_ds_ram_in_lol: .byte 1
-_ds_ram_in_loh: .byte 1
-_ds_ram_in_hil: .byte 1
-_ds_ram_in_hih: .byte 1
-_ds_ram_in_ehil: .byte 1
-_ds_ram_in_ehih: .byte 1
-ds_ram_out_val: .byte 1
-ds_ram_out_state: .byte 1
-.cseg
-
-.macro PARS
+	
 	ldi @0, LOW( DS_MIN )
 	sts _ds_ram_in_lol, @0
 	ldi @0, HIGH( DS_MIN )
@@ -74,13 +62,28 @@ ds_ram_out_state: .byte 1
 	sts _ds_ram_in_ehil, @0
 	ldi @0, HIGH( DS_EMAX )
 	sts _ds_ram_in_ehih, @0
+
+
 .endmacro
 
+#undef _ds_tmp
+
+.dseg
+_ds_ram_in_lol: .byte 1
+_ds_ram_in_loh: .byte 1
+_ds_ram_in_hil: .byte 1
+_ds_ram_in_hih: .byte 1
+_ds_ram_in_ehil: .byte 1
+_ds_ram_in_ehih: .byte 1
+ds_ram_out_val: .byte 1
+ds_ram_out_state: .byte 1
+.cseg
 
 ISR _DS_OCAaddr
 ds_isr_trig:
 
 #define _ds_tmp ria
+
 	; start trig
 	ldi _ds_tmp, 1 << _DS_TRIG_BIT
 	sts _DS_PORT, _ds_tmp
@@ -94,13 +97,15 @@ ds_isr_trig:
 	lds _ds_tmp, _DS_TIMSK
 	sbrc _ds_tmp, ICIE
 	rjmp _ds_isr_trig_bad
+
 #undef _ds_tmp
 
-	; skip if greater than max
 #define _ds_cursl ria
 #define _ds_cursh rib
 #define _ds_inl ri0
 #define _ds_inh ri1
+
+	; skip if greater than max
 	lds _ds_cursl, _ds_ram_in_ehil
 	lds _ds_cursh, _ds_ram_in_ehih
 	lds _ds_inl, _ds_ram_ltimel
@@ -109,8 +114,6 @@ ds_isr_trig:
 	cpc _ds_inh, _ds_cursh
 	brsh _ds_isr_trig_bad
 
-	; clamp
-	; setup clamp parameters
 #define _ds_in_lol ri2
 #define _ds_in_loh ri3
 #define _ds_in_hil ri4
@@ -118,6 +121,9 @@ ds_isr_trig:
 #define _ds_out_lo ric
 #define _ds_out_hi rid
 #define _ds_out ri6
+
+	; clamp
+	; setup clamp parameters
 	lds _ds_in_lol, _ds_ram_in_lol
 	lds _ds_in_loh, _ds_ram_in_loh
 	lds _ds_in_hil, _ds_ram_in_hil
@@ -159,6 +165,7 @@ _ds_l_isr_trig_clamp_smaller:
 	add _ds_out, _ds_out_lo
 	ror _ds_out
 	rjmp _ds_l_isr_trig_clamp_loop
+
 #undef _ds_cursl
 #undef _ds_cursh
 #undef _ds_inl
@@ -171,12 +178,14 @@ _ds_l_isr_trig_clamp_smaller:
 #undef _ds_out_hi
 
 #define _ds_tmp ria
+
 _ds_l_isr_trig_clamp_stop:
 	; write output value
 	sts ds_ram_out_val, _ds_out
 	; set output state to true
 	ser _ds_tmp
 	rjmp _ds_isr_trig_done
+
 #undef _ds_out
 
 _ds_isr_trig_bad:
@@ -195,6 +204,7 @@ _ds_isr_trig_done:
 	ldi _ds_tmp, CS_VAL(_DS_CS) | ICES_VAL | ICN_VAL
 	sts _DS_TCCRB, _ds_tmp
 	reti
+
 #undef _ds_tmp
 
 .dseg
@@ -202,11 +212,12 @@ _ds_ram_ltimel: .byte 1
 _ds_ram_ltimeh: .byte 1
 .cseg
 
-ISR _DS_ICPaddr
 #define _ds_icrl ri0
 #define _ds_icrh ri1
 #define _ds_tmp1 ria
 #define _ds_tmp2 rib
+
+ISR _DS_ICPaddr
 	; load ICR
 	lds _ds_icrl, _DS_ICRL
 	lds _ds_icrh, _DS_ICRH
@@ -235,6 +246,7 @@ _ds_l_isr_icp_falling:
 	ldi _ds_tmp1, OCIEA_VAL
 	sts _DS_TIMSK, _ds_tmp1
 	reti
+
 #undef _ds_icrh
 #undef _ds_icrl
 #undef _ds_tmp1
