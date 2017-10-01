@@ -5,6 +5,37 @@
 #ifndef _INC_UTILS
 #define _INC_UTILS
 
+; interrupt registers
+; immediate
+.def ria = r16
+.def rib = r17
+.def ric = r18
+.def rid = r19
+; non-immediate
+.def ri0 = r2
+.def ri1 = r3
+.def ri2 = r4
+.def ri3 = r5
+.def ri4 = r6
+.def ri5 = r7
+.def ri6 = r8
+.def ri7 = r9
+; main loop registers
+; immediate
+.def rma = r20
+.def rmb = r21
+.def rmc = r22
+.def rmd = r23
+.def rme = r24
+.def rmf = r25
+; non-immediate
+.def rm0 = r10
+.def rm1 = r11
+.def rm2 = r12
+.def rm3 = r13
+.def rm4 = r14
+.def rm5 = r15
+
 ; [SOURCE] stack setup
 ; @0 (dirty immediate register)
 .macro STACK_SETUP
@@ -118,8 +149,6 @@
 #define OCFB_VAL (1 << 2)
 #define OCFA_VAL (1 << 1)
 #define TOV_VAL (1 << 0)
-
-
 
 ; define timer macros
 ; @0 (prefix)

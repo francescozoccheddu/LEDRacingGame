@@ -8,36 +8,23 @@
 .nooverlap
 .org INT_VECTORS_SIZE
 
-.include "m2560def.inc"
+#include "m2560def.inc"
 #include "utils.inc"
 
-.equ FOSC = 16000000
+#define FOSC 16000000
 
 ; interrupt registers
 
-; immediate
-.def ria = r18
-.def rib = r19
-.def ric = r20
-.def rid = r21
-; non-immediate
-.def ri0 = r2
-.def ri1 = r3
-.def ri2 = r4
-.def ri3 = r5
-.def ri4 = r6
-.def ri5 = r7
-.def ri6 = r8
-.def ri7 = r9
-
-.include "builtin_led.asm"
-.include "led_matrix.asm"
-.include "uart_comm.asm"
-.include "distance_sens.asm"
+#include "builtin_led.asm"
+#include "led_matrix.asm"
+#include "uart_comm.asm"
+#include "distance_sens.asm"
+#include "eeprom_prog.asm"
+#include "serial_prog.asm"
 
 ; main
 
-.def m_tmp = r16
+#define m_tmp rma
 
 ISR 0
 m_l_reset:
@@ -56,13 +43,14 @@ m_l_reset:
 	;enable interrupts
 	sei
 
-.undef m_tmp
 
-m_l_loop:
-	
-	.def m_col = r16
-	.def m_ch = r23
-	.def m_cl = r24
+#undef m_tmp
+
+#define m_col rma
+#define m_cl rmb
+#define m_ch rmc
+
+m_l_loop:	
 	
 	ldi m_col, 15
 m_l_cloop:
@@ -81,7 +69,7 @@ ciao:
 	ser m_ch
 go:
 	cli
-	LM_SRC_SEND_COL m_ch, m_cl, m_col, r19, r20
+	LM_SRC_SEND_COL m_ch, m_cl, m_col, rmd, rme
 	sei
 
 	;wait
@@ -99,13 +87,6 @@ m_l_wait:
 	;loop draw
 	rjmp m_l_loop
 
-ISR UC_RCOMPLETE_INTaddr
-m_isr_tx:
-	reti
-
-ISR UC_TREADY_INTaddr
-m_isr_e:
-	lds ria, ds_ram_out_val
-	UC_SRC_FT ria
-	UC_SRC_TREADY_INTE 0, ria
-	reti
+#undef m_col
+#undef m_cl
+#undef m_ch
