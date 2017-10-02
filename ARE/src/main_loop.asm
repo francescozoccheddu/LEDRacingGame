@@ -56,9 +56,6 @@ go:
 #undef _ml_cl
 #undef _ml_ch
 
-ml_sr_ds_state_update:
-	BL_SRC_OFF ric
-	sbrc ds_state_updated, 0
-	ret
-	BL_SRC_ON ric
-	ret
+.macro DS_SRC_STATE_UPDATE
+	BL_SRC_OUT ds_state_updated
+.endmacro

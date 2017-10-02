@@ -208,7 +208,7 @@ _ds_isr_trig_done:
 	sts ds_ram_out_state, _ds_tmp1
 	cp _ds_tmp1, _ds_tmp2 
 	breq _ds_isr_trig_state_unchanged
-	call ml_sr_ds_state_update
+	DS_SRC_STATE_UPDATE
 _ds_isr_trig_state_unchanged:
 	; enable interrupts
 	ldi _ds_tmp1, ICIE_VAL | OCIEA_VAL
