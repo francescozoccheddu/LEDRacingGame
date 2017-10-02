@@ -260,6 +260,12 @@ _t_src_cs_4:
 #undef _t_th
 #undef _t_cs
 
+t_sr_calc:
+	T_SRC_SR_CALC rma, rmb, rmc
+
+t_isr_calc:
+	T_SRC_SR_CALC ria, rib, ric
+
 ; IO
 
 ; define IO macros

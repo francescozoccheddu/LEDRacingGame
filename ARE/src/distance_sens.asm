@@ -12,71 +12,72 @@ IO_DEF _DS, _DS_IO
 #define _DS_ICP_BIT 0 ; digital pin 49
 #define _DS_TRIG_BIT 6 ; digital pin 43
 
-#define _DS_MAX_WAIT_TIME TMS(60)
-#define _DS_PSCL TPSCL_MIN_16(_DS_MAX_WAIT_TIME)
-#define _DS_CS TCS_MIN_16(_DS_MAX_WAIT_TIME)
-#define _DS_TOP int( TTOP(_DS_PSCL, _DS_MAX_WAIT_TIME) + 0.5 )
-
 #define _ds_tmp @0
 
 ; [SOURCE] setup
 ; @0 (dirty immediate register)
 .macro DS_SRC_SETUP
-	; set timer control register A
+	; clear timer control registers
 	clr _ds_tmp
 	sts _DS_TCCRA, _ds_tmp
-	; set timer control register B
-	ldi _ds_tmp, ICN_VAL
 	sts _DS_TCCRB, _ds_tmp
-	; set timer control register C
-	clr _ds_tmp
 	sts _DS_TCCRC, _ds_tmp
-	; clear timer counter
-	clr _ds_tmp
-	sts _DS_TCNTH, _ds_tmp
-	sts _DS_TCNTL, _ds_tmp
 	; set timer interrupt mask
 	ldi _ds_tmp, ICIE_VAL | OCIEA_VAL
 	sts _DS_TIMSK, _ds_tmp
-	; set timer output compare value A
-	ldi _ds_tmp, HIGH( _DS_TOP )
-	sts _DS_OCRAH, _ds_tmp
-	ldi _ds_tmp, LOW( _DS_TOP )
-	sts _DS_OCRAL, _ds_tmp
 	; set data direction register to output for trig pin
 	ldi _ds_tmp, 1 << _DS_TRIG_BIT
 	sts _DS_DDR, _ds_tmp
-
-#define DS_EMAX 300
-#define DS_MAX 250
-#define DS_MIN 70
-	
-	ldi @0, LOW( DS_MIN )
-	sts _ds_ram_in_lol, @0
-	ldi @0, HIGH( DS_MIN )
-	sts _ds_ram_in_loh, @0
-	ldi @0, LOW( DS_MAX )
-	sts _ds_ram_in_hil, @0
-	ldi @0, HIGH( DS_MAX )
-	sts _ds_ram_in_hih, @0
-	ldi @0, LOW( DS_EMAX )
-	sts _ds_ram_in_ehil, @0
-	ldi @0, HIGH( DS_EMAX )
-	sts _ds_ram_in_ehih, @0
-
-
 .endmacro
 
 #undef _ds_tmp
 
+.macro DS_SRC_SPLOAD
+#define DS_EMAX 300
+#define DS_MAX 250
+#define DS_MIN 70
+#define DS_TIM 0.06
+	
+	ldi rma, LOW( DS_MIN )
+	sts _ds_ram_in_lol, rma
+	ldi rma, HIGH( DS_MIN )
+	sts _ds_ram_in_loh, rma
+	ldi rma, LOW( DS_MAX )
+	sts _ds_ram_in_hil, rma
+	ldi rma, HIGH( DS_MAX )
+	sts _ds_ram_in_hih, rma
+	ldi rma, LOW( DS_EMAX )
+	sts _ds_ram_in_ehil, rma
+	ldi rma, HIGH( DS_EMAX )
+	sts _ds_ram_in_ehih, rma
+
+
+	ldi rma, LOW( int(DS_TIM * T16_PROPF+0.5) )
+	ldi rmb, HIGH( int(DS_TIM * T16_PROPF+0.5) )
+	call t_sr_calc
+	ori rmc, ICN_VAL | ICES_VAL
+	sts _ds_ram_timtopl, rma
+	sts _ds_ram_timtoph, rmb
+	sts _ds_ram_tccrb, rmc
+.endmacro
+
 .dseg
+_ds_ram_timtoph: .byte 1
+_ds_ram_timtopl: .byte 1
+
+_ds_ram_tccrb: .byte 1
+
 _ds_ram_in_lol: .byte 1
 _ds_ram_in_loh: .byte 1
+
 _ds_ram_in_hil: .byte 1
 _ds_ram_in_hih: .byte 1
+
 _ds_ram_in_ehil: .byte 1
 _ds_ram_in_ehih: .byte 1
+
 ds_ram_out_val: .byte 1
+
 ds_ram_out_state: .byte 1
 .cseg
 
@@ -94,6 +95,11 @@ ds_isr_trig:
 	; clear counter
 	sts _DS_TCNTH, _ds_tmp
 	sts _DS_TCNTL, _ds_tmp
+	; set output compare value A
+	lds _ds_tmp, _ds_ram_timtoph
+	sts _DS_OCRAH, _ds_tmp
+	lds _ds_tmp, _ds_ram_timtopl
+	sts _DS_OCRAL, _ds_tmp
 	; skip if not measured
 	lds _ds_tmp, _DS_TIMSK
 	sbrc _ds_tmp, ICIE
@@ -200,7 +206,7 @@ _ds_isr_trig_done:
 	clr _ds_tmp
 	sts _DS_PORT, _ds_tmp
 	; start timer
-	ldi _ds_tmp, CS_VAL(_DS_CS) | ICES_VAL | ICN_VAL
+	lds _ds_tmp, _ds_ram_tccrb
 	sts _DS_TCCRB, _ds_tmp
 	reti
 

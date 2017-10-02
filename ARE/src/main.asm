@@ -39,6 +39,7 @@ m_l_reset:
 	UC_SRC_SETUP m_tmp
 	;setup distance sensor
 	DS_SRC_SETUP m_tmp
+	DS_SRC_SPLOAD m_tmp
 	call ds_isr_trig
 	; setup draw loop
 	ML_SRC_SETUP m_tmp
