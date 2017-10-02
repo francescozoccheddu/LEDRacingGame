@@ -17,10 +17,10 @@
 #include "builtin_led.asm"
 #include "led_matrix.asm"
 #include "uart_comm.asm"
+#include "main_loop.asm"
 #include "distance_sens.asm"
 #include "eeprom_prog.asm"
 #include "serial_prog.asm"
-#include "main_loop.asm"
 
 ; main
 

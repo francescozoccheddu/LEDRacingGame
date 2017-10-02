@@ -56,4 +56,10 @@ IO_DEF _BL, _BL_IO
 	out _BL_PIN, _bl_tmp
 .endmacro
 
+; [SOURCE] set builtin LED state (dirty all port pins)
+; @0 (state on bit 7)
+.macro BL_SRC_OUT
+	out _BL_PORT, _bl_tmp
+.endmacro
+
 #undef _bl_tmp

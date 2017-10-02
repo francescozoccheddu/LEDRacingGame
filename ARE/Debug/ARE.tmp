@@ -14,10 +14,10 @@
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\builtin_led.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\led_matrix.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\uart_comm.asm</FILE>
+  <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main_loop.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\eeprom_prog.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm</FILE>
-  <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main_loop.asm</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\Debug\ARE.obj</FILE>
@@ -54,7 +54,6 @@
   <_ds_l_isr_trig_clamp_greater><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>156</LINE></_ds_l_isr_trig_clamp_greater>
   <_ds_isr_trig_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>205</LINE></_ds_isr_trig_done>
   <_ds_isr_trig_state_unchanged><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>212</LINE></_ds_isr_trig_state_unchanged>
-  <ml_sr_ds_state_update><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main_loop.asm</FILE><LINE>59</LINE></ml_sr_ds_state_update>
   <_ds_l_isr_icp_falling><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>249</LINE></_ds_l_isr_icp_falling>
   <_ds_l_isr_icp_rising><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>240</LINE></_ds_l_isr_icp_rising>
   <_sp_sr_ut><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm</FILE><LINE>9</LINE></_sp_sr_ut>
