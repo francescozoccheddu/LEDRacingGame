@@ -137,11 +137,9 @@ _ds_l_isr_trig_clamp_start:
 	mov _ds_out, _ds_out_hi
 _ds_l_isr_trig_clamp_loop:
 	sub _ds_out_hi, _ds_out_lo
-	breq _ds_l_isr_trig_clamp_stop
-	dec _ds_out_hi
-	breq _ds_l_isr_trig_clamp_stop
+	cpi _ds_out_hi, 2
+	brlo _ds_l_isr_trig_clamp_stop
 	add _ds_out_hi, _ds_out_lo
-	inc _ds_out_hi
 	cp _ds_cursl, _ds_inl
 	cpc _ds_cursh, _ds_inh
 	breq _ds_l_isr_trig_clamp_stop
