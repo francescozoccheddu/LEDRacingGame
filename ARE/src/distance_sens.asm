@@ -76,6 +76,9 @@ _ds_ram_in_hih: .byte 1
 _ds_ram_in_ehil: .byte 1
 _ds_ram_in_ehih: .byte 1
 
+_ds_ram_ltimel: .byte 1
+_ds_ram_ltimeh: .byte 1
+
 ds_ram_out_val: .byte 1
 
 ds_ram_out_state: .byte 1
@@ -182,40 +185,44 @@ _ds_l_isr_trig_clamp_smaller:
 #undef _ds_out_lo
 #undef _ds_out_hi
 
-#define _ds_tmp ria
+#define _ds_tmp1 ria
+#define _ds_tmp2 rib
+
+#define ds_state_updated ria
 
 _ds_l_isr_trig_clamp_stop:
 	; write output value
 	sts ds_ram_out_val, _ds_out
 	; set output state to true
-	ser _ds_tmp
+	ser _ds_tmp1
 	rjmp _ds_isr_trig_done
 
 #undef _ds_out
 
 _ds_isr_trig_bad:
 	; set output state to false
-	clr _ds_tmp
+	clr _ds_tmp1
 _ds_isr_trig_done:
 	; write output state
-	sts ds_ram_out_state, _ds_tmp
+	lds _ds_tmp2, ds_ram_out_state
+	sts ds_ram_out_state, _ds_tmp1
+	cp _ds_tmp1, _ds_tmp2 
+	breq _ds_isr_trig_state_unchanged
+	call ml_sr_ds_state_update
+_ds_isr_trig_state_unchanged:
 	; enable interrupts
-	ldi _ds_tmp, ICIE_VAL | OCIEA_VAL
-	sts _DS_TIMSK, _ds_tmp
+	ldi _ds_tmp1, ICIE_VAL | OCIEA_VAL
+	sts _DS_TIMSK, _ds_tmp1
 	; stop trig
-	clr _ds_tmp
-	sts _DS_PORT, _ds_tmp
+	clr _ds_tmp1
+	sts _DS_PORT, _ds_tmp1
 	; start timer
-	lds _ds_tmp, _ds_ram_tccrb
-	sts _DS_TCCRB, _ds_tmp
+	lds _ds_tmp1, _ds_ram_tccrb
+	sts _DS_TCCRB, _ds_tmp1
 	reti
 
-#undef _ds_tmp
-
-.dseg
-_ds_ram_ltimel: .byte 1
-_ds_ram_ltimeh: .byte 1
-.cseg
+#undef _ds_tmp1
+#undef _ds_tmp2
 
 #define _ds_icrl ri0
 #define _ds_icrh ri1

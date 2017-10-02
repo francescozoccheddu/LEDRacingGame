@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Mon Oct 02 09:43:49 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Mon Oct 02 10:00:18 2017
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1435,34 +1435,36 @@ DSEG _ds_ram_in_hil 00000205
 DSEG _ds_ram_in_hih 00000206
 DSEG _ds_ram_in_ehil 00000207
 DSEG _ds_ram_in_ehih 00000208
-DSEG ds_ram_out_val 00000209
-DSEG ds_ram_out_state 0000020a
-SET  ISR_PC       00000179
+DSEG _ds_ram_ltimel 00000209
+DSEG _ds_ram_ltimeh 0000020a
+DSEG ds_ram_out_val 0000020b
+DSEG ds_ram_out_state 0000020c
+SET  ISR_PC       00000186
 CSEG ds_isr_trig  000000ce
 CSEG _ds_isr_trig_bad 00000119
-DSEG _ds_ram_ltimel 0000020b
-DSEG _ds_ram_ltimeh 0000020c
 CSEG _ds_l_isr_trig_clamp_start 000000f9
 CSEG _ds_l_isr_trig_clamp_loop 000000fb
 CSEG _ds_l_isr_trig_clamp_stop 00000115
 CSEG _ds_l_isr_trig_clamp_smaller 0000010c
 CSEG _ds_l_isr_trig_clamp_greater 00000103
 CSEG _ds_isr_trig_done 0000011a
-CSEG _ds_l_isr_icp_falling 00000139
-CSEG _ds_l_isr_icp_rising 0000012f
-CSEG _sp_sr_ut    00000147
-CSEG _uc_l_src_t@UC_SRC_T@4681 00000147
-CSEG _sp_sr_ur    0000014e
-CSEG _uc_l_src_r@UC_SRC_R@4695 0000014e
-CSEG _sp_l_isr_incoming_addr_ram 0000016d
-CSEG _ep_l_src_wait@EP_SRC_WAIT@4737 0000015f
-CSEG _sp_l_isr_incoming_eeprom_write 00000169
-CSEG _sp_l_isr_incoming_sram_write 00000175
-CSEG _sp_l_isr_incoming_sram_done 00000176
-CSEG m_l_reset    00000179
-CSEG _ml_l_src_loop_begin@ML_SRC_LOOP@4967 000001bf
-CSEG _ml_l_src_loop_column@ML_SRC_LOOP@4967 000001c0
-CSEG ciao@ML_SRC_LOOP@4967 000001cc
-CSEG go@ML_SRC_LOOP@4967 000001cf
-CSEG _lm_l_src_send_col_row@LM_SRC_SEND_COL@4991 000001d1
-CSEG _lm_l_src_send_col_out_dot@LM_SRC_SEND_COL@4991 000001d6
+CSEG _ds_isr_trig_state_unchanged 00000122
+CSEG ml_sr_ds_state_update 0000017f
+CSEG _ds_l_isr_icp_falling 0000013f
+CSEG _ds_l_isr_icp_rising 00000135
+CSEG _sp_sr_ut    0000014d
+CSEG _uc_l_src_t@UC_SRC_T@4688 0000014d
+CSEG _sp_sr_ur    00000154
+CSEG _uc_l_src_r@UC_SRC_R@4702 00000154
+CSEG _sp_l_isr_incoming_addr_ram 00000173
+CSEG _ep_l_src_wait@EP_SRC_WAIT@4744 00000165
+CSEG _sp_l_isr_incoming_eeprom_write 0000016f
+CSEG _sp_l_isr_incoming_sram_write 0000017b
+CSEG _sp_l_isr_incoming_sram_done 0000017c
+CSEG m_l_reset    00000186
+CSEG _ml_l_src_loop_begin@ML_SRC_LOOP@4997 000001cc
+CSEG _ml_l_src_loop_column@ML_SRC_LOOP@4997 000001cd
+CSEG ciao@ML_SRC_LOOP@4997 000001d9
+CSEG go@ML_SRC_LOOP@4997 000001dc
+CSEG _lm_l_src_send_col_row@LM_SRC_SEND_COL@5021 000001de
+CSEG _lm_l_src_send_col_out_dot@LM_SRC_SEND_COL@5021 000001e3
