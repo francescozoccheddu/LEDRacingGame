@@ -32,6 +32,9 @@
 .def rm3 = r13
 .def rm4 = r14
 .def rm5 = r15
+; mul registers
+.def mulh = r1
+.def mull = r0
 
 ; [SOURCE] stack setup
 ; @0 (dirty immediate register)

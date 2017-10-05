@@ -30,14 +30,14 @@
   <FILE>ARE.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <t_sr_calc><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\utils.asm</FILE><LINE>263</LINE></t_sr_calc>
-  <t_isr_calc><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\utils.asm</FILE><LINE>266</LINE></t_isr_calc>
+  <t_sr_calc><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\utils.asm</FILE><LINE>266</LINE></t_sr_calc>
+  <t_isr_calc><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\utils.asm</FILE><LINE>269</LINE></t_isr_calc>
   <_ml_ram_tcs><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main_loop.asm</FILE><LINE>27</LINE></_ml_ram_tcs>
   <_ml_ram_ttop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main_loop.asm</FILE><LINE>28</LINE></_ml_ram_ttop>
   <_ml_ram_smooth><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main_loop.asm</FILE><LINE>29</LINE></_ml_ram_smooth>
   <_ml_ram_smooth_slow><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main_loop.asm</FILE><LINE>30</LINE></_ml_ram_smooth_slow>
-  <_ml_ram_dstime><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main_loop.asm</FILE><LINE>31</LINE></_ml_ram_dstime>
-  <_ml_ram_dstime_slow><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main_loop.asm</FILE><LINE>32</LINE></_ml_ram_dstime_slow>
+  <_ml_ram_dsval><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main_loop.asm</FILE><LINE>31</LINE></_ml_ram_dsval>
+  <_ml_ram_dsval_slow><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main_loop.asm</FILE><LINE>32</LINE></_ml_ram_dsval_slow>
   <_ds_ram_ttoph><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>66</LINE></_ds_ram_ttoph>
   <_ds_ram_ttopl><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>67</LINE></_ds_ram_ttopl>
   <_ds_ram_tccrb><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>69</LINE></_ds_ram_tccrb>

@@ -28,14 +28,14 @@ _ml_ram_tcs: .byte 1
 _ml_ram_ttop: .byte 1
 _ml_ram_smooth: .byte 1
 _ml_ram_smooth_slow: .byte 1
-_ml_ram_dstime: .byte 1
-_ml_ram_dstime_slow: .byte 1
+_ml_ram_dsval: .byte 1
+_ml_ram_dsval_slow: .byte 1
 .cseg
 
 .macro ML_SRC_SPLOAD
 	#define ML_TIM 0.002
-	#define ML_SMOOTH_SLOW 0.9
-	#define ML_SMOOTH 0.5 
+	#define ML_SMOOTH_SLOW 0.95
+	#define ML_SMOOTH 0.8
 
 	ldi rma, LOW( int(ML_TIM * T8_PROPF+0.5) )
 	ldi rmb, HIGH( int(ML_TIM * T8_PROPF+0.5) )
@@ -50,22 +50,81 @@ _ml_ram_dstime_slow: .byte 1
 	sts _ml_ram_smooth_slow, rma
 .endmacro
 
-#define _ml_col @0
-#define _ml_cl @1
-#define _ml_ch @2
 
 ; [SOURCE] main loop
 ; @0 (dirty immediate register)
-; @1 (dirty immediate register)
+; @1 (dirty immediate register next to @0)
 ; @2 (dirty immediate register)
 .macro ML_SRC_LOOP
+
+#define _ml_tmp1 @0
+#define _ml_tmp2 @1
+#define _ml_tmp3 @2
+
 _ml_l_src_loop_begin:
+
+	; smooth ds
+	lds _ml_tmp1, ds_ram_out_state
+	tst _ml_tmp1
+	breq _ml_l_src_loop_smooth_zombie
+
+	; ds present
+	lds _ml_tmp3, _ml_ram_smooth
+	lds mull, _ml_ram_dsval
+	mul mull, _ml_tmp3
+	movw _ml_tmp2:_ml_tmp1, mulh:mull
+	com _ml_tmp3
+	lds mull, ds_ram_out_val
+	mul mull, _ml_tmp3
+	add mull, _ml_tmp1
+	adc mulh, _ml_tmp2
+	sts _ml_ram_dsval, mulh
+
+	lds _ml_tmp3, _ml_ram_smooth_slow
+	lds mull, _ml_ram_dsval_slow
+	mul mull, _ml_tmp3
+	movw _ml_tmp2:_ml_tmp1, mulh:mull
+	com _ml_tmp3
+	lds mull, ds_ram_out_val
+	mul mull, _ml_tmp3
+	add mull, _ml_tmp1
+	adc mulh, _ml_tmp2
+	sts _ml_ram_dsval_slow, mulh
+
+	rjmp _ml_l_src_smooth_done
+
+_ml_l_src_loop_smooth_zombie:
+
+	lds _ml_tmp3, _ml_ram_smooth
+	lds mull, _ml_ram_dsval
+	mul mull, _ml_tmp3
+	movw _ml_tmp2:_ml_tmp1, mulh:mull
+	com _ml_tmp3
+	lds mull, _ml_ram_dsval_slow
+	mul mull, _ml_tmp3
+	add mull, _ml_tmp1
+	adc mulh, _ml_tmp2
+	sts _ml_ram_dsval, mulh
+
+	; ds gone
+
+#undef _ml_tmp1
+#undef _ml_tmp2
+#undef _ml_tmp3
+
+#define _ml_col @0
+
+_ml_l_src_smooth_done:
 	ldi _ml_col, 16
+	
+#define _ml_cl @1
+#define _ml_ch @2
+
 _ml_l_src_loop_column:
 	dec _ml_col
 
 	;debug
-	lds _ml_cl, ds_ram_out_val
+	lds _ml_cl, _ml_ram_dsval
 	lsr _ml_cl
 	lsr _ml_cl
 	lsr _ml_cl
@@ -76,7 +135,7 @@ _ml_l_src_loop_column:
 	clr _ml_ch
 	rjmp go
 ciao:
-	lds _ml_cl, ds_ram_out_state
+	ser _ml_cl
 	ser _ml_ch
 go:
 	;debug end
@@ -86,6 +145,7 @@ go:
 
 #undef _ml_cl
 #undef _ml_ch
+
 #define _ml_tmp @1
 #define _ml_lock @2
 
@@ -98,6 +158,8 @@ go:
 	ser _ml_lock
 	sei
 
+#undef _ml_tmp
+
 _ml_l_src_loop_wait:
 	tst _ml_lock
 	brne _ml_l_src_loop_wait
@@ -106,15 +168,17 @@ _ml_l_src_loop_wait:
 	brne _ml_l_src_loop_column
 	rjmp _ml_l_src_loop_begin
 
+#undef _ml_col
+
 ISR _ML_OCAaddr
 	clr _ml_lock
 	sts _ML_TCCRB, _ml_lock
 	reti
+
+#undef _ml_lock
+
 .endmacro
 
-#undef _ml_col
-#undef _ml_tmp
-#undef _ml_lock
 
 
 
