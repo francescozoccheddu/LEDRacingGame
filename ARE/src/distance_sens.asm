@@ -54,16 +54,17 @@ IO_DEF _DS, _DS_IO
 
 	ldi rma, LOW( int(DS_TIM * T16_PROPF+0.5) )
 	ldi rmb, HIGH( int(DS_TIM * T16_PROPF+0.5) )
+
 	call t_sr_calc
 	ori rmc, ICN_VAL | ICES_VAL
-	sts _ds_ram_timtopl, rma
-	sts _ds_ram_timtoph, rmb
+	sts _ds_ram_ttopl, rma
+	sts _ds_ram_ttoph, rmb
 	sts _ds_ram_tccrb, rmc
 .endmacro
 
 .dseg
-_ds_ram_timtoph: .byte 1
-_ds_ram_timtopl: .byte 1
+_ds_ram_ttoph: .byte 1
+_ds_ram_ttopl: .byte 1
 
 _ds_ram_tccrb: .byte 1
 
@@ -99,9 +100,9 @@ ds_isr_trig:
 	sts _DS_TCNTH, _ds_tmp
 	sts _DS_TCNTL, _ds_tmp
 	; set output compare value A
-	lds _ds_tmp, _ds_ram_timtoph
+	lds _ds_tmp, _ds_ram_ttoph
 	sts _DS_OCRAH, _ds_tmp
-	lds _ds_tmp, _ds_ram_timtopl
+	lds _ds_tmp, _ds_ram_ttopl
 	sts _DS_OCRAL, _ds_tmp
 	; skip if not measured
 	lds _ds_tmp, _DS_TIMSK

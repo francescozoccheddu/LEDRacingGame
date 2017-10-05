@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Mon Oct 02 11:49:06 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Thu Oct 05 21:24:18 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -2511,15 +2511,52 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  ; EEPROM programming
                                  ; dirty timer 0 and registers
                                  
-                                 #define _ml_tmp
+                                 #define _ML_TIMER 2
+                                 
+                                 TIM_DEF _ML, _ML_TIMER
+                                 
+                                 #define _ml_tmp @0
                                  
                                  ; [SOURCE] setup
                                  ; @0 (dirty immediate register)
                                  .macro ML_SRC_SETUP
-                                 
+                                 	; clear timer control registers
+                                 	clr _ml_tmp
+                                 	sts _ML_TCCRA, _ml_tmp
+                                 	sts _ML_TCCRB, _ml_tmp
+                                 	; set timer interrupt mask
+                                 	ldi _ml_tmp, OCIEA_VAL
+                                 	sts _ML_TIMSK, _ml_tmp
                                  .endmacro
                                  
                                  #undef _ml_tmp
+                                 
+                                 .dseg
+000200                           _ml_ram_tcs: .byte 1
+000201                           _ml_ram_ttop: .byte 1
+000202                           _ml_ram_smooth: .byte 1
+000203                           _ml_ram_smooth_slow: .byte 1
+000204                           _ml_ram_dstime: .byte 1
+000205                           _ml_ram_dstime_slow: .byte 1
+                                 .cseg
+                                 
+                                 .macro ML_SRC_SPLOAD
+                                 	#define ML_TIM 0.002
+                                 	#define ML_SMOOTH_SLOW 0.9
+                                 	#define ML_SMOOTH 0.5 
+                                 
+                                 	ldi rma, LOW( int(ML_TIM * T8_PROPF+0.5) )
+                                 	ldi rmb, HIGH( int(ML_TIM * T8_PROPF+0.5) )
+                                 
+                                 	call t_sr_calc
+                                 	sts _ml_ram_ttop, rmb
+                                 	sts _ml_ram_tcs, rmc
+                                 
+                                 	ldi rma, int(ML_SMOOTH * 255)
+                                 	sts _ml_ram_smooth, rma
+                                 	ldi rma, int(ML_SMOOTH_SLOW * 255)
+                                 	sts _ml_ram_smooth_slow, rma
+                                 .endmacro
                                  
                                  #define _ml_col @0
                                  #define _ml_cl @1
@@ -2550,19 +2587,44 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  	lds _ml_cl, ds_ram_out_state
                                  	ser _ml_ch
                                  go:
+                                 	;debug end
                                  	
                                  	cli
                                  	LM_SRC_SEND_COL _ml_ch, _ml_cl, _ml_col, rmd, rme
+                                 
+                                 #undef _ml_cl
+                                 #undef _ml_ch
+                                 #define _ml_tmp @1
+                                 #define _ml_lock @2
+                                 
+                                 	clr _ml_tmp
+                                 	sts _ML_TCNT, _ml_tmp
+                                 	lds _ml_tmp, _ml_ram_ttop
+                                 	sts _ML_OCRA, _ml_tmp
+                                 	lds _ml_tmp, _ml_ram_tcs
+                                 	sts _ML_TCCRB, _ml_tmp
+                                 	ser _ml_lock
                                  	sei
+                                 
+                                 _ml_l_src_loop_wait:
+                                 	tst _ml_lock
+                                 	brne _ml_l_src_loop_wait
                                  
                                  	tst _ml_col
                                  	brne _ml_l_src_loop_column
                                  	rjmp _ml_l_src_loop_begin
+                                 
+                                 ISR _ML_OCAaddr
+                                 	clr _ml_lock
+                                 	sts _ML_TCCRB, _ml_lock
+                                 	reti
                                  .endmacro
                                  
                                  #undef _ml_col
-                                 #undef _ml_cl
-                                 #undef _ml_ch
+                                 #undef _ml_tmp
+                                 #undef _ml_lock
+                                 
+                                 
                                  
                                  .macro DS_SRC_STATE_UPDATE
                                  	BL_SRC_OUT ds_state_updated
@@ -2624,34 +2686,35 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  
                                  	ldi rma, LOW( int(DS_TIM * T16_PROPF+0.5) )
                                  	ldi rmb, HIGH( int(DS_TIM * T16_PROPF+0.5) )
+                                 
                                  	call t_sr_calc
                                  	ori rmc, ICN_VAL | ICES_VAL
-                                 	sts _ds_ram_timtopl, rma
-                                 	sts _ds_ram_timtoph, rmb
+                                 	sts _ds_ram_ttopl, rma
+                                 	sts _ds_ram_ttoph, rmb
                                  	sts _ds_ram_tccrb, rmc
                                  .endmacro
                                  
                                  .dseg
-000200                           _ds_ram_timtoph: .byte 1
-000201                           _ds_ram_timtopl: .byte 1
+000206                           _ds_ram_ttoph: .byte 1
+000207                           _ds_ram_ttopl: .byte 1
                                  
-000202                           _ds_ram_tccrb: .byte 1
+000208                           _ds_ram_tccrb: .byte 1
                                  
-000203                           _ds_ram_in_lol: .byte 1
-000204                           _ds_ram_in_loh: .byte 1
+000209                           _ds_ram_in_lol: .byte 1
+00020a                           _ds_ram_in_loh: .byte 1
                                  
-000205                           _ds_ram_in_hil: .byte 1
-000206                           _ds_ram_in_hih: .byte 1
+00020b                           _ds_ram_in_hil: .byte 1
+00020c                           _ds_ram_in_hih: .byte 1
                                  
-000207                           _ds_ram_in_ehil: .byte 1
-000208                           _ds_ram_in_ehih: .byte 1
+00020d                           _ds_ram_in_ehil: .byte 1
+00020e                           _ds_ram_in_ehih: .byte 1
                                  
-000209                           _ds_ram_ltimel: .byte 1
-00020a                           _ds_ram_ltimeh: .byte 1
+00020f                           _ds_ram_ltimel: .byte 1
+000210                           _ds_ram_ltimeh: .byte 1
                                  
-00020b                           ds_ram_out_val: .byte 1
+000211                           ds_ram_out_val: .byte 1
                                  
-00020c                           ds_ram_out_state: .byte 1
+000212                           ds_ram_out_state: .byte 1
                                  .cseg
                                  
 000054 940c 00ce                 ISR _DS_OCAaddr
@@ -2669,9 +2732,9 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
 0000d4 9300 00a5                 	sts _DS_TCNTH, _ds_tmp
 0000d6 9300 00a4                 	sts _DS_TCNTL, _ds_tmp
                                  	; set output compare value A
-0000d8 9100 0200                 	lds _ds_tmp, _ds_ram_timtoph
+0000d8 9100 0206                 	lds _ds_tmp, _ds_ram_ttoph
 0000da 9300 00a9                 	sts _DS_OCRAH, _ds_tmp
-0000dc 9100 0201                 	lds _ds_tmp, _ds_ram_timtopl
+0000dc 9100 0207                 	lds _ds_tmp, _ds_ram_ttopl
 0000de 9300 00a8                 	sts _DS_OCRAL, _ds_tmp
                                  	; skip if not measured
 0000e0 9100 0072                 	lds _ds_tmp, _DS_TIMSK
@@ -2686,10 +2749,10 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  #define _ds_inh ri1
                                  
                                  	; skip if greater than max
-0000e4 9100 0207                 	lds _ds_cursl, _ds_ram_in_ehil
-0000e6 9110 0208                 	lds _ds_cursh, _ds_ram_in_ehih
-0000e8 9020 0209                 	lds _ds_inl, _ds_ram_ltimel
-0000ea 9030 020a                 	lds _ds_inh, _ds_ram_ltimeh
+0000e4 9100 020d                 	lds _ds_cursl, _ds_ram_in_ehil
+0000e6 9110 020e                 	lds _ds_cursh, _ds_ram_in_ehih
+0000e8 9020 020f                 	lds _ds_inl, _ds_ram_ltimel
+0000ea 9030 0210                 	lds _ds_inh, _ds_ram_ltimeh
 0000ec 1620                      	cp _ds_inl, _ds_cursl
 0000ed 0631                      	cpc _ds_inh, _ds_cursh
 0000ee f550                      	brsh _ds_isr_trig_bad
@@ -2704,10 +2767,10 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  
                                  	; clamp
                                  	; setup clamp parameters
-0000ef 9040 0203                 	lds _ds_in_lol, _ds_ram_in_lol
-0000f1 9050 0204                 	lds _ds_in_loh, _ds_ram_in_loh
-0000f3 9060 0205                 	lds _ds_in_hil, _ds_ram_in_hil
-0000f5 9070 0206                 	lds _ds_in_hih, _ds_ram_in_hih
+0000ef 9040 0209                 	lds _ds_in_lol, _ds_ram_in_lol
+0000f1 9050 020a                 	lds _ds_in_loh, _ds_ram_in_loh
+0000f3 9060 020b                 	lds _ds_in_hil, _ds_ram_in_hil
+0000f5 9070 020c                 	lds _ds_in_hih, _ds_ram_in_hih
 0000f7 2722                      	clr _ds_out_lo
 0000f8 ef3f                      	ser _ds_out_hi
                                  	; start clamping
@@ -2762,7 +2825,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  
                                  _ds_l_isr_trig_clamp_stop:
                                  	; write output value
-000115 9280 020b                 	sts ds_ram_out_val, _ds_out
+000115 9280 0211                 	sts ds_ram_out_val, _ds_out
                                  	; set output state to true
 000117 ef0f                      	ser _ds_tmp1
 000118 c001                      	rjmp _ds_isr_trig_done
@@ -2774,8 +2837,8 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
 000119 2700                      	clr _ds_tmp1
                                  _ds_isr_trig_done:
                                  	; write output state
-00011a 9110 020c                 	lds _ds_tmp2, ds_ram_out_state
-00011c 9300 020c                 	sts ds_ram_out_state, _ds_tmp1
+00011a 9110 0212                 	lds _ds_tmp2, ds_ram_out_state
+00011c 9300 0212                 	sts ds_ram_out_state, _ds_tmp1
 00011e 1701                      	cp _ds_tmp1, _ds_tmp2 
 00011f f009                      	breq _ds_isr_trig_state_unchanged
 000120 b905                      	DS_SRC_STATE_UPDATE
@@ -2787,7 +2850,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
 000124 2700                      	clr _ds_tmp1
 000125 9300 010b                 	sts _DS_PORT, _ds_tmp1
                                  	; start timer
-000127 9100 0202                 	lds _ds_tmp1, _ds_ram_tccrb
+000127 9100 0208                 	lds _ds_tmp1, _ds_ram_tccrb
 000129 9300 00a1                 	sts _DS_TCCRB, _ds_tmp1
 00012b 9518                      	reti
                                  
@@ -2809,8 +2872,8 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
 000133 c00a                      	rjmp _ds_l_isr_icp_falling
                                  _ds_l_isr_icp_rising:
                                  	; save ICR to sram
-000134 9220 0209                 	sts _ds_ram_ltimel, _ds_icrl
-000136 9230 020a                 	sts _ds_ram_ltimeh, _ds_icrh
+000134 9220 020f                 	sts _ds_ram_ltimel, _ds_icrl
+000136 9230 0210                 	sts _ds_ram_ltimeh, _ds_icrh
                                  	; set input capture to falling edge
 000138 9100 00a1                 	lds _ds_tmp1, _DS_TCCRB
 00013a 7b0f                      	andi _ds_tmp1, ~(ICES_VAL)
@@ -2818,12 +2881,12 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
 00013d 9518                      	reti
                                  _ds_l_isr_icp_falling:
                                  	; save difference to sram
-00013e 9100 0209                 	lds _ds_tmp1, _ds_ram_ltimel
-000140 9110 020a                 	lds _ds_tmp2, _ds_ram_ltimeh
+00013e 9100 020f                 	lds _ds_tmp1, _ds_ram_ltimel
+000140 9110 0210                 	lds _ds_tmp2, _ds_ram_ltimeh
 000142 1a20                      	sub _ds_icrl, _ds_tmp1
 000143 0a31                      	sbc _ds_icrh, _ds_tmp2
-000144 9220 0209                 	sts _ds_ram_ltimel, _ds_icrl
-000146 9230 020a                 	sts _ds_ram_ltimeh, _ds_icrh
+000144 9220 020f                 	sts _ds_ram_ltimel, _ds_icrl
+000146 9230 0210                 	sts _ds_ram_ltimeh, _ds_icrh
                                  	; disable input capture interrupt
 000148 e002                      	ldi _ds_tmp1, OCIEA_VAL
 000149 9300 0072                 	sts _DS_TIMSK, _ds_tmp1
@@ -3004,69 +3067,95 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
 0001a1 e440
 0001a2 9340 010a                 	DS_SRC_SETUP m_tmp
 0001a4 e446
-0001a5 9340 0203
+0001a5 9340 0209
 0001a7 e040
-0001a8 9340 0204
+0001a8 9340 020a
 0001aa ef4a
-0001ab 9340 0205
+0001ab 9340 020b
 0001ad e040
-0001ae 9340 0206
+0001ae 9340 020c
 0001b0 e24c
-0001b1 9340 0207
+0001b1 9340 020d
 0001b3 e041
-0001b4 9340 0208
+0001b4 9340 020e
 0001b6 ea4a
 0001b7 e053
 0001b8 940e 0072
 0001ba 6c60
-0001bb 9340 0201
-0001bd 9350 0200
-0001bf 9360 0202                 	DS_SRC_SPLOAD m_tmp
+0001bb 9340 0207
+0001bd 9350 0206
+0001bf 9360 0208                 	DS_SRC_SPLOAD m_tmp
 0001c1 940e 00ce                 	call ds_isr_trig
                                  	; setup draw loop
-                                 	ML_SRC_SETUP m_tmp
+0001c3 2744
+0001c4 9340 00b0
+0001c6 9340 00b1
+0001c8 e042
+0001c9 9340 0070                 	ML_SRC_SETUP m_tmp
+0001cb e440
+0001cc e15f
+0001cd 940e 0072
+0001cf 9350 0201
+0001d1 9360 0200
+0001d3 e74f
+0001d4 9340 0202
+0001d6 ee45
+0001d7 9340 0203                 	ML_SRC_SPLOAD
                                  	; enable interrupts
-0001c3 9478                      	sei
+0001d9 9478                      	sei
                                  	; enter main loop
-0001c4 e140
-0001c5 954a
-0001c6 9150 020b
-0001c8 9556
-0001c9 9556
-0001ca 9556
-0001cb 9556
-0001cc 1754
-0001cd f019
-0001ce 2755
-0001cf 2766
-0001d0 c003
-0001d1 9150 020c
-0001d3 ef6f
-0001d4 94f8
-0001d5 e170
-0001d6 e380
-0001d7 9556
-0001d8 9567
-0001d9 f408
-0001da e180
-0001db b988
-0001dc 6480
-0001dd b988
-0001de 7b8f
-0001df b988
-0001e0 957a
-0001e1 f7a1
-0001e2 e980
-0001e3 b988
-0001e4 e180
-0001e5 b988
-0001e6 2b84
-0001e7 b988
-0001e8 b948
-0001e9 9478
-0001ea 2344
-0001eb f6c9
-0001ec cfd7                      	ML_SRC_LOOP rma, rmb, rmc
+0001da e140
+0001db 954a
+0001dc 9150 0211
+0001de 9556
+0001df 9556
+0001e0 9556
+0001e1 9556
+0001e2 1754
+0001e3 f019
+0001e4 2755
+0001e5 2766
+0001e6 c003
+0001e7 9150 0212
+0001e9 ef6f
+0001ea 94f8
+0001eb e170
+0001ec e380
+0001ed 9556
+0001ee 9567
+0001ef f408
+0001f0 e180
+0001f1 b988
+0001f2 6480
+0001f3 b988
+0001f4 7b8f
+0001f5 b988
+0001f6 957a
+0001f7 f7a1
+0001f8 e980
+0001f9 b988
+0001fa e180
+0001fb b988
+0001fc 2b84
+0001fd b988
+0001fe b948
+0001ff 2755
+000200 9350 00b2
+000202 9150 0201
+000204 9350 00b3
+000206 9150 0200
+000208 9350 00b1
+00020a ef6f
+00020b 9478
+00020c 2366
+00020d f7f1
+00020e 2344
+00020f f659
+000210 cfc9
+00001a 940c 0211
+000211 2766
+000212 9360 00b1
+000214 9518                      	ML_SRC_LOOP rma, rmb, rmc
                                  
                                  #undef m_tmp
                                  
@@ -3089,8 +3178,8 @@ counted separately from r26..r31 here.
 "ATmega2560" register use summary:
 x  :   0 y  :   0 z  :   2 r0 :   0 r1 :   0 r2 :  13 r3 :   7 r4 :   3 
 r5 :   3 r6 :   4 r7 :   4 r8 :   8 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  56 r17:  37 r18:  33 r19:   7 r20:  59 
-r21:  28 r22:  23 r23:   2 r24:  13 r25:   0 r26:   0 r27:   0 r28:   0 
+r13:   0 r14:   0 r15:   0 r16:  56 r17:  37 r18:  33 r19:   7 r20:  69 
+r21:  36 r22:  28 r23:   2 r24:  13 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   3 r31:   3 
 Registers used: 19 out of 35 (54.3%)
 
@@ -3099,29 +3188,29 @@ Registers used: 19 out of 35 (54.3%)
 andi  :  17 asr   :   0 bclr  :   0 bld   :   2 brbc  :   0 brbs  :   0 
 brcc  :   1 brcs  :   0 break :   0 breq  :  11 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   1 brlt  :   0 brmi  :   0 
-brne  :   4 brpl  :   0 brsh  :   2 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   2 call  :   2 cbi   :   0 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :  10 cls   :   0 
+brne  :   5 brpl  :   0 brsh  :   2 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   2 call  :   3 cbi   :   0 cbr   :   0 
+clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :  13 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   4 cpc   :   2 
 cpi   :   1 cpse  :   0 dec   :   2 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   1 inc   :   0 jmp   :   4 ld    :   1 ldd   :   0 ldi   :  37 
-lds   :  24 lpm   :   0 lsl   :   8 lsr   :   7 mov   :  22 movw  :   4 
+in    :   1 inc   :   0 jmp   :   5 ld    :   1 ldd   :   0 ldi   :  42 
+lds   :  26 lpm   :   0 lsl   :   8 lsr   :   7 mov   :  22 movw  :   4 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   5 
 ori   :   2 out   :  16 pop   :   2 push  :   2 rcall :   5 ret   :  12 
-reti  :   6 rjmp  :  14 rol   :   4 ror   :   9 sbc   :   1 sbci  :   0 
+reti  :   7 rjmp  :  14 rol   :   4 ror   :   9 sbc   :   1 sbci  :   0 
 sbi   :   3 sbic  :   1 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   5 
-sbrs  :   3 sec   :   0 seh   :   0 sei   :   2 sen   :   0 ser   :   4 
+sbrs  :   3 sec   :   0 seh   :   0 sei   :   2 sen   :   0 ser   :   5 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
-st    :   1 std   :   0 sts   :  37 sub   :   2 subi  :   0 swap  :   4 
-tst   :   3 wdr   :   0 
+st    :   1 std   :   0 sts   :  48 sub   :   2 subi  :   0 swap  :   4 
+tst   :   4 wdr   :   0 
 Instructions used: 49 out of 116 (42.2%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0003da    774      0    774  262144   0.3%
-[.dseg] 0x000200 0x00020d      0     13     13    8192   0.2%
+[.cseg] 0x000000 0x00042a    858      0    858  262144   0.3%
+[.dseg] 0x000200 0x000213      0     19     19    8192   0.2%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 
 Assembly complete, 0 errors, 0 warnings
