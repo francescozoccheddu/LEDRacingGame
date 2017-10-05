@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Mon Oct 02 11:49:06 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Thu Oct 05 21:24:18 2017
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1403,6 +1403,22 @@ EQU  _BL_DDR      00000004
 EQU  _LM_PIN      00000006
 EQU  _LM_PORT     00000008
 EQU  _LM_DDR      00000007
+EQU  _ML_TCCRA    000000b0
+EQU  _ML_TCCRB    000000b1
+EQU  _ML_TIMSK    00000070
+EQU  _ML_TIFR     00000017
+EQU  _ML_OCAaddr  0000001a
+EQU  _ML_OCBaddr  0000001c
+EQU  _ML_OVFaddr  0000001e
+EQU  _ML_TCNT     000000b2
+EQU  _ML_OCRA     000000b3
+EQU  _ML_OCRB     000000b4
+DSEG _ml_ram_tcs  00000200
+DSEG _ml_ram_ttop 00000201
+DSEG _ml_ram_smooth 00000202
+DSEG _ml_ram_smooth_slow 00000203
+DSEG _ml_ram_dstime 00000204
+DSEG _ml_ram_dstime_slow 00000205
 EQU  _DS_TCCRA    000000a0
 EQU  _DS_TCCRB    000000a1
 EQU  _DS_TIMSK    00000072
@@ -1426,20 +1442,20 @@ EQU  _DS_OCRCL    000000ac
 EQU  _DS_PIN      00000109
 EQU  _DS_PORT     0000010b
 EQU  _DS_DDR      0000010a
-DSEG _ds_ram_timtoph 00000200
-DSEG _ds_ram_timtopl 00000201
-DSEG _ds_ram_tccrb 00000202
-DSEG _ds_ram_in_lol 00000203
-DSEG _ds_ram_in_loh 00000204
-DSEG _ds_ram_in_hil 00000205
-DSEG _ds_ram_in_hih 00000206
-DSEG _ds_ram_in_ehil 00000207
-DSEG _ds_ram_in_ehih 00000208
-DSEG _ds_ram_ltimel 00000209
-DSEG _ds_ram_ltimeh 0000020a
-DSEG ds_ram_out_val 0000020b
-DSEG ds_ram_out_state 0000020c
-SET  ISR_PC       0000017e
+DSEG _ds_ram_ttoph 00000206
+DSEG _ds_ram_ttopl 00000207
+DSEG _ds_ram_tccrb 00000208
+DSEG _ds_ram_in_lol 00000209
+DSEG _ds_ram_in_loh 0000020a
+DSEG _ds_ram_in_hil 0000020b
+DSEG _ds_ram_in_hih 0000020c
+DSEG _ds_ram_in_ehil 0000020d
+DSEG _ds_ram_in_ehih 0000020e
+DSEG _ds_ram_ltimel 0000020f
+DSEG _ds_ram_ltimeh 00000210
+DSEG ds_ram_out_val 00000211
+DSEG ds_ram_out_state 00000212
+SET  ISR_PC       00000211
 CSEG ds_isr_trig  000000ce
 CSEG _ds_isr_trig_bad 00000119
 CSEG _ds_l_isr_trig_clamp_start 000000f9
@@ -1452,18 +1468,19 @@ CSEG _ds_isr_trig_state_unchanged 00000121
 CSEG _ds_l_isr_icp_falling 0000013e
 CSEG _ds_l_isr_icp_rising 00000134
 CSEG _sp_sr_ut    0000014c
-CSEG _uc_l_src_t@UC_SRC_T@4762 0000014c
+CSEG _uc_l_src_t@UC_SRC_T@4852 0000014c
 CSEG _sp_sr_ur    00000153
-CSEG _uc_l_src_r@UC_SRC_R@4776 00000153
+CSEG _uc_l_src_r@UC_SRC_R@4866 00000153
 CSEG _sp_l_isr_incoming_addr_ram 00000172
-CSEG _ep_l_src_wait@EP_SRC_WAIT@4818 00000164
+CSEG _ep_l_src_wait@EP_SRC_WAIT@4908 00000164
 CSEG _sp_l_isr_incoming_eeprom_write 0000016e
 CSEG _sp_l_isr_incoming_sram_write 0000017a
 CSEG _sp_l_isr_incoming_sram_done 0000017b
 CSEG m_l_reset    0000017e
-CSEG _ml_l_src_loop_begin@ML_SRC_LOOP@4990 000001c4
-CSEG _ml_l_src_loop_column@ML_SRC_LOOP@4990 000001c5
-CSEG ciao@ML_SRC_LOOP@4990 000001d1
-CSEG go@ML_SRC_LOOP@4990 000001d4
-CSEG _lm_l_src_send_col_row@LM_SRC_SEND_COL@5014 000001d6
-CSEG _lm_l_src_send_col_out_dot@LM_SRC_SEND_COL@5014 000001db
+CSEG _ml_l_src_loop_begin@ML_SRC_LOOP@5105 000001da
+CSEG _ml_l_src_loop_column@ML_SRC_LOOP@5105 000001db
+CSEG ciao@ML_SRC_LOOP@5105 000001e7
+CSEG go@ML_SRC_LOOP@5105 000001ea
+CSEG _lm_l_src_send_col_row@LM_SRC_SEND_COL@5130 000001ec
+CSEG _lm_l_src_send_col_out_dot@LM_SRC_SEND_COL@5130 000001f1
+CSEG _ml_l_src_loop_wait@ML_SRC_LOOP@5105 0000020c
