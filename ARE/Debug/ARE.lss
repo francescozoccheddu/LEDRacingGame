@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Thu Oct 05 21:24:18 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Thu Oct 05 23:09:24 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -1952,6 +1952,9 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  .def rm3 = r13
                                  .def rm4 = r14
                                  .def rm5 = r15
+                                 ; mul registers
+                                 .def mulh = r1
+                                 .def mull = r0
                                  
                                  ; [SOURCE] stack setup
                                  ; @0 (dirty immediate register)
@@ -2536,14 +2539,14 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
 000201                           _ml_ram_ttop: .byte 1
 000202                           _ml_ram_smooth: .byte 1
 000203                           _ml_ram_smooth_slow: .byte 1
-000204                           _ml_ram_dstime: .byte 1
-000205                           _ml_ram_dstime_slow: .byte 1
+000204                           _ml_ram_dsval: .byte 1
+000205                           _ml_ram_dsval_slow: .byte 1
                                  .cseg
                                  
                                  .macro ML_SRC_SPLOAD
                                  	#define ML_TIM 0.002
-                                 	#define ML_SMOOTH_SLOW 0.9
-                                 	#define ML_SMOOTH 0.5 
+                                 	#define ML_SMOOTH_SLOW 0.95
+                                 	#define ML_SMOOTH 0.8
                                  
                                  	ldi rma, LOW( int(ML_TIM * T8_PROPF+0.5) )
                                  	ldi rmb, HIGH( int(ML_TIM * T8_PROPF+0.5) )
@@ -2558,22 +2561,81 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  	sts _ml_ram_smooth_slow, rma
                                  .endmacro
                                  
-                                 #define _ml_col @0
-                                 #define _ml_cl @1
-                                 #define _ml_ch @2
                                  
                                  ; [SOURCE] main loop
                                  ; @0 (dirty immediate register)
-                                 ; @1 (dirty immediate register)
+                                 ; @1 (dirty immediate register next to @0)
                                  ; @2 (dirty immediate register)
                                  .macro ML_SRC_LOOP
+                                 
+                                 #define _ml_tmp1 @0
+                                 #define _ml_tmp2 @1
+                                 #define _ml_tmp3 @2
+                                 
                                  _ml_l_src_loop_begin:
+                                 
+                                 	; smooth ds
+                                 	lds _ml_tmp1, ds_ram_out_state
+                                 	tst _ml_tmp1
+                                 	breq _ml_l_src_loop_smooth_zombie
+                                 
+                                 	; ds present
+                                 	lds _ml_tmp3, _ml_ram_smooth
+                                 	lds mull, _ml_ram_dsval
+                                 	mul mull, _ml_tmp3
+                                 	movw _ml_tmp2:_ml_tmp1, mulh:mull
+                                 	com _ml_tmp3
+                                 	lds mull, ds_ram_out_val
+                                 	mul mull, _ml_tmp3
+                                 	add mull, _ml_tmp1
+                                 	adc mulh, _ml_tmp2
+                                 	sts _ml_ram_dsval, mulh
+                                 
+                                 	lds _ml_tmp3, _ml_ram_smooth_slow
+                                 	lds mull, _ml_ram_dsval_slow
+                                 	mul mull, _ml_tmp3
+                                 	movw _ml_tmp2:_ml_tmp1, mulh:mull
+                                 	com _ml_tmp3
+                                 	lds mull, ds_ram_out_val
+                                 	mul mull, _ml_tmp3
+                                 	add mull, _ml_tmp1
+                                 	adc mulh, _ml_tmp2
+                                 	sts _ml_ram_dsval_slow, mulh
+                                 
+                                 	rjmp _ml_l_src_smooth_done
+                                 
+                                 _ml_l_src_loop_smooth_zombie:
+                                 
+                                 	lds _ml_tmp3, _ml_ram_smooth
+                                 	lds mull, _ml_ram_dsval
+                                 	mul mull, _ml_tmp3
+                                 	movw _ml_tmp2:_ml_tmp1, mulh:mull
+                                 	com _ml_tmp3
+                                 	lds mull, _ml_ram_dsval_slow
+                                 	mul mull, _ml_tmp3
+                                 	add mull, _ml_tmp1
+                                 	adc mulh, _ml_tmp2
+                                 	sts _ml_ram_dsval, mulh
+                                 
+                                 	; ds gone
+                                 
+                                 #undef _ml_tmp1
+                                 #undef _ml_tmp2
+                                 #undef _ml_tmp3
+                                 
+                                 #define _ml_col @0
+                                 
+                                 _ml_l_src_smooth_done:
                                  	ldi _ml_col, 16
+                                 	
+                                 #define _ml_cl @1
+                                 #define _ml_ch @2
+                                 
                                  _ml_l_src_loop_column:
                                  	dec _ml_col
                                  
                                  	;debug
-                                 	lds _ml_cl, ds_ram_out_val
+                                 	lds _ml_cl, _ml_ram_dsval
                                  	lsr _ml_cl
                                  	lsr _ml_cl
                                  	lsr _ml_cl
@@ -2584,7 +2646,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  	clr _ml_ch
                                  	rjmp go
                                  ciao:
-                                 	lds _ml_cl, ds_ram_out_state
+                                 	ser _ml_cl
                                  	ser _ml_ch
                                  go:
                                  	;debug end
@@ -2594,6 +2656,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  
                                  #undef _ml_cl
                                  #undef _ml_ch
+                                 
                                  #define _ml_tmp @1
                                  #define _ml_lock @2
                                  
@@ -2606,6 +2669,8 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  	ser _ml_lock
                                  	sei
                                  
+                                 #undef _ml_tmp
+                                 
                                  _ml_l_src_loop_wait:
                                  	tst _ml_lock
                                  	brne _ml_l_src_loop_wait
@@ -2614,15 +2679,17 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  	brne _ml_l_src_loop_column
                                  	rjmp _ml_l_src_loop_begin
                                  
+                                 #undef _ml_col
+                                 
                                  ISR _ML_OCAaddr
                                  	clr _ml_lock
                                  	sts _ML_TCCRB, _ml_lock
                                  	reti
+                                 
+                                 #undef _ml_lock
+                                 
                                  .endmacro
                                  
-                                 #undef _ml_col
-                                 #undef _ml_tmp
-                                 #undef _ml_lock
                                  
                                  
                                  
@@ -3097,65 +3164,99 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
 0001cd 940e 0072
 0001cf 9350 0201
 0001d1 9360 0200
-0001d3 e74f
+0001d3 ec4c
 0001d4 9340 0202
-0001d6 ee45
+0001d6 ef42
 0001d7 9340 0203                 	ML_SRC_SPLOAD
                                  	; enable interrupts
 0001d9 9478                      	sei
                                  	; enter main loop
-0001da e140
-0001db 954a
-0001dc 9150 0211
-0001de 9556
-0001df 9556
-0001e0 9556
-0001e1 9556
-0001e2 1754
-0001e3 f019
-0001e4 2755
-0001e5 2766
-0001e6 c003
-0001e7 9150 0212
-0001e9 ef6f
-0001ea 94f8
-0001eb e170
-0001ec e380
-0001ed 9556
-0001ee 9567
-0001ef f408
-0001f0 e180
-0001f1 b988
-0001f2 6480
-0001f3 b988
-0001f4 7b8f
-0001f5 b988
-0001f6 957a
-0001f7 f7a1
-0001f8 e980
-0001f9 b988
-0001fa e180
-0001fb b988
-0001fc 2b84
-0001fd b988
-0001fe b948
-0001ff 2755
-000200 9350 00b2
-000202 9150 0201
-000204 9350 00b3
-000206 9150 0200
-000208 9350 00b1
-00020a ef6f
-00020b 9478
-00020c 2366
-00020d f7f1
-00020e 2344
-00020f f659
-000210 cfc9
-00001a 940c 0211
-000211 2766
-000212 9360 00b1
-000214 9518                      	ML_SRC_LOOP rma, rmb, rmc
+0001da 9140 0212
+0001dc 2344
+0001dd f0e9
+0001de 9160 0202
+0001e0 9000 0204
+0001e2 9e06
+0001e3 01a0
+0001e4 9560
+0001e5 9000 0211
+0001e7 9e06
+0001e8 0e04
+0001e9 1e15
+0001ea 9210 0204
+0001ec 9160 0203
+0001ee 9000 0205
+0001f0 9e06
+0001f1 01a0
+0001f2 9560
+0001f3 9000 0211
+0001f5 9e06
+0001f6 0e04
+0001f7 1e15
+0001f8 9210 0205
+0001fa c00e
+0001fb 9160 0202
+0001fd 9000 0204
+0001ff 9e06
+000200 01a0
+000201 9560
+000202 9000 0205
+000204 9e06
+000205 0e04
+000206 1e15
+000207 9210 0204
+000209 e140
+00020a 954a
+00020b 9150 0204
+00020d 9556
+00020e 9556
+00020f 9556
+000210 9556
+000211 1754
+000212 f019
+000213 2755
+000214 2766
+000215 c002
+000216 ef5f
+000217 ef6f
+000218 94f8
+000219 e170
+00021a e380
+00021b 9556
+00021c 9567
+00021d f408
+00021e e180
+00021f b988
+000220 6480
+000221 b988
+000222 7b8f
+000223 b988
+000224 957a
+000225 f7a1
+000226 e980
+000227 b988
+000228 e180
+000229 b988
+00022a 2b84
+00022b b988
+00022c b948
+00022d 2755
+00022e 9350 00b2
+000230 9150 0201
+000232 9350 00b3
+000234 9150 0200
+000236 9350 00b1
+000238 ef6f
+000239 9478
+00023a 2366
+00023b f7f1
+00023c 2344
+00023d f661
+00023e cf9b
+00001a 940c 023f
+00023f 2766
+000240 9360 00b1
+000242 9518                      	ML_SRC_LOOP rma, rmb, rmc
                                  
                                  #undef m_tmp
                                  
@@ -3176,40 +3277,40 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega2560" register use summary:
-x  :   0 y  :   0 z  :   2 r0 :   0 r1 :   0 r2 :  13 r3 :   7 r4 :   3 
+x  :   0 y  :   0 z  :   2 r0 :  18 r1 :   9 r2 :  13 r3 :   7 r4 :   3 
 r5 :   3 r6 :   4 r7 :   4 r8 :   8 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  56 r17:  37 r18:  33 r19:   7 r20:  69 
-r21:  36 r22:  28 r23:   2 r24:  13 r25:   0 r26:   0 r27:   0 r28:   0 
+r13:   0 r14:   0 r15:   0 r16:  56 r17:  37 r18:  33 r19:   7 r20:  77 
+r21:  42 r22:  40 r23:   2 r24:  13 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   3 r31:   3 
-Registers used: 19 out of 35 (54.3%)
+Registers used: 21 out of 35 (60.0%)
 
 "ATmega2560" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   2 add   :   5 adiw  :   0 and   :   0 
+.lds  :   0 .sts  :   0 adc   :   5 add   :   8 adiw  :   0 and   :   0 
 andi  :  17 asr   :   0 bclr  :   0 bld   :   2 brbc  :   0 brbs  :   0 
-brcc  :   1 brcs  :   0 break :   0 breq  :  11 brge  :   0 brhc  :   0 
+brcc  :   1 brcs  :   0 break :   0 breq  :  12 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   1 brlt  :   0 brmi  :   0 
 brne  :   5 brpl  :   0 brsh  :   2 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   2 call  :   3 cbi   :   0 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :  13 cls   :   0 
-clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   4 cpc   :   2 
+clt   :   0 clv   :   0 clz   :   0 com   :   3 cp    :   4 cpc   :   2 
 cpi   :   1 cpse  :   0 dec   :   2 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
 in    :   1 inc   :   0 jmp   :   5 ld    :   1 ldd   :   0 ldi   :  42 
-lds   :  26 lpm   :   0 lsl   :   8 lsr   :   7 mov   :  22 movw  :   4 
-mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   5 
+lds   :  35 lpm   :   0 lsl   :   8 lsr   :   7 mov   :  22 movw  :   7 
+mul   :   6 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   5 
 ori   :   2 out   :  16 pop   :   2 push  :   2 rcall :   5 ret   :  12 
-reti  :   7 rjmp  :  14 rol   :   4 ror   :   9 sbc   :   1 sbci  :   0 
+reti  :   7 rjmp  :  15 rol   :   4 ror   :   9 sbc   :   1 sbci  :   0 
 sbi   :   3 sbic  :   1 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   5 
-sbrs  :   3 sec   :   0 seh   :   0 sei   :   2 sen   :   0 ser   :   5 
+sbrs  :   3 sec   :   0 seh   :   0 sei   :   2 sen   :   0 ser   :   6 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
-st    :   1 std   :   0 sts   :  48 sub   :   2 subi  :   0 swap  :   4 
-tst   :   4 wdr   :   0 
-Instructions used: 49 out of 116 (42.2%)
+st    :   1 std   :   0 sts   :  51 sub   :   2 subi  :   0 swap  :   4 
+tst   :   5 wdr   :   0 
+Instructions used: 51 out of 116 (44.0%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x00042a    858      0    858  262144   0.3%
+[.cseg] 0x000000 0x000486    950      0    950  262144   0.4%
 [.dseg] 0x000200 0x000213      0     19     19    8192   0.2%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 
