@@ -34,8 +34,8 @@ _ml_ram_dsval_slow: .byte 1
 
 .macro ML_SRC_SPLOAD
 	#define ML_TIM 0.002
-	#define ML_SMOOTH_SLOW 0.95
-	#define ML_SMOOTH 0.8
+	#define ML_SMOOTH_SLOW 0.85
+	#define ML_SMOOTH 0.6
 
 	ldi rma, LOW( int(ML_TIM * T8_PROPF+0.5) )
 	ldi rmb, HIGH( int(ML_TIM * T8_PROPF+0.5) )

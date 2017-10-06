@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Thu Oct 05 23:09:24 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Thu Oct 05 23:16:27 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -2545,8 +2545,8 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
                                  
                                  .macro ML_SRC_SPLOAD
                                  	#define ML_TIM 0.002
-                                 	#define ML_SMOOTH_SLOW 0.95
-                                 	#define ML_SMOOTH 0.8
+                                 	#define ML_SMOOTH_SLOW 0.85
+                                 	#define ML_SMOOTH 0.6
                                  
                                  	ldi rma, LOW( int(ML_TIM * T8_PROPF+0.5) )
                                  	ldi rmb, HIGH( int(ML_TIM * T8_PROPF+0.5) )
@@ -3164,9 +3164,9 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(23): Including file 'C:\Users
 0001cd 940e 0072
 0001cf 9350 0201
 0001d1 9360 0200
-0001d3 ec4c
+0001d3 e949
 0001d4 9340 0202
-0001d6 ef42
+0001d6 ed48
 0001d7 9340 0203                 	ML_SRC_SPLOAD
                                  	; enable interrupts
 0001d9 9478                      	sei
