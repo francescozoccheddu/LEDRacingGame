@@ -57,15 +57,12 @@ IO_DEF _DS, _DS_IO
 
 	call t_sr_calc
 	ori rmc, ICN_VAL | ICES_VAL
-	sts _ds_ram_ttopl, rma
-	sts _ds_ram_ttoph, rmb
+	sts _DS_OCRAH, rmb
+	sts _DS_OCRAL, rma
 	sts _ds_ram_tccrb, rmc
 .endmacro
 
 .dseg
-_ds_ram_ttoph: .byte 1
-_ds_ram_ttopl: .byte 1
-
 _ds_ram_tccrb: .byte 1
 
 _ds_ram_in_lol: .byte 1
@@ -99,11 +96,6 @@ ds_isr_trig:
 	; clear counter
 	sts _DS_TCNTH, _ds_tmp
 	sts _DS_TCNTL, _ds_tmp
-	; set output compare value A
-	lds _ds_tmp, _ds_ram_ttoph
-	sts _DS_OCRAH, _ds_tmp
-	lds _ds_tmp, _ds_ram_ttopl
-	sts _DS_OCRAL, _ds_tmp
 	; skip if not measured
 	lds _ds_tmp, _DS_TIMSK
 	sbrc _ds_tmp, ICIE

@@ -19,102 +19,41 @@ TIM_DEF _ML, _ML_TIMER
 	; set timer interrupt mask
 	ldi _ml_tmp, OCIEA_VAL
 	sts _ML_TIMSK, _ml_tmp
+	; setup pause
+	ser _ml_tmp
+	sts ml_ram_paused, _ml_tmp
+	P_SRC_SETUP _ml_tmp
 .endmacro
 
 #undef _ml_tmp
 
 .dseg
 _ml_ram_tcs: .byte 1
-_ml_ram_ttop: .byte 1
-_ml_ram_smooth: .byte 1
-_ml_ram_smooth_slow: .byte 1
-_ml_ram_dsval: .byte 1
-_ml_ram_dsval_slow: .byte 1
+ml_ram_paused: .byte 1
 .cseg
 
 .macro ML_SRC_SPLOAD
 	#define ML_TIM 0.002
-	#define ML_SMOOTH_SLOW 0.85
-	#define ML_SMOOTH 0.6
 
 	ldi rma, LOW( int(ML_TIM * T8_PROPF+0.5) )
 	ldi rmb, HIGH( int(ML_TIM * T8_PROPF+0.5) )
 
 	call t_sr_calc
-	sts _ml_ram_ttop, rmb
+	sts _ML_OCRA, rmb
 	sts _ml_ram_tcs, rmc
-
-	ldi rma, int(ML_SMOOTH * 255)
-	sts _ml_ram_smooth, rma
-	ldi rma, int(ML_SMOOTH_SLOW * 255)
-	sts _ml_ram_smooth_slow, rma
 .endmacro
 
 
 ; [SOURCE] main loop
 ; @0 (dirty immediate register)
-; @1 (dirty immediate register next to @0)
+; @1 (dirty immediate register)
 ; @2 (dirty immediate register)
+; @3 (dirty immediate register)
 .macro ML_SRC_LOOP
-
-#define _ml_tmp1 @0
-#define _ml_tmp2 @1
-#define _ml_tmp3 @2
-
-_ml_l_src_loop_begin:
-
-	; smooth ds
-	lds _ml_tmp1, ds_ram_out_state
-	tst _ml_tmp1
-	breq _ml_l_src_loop_smooth_zombie
-
-	; ds present
-	lds _ml_tmp3, _ml_ram_smooth
-	lds mull, _ml_ram_dsval
-	mul mull, _ml_tmp3
-	movw _ml_tmp2:_ml_tmp1, mulh:mull
-	com _ml_tmp3
-	lds mull, ds_ram_out_val
-	mul mull, _ml_tmp3
-	add mull, _ml_tmp1
-	adc mulh, _ml_tmp2
-	sts _ml_ram_dsval, mulh
-
-	lds _ml_tmp3, _ml_ram_smooth_slow
-	lds mull, _ml_ram_dsval_slow
-	mul mull, _ml_tmp3
-	movw _ml_tmp2:_ml_tmp1, mulh:mull
-	com _ml_tmp3
-	lds mull, ds_ram_out_val
-	mul mull, _ml_tmp3
-	add mull, _ml_tmp1
-	adc mulh, _ml_tmp2
-	sts _ml_ram_dsval_slow, mulh
-
-	rjmp _ml_l_src_smooth_done
-
-_ml_l_src_loop_smooth_zombie:
-
-	lds _ml_tmp3, _ml_ram_smooth
-	lds mull, _ml_ram_dsval
-	mul mull, _ml_tmp3
-	movw _ml_tmp2:_ml_tmp1, mulh:mull
-	com _ml_tmp3
-	lds mull, _ml_ram_dsval_slow
-	mul mull, _ml_tmp3
-	add mull, _ml_tmp1
-	adc mulh, _ml_tmp2
-	sts _ml_ram_dsval, mulh
-
-	; ds gone
-
-#undef _ml_tmp1
-#undef _ml_tmp2
-#undef _ml_tmp3
 
 #define _ml_col @0
 
-_ml_l_src_smooth_done:
+_ml_l_src_loop_begin:
 	ldi _ml_col, 16
 	
 #define _ml_cl @1
@@ -123,23 +62,19 @@ _ml_l_src_smooth_done:
 _ml_l_src_loop_column:
 	dec _ml_col
 
-	;debug
-	lds _ml_cl, _ml_ram_dsval
-	lsr _ml_cl
-	lsr _ml_cl
-	lsr _ml_cl
-	lsr _ml_cl
-	cp _ml_cl, _ml_col
-	breq ciao
-	clr _ml_cl
-	clr _ml_ch
-	rjmp go
-ciao:
-	ser _ml_cl
-	ser _ml_ch
-go:
-	;debug end
-	
+#define _ml_tmp @3
+
+	lds _ml_tmp, ml_ram_paused
+	tst _ml_tmp
+	brne _ml_l_src_loop_paused
+	G_SRC_DRAW _ml_col, _ml_cl, _ml_ch, _ml_tmp
+	rjmp _ml_l_src_loop_flush
+_ml_l_src_loop_paused:
+	P_SRC_DRAW _ml_col, _ml_cl, _ml_ch, _ml_tmp
+
+#undef _ml_tmp
+
+_ml_l_src_loop_flush:
 	cli
 	LM_SRC_SEND_COL _ml_ch, _ml_cl, _ml_col, rmd, rme
 
@@ -151,8 +86,6 @@ go:
 
 	clr _ml_tmp
 	sts _ML_TCNT, _ml_tmp
-	lds _ml_tmp, _ml_ram_ttop
-	sts _ML_OCRA, _ml_tmp
 	lds _ml_tmp, _ml_ram_tcs
 	sts _ML_TCCRB, _ml_tmp
 	ser _ml_lock
@@ -179,9 +112,5 @@ ISR _ML_OCAaddr
 
 .endmacro
 
-
-
-
-.macro DS_SRC_STATE_UPDATE
-	BL_SRC_OUT ds_state_updated
-.endmacro
+#include "pause.asm"
+#include "game.asm"

@@ -75,15 +75,15 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
       <AvrAssembler>
-  <avrasm.assembler.general.GenerateMAPFile>False</avrasm.assembler.general.GenerateMAPFile>
-  <avrasm.assembler.general.GenerateLSSFile>False</avrasm.assembler.general.GenerateLSSFile>
-  <avrasm.assembler.general.AdditionalIncludeDirectories>
-    <ListValues>
-      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.2.132\avrasm\inc</Value>
-    </ListValues>
-  </avrasm.assembler.general.AdditionalIncludeDirectories>
-  <avrasm.assembler.general.IncludeFile>m2560def.inc</avrasm.assembler.general.IncludeFile>
-</AvrAssembler>
+        <avrasm.assembler.general.GenerateMAPFile>False</avrasm.assembler.general.GenerateMAPFile>
+        <avrasm.assembler.general.GenerateLSSFile>False</avrasm.assembler.general.GenerateLSSFile>
+        <avrasm.assembler.general.AdditionalIncludeDirectories>
+          <ListValues>
+            <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.2.132\avrasm\inc</Value>
+          </ListValues>
+        </avrasm.assembler.general.AdditionalIncludeDirectories>
+        <avrasm.assembler.general.IncludeFile>m2560def.inc</avrasm.assembler.general.IncludeFile>
+      </AvrAssembler>
     </ToolchainSettings>
     <OutputType>Executable</OutputType>
     <PostBuildEvent>avrdude -c usbasp -p m2560 -U flash:w:"$(OutputDirectory)\$(OutputFileName).hex":i</PostBuildEvent>
@@ -98,6 +98,9 @@
     <Compile Include="src\eeprom_prog.asm">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\game.asm">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\led_matrix.asm">
       <SubType>Code</SubType>
     </Compile>
@@ -105,6 +108,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\main_loop.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\pause.asm">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\serial_prog.asm">
