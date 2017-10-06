@@ -47,7 +47,7 @@ m_l_reset:
 	; enable interrupts
 	sei
 	; enter main loop
-	ML_SRC_LOOP rma, rmb, rmc
+	ML_SRC_LOOP rma, rmb, rmc, rmd
 
 #undef m_tmp
 
