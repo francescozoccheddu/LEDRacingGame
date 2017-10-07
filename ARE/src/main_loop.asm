@@ -26,7 +26,7 @@ TIM_DEF _ML, _ML_TIMER
 	ser _ml_setup_tmp
 	sts ml_ram_paused, _ml_setup_tmp
 	P_SRC_SETUP _ml_setup_tmp
-	G_SRC_SETUP _ml_setup_tmp
+	G_SRC_SETUP _ml_setup_tmp, rmc
 .endmacro
 
 #undef _ml_setup_tmp

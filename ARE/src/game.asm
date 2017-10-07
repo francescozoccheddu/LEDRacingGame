@@ -5,19 +5,75 @@ _g_ram_smooth_slow: .byte 1
 _g_ram_dsval: .byte 1
 _g_ram_dsval_slow: .byte 1
 _g_ram_col: .byte 1
-_g_ram_frame: .byte 16*2
+_g_ram_frame: .byte 16*3
+_g_ram_tpropf_minl: .byte 1
+_g_ram_tpropf_minh: .byte 1
+_g_ram_tpropf_maxl: .byte 1
+_g_ram_tpropf_maxh: .byte 1
+_g_ram_tpropf_currl: .byte 1
+_g_ram_tpropf_currh: .byte 1
+_g_ram_spawn_countdown: .byte 1
+_g_ram_spawn_period: .byte 1
+_g_ram_difficulty_countdown: .byte 1
+_g_ram_difficulty_period: .byte 1
 .cseg
 
+#define _G_TIMER 3
+
+TIM_DEF _G, _G_TIMER
+
+#define _g_setup_tmp1 @0
+#define _g_setup_tmp2 @1
+
 .macro G_SRC_SETUP
+	; clear timer control registers
+	clr _g_setup_tmp1
+	sts _G_TCCRA, _g_setup_tmp1
+	sts _G_TCCRB, _g_setup_tmp1
+	sts _G_TCCRC, _g_setup_tmp1
+	; set timer interrupt mask
+	ldi _g_setup_tmp1, OCIEA_VAL
+	sts _G_TIMSK, _g_setup_tmp1
+	; clear frame
+	ldi XL, LOW( _g_ram_frame )
+	ldi XH, HIGH( _g_ram_frame )
+	clr _g_setup_tmp2
+	ldi _g_setup_tmp1, 16*3
+_g_l_setup_clear_loop:
+	st X+, _g_setup_tmp2
+	dec _g_setup_tmp1
+	brne _g_l_setup_clear_loop
+	;set empty
+	ldi _g_setup_tmp1, 1
+	sts _g_ram_spawn_countdown, _g_setup_tmp1 
 .endmacro
+
+#undef _g_setup_tmp1
+#undef _g_setup_tmp2
 
 .macro G_SRC_SPLOAD
 #define ML_SMOOTH 8
 #define ML_SMOOTH_SLOW 3
+#define G_MIN_MS 500
+#define G_MAX_MS 100
+	ldi rma, 2
+	sts _g_ram_spawn_period, rma
+	ldi rma, 4
+	sts _g_ram_difficulty_period, rma
 	ldi rma, ML_SMOOTH
 	sts _g_ram_smooth, rma
 	ldi rma, ML_SMOOTH_SLOW
 	sts _g_ram_smooth_slow, rma
+	ldi rma, HIGH( int(G_MAX_MS * T16_PROPF + 0.5))
+	sts _g_ram_tpropf_maxh, rma
+	ldi rma, LOW( int(G_MAX_MS * T16_PROPF + 0.5))
+	sts _g_ram_tpropf_maxl, rma
+	ldi rma, HIGH( int(G_MIN_MS * T16_PROPF + 0.5))
+	sts _g_ram_tpropf_minh, rma
+	sts _g_ram_tpropf_currh, rma
+	ldi rma, LOW( int(G_MIN_MS * T16_PROPF + 0.5))
+	sts _g_ram_tpropf_minl, rma
+	sts _g_ram_tpropf_currl, rma
 .endmacro
 
 
@@ -85,13 +141,15 @@ _g_l_update_smooth_done:
 #define _g_ch ml_ch
 
 g_l_draw:
-	ldi ZH, HIGH(_g_ram_frame)
-	ldi ZL, LOW(_g_ram_frame)
+	ldi XH, HIGH(_g_ram_frame + 1)
+	ldi XL, LOW(_g_ram_frame + 1)
+	ldi _g_tmp1, 3
+	mul _g_tmp1, _g_col
 	clr _g_tmp1
-	add ZL, _g_col
-	adc ZH, _g_tmp1
-	ld _g_cl, Z+
-	ld _g_ch, Z
+	add XL, mull
+	adc XH, _g_tmp1
+	ld _g_ch, X+
+	ld _g_cl, X
 	; add ship
 /*	lds _g_tmp1, _g_ram_dsval_slow
 	com _g_tmp1
@@ -117,14 +175,70 @@ _g_l_draw_done:
 #undef _g_ch
 
 g_l_pause:
+	clr _g_tmp1
+	sts _G_TCCRB, _g_tmp1
 	rjmp g_l_pause_done
 
 g_l_resume:
 	lds _g_tmp1, ds_ram_out_val
 	sts _g_ram_dsval, _g_tmp1
 	sts _g_ram_dsval_slow, _g_tmp1
+	; start timer
+	rcall _g_l_set_timer
 	rjmp g_l_resume_done
+
+_g_l_set_timer:
+	lds rma, _g_ram_tpropf_currl
+	lds rmb, _g_ram_tpropf_currh
+	call t_sr_calc
+	sts _G_OCRAH, rmb
+	sts _G_OCRAL, rma
+	sts _G_TCCRB, rmc
+	ret
 
 #undef _g_tmp1
 #undef _g_tmp2
 #undef _g_tmp3
+
+#define _g_tmp1 ria
+#define _g_tmp2 rib
+#define _g_tmp3 ric
+
+ISR _G_OCAaddr
+	lds _g_tmp1, _g_ram_spawn_countdown
+	dec _g_tmp1
+	brne _g_l_oca_vframe_done
+	ldi _g_tmp1, 1
+	sts _g_ram_frame, _g_tmp1
+	sts _g_ram_frame + 6, _g_tmp1
+	lds _g_tmp1, _g_ram_spawn_period
+_g_l_oca_vframe_done:
+	sts _g_ram_spawn_countdown, _g_tmp1
+	lds _g_tmp1, _g_ram_difficulty_countdown
+	dec _g_tmp1
+	brne _g_l_oca_difficulty_done
+	; update difficulty
+	lds _g_tmp1, _g_ram_difficulty_period
+_g_l_oca_difficulty_done:
+	sts _g_ram_difficulty_countdown, _g_tmp1
+	ldi XL, LOW( _g_ram_frame )
+	ldi XH, HIGH( _g_ram_frame )
+	ldi _g_tmp1, 16
+_g_l_oca_shift_loop:
+	ld _g_tmp2, X
+	lsr _g_tmp2
+	st X+, _g_tmp2
+	ld _g_tmp2, X
+	ror _g_tmp2
+	st X+, _g_tmp2
+	ld _g_tmp2, X
+	ror _g_tmp2
+	st X+, _g_tmp2
+	dec _g_tmp1
+	brne _g_l_oca_shift_loop
+	reti
+
+#undef _g_tmp1
+#undef _g_tmp2
+#undef _g_tmp3
+
