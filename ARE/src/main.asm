@@ -15,9 +15,9 @@
 
 #include "utils.asm"
 #include "builtin_led.asm"
+#include "main_loop.asm"
 #include "led_matrix.asm"
 #include "uart_comm.asm"
-#include "main_loop.asm"
 #include "distance_sens.asm"
 #include "eeprom_prog.asm"
 #include "serial_prog.asm"
@@ -43,12 +43,10 @@ m_l_reset:
 	DS_SRC_SPLOAD m_tmp
 	call ds_isr_trig
 	; setup draw loop
-	ML_SRC_SETUP m_tmp
-	ML_SRC_SPLOAD
 	; enable interrupts
 	sei
 	; enter main loop
-	ML_SRC_LOOP rma, rmb, rmc, rmd
+	rjmp ml_l_loop
 
 #undef m_tmp
 
