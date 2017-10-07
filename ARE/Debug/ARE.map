@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sat Oct 07 18:48:38 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sat Oct 07 19:33:17 2017
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1423,7 +1423,8 @@ CSEG _ml_l_loop_update_paused 000000e9
 DSEG ds_ram_out_state 00000216
 CSEG _ml_l_update_sub 000000e1
 CSEG _ml_l_update_done 000000e6
-CSEG _p_l_src_update_done 00000133
+CSEG g_l_pause    00000173
+CSEG g_l_pause_done 000000e6
 CSEG _ml_l_loop_column 000000ea
 CSEG p_l_update   00000121
 CSEG ml_l_update_done 000000ea
@@ -1432,19 +1433,22 @@ CSEG g_l_draw     00000166
 CSEG _ml_l_loop_flush 000000f2
 CSEG p_l_draw     00000106
 CSEG ml_l_draw_done 000000f2
-CSEG lm_l_sendcol 00000169
+CSEG lm_l_sendcol 00000175
 CSEG ml_l_sendcol_done 000000f4
 CSEG _ml_l_loop_wait 000000fd
-SET  ISR_PC       00000242
+SET  ISR_PC       0000024e
 DSEG _p_ram_prog  00000205
 DSEG _p_ram_prsnc_add 00000206
 DSEG _p_ram_absnc_sub 00000207
 CSEG _p_l_src_draw_pause 0000010d
-CSEG bm_resuming  00000232
+CSEG bm_resuming  0000023e
 CSEG _p_l_src_draw_begin 0000010f
-CSEG bm_pause     00000222
+CSEG bm_pause     0000022e
 CSEG _p_l_src_draw_done 00000120
 CSEG _p_l_src_update_sub 0000012e
+CSEG _p_l_src_update_done 00000133
+CSEG g_l_resume   00000174
+CSEG g_l_resume_done 00000133
 DSEG _g_ram_smooth 00000208
 DSEG _g_ram_smooth_slow 00000209
 DSEG _g_ram_dsval 0000020a
@@ -1457,8 +1461,8 @@ CSEG _g_l_src_smooth_done 00000165
 EQU  _LM_PIN      00000006
 EQU  _LM_PORT     00000008
 EQU  _LM_DDR      00000007
-CSEG _lm_l_src_send_col_row 0000016a
-CSEG _lm_l_src_send_col_out_dot 0000016f
+CSEG _lm_l_src_send_col_row 00000176
+CSEG _lm_l_src_send_col_out_dot 0000017b
 EQU  _DS_TCCRA    000000a0
 EQU  _DS_TCCRB    000000a1
 EQU  _DS_TIMSK    00000072
@@ -1491,23 +1495,23 @@ DSEG _ds_ram_in_ehil 00000211
 DSEG _ds_ram_in_ehih 00000212
 DSEG _ds_ram_ltimel 00000213
 DSEG _ds_ram_ltimeh 00000214
-CSEG ds_isr_trig  0000017e
-CSEG _ds_isr_trig_bad 000001c1
-CSEG _ds_l_isr_trig_clamp_start 000001a1
-CSEG _ds_l_isr_trig_clamp_loop 000001a3
-CSEG _ds_l_isr_trig_clamp_stop 000001bd
-CSEG _ds_l_isr_trig_clamp_smaller 000001b4
-CSEG _ds_l_isr_trig_clamp_greater 000001ab
-CSEG _ds_isr_trig_done 000001c2
-CSEG _ds_l_isr_icp_falling 000001e2
-CSEG _ds_l_isr_icp_rising 000001d8
-CSEG _sp_sr_ut    000001f0
-CSEG _uc_l_src_t@UC_SRC_T@5007 000001f0
-CSEG _sp_sr_ur    000001f7
-CSEG _uc_l_src_r@UC_SRC_R@5021 000001f7
-CSEG _sp_l_isr_incoming_addr_ram 00000216
-CSEG _ep_l_src_wait@EP_SRC_WAIT@5063 00000208
-CSEG _sp_l_isr_incoming_eeprom_write 00000212
-CSEG _sp_l_isr_incoming_sram_write 0000021e
-CSEG _sp_l_isr_incoming_sram_done 0000021f
-CSEG m_l_reset    00000242
+CSEG ds_isr_trig  0000018a
+CSEG _ds_isr_trig_bad 000001cd
+CSEG _ds_l_isr_trig_clamp_start 000001ad
+CSEG _ds_l_isr_trig_clamp_loop 000001af
+CSEG _ds_l_isr_trig_clamp_stop 000001c9
+CSEG _ds_l_isr_trig_clamp_smaller 000001c0
+CSEG _ds_l_isr_trig_clamp_greater 000001b7
+CSEG _ds_isr_trig_done 000001ce
+CSEG _ds_l_isr_icp_falling 000001ee
+CSEG _ds_l_isr_icp_rising 000001e4
+CSEG _sp_sr_ut    000001fc
+CSEG _uc_l_src_t@UC_SRC_T@5024 000001fc
+CSEG _sp_sr_ur    00000203
+CSEG _uc_l_src_r@UC_SRC_R@5038 00000203
+CSEG _sp_l_isr_incoming_addr_ram 00000222
+CSEG _ep_l_src_wait@EP_SRC_WAIT@5080 00000214
+CSEG _sp_l_isr_incoming_eeprom_write 0000021e
+CSEG _sp_l_isr_incoming_sram_write 0000022a
+CSEG _sp_l_isr_incoming_sram_done 0000022b
+CSEG m_l_reset    0000024e

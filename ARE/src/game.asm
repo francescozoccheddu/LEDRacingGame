@@ -70,11 +70,26 @@ _g_l_src_smooth_done:
 #define _g_tmp ml_tmp1
 
 g_l_draw:
-	ldi _g_cl, 1<<2
+	ldi _g_cl, 1<<4
 	clr _g_ch
+	lds _g_tmp, _ml_ram_pprog
+	com _g_tmp
+	lsr _g_tmp
+	lsr _g_tmp
+	lsr _g_tmp
+	lsr _g_tmp
+	cp _g_tmp, _g_col
+	brsh PC + 2
+	ori _g_cl, _P_PROGRESS_COL
 	rjmp ml_l_draw_done
 
 #undef _g_col
 #undef _g_cl
 #undef _g_ch
 #undef _g_tmp
+
+g_l_pause:
+	rjmp g_l_pause_done
+
+g_l_resume:
+	rjmp g_l_resume_done
