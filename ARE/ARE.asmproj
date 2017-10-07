@@ -71,6 +71,8 @@
     <OutputType>Executable</OutputType>
     <PostBuildEvent>
     </PostBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>

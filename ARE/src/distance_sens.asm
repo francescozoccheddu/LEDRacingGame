@@ -181,8 +181,6 @@ _ds_l_isr_trig_clamp_smaller:
 #define _ds_tmp1 ria
 #define _ds_tmp2 rib
 
-#define ds_state_updated ria
-
 _ds_l_isr_trig_clamp_stop:
 	; write output value
 	sts ds_ram_out_val, _ds_out
@@ -197,12 +195,8 @@ _ds_isr_trig_bad:
 	clr _ds_tmp1
 _ds_isr_trig_done:
 	; write output state
-	lds _ds_tmp2, ds_ram_out_state
 	sts ds_ram_out_state, _ds_tmp1
-	cp _ds_tmp1, _ds_tmp2 
-	breq _ds_isr_trig_state_unchanged
-	DS_SRC_STATE_UPDATE
-_ds_isr_trig_state_unchanged:
+	BL_SRC_OUT _ds_tmp1
 	; enable interrupts
 	ldi _ds_tmp1, ICIE_VAL | OCIEA_VAL
 	sts _DS_TIMSK, _ds_tmp1

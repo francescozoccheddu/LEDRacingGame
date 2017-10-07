@@ -3,7 +3,7 @@ import sys
 import os
 import math
 
-byteSize = 8
+byteSize = 16
 xRegex = "%x"
 yRegex = "%y"
 bRegex = "%b"
@@ -16,14 +16,10 @@ def printUsage():
 
 def main():
 
-    print("Bitmap2LM")
-    print("Copyright Francesco Zoccheddu")
-    print()
-
     if len(sys.argv) != 3:
         print("Wrong argument number")
         printUsage()
-        return
+        return 2
 
     filename = sys.argv[1]
     label = sys.argv[2]
@@ -31,7 +27,7 @@ def main():
     if not os.path.isfile(filename):
         print("Bad file argument")
         printUsage()
-        return
+        return 2
    
     img = Image.open(filename)
     img = img.convert("L")
@@ -46,6 +42,8 @@ def main():
                 bout += "1" if y < sy and img.getpixel((x,y)) > 127 else "0"
             out = label.replace(xRegex, str(x)).replace(yRegex, str(by)).replace(bRegex, bout)
             print(out)
+
+    return 0
 
      
 if __name__ == "__main__":
