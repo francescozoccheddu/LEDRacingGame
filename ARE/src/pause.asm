@@ -15,9 +15,9 @@ _p_ram_absnc_sub: .byte 1
 #undef _p_setup_tmp
 
 .macro P_SRC_SPLOAD
-	ldi @0, 2
+	ldi @0, 8
 	sts _p_ram_absnc_sub, @0
-	ldi @0, 2
+	ldi @0, 4
 	sts _p_ram_prsnc_add, @0
 .endmacro
 
@@ -56,7 +56,7 @@ _p_l_src_draw_begin:
 	brsh _p_l_src_draw_done
 	ori _p_cl, _P_PROGRESS_COL
 _p_l_src_draw_done:
-	rjmp ml_l_draw_done
+	rjmp p_l_draw_done
 
 #undef _p_col
 #undef _p_cl
@@ -73,7 +73,7 @@ p_l_update:
 	breq _p_l_src_update_sub
 	lds _p_tmp1, _p_ram_prsnc_add
 	add _p_tmp2, _p_tmp1
-	brne _p_l_src_update_done
+	brcc _p_l_src_update_done
 	sts ml_ram_paused, _p_tmp2
 	rjmp g_l_resume
 _p_l_src_update_sub:
@@ -84,7 +84,7 @@ _p_l_src_update_sub:
 g_l_resume_done:
 _p_l_src_update_done:
 	sts _p_ram_prog, _p_tmp2
-	rjmp ml_l_update_done
+	rjmp p_l_update_done
 
 #undef _p_tmp1
 #undef _p_tmp2

@@ -26,6 +26,7 @@ TIM_DEF _ML, _ML_TIMER
 	ser _ml_setup_tmp
 	sts ml_ram_paused, _ml_setup_tmp
 	P_SRC_SETUP _ml_setup_tmp
+	G_SRC_SETUP _ml_setup_tmp
 .endmacro
 
 #undef _ml_setup_tmp
@@ -48,11 +49,12 @@ _ml_ram_pprsnc_sub: .byte 1
 	sts _ML_OCRA, rmb
 	sts _ml_ram_tcs, rmc
 
-	ldi rma, 2
+	ldi rma, 1
 	sts _ml_ram_pabsnc_add, rma
-	ldi rma, 2
+	ldi rma, 4
 	sts _ml_ram_pprsnc_sub, rma
 	P_SRC_SPLOAD rma
+	G_SRC_SPLOAD rma
 .endmacro
 
 #define ml_col rmf
@@ -61,6 +63,7 @@ _ml_ram_pprsnc_sub: .byte 1
 #define ml_tmp1 rma
 #define ml_tmp2 rmb
 #define ml_tmp3 rmc
+#define ml_tmp4 rm0
 
 ml_l_loop:
 _ml_l_loop_begin:
@@ -69,6 +72,9 @@ _ml_l_loop_begin:
 	lds ml_tmp1, ml_ram_paused
 	tst ml_tmp1
 	brne _ml_l_loop_update_paused
+
+	rjmp g_l_update
+g_l_update_done:
 	
 	lds ml_tmp1, ds_ram_out_state
 	lds ml_tmp2, _ml_ram_pprog
@@ -76,7 +82,7 @@ _ml_l_loop_begin:
 	brne _ml_l_update_sub
 	lds ml_tmp1, _ml_ram_pabsnc_add
 	add ml_tmp2, ml_tmp1
-	brne _ml_l_update_done
+	brcc _ml_l_update_done
 	ser ml_tmp1
 	sts ml_ram_paused, ml_tmp1
 	rjmp g_l_pause
@@ -93,7 +99,7 @@ _ml_l_update_done:
 _ml_l_loop_update_paused:
 	rjmp p_l_update
 
-ml_l_update_done:
+p_l_update_done:
 _ml_l_loop_column:
 	dec ml_col
 
@@ -105,7 +111,8 @@ _ml_l_loop_column:
 _ml_l_loop_draw_paused:
 	rjmp p_l_draw
 
-ml_l_draw_done:
+p_l_draw_done:
+g_l_draw_done:
 _ml_l_loop_flush:
 	cli
 	rjmp lm_l_sendcol
