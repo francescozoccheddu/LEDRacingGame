@@ -41,6 +41,8 @@ ml_ram_paused: .byte 1
 	call t_sr_calc
 	sts _ML_OCRA, rmb
 	sts _ml_ram_tcs, rmc
+
+	P_SRC_SPLOAD rma
 .endmacro
 
 
@@ -52,9 +54,23 @@ ml_ram_paused: .byte 1
 .macro ML_SRC_LOOP
 
 #define _ml_col @0
+#define _ml_tmp @3
+
+#define _ml_tmp1 @1
+#define _ml_tmp2 @2
 
 _ml_l_src_loop_begin:
 	ldi _ml_col, 16
+
+	lds _ml_tmp, ml_ram_paused
+	tst _ml_tmp
+	brne _ml_l_src_loop_update_paused
+	rjmp _ml_l_src_loop_column
+_ml_l_src_loop_update_paused:
+	P_SRC_UPDATE _ml_tmp1, _ml_tmp2
+
+#undef _ml_tmp1
+#undef _ml_tmp2
 	
 #define _ml_cl @1
 #define _ml_ch @2
@@ -62,14 +78,12 @@ _ml_l_src_loop_begin:
 _ml_l_src_loop_column:
 	dec _ml_col
 
-#define _ml_tmp @3
-
 	lds _ml_tmp, ml_ram_paused
 	tst _ml_tmp
-	brne _ml_l_src_loop_paused
+	brne _ml_l_src_loop_draw_paused
 	G_SRC_DRAW _ml_col, _ml_cl, _ml_ch, _ml_tmp
 	rjmp _ml_l_src_loop_flush
-_ml_l_src_loop_paused:
+_ml_l_src_loop_draw_paused:
 	P_SRC_DRAW _ml_col, _ml_cl, _ml_ch, _ml_tmp
 
 #undef _ml_tmp
