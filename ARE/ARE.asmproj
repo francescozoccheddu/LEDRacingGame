@@ -91,6 +91,10 @@
     <PostBuildEvent>avrdude -c usbasp -p m2560 -U flash:w:"$(OutputDirectory)\$(OutputFileName).hex":i</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="src\bitmaps.asm">
+      <SubType>Code</SubType>
+      <Link>ARE\src\bitmaps.asm</Link>
+    </Compile>
     <Compile Include="src\builtin_led.asm">
       <SubType>Code</SubType>
     </Compile>
@@ -123,12 +127,48 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bitmaps\" />
+    <Folder Include="utils" />
     <Folder Include="src" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\utils.asm">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bitmaps\pause.png">
+      <SubType>Code</SubType>
+      <Link>ARE\bitmaps\pause.png</Link>
+    </None>
+    <None Include="utils\batch_b2l.ps1">
+      <SubType>Code</SubType>
+      <Link>ARE\utils\batch_b2l.ps1</Link>
+    </None>
+    <None Include="utils\bitmap2lm.py">
+      <SubType>Code</SubType>
+      <Link>ARE\utils\bitmap2lm.py</Link>
+    </None>
+    <None Include="utils\default.txt">
+      <SubType>Code</SubType>
+      <Link>ARE\utils\default.txt</Link>
+    </None>
+    <None Include="utils\lm.py">
+      <SubType>Code</SubType>
+      <Link>ARE\utils\lm.py</Link>
+    </None>
+    <None Include="utils\timer.py">
+      <SubType>Code</SubType>
+      <Link>ARE\utils\timer.py</Link>
+    </None>
+    <None Include="utils\tones.py">
+      <SubType>Code</SubType>
+      <Link>ARE\utils\tones.py</Link>
+    </None>
+    <None Include="utils\uart.txt">
+      <SubType>Code</SubType>
+      <Link>ARE\utils\uart.txt</Link>
+    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Assembler.targets" />
 </Project>

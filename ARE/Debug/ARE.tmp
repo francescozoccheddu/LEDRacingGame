@@ -20,6 +20,7 @@
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\eeprom_prog.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm</FILE>
+  <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\Debug\ARE.obj</FILE>
@@ -70,6 +71,8 @@
   <_sp_l_isr_incoming_eeprom_write><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm</FILE><LINE>48</LINE></_sp_l_isr_incoming_eeprom_write>
   <_sp_l_isr_incoming_sram_write><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm</FILE><LINE>63</LINE></_sp_l_isr_incoming_sram_write>
   <_sp_l_isr_incoming_sram_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm</FILE><LINE>66</LINE></_sp_l_isr_incoming_sram_done>
-  <m_l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>30</LINE></m_l_reset>
+  <bm_pause><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm</FILE><LINE>1</LINE></bm_pause>
+  <bm_resuming><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm</FILE><LINE>18</LINE></bm_resuming>
+  <m_l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm</FILE><LINE>31</LINE></m_l_reset>
  </LABELS>
 </ASSEMBLER_INFO>

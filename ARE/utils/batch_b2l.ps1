@@ -14,6 +14,6 @@ New-Item $outputfile -type file -force
 
 foreach ($file in $files){
     Add-Content $outputfile "$prefix$($file.BaseName):"
-    $out = python "$PSScriptRoot\bitmap2lm.py" $($file.fullName) '.dw %b'
+    $out = python "$PSScriptRoot\bitmap2lm.py" $($file.fullName) '.dw 0b%b'
     Add-Content $outputfile $out   
 }
