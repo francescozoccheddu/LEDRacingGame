@@ -21,6 +21,7 @@
 #include "distance_sens.asm"
 #include "eeprom_prog.asm"
 #include "serial_prog.asm"
+#include "bitmaps.asm"
 
 ; main
 

@@ -30,8 +30,16 @@ _p_ram_absence_sub: .byte 1
 #define _p_tmp @3
 
 .macro P_SRC_DRAW
-	ldi ZH, HIGH(_p_data_logo * 2)
-	ldi ZL, LOW(_p_data_logo * 2)
+	lds _p_tmp, _p_ram_progress
+	cpi _p_tmp, 1 << 4
+	brlo _p_l_src_draw_pause
+	ldi ZH, HIGH(bm_resuming * 2)
+	ldi ZL, LOW(bm_resuming * 2)
+	rjmp _p_l_src_draw_begin
+_p_l_src_draw_pause:
+	ldi ZH, HIGH(bm_pause * 2)
+	ldi ZL, LOW(bm_pause * 2)
+_p_l_src_draw_begin:
 	mov _p_tmp, _p_col
 	lsl _p_tmp
 	add ZL, _p_tmp
@@ -39,7 +47,6 @@ _p_ram_absence_sub: .byte 1
 	adc ZH, _p_tmp
 	lpm _p_ch, Z+
 	lpm _p_cl, Z
-
 	lds _p_tmp, _p_ram_progress
 	com _p_tmp
 	lsr _p_tmp
