@@ -22,6 +22,7 @@ _sp_sr_ur:
 #define _sp_b2 ria
 
 ISR UC_RCOMPLETE_INTaddr
+	BL_SRC_OFF _sp_tmp
 	; store bit 1 in 'b1'
 	rcall _sp_sr_ur 
 	mov _sp_b1, _sp_data

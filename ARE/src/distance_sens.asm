@@ -191,12 +191,20 @@ _ds_l_isr_trig_clamp_stop:
 #undef _ds_out
 
 _ds_isr_trig_bad:
+	; wait
+	ldi _ds_tmp1, 53
+_ds_isr_trig_bad_wait:
+	dec _ds_tmp1
+    brne _ds_isr_trig_bad_wait
 	; set output state to false
 	clr _ds_tmp1
 _ds_isr_trig_done:
 	; write output state
 	sts ds_ram_out_state, _ds_tmp1
 	BL_SRC_OUT _ds_tmp1
+	; cancel pending interrupts
+	ldi _ds_tmp1, ICF_VAL | OCFA_VAL
+	out _DS_TIFR, _ds_tmp1
 	; enable interrupts
 	ldi _ds_tmp1, ICIE_VAL | OCIEA_VAL
 	sts _DS_TIMSK, _ds_tmp1
