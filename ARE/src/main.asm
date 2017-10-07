@@ -45,8 +45,6 @@ m_l_reset:
 	; setup draw loop
 	ML_SRC_SETUP m_tmp
 	ML_SRC_SPLOAD
-	; enable interrupts
-	sei
 	; enter main loop
 	rjmp ml_l_loop
 
