@@ -12,60 +12,54 @@ IO_DEF _LM, _LM_IO
 #define _LM_BIT_CLK 6 ; digital pin 31
 #define _LM_BIT_LAT 7 ; digital pin 30
 
-#define _lm_tmp @0
+#define _lm_setup_tmp @0
 
 ; [SOURCE] setup
 ; @0 (dirty immediate register)
 .macro LM_SRC_SETUP
-	ser _lm_tmp
-	out _LM_DDR, _lm_tmp
+	ser _lm_setup_tmp
+	out _LM_DDR, _lm_setup_tmp
 .endmacro
 
-#undef _lm_tmp
+#undef _lm_setup_tmp
 
-#define _ds_cdl @0
-#define _ds_cdh @1
-#define _ds_ci @2
-#define _ds_tmp1 @3
-#define _ds_tmp2 @4
+#define _lm_cl ml_cl
+#define _lm_ch ml_ch
+#define _lm_col ml_col
+#define _lm_tmp1 ml_tmp1
+#define _lm_tmp2 ml_tmp2
 
-; [SOURCE] send column data '@0:@1' with column index '@2' 
-; @0 (column data low register)
-; @1 (column data high register)
-; @2 (column index register)
-; @3 (dirty immediate register)
-; @4 (dirty immediate register)
-.macro LM_SRC_SEND_COL
-	ldi _ds_tmp1, 16
+lm_l_sendcol:
+	ldi _lm_tmp1, 16
 _lm_l_src_send_col_row:
-	ldi _ds_tmp2, (1 << _LM_BIT_G) | (1 << _LM_BIT_DI)
-	lsr _ds_cdh
-	ror _ds_cdl
+	ldi _lm_tmp2, (1 << _LM_BIT_G) | (1 << _LM_BIT_DI)
+	lsr _lm_ch
+	ror _lm_cl
 	brcc _lm_l_src_send_col_out_dot
-	ldi _ds_tmp2, (1 << _LM_BIT_G)
+	ldi _lm_tmp2, (1 << _LM_BIT_G)
 _lm_l_src_send_col_out_dot:
-	out _LM_PORT, _ds_tmp2
-	ori _ds_tmp2, 1 << _LM_BIT_CLK
-	out _LM_PORT, _ds_tmp2
-	andi _ds_tmp2, ~(1 << _LM_BIT_CLK)
-	out _LM_PORT, _ds_tmp2
+	out _LM_PORT, _lm_tmp2
+	ori _lm_tmp2, 1 << _LM_BIT_CLK
+	out _LM_PORT, _lm_tmp2
+	andi _lm_tmp2, ~(1 << _LM_BIT_CLK)
+	out _LM_PORT, _lm_tmp2
 	;loop
-	dec _ds_tmp1
+	dec _lm_tmp1
 	brne _lm_l_src_send_col_row
 	;send LAT
-	ldi _ds_tmp2, (1 << _LM_BIT_G) | (1 << _LM_BIT_LAT)
-	out _LM_PORT, _ds_tmp2
-	ldi _ds_tmp2, (1 << _LM_BIT_G)
-	out _LM_PORT, _ds_tmp2
+	ldi _lm_tmp2, (1 << _LM_BIT_G) | (1 << _LM_BIT_LAT)
+	out _LM_PORT, _lm_tmp2
+	ldi _lm_tmp2, (1 << _LM_BIT_G)
+	out _LM_PORT, _lm_tmp2
 	;send col
-	or _ds_tmp2, _ds_ci
-	out _LM_PORT, _ds_tmp2
+	or _lm_tmp2, _lm_col
+	out _LM_PORT, _lm_tmp2
 	;end G
-	out _LM_PORT, _ds_ci
-.endmacro
+	out _LM_PORT, _lm_col
+	rjmp ml_l_sendcol_done
 
-#undef _ds_cdl
-#undef _ds_cdh
-#undef _ds_ci
-#undef _ds_tmp1
-#undef _ds_tmp2
+#undef _lm_cl
+#undef _lm_ch
+#undef _lm_col
+#undef _lm_tmp1
+#undef _lm_tmp2

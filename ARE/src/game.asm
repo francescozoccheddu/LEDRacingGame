@@ -15,12 +15,12 @@ _g_ram_dsval_slow: .byte 1
 	sts _g_ram_smooth_slow, rma
 .endmacro
 
-.macro _G_SMOOTH
 
-#define _g_tmp1 @0
-#define _g_tmp2 @1
-#define _g_tmp3 @2
+#define _g_tmp1 ml_tmp1
+#define _g_tmp2 ml_tmp2
+#define _g_tmp3 ml_tmp3
 
+_g_l_smooth:
 _g_l_src_loop_begin:
 	lds _g_tmp1, ds_ram_out_state
 	tst _g_tmp1
@@ -58,21 +58,21 @@ _g_l_src_loop_smooth_zombie:
 	adc mulh, _g_tmp2
 	sts _g_ram_dsval, mulh
 _g_l_src_smooth_done:
-.endmacro
+	rjmp PC
 
 #undef _g_tmp1
 #undef _g_tmp2
 #undef _g_tmp3
 
-#define _g_col @0
-#define _g_cl @1
-#define _g_ch @2
-#define _g_tmp @3
+#define _g_col ml_col
+#define _g_cl ml_cl
+#define _g_ch ml_ch
+#define _g_tmp ml_tmp1
 
-.macro G_SRC_DRAW
+g_l_draw:
 	ldi _g_cl, 1<<2
 	clr _g_ch
-.endmacro
+	rjmp ml_l_draw_done
 
 #undef _g_col
 #undef _g_cl

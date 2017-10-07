@@ -3,33 +3,39 @@
 ; EEPROM programming
 ; dirty timer 0 and registers
 
+
 #define _ML_TIMER 2
 
 TIM_DEF _ML, _ML_TIMER
 
-#define _ml_tmp @0
+#define _ml_setup_tmp @0
 
 ; [SOURCE] setup
 ; @0 (dirty immediate register)
 .macro ML_SRC_SETUP
 	; clear timer control registers
-	clr _ml_tmp
-	sts _ML_TCCRA, _ml_tmp
-	sts _ML_TCCRB, _ml_tmp
+	clr _ml_setup_tmp
+	sts _ML_TCCRA, _ml_setup_tmp
+	sts _ML_TCCRB, _ml_setup_tmp
 	; set timer interrupt mask
-	ldi _ml_tmp, OCIEA_VAL
-	sts _ML_TIMSK, _ml_tmp
+	ldi _ml_setup_tmp, OCIEA_VAL
+	sts _ML_TIMSK, _ml_setup_tmp
 	; setup pause
-	ser _ml_tmp
-	sts ml_ram_paused, _ml_tmp
-	P_SRC_SETUP _ml_tmp
+	clr _ml_setup_tmp
+	sts _ml_ram_pprog, _ml_setup_tmp
+	ser _ml_setup_tmp
+	sts ml_ram_paused, _ml_setup_tmp
+	P_SRC_SETUP _ml_setup_tmp
 .endmacro
 
-#undef _ml_tmp
+#undef _ml_setup_tmp
 
 .dseg
 _ml_ram_tcs: .byte 1
 ml_ram_paused: .byte 1
+_ml_ram_pprog: .byte 1
+_ml_ram_pabsnc_add: .byte 1
+_ml_ram_pprsnc_sub: .byte 1
 .cseg
 
 .macro ML_SRC_SPLOAD
@@ -42,80 +48,85 @@ ml_ram_paused: .byte 1
 	sts _ML_OCRA, rmb
 	sts _ml_ram_tcs, rmc
 
-	P_SRC_SPLOAD rma
+	ldi rma, 2
+	sts _ml_ram_pabsnc_add, rma
+	ldi rma, 2
+	sts _ml_ram_pprsnc_sub, rma
+
 .endmacro
 
+#define ml_col rmf
+#define ml_cl rmd
+#define ml_ch rme
+#define ml_tmp1 rma
+#define ml_tmp2 rmb
+#define ml_tmp3 rmc
 
-; [SOURCE] main loop
-; @0 (dirty immediate register)
-; @1 (dirty immediate register)
-; @2 (dirty immediate register)
-; @3 (dirty immediate register)
-.macro ML_SRC_LOOP
+ml_l_loop:
+_ml_l_loop_begin:
+	ldi ml_col, 16
 
-#define _ml_col @0
-#define _ml_tmp @3
-
-#define _ml_tmp1 @1
-#define _ml_tmp2 @2
-
-_ml_l_src_loop_begin:
-	ldi _ml_col, 16
-
-	lds _ml_tmp, ml_ram_paused
-	tst _ml_tmp
-	brne _ml_l_src_loop_update_paused
-	rjmp _ml_l_src_loop_column
-_ml_l_src_loop_update_paused:
-	P_SRC_UPDATE _ml_tmp1, _ml_tmp2
-
-#undef _ml_tmp1
-#undef _ml_tmp2
+	lds ml_tmp1, ml_ram_paused
+	tst ml_tmp1
+	brne _ml_l_loop_update_paused
 	
-#define _ml_cl @1
-#define _ml_ch @2
+	lds ml_tmp1, ds_ram_out_state
+	lds ml_tmp2, _ml_ram_pprog
+	tst ml_tmp1
+	brne _ml_l_update_sub
+	lds ml_tmp1, _ml_ram_pabsnc_add
+	add ml_tmp2, ml_tmp1
+	brne _ml_l_update_done
+	ser ml_tmp1
+	sts ml_ram_paused, ml_tmp1
+	rjmp _p_l_src_update_done
+_ml_l_update_sub:
+	lds ml_tmp1, _ml_ram_pprsnc_sub
+	sub ml_tmp2, ml_tmp1
+	brcc _ml_l_update_done
+	clr ml_tmp2
+_ml_l_update_done:
+	sts _ml_ram_pprog, ml_tmp2
 
-_ml_l_src_loop_column:
-	dec _ml_col
+	rjmp _ml_l_loop_column
+_ml_l_loop_update_paused:
+	rjmp p_l_update
 
-	lds _ml_tmp, ml_ram_paused
-	tst _ml_tmp
-	brne _ml_l_src_loop_draw_paused
-	G_SRC_DRAW _ml_col, _ml_cl, _ml_ch, _ml_tmp
-	rjmp _ml_l_src_loop_flush
-_ml_l_src_loop_draw_paused:
-	P_SRC_DRAW _ml_col, _ml_cl, _ml_ch, _ml_tmp
+ml_l_update_done:
+_ml_l_loop_column:
+	dec ml_col
 
-#undef _ml_tmp
+	lds ml_tmp1, ml_ram_paused
+	tst ml_tmp1
+	brne _ml_l_loop_draw_paused
+	rjmp g_l_draw
+	rjmp _ml_l_loop_flush
+_ml_l_loop_draw_paused:
+	rjmp p_l_draw
 
-_ml_l_src_loop_flush:
+ml_l_draw_done:
+_ml_l_loop_flush:
 	cli
-	LM_SRC_SEND_COL _ml_ch, _ml_cl, _ml_col, rmd, rme
+	rjmp lm_l_sendcol
 
-#undef _ml_cl
-#undef _ml_ch
+ml_l_sendcol_done:
 
-#define _ml_tmp @1
-#define _ml_lock @2
+#define _ml_lock ml_ch
 
-	clr _ml_tmp
-	sts _ML_TCNT, _ml_tmp
-	lds _ml_tmp, _ml_ram_tcs
-	sts _ML_TCCRB, _ml_tmp
+	clr ml_tmp1
+	sts _ML_TCNT, ml_tmp1
+	lds ml_tmp1, _ml_ram_tcs
+	sts _ML_TCCRB, ml_tmp1
 	ser _ml_lock
 	sei
 
-#undef _ml_tmp
-
-_ml_l_src_loop_wait:
+_ml_l_loop_wait:
 	tst _ml_lock
-	brne _ml_l_src_loop_wait
+	brne _ml_l_loop_wait
 
-	tst _ml_col
-	brne _ml_l_src_loop_column
-	rjmp _ml_l_src_loop_begin
-
-#undef _ml_col
+	tst ml_col
+	brne _ml_l_loop_column
+	rjmp _ml_l_loop_begin
 
 ISR _ML_OCAaddr
 	clr _ml_lock
@@ -124,7 +135,6 @@ ISR _ML_OCAaddr
 
 #undef _ml_lock
 
-.endmacro
-
 #include "pause.asm"
 #include "game.asm"
+
