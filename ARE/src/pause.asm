@@ -75,12 +75,13 @@ p_l_update:
 	add _p_tmp2, _p_tmp1
 	brne _p_l_src_update_done
 	sts ml_ram_paused, _p_tmp2
-	rjmp _p_l_src_update_done
+	rjmp g_l_resume
 _p_l_src_update_sub:
 	lds _p_tmp1, _p_ram_absnc_sub
 	sub _p_tmp2, _p_tmp1
 	brcc _p_l_src_update_done
 	clr _p_tmp2
+g_l_resume_done:
 _p_l_src_update_done:
 	sts _p_ram_prog, _p_tmp2
 	rjmp ml_l_update_done

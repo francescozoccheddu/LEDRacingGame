@@ -52,7 +52,7 @@ _ml_ram_pprsnc_sub: .byte 1
 	sts _ml_ram_pabsnc_add, rma
 	ldi rma, 2
 	sts _ml_ram_pprsnc_sub, rma
-
+	P_SRC_SPLOAD rma
 .endmacro
 
 #define ml_col rmf
@@ -79,15 +79,16 @@ _ml_l_loop_begin:
 	brne _ml_l_update_done
 	ser ml_tmp1
 	sts ml_ram_paused, ml_tmp1
-	rjmp _p_l_src_update_done
+	rjmp g_l_pause
 _ml_l_update_sub:
 	lds ml_tmp1, _ml_ram_pprsnc_sub
 	sub ml_tmp2, ml_tmp1
 	brcc _ml_l_update_done
 	clr ml_tmp2
+g_l_pause_done:
 _ml_l_update_done:
 	sts _ml_ram_pprog, ml_tmp2
-
+	
 	rjmp _ml_l_loop_column
 _ml_l_loop_update_paused:
 	rjmp p_l_update
