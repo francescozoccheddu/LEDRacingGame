@@ -134,10 +134,9 @@
   <_ds_l_isr_icp_rising><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\distance_sens.asm</FILE><LINE>238</LINE></_ds_l_isr_icp_rising>
   <_sp_sr_ut><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm</FILE><LINE>9</LINE></_sp_sr_ut>
   <_sp_sr_ur><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm</FILE><LINE>13</LINE></_sp_sr_ur>
-  <_sp_l_isr_incoming_addr_ram><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm</FILE><LINE>53</LINE></_sp_l_isr_incoming_addr_ram>
-  <_sp_l_isr_incoming_eeprom_write><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm</FILE><LINE>49</LINE></_sp_l_isr_incoming_eeprom_write>
-  <_sp_l_isr_incoming_sram_write><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm</FILE><LINE>64</LINE></_sp_l_isr_incoming_sram_write>
-  <_sp_l_isr_incoming_sram_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm</FILE><LINE>67</LINE></_sp_l_isr_incoming_sram_done>
+  <_sp_l_isr_write><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm</FILE><LINE>39</LINE></_sp_l_isr_write>
+  <sp_sr_load><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm</FILE><LINE>56</LINE></sp_sr_load>
+  <sp_sr_store><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\serial_prog.asm</FILE><LINE>62</LINE></sp_sr_store>
   <bm_0><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm</FILE><LINE>1</LINE></bm_0>
   <bm_1><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm</FILE><LINE>3</LINE></bm_1>
   <bm_2><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm</FILE><LINE>5</LINE></bm_2>

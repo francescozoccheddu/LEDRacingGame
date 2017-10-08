@@ -179,9 +179,9 @@ g_l_pause:
 	rjmp g_l_pause_done
 
 g_l_resume:
-	lds _g_tmp1, ds_ram_out_val
+	/*lds _g_tmp1, ds_ram_out_val
 	sts _g_ram_dsval, _g_tmp1
-	sts _g_ram_dsval_slow, _g_tmp1
+	sts _g_ram_dsval_slow, _g_tmp1*/
 	; start timer
 	lds _g_tmp1, _g_ram_tccrb
 	sts _G_TCCRB, _g_tmp1

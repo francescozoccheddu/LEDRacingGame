@@ -14,9 +14,8 @@ _sp_sr_ur:
 	UC_SRC_R _sp_data
 	ret
 
-#define _SP_OPCODE_MSK 0b00111111
-#define _SP_OPCODE_R_W 7
-#define _SP_OPCODE_EEPR_RAM 6
+#define _SP_OPCODE_MSK ~(1 << _SP_OPCODE_RW)
+#define _SP_OPCODE_RW 7
 
 #define _sp_b1 ri0
 #define _sp_b2 ria
@@ -30,43 +29,18 @@ ISR UC_RCOMPLETE_INTaddr
 	rcall _sp_sr_ur 
 	mov _sp_b2, _sp_data
 	; eventually store bit 3 in 'data'
-	sbrc _sp_b1, _SP_OPCODE_R_W
-	rcall _sp_sr_ur
-	; store address h in 'tmp'
-	mov _sp_tmp, _sp_b1
-	andi _sp_tmp, _SP_OPCODE_MSK
-	sbrc _sp_b1, _SP_OPCODE_EEPR_RAM
-	rjmp _sp_l_isr_incoming_addr_ram
-	; EEPROM address
+	sbrc _sp_b1, _SP_OPCODE_RW
+	rjmp _sp_l_isr_write
 	EP_SRC_WAIT
 	EP_SRC_ADDR _sp_b2, _sp_tmp
-	sbrc _sp_b1, _SP_OPCODE_R_W
-	rjmp _sp_l_isr_incoming_eeprom_write
-	; EEPROM read
 	EP_SRC_FREAD _sp_data
 	rcall _sp_sr_ut
 	reti
-_sp_l_isr_incoming_eeprom_write:
-	; EEPROM write
+_sp_l_isr_write:
+	rcall _sp_sr_ur
+	EP_SRC_WAIT
+	EP_SRC_ADDR _sp_b2, _sp_tmp
 	EP_SRC_FWRITE _sp_data
-	reti
-_sp_l_isr_incoming_addr_ram:
-	; SRAM address
-	push ZL
-	push ZH
-	movw ZH:ZL, _sp_tmp:_sp_b2
-	sbrc _sp_b1, _SP_OPCODE_R_W
-	rjmp _sp_l_isr_incoming_sram_write
-	; EEPROM read
-	ld _sp_data, Z
-	rcall _sp_sr_ut
-	rjmp _sp_l_isr_incoming_sram_done
-_sp_l_isr_incoming_sram_write:
-	; EEPROM write
-	st Z, _sp_data
-_sp_l_isr_incoming_sram_done:
-	pop ZH
-	pop ZL
 	reti
 
 #undef _sp_b1
@@ -74,3 +48,20 @@ _sp_l_isr_incoming_sram_done:
 
 #undef _sp_data
 #undef _sp_tmp
+
+#define sp_data rma
+#define sp_addrh rmb
+#define sp_addrl rmc
+
+sp_sr_load:
+	EP_SRC_WAIT
+	EP_SRC_ADDR sp_addrl, sp_addrh
+	EP_SRC_FREAD sp_data
+	ret
+
+sp_sr_store:
+	EP_SRC_WAIT
+	EP_SRC_ADDR sp_addrl, sp_addrh
+	EP_SRC_FWRITE sp_data
+	ret
+
