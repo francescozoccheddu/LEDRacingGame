@@ -68,7 +68,7 @@
   <_ml_l_loop_draw_paused><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>120</LINE></_ml_l_loop_draw_paused>
   <g_l_draw><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>138</LINE></g_l_draw>
   <_ml_l_loop_flush><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>128</LINE></_ml_l_loop_flush>
-  <s_l_draw><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>39</LINE></s_l_draw>
+  <s_l_draw><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>51</LINE></s_l_draw>
   <p_l_draw><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>37</LINE></p_l_draw>
   <s_l_draw_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>125</LINE></s_l_draw_done>
   <p_l_draw_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>126</LINE></p_l_draw_done>
@@ -76,17 +76,19 @@
   <lm_l_sendcol><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm</FILE><LINE>32</LINE></lm_l_sendcol>
   <ml_l_sendcol_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>132</LINE></ml_l_sendcol_done>
   <_ml_l_loop_wait><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>143</LINE></_ml_l_loop_wait>
-  <ee_s_tim><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>28</LINE></ee_s_tim>
-  <_s_ram_state><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>32</LINE></_s_ram_state>
-  <_s_ram_bcd_top><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>33</LINE></_s_ram_bcd_top>
-  <_s_ram_bcd_scr><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>34</LINE></_s_ram_bcd_scr>
-  <_s_ram_bm_top><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>35</LINE></_s_ram_bm_top>
-  <_s_ram_bm_scr><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>36</LINE></_s_ram_bm_scr>
-  <_s_l_draw_scr><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>47</LINE></_s_l_draw_scr>
-  <_s_l_draw_text><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>50</LINE></_s_l_draw_text>
-  <s_l_set><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>58</LINE></s_l_set>
-  <_s_sr_tobcd><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>83</LINE></_s_sr_tobcd>
-  <_s_l_sr_tobcd_overflow><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>90</LINE></_s_l_sr_tobcd_overflow>
+  <ee_s_tim><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>38</LINE></ee_s_tim>
+  <_s_ram_state><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>42</LINE></_s_ram_state>
+  <_s_ram_tccrb><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>43</LINE></_s_ram_tccrb>
+  <_s_ram_bcd_top><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>44</LINE></_s_ram_bcd_top>
+  <_s_ram_bcd_scr><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>45</LINE></_s_ram_bcd_scr>
+  <_s_ram_bm_top><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>46</LINE></_s_ram_bm_top>
+  <_s_ram_bm_scr><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>47</LINE></_s_ram_bm_scr>
+  <_s_ram_bm_digits><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>48</LINE></_s_ram_bm_digits>
+  <_s_l_draw_scr><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>60</LINE></_s_l_draw_scr>
+  <_s_l_draw_text><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>65</LINE></_s_l_draw_text>
+  <s_l_set><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>93</LINE></s_l_set>
+  <_s_sr_tobcd><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>111</LINE></_s_sr_tobcd>
+  <_s_l_sr_tobcd_overflow><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>118</LINE></_s_l_sr_tobcd_overflow>
   <_p_ram_prog><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>3</LINE></_p_ram_prog>
   <_p_ram_prsnc_add><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>4</LINE></_p_ram_prsnc_add>
   <_p_ram_absnc_sub><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>5</LINE></_p_ram_absnc_sub>
