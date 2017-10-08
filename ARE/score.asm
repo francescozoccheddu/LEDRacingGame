@@ -20,6 +20,16 @@ TIM_DEF _S, _S_TIMER
 	; load bitmaps
 	SP_SRC_LOAD_TO_RAM ee_s_bm_scr, _s_ram_bm_scr, 2*16
 	SP_SRC_LOAD_TO_RAM ee_s_bm_top, _s_ram_bm_top, 2*16
+	SP_SRC_LOAD_TO_RAM ee_s_bm_digits, _s_ram_bm_digits, 12*4
+	SP_SRC_LOAD ee_s_tim
+	mov rma, sp_data
+	SP_SRC_LOAD ee_s_tim + 1
+	mov rmb, sp_data
+	call t_sr_calc
+	sts _S_OCRAH, rmb
+	sts _S_OCRAL, rma
+	ori rmc, WGMB_VAL(4)
+	sts _s_ram_tccrb, rmc
 .endmacro
 
 #undef _s_setup_tmp
@@ -30,42 +40,60 @@ ee_s_tim: .dw int( 1 * T16_PROPF + 0.5)
 
 .dseg
 _s_ram_state: .byte 1
+_s_ram_tccrb: .byte 1
 _s_ram_bcd_top: .byte 4
 _s_ram_bcd_scr: .byte 4
 _s_ram_bm_top: .byte 2*16
 _s_ram_bm_scr: .byte 2*16
+_s_ram_bm_digits: .byte 12*4
 .cseg
 
 s_l_draw:
-	clr ml_cl
 	lds ml_tmp1, _s_ram_state
 	cpi ml_tmp1, _S_STATE_SCR
 	breq _s_l_draw_scr
 	ldi XL, LOW( _s_ram_bm_top )
 	ldi XH, HIGH( _s_ram_bm_top )
+	ldi YL, LOW( _s_ram_bcd_top )
+	ldi YH, HIGH( _s_ram_bcd_top )
 	rjmp _s_l_draw_text
 _s_l_draw_scr:
 	ldi XL, LOW( _s_ram_bm_scr )
 	ldi XH, HIGH( _s_ram_bm_scr )
+	ldi YL, LOW( _s_ram_bcd_scr )
+	ldi YH, HIGH( _s_ram_bcd_scr )
 _s_l_draw_text:
 	clr ml_tmp1
 	add XL, ml_col
 	adc XH, ml_tmp1
 	ld ml_ch, X
 	; draw score
+	mov ml_tmp2, ml_col
+	lsr ml_tmp2
+	lsr ml_tmp2
+	ldi ml_tmp1, 3
+	sub ml_tmp1, ml_tmp2
+	add YL, ml_tmp1
+	clr ml_tmp1
+	adc YH, ml_tmp1
+	ld ml_tmp1, Y
+	lsl ml_tmp1
+	lsl ml_tmp1
+	mov ml_tmp2, ml_col
+	andi ml_tmp2, 0b11
+	add ml_tmp1, ml_tmp2
+	ldi YL, LOW( _s_ram_bm_digits )
+	ldi YH, HIGH( _s_ram_bm_digits )
+	add YL, ml_tmp1
+	clr ml_tmp1
+	adc YH, ml_tmp1
+	ld ml_cl, Y
 	rjmp s_l_draw_done
 
 s_l_set:
 	; set timer
-	SP_SRC_LOAD ee_s_tim
-	mov rma, sp_data
-	SP_SRC_LOAD ee_s_tim + 1
-	mov rmb, sp_data
-	call t_sr_calc
-	sts _S_OCRAH, rmb
-	sts _S_OCRAL, rma
-	ori rmc, WGMB_VAL(4)
-	sts _S_TCCRB, rmc
+	lds rma, _s_ram_tccrb
+	sts _S_TCCRB, rma
 	; save score
 	; load score
 	ldi XL, LOW(_s_ram_bcd_top)
