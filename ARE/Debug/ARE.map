@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sun Oct 08 14:25:06 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sun Oct 08 14:41:58 2017
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1442,7 +1442,7 @@ CSEG g_l_draw_done 000000f7
 CSEG lm_l_sendcol 000001f0
 CSEG ml_l_sendcol_done 000000f9
 CSEG _ml_l_loop_wait 00000102
-SET  ISR_PC       00000304
+SET  ISR_PC       00000306
 EQU  _S_TCCRA     00000120
 EQU  _S_TCCRB     00000121
 EQU  _S_TIMSK     00000073
@@ -1467,9 +1467,9 @@ DSEG _s_ram_state 00000205
 DSEG _s_ram_bcd_top 00000206
 DSEG _s_ram_bcd_scr 0000020a
 CSEG _s_l_draw_scr 00000113
-CSEG bm_top       000002fc
+CSEG bm_top       000002fe
 CSEG _s_l_draw_text 00000115
-CSEG bm_scr       000002f4
+CSEG bm_scr       000002f6
 CSEG s_l_set      0000011a
 CSEG _s_sr_tobcd  00000130
 CSEG _s_l_sr_tobcd_overflow 00000136
@@ -1477,9 +1477,9 @@ DSEG _p_ram_prog  0000020e
 DSEG _p_ram_prsnc_add 0000020f
 DSEG _p_ram_absnc_sub 00000210
 CSEG _p_l_src_draw_pause 0000014f
-CSEG bm_resuming  000002e4
+CSEG bm_resuming  000002e6
 CSEG _p_l_src_draw_begin 00000151
-CSEG bm_pause     000002cc
+CSEG bm_pause     000002ce
 CSEG _p_l_src_draw_done 00000158
 CSEG _p_l_src_update_sub 00000166
 CSEG _p_l_src_update_done 0000016b
@@ -1523,7 +1523,7 @@ CSEG _g_l_update_smooth_zombie 00000193
 DSEG ds_ram_out_val 00000254
 CSEG _g_l_update_smooth_done 0000019c
 CSEG _g_l_draw_abs_done 000001b0
-CSEG bm_player    000002dc
+CSEG bm_player    000002de
 CSEG _g_l_over    000001bb
 CSEG _g_l_oca_vframe_done 000001df
 CSEG _g_l_oca_shift_loop 000001e4
@@ -1579,22 +1579,24 @@ CSEG _sp_sr_ut    00000280
 CSEG _uc_l_src_t@UC_SRC_T@5394 00000280
 CSEG _sp_sr_ur    00000287
 CSEG _uc_l_src_r@UC_SRC_R@5408 00000287
-CSEG _sp_l_isr_incoming_addr_ram 000002a8
-CSEG _ep_l_src_wait@EP_SRC_WAIT@5455 0000029a
-CSEG _sp_l_isr_incoming_eeprom_write 000002a4
-CSEG _sp_l_isr_incoming_sram_write 000002b0
-CSEG _sp_l_isr_incoming_sram_done 000002b1
-CSEG bm_0         000002b4
-CSEG bm_1         000002b6
-CSEG bm_2         000002b8
-CSEG bm_3         000002ba
-CSEG bm_4         000002bc
-CSEG bm_5         000002be
-CSEG bm_6         000002c0
-CSEG bm_7         000002c2
-CSEG bm_8         000002c4
-CSEG bm_9         000002c6
-CSEG bm_more      000002c8
-CSEG bm_null      000002ca
-CSEG m_l_reset    00000304
-CSEG _g_l_setup_clear_loop@G_SRC_SETUP@5667 00000368
+CSEG _sp_l_isr_write 0000029e
+CSEG _ep_l_src_wait@EP_SRC_WAIT@5448 00000296
+CSEG _ep_l_src_wait@EP_SRC_WAIT@5468 0000029f
+CSEG sp_sr_load   000002a7
+CSEG _ep_l_src_wait@EP_SRC_WAIT@5498 000002a7
+CSEG sp_sr_store  000002ae
+CSEG _ep_l_src_wait@EP_SRC_WAIT@5517 000002ae
+CSEG bm_0         000002b6
+CSEG bm_1         000002b8
+CSEG bm_2         000002ba
+CSEG bm_3         000002bc
+CSEG bm_4         000002be
+CSEG bm_5         000002c0
+CSEG bm_6         000002c2
+CSEG bm_7         000002c4
+CSEG bm_8         000002c6
+CSEG bm_9         000002c8
+CSEG bm_more      000002ca
+CSEG bm_null      000002cc
+CSEG m_l_reset    00000306
+CSEG _g_l_setup_clear_loop@G_SRC_SETUP@5694 0000036a

@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sun Oct 08 14:25:06 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm Sun Oct 08 14:41:58 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -2540,11 +2540,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): Including file 'C:\Users
 00010c 9140 0205                 	lds ml_tmp1, _s_ram_state
 00010e 3040                      	cpi ml_tmp1, _S_STATE_SCR
 00010f f019                      	breq _s_l_draw_scr
-000110 efe8                      	ldi ZL, LOW( bm_top * 2)
+000110 efec                      	ldi ZL, LOW( bm_top * 2)
 000111 e0f5                      	ldi ZH, HIGH( bm_top * 2)
 000112 c002                      	rjmp _s_l_draw_text
                                  _s_l_draw_scr:
-000113 eee8                      	ldi ZL, LOW( bm_scr * 2)
+000113 eeec                      	ldi ZL, LOW( bm_scr * 2)
 000114 e0f5                      	ldi ZH, HIGH( bm_scr * 2)
                                  _s_l_draw_text:
 000115 2744                      	clr ml_tmp1
@@ -2641,11 +2641,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): Including file 'C:\Users
 00014a 1749                      	cp _p_tmp, _p_col
 00014b f418                      	brsh _p_l_src_draw_pause
 00014c e0f5                      	ldi ZH, HIGH(bm_resuming * 2)
-00014d ece8                      	ldi ZL, LOW(bm_resuming * 2)
+00014d ecec                      	ldi ZL, LOW(bm_resuming * 2)
 00014e c002                      	rjmp _p_l_src_draw_begin
                                  _p_l_src_draw_pause:
 00014f e0f5                      	ldi ZH, HIGH(bm_pause * 2)
-000150 e9e8                      	ldi ZL, LOW(bm_pause * 2)
+000150 e9ec                      	ldi ZL, LOW(bm_pause * 2)
                                  _p_l_src_draw_begin:
 000151 2f49                      	mov _p_tmp, _p_col
 000152 0f44                      	lsl _p_tmp
@@ -2841,7 +2841,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): Including file 'C:\Users
 0001af 9541                      	neg _g_tmp1
                                  _g_l_draw_abs_done:
 0001b0 e0f5                      	ldi ZH, HIGH( bm_player * 2)
-0001b1 ebe8                      	ldi ZL, LOW( bm_player * 2)
+0001b1 ebec                      	ldi ZL, LOW( bm_player * 2)
 0001b2 0fe4                      	add ZL, _g_tmp1
 0001b3 2744                      	clr _g_tmp1
 0001b4 1ff4                      	adc ZH, _g_tmp1
@@ -3409,9 +3409,8 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): Including file 'C:\Users
 00028b 9120 00c6                 	UC_SRC_R _sp_data
 00028d 9508                      	ret
                                  
-                                 #define _SP_OPCODE_MSK 0b00111111
-                                 #define _SP_OPCODE_R_W 7
-                                 #define _SP_OPCODE_EEPR_RAM 6
+                                 #define _SP_OPCODE_MSK ~(1 << _SP_OPCODE_RW)
+                                 #define _SP_OPCODE_RW 7
                                  
                                  #define _sp_b1 ri0
                                  #define _sp_b2 ria
@@ -3426,301 +3425,302 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): Including file 'C:\Users
 000292 dff4                      	rcall _sp_sr_ur 
 000293 2f02                      	mov _sp_b2, _sp_data
                                  	; eventually store bit 3 in 'data'
-000294 fc27                      	sbrc _sp_b1, _SP_OPCODE_R_W
-000295 dff1                      	rcall _sp_sr_ur
-                                 	; store address h in 'tmp'
-000296 2d12                      	mov _sp_tmp, _sp_b1
-000297 731f                      	andi _sp_tmp, _SP_OPCODE_MSK
-000298 fc26                      	sbrc _sp_b1, _SP_OPCODE_EEPR_RAM
-000299 c00e                      	rjmp _sp_l_isr_incoming_addr_ram
-                                 	; EEPROM address
-00029a 99f9
-00029b cffe                      	EP_SRC_WAIT
-00029c bd01
-00029d bd12                      	EP_SRC_ADDR _sp_b2, _sp_tmp
-00029e fc27                      	sbrc _sp_b1, _SP_OPCODE_R_W
-00029f c004                      	rjmp _sp_l_isr_incoming_eeprom_write
-                                 	; EEPROM read
-0002a0 9af8
-0002a1 b520                      	EP_SRC_FREAD _sp_data
-0002a2 dfdd                      	rcall _sp_sr_ut
-0002a3 9518                      	reti
-                                 _sp_l_isr_incoming_eeprom_write:
-                                 	; EEPROM write
-0002a4 bd20
-0002a5 9afa
-0002a6 9af9                      	EP_SRC_FWRITE _sp_data
-0002a7 9518                      	reti
-                                 _sp_l_isr_incoming_addr_ram:
-                                 	; SRAM address
-0002a8 93ef                      	push ZL
-0002a9 93ff                      	push ZH
-0002aa 01f8                      	movw ZH:ZL, _sp_tmp:_sp_b2
-0002ab fc27                      	sbrc _sp_b1, _SP_OPCODE_R_W
-0002ac c003                      	rjmp _sp_l_isr_incoming_sram_write
-                                 	; EEPROM read
-0002ad 8120                      	ld _sp_data, Z
-0002ae dfd1                      	rcall _sp_sr_ut
-0002af c001                      	rjmp _sp_l_isr_incoming_sram_done
-                                 _sp_l_isr_incoming_sram_write:
-                                 	; EEPROM write
-0002b0 8320                      	st Z, _sp_data
-                                 _sp_l_isr_incoming_sram_done:
-0002b1 91ff                      	pop ZH
-0002b2 91ef                      	pop ZL
-0002b3 9518                      	reti
+000294 fc27                      	sbrc _sp_b1, _SP_OPCODE_RW
+000295 c008                      	rjmp _sp_l_isr_write
+000296 99f9
+000297 cffe                      	EP_SRC_WAIT
+000298 bd01
+000299 bd12                      	EP_SRC_ADDR _sp_b2, _sp_tmp
+00029a 9af8
+00029b b520                      	EP_SRC_FREAD _sp_data
+00029c dfe3                      	rcall _sp_sr_ut
+00029d 9518                      	reti
+                                 _sp_l_isr_write:
+00029e dfe8                      	rcall _sp_sr_ur
+00029f 99f9
+0002a0 cffe                      	EP_SRC_WAIT
+0002a1 bd01
+0002a2 bd12                      	EP_SRC_ADDR _sp_b2, _sp_tmp
+0002a3 bd20
+0002a4 9afa
+0002a5 9af9                      	EP_SRC_FWRITE _sp_data
+0002a6 9518                      	reti
                                  
                                  #undef _sp_b1
                                  #undef _sp_b2
                                  
                                  #undef _sp_data
                                  #undef _sp_tmp
+                                 
+                                 #define sp_data rma
+                                 #define sp_addrh rmb
+                                 #define sp_addrl rmc
+                                 
+                                 sp_sr_load:
+0002a7 99f9
+0002a8 cffe                      	EP_SRC_WAIT
+0002a9 bd61
+0002aa bd52                      	EP_SRC_ADDR sp_addrl, sp_addrh
+0002ab 9af8
+0002ac b540                      	EP_SRC_FREAD sp_data
+0002ad 9508                      	ret
+                                 
+                                 sp_sr_store:
+0002ae 99f9
+0002af cffe                      	EP_SRC_WAIT
+0002b0 bd61
+0002b1 bd52                      	EP_SRC_ADDR sp_addrl, sp_addrh
+0002b2 bd40
+0002b3 9afa
+0002b4 9af9                      	EP_SRC_FWRITE sp_data
+0002b5 9508                      	ret
+                                 
                                  #include "bitmaps.asm"
                                  
-0002b4 223e
+0002b6 223e
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm(2): warning: .cseg .db misalignment - padding zero byte
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm' included form here
-0002b5 003e                      .db 0b00111110,0b00100010,0b00111110
+0002b7 003e                      .db 0b00111110,0b00100010,0b00111110
                                  bm_1:
-0002b6 203e
+0002b8 203e
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm(4): warning: .cseg .db misalignment - padding zero byte
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm' included form here
-0002b7 0000                      .db 0b00111110,0b00100000,0b00000000
+0002b9 0000                      .db 0b00111110,0b00100000,0b00000000
                                  bm_2:
-0002b8 2a3a
+0002ba 2a3a
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm(6): warning: .cseg .db misalignment - padding zero byte
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm' included form here
-0002b9 002e                      .db 0b00111010,0b00101010,0b00101110
+0002bb 002e                      .db 0b00111010,0b00101010,0b00101110
                                  bm_3:
-0002ba 2a3e
+0002bc 2a3e
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm(8): warning: .cseg .db misalignment - padding zero byte
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm' included form here
-0002bb 002a                      .db 0b00111110,0b00101010,0b00101010
+0002bd 002a                      .db 0b00111110,0b00101010,0b00101010
                                  bm_4:
-0002bc 083e
+0002be 083e
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm(10): warning: .cseg .db misalignment - padding zero byte
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm' included form here
-0002bd 0038                      .db 0b00111110,0b00001000,0b00111000
+0002bf 0038                      .db 0b00111110,0b00001000,0b00111000
                                  bm_5:
-0002be 2a2e
+0002c0 2a2e
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm(12): warning: .cseg .db misalignment - padding zero byte
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm' included form here
-0002bf 003a                      .db 0b00101110,0b00101010,0b00111010
+0002c1 003a                      .db 0b00101110,0b00101010,0b00111010
                                  bm_6:
-0002c0 2a2e
+0002c2 2a2e
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm(14): warning: .cseg .db misalignment - padding zero byte
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm' included form here
-0002c1 003e                      .db 0b00101110,0b00101010,0b00111110
+0002c3 003e                      .db 0b00101110,0b00101010,0b00111110
                                  bm_7:
-0002c2 203e
+0002c4 203e
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm(16): warning: .cseg .db misalignment - padding zero byte
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm' included form here
-0002c3 0030                      .db 0b00111110,0b00100000,0b00110000
+0002c5 0030                      .db 0b00111110,0b00100000,0b00110000
                                  bm_8:
-0002c4 2a3e
+0002c6 2a3e
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm(18): warning: .cseg .db misalignment - padding zero byte
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm' included form here
-0002c5 003e                      .db 0b00111110,0b00101010,0b00111110
+0002c7 003e                      .db 0b00111110,0b00101010,0b00111110
                                  bm_9:
-0002c6 2a3e
+0002c8 2a3e
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm(20): warning: .cseg .db misalignment - padding zero byte
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm' included form here
-0002c7 003a                      .db 0b00111110,0b00101010,0b00111010
+0002c9 003a                      .db 0b00111110,0b00101010,0b00111010
                                  bm_more:
-0002c8 0600
+0002ca 0600
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm(22): warning: .cseg .db misalignment - padding zero byte
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm' included form here
-0002c9 0002                      .db 0b00000000,0b00000110,0b00000010
+0002cb 0002                      .db 0b00000000,0b00000110,0b00000010
                                  bm_null:
-0002ca 0000
+0002cc 0000
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm(24): warning: .cseg .db misalignment - padding zero byte
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\main.asm(24): 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\src\bitmaps.asm' included form here
-0002cb 0000                      .db 0b00000000,0b00000000,0b00000000
+0002cd 0000                      .db 0b00000000,0b00000000,0b00000000
                                  bm_pause:
-0002cc 0000
-0002cd 0000
 0002ce 0000
 0002cf 0000
-0002d0 07e0
-0002d1 07e0
+0002d0 0000
+0002d1 0000
 0002d2 07e0
-0002d3 0000
-0002d4 0000
-0002d5 07e0
-0002d6 07e0
+0002d3 07e0
+0002d4 07e0
+0002d5 0000
+0002d6 0000
 0002d7 07e0
-0002d8 0000
-0002d9 0000
+0002d8 07e0
+0002d9 07e0
 0002da 0000
-0002db 0000                      .dw 0b0000000000000000 .dw 0b0000000000000000 .dw 0b0000000000000000 .dw 0b0000000000000000 .dw 0b0000011111100000 .dw 0b0000011111100000 .dw 0b0000011111100000 .dw 0b0000000000000000 .dw 0b0000000000000000 .dw 0b0000011111100000 .dw 0b0000011111100000 .d                                 w 0b0000011111100000 .dw 0b0000000000000000 .dw 0b0000000000000000 .dw 0b0000000000000000 .dw 0b0000000000000000 
-0002dc 060d
-0002dd 0103
-0002de 0000
-0002df 0000
+0002db 0000
+0002dc 0000
+0002dd 0000                      .dw 0b0000000000000000 .dw 0b0000000000000000 .dw 0b0000000000000000 .dw 0b0000000000000000 .dw 0b0000011111100000 .dw 0b0000011111100000 .dw 0b0000011111100000 .dw 0b0000000000000000 .dw 0b0000000000000000 .dw 0b0000011111100000 .dw 0b0000011111100000 .d                                 w 0b0000011111100000 .dw 0b0000000000000000 .dw 0b0000000000000000 .dw 0b0000000000000000 .dw 0b0000000000000000 
+0002de 060d
+0002df 0103
 0002e0 0000
 0002e1 0000
 0002e2 0000
-0002e3 0000                      bm_player:
+0002e3 0000
+0002e4 0000
+0002e5 0000                      bm_player:
                                  .db 0b00001101,0b00000110,0b00000011,0b00000001,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000
-0002e4 ffff
-0002e5 ffff
 0002e6 ffff
 0002e7 ffff
-0002e8 f81f
-0002e9 f81f
+0002e8 ffff
+0002e9 ffff
 0002ea f81f
-0002eb ffff
-0002ec ffff
-0002ed f81f
-0002ee f81f
+0002eb f81f
+0002ec f81f
+0002ed ffff
+0002ee ffff
 0002ef f81f
-0002f0 ffff
-0002f1 ffff
+0002f0 f81f
+0002f1 f81f
 0002f2 ffff
-0002f3 ffff                      bm_resuming:
-                                 .dw 0b1111111111111111 .dw 0b1111111111111111 .dw 0b1111111111111111 .dw 0b1111111111111111 .dw 0b1111100000011111 .dw 0b1111100000011111 .dw 0b1111100000011111 .dw 0b1111111111111111 .dw 0b1111111111111111 .dw 0b1111100000011111 .dw 0b1111100000011111 .d0002f4 0000
-0002f5 0012
-0002f6 2c3a
-0002f7 003e
-0002f8 2222
+0002f3 ffff
+0002f4 ffff
+0002f5 ffff                      bm_resuming:
+                                 .dw 0b1111111111111111 .dw 0b1111111111111111 .dw 0b1111111111111111 .dw 0b1111111111111111 .dw 0b1111100000011111 .dw 0b1111100000011111 .dw 0b1111100000011111 .dw 0b1111111111111111 .dw 0b1111111111111111 .dw 0b1111100000011111 .dw 0b1111100000011111 .d0002f6 0000
+0002f7 0012
+0002f8 2c3a
 0002f9 003e
-0002fa 2a2e
-0002fb 003a                      w 0b1111100000011111 .dw 0b1111111111111111 .dw 0b1111111111111111 .dw 0b1111111111111111 .dw 0b1111111111111111 
+0002fa 2222
+0002fb 003e
+0002fc 2a2e
+0002fd 003a                      w 0b1111100000011111 .dw 0b1111111111111111 .dw 0b1111111111111111 .dw 0b1111111111111111 .dw 0b1111111111111111 
                                  bm_scr:
-0002fc 0000
-0002fd 0012
-0002fe 2838
-0002ff 003e
-000300 223e
+0002fe 0000
+0002ff 0012
+000300 2838
 000301 003e
-000302 3e20
-000303 0020                      .db 0b00000000,0b00000000,0b00010010,0b00000000,0b00111010,0b00101100,0b00111110,0b00000000,0b00100010,0b00100010,0b00111110,0b00000000,0b00101110,0b00101010,0b00111010,0b00000000
+000302 223e
+000303 003e
+000304 3e20
+000305 0020                      .db 0b00000000,0b00000000,0b00010010,0b00000000,0b00111010,0b00101100,0b00111110,0b00000000,0b00100010,0b00100010,0b00111110,0b00000000,0b00101110,0b00101010,0b00111010,0b00000000
                                  
                                  ; main
                                  
                                  #define m_tmp rma
                                  
-000000 940c 0304                 ISR 0
+000000 940c 0306                 ISR 0
                                  m_l_reset:
                                  	; setup stack
-000304 e241
-000305 bf4e
-000306 ef4f
-000307 bf4d                      	STACK_SETUP m_tmp
+000306 e241
+000307 bf4e
+000308 ef4f
+000309 bf4d                      	STACK_SETUP m_tmp
                                  	; setup builtin LED
-000308 e840
-000309 b944                      	BL_SRC_SETUP m_tmp
-00030a 2744
-00030b b945                      	BL_SRC_OFF m_tmp
+00030a e840
+00030b b944                      	BL_SRC_SETUP m_tmp
+00030c 2744
+00030d b945                      	BL_SRC_OFF m_tmp
                                  	; setup LED matrix
-00030c ef4f
-00030d b947                      	LM_SRC_SETUP m_tmp
+00030e ef4f
+00030f b947                      	LM_SRC_SETUP m_tmp
                                  	; setup UART communication
-00030e e040
-00030f 9340 00c5
-000311 e647
-000312 9340 00c4
-000314 e040
-000315 9340 00c0
-000317 e948
-000318 9340 00c1
-00031a e846
-00031b 9340 00c2                 	UC_SRC_SETUP m_tmp
+000310 e040
+000311 9340 00c5
+000313 e647
+000314 9340 00c4
+000316 e040
+000317 9340 00c0
+000319 e948
+00031a 9340 00c1
+00031c e846
+00031d 9340 00c2                 	UC_SRC_SETUP m_tmp
                                  	;setup distance sensor
-00031d 2744
-00031e 9340 00a0
-000320 9340 00a1
-000322 9340 00a2
-000324 e242
-000325 9340 0072
-000327 e440
-000328 9340 010a                 	DS_SRC_SETUP m_tmp
-00032a e446
-00032b 9340 024c
-00032d e040
-00032e 9340 024d
-000330 ef4a
-000331 9340 024e
-000333 e040
-000334 9340 024f
-000336 e24c
-000337 9340 0250
-000339 e041
-00033a 9340 0251
-00033c ea4a
-00033d e053
-00033e 940e 0072
-000340 6c60
-000341 9350 00a9
-000343 9340 00a8
-000345 9360 024b                 	DS_SRC_SPLOAD m_tmp
-000347 940e 0205                 	call ds_isr_trig
+00031f 2744
+000320 9340 00a0
+000322 9340 00a1
+000324 9340 00a2
+000326 e242
+000327 9340 0072
+000329 e440
+00032a 9340 010a                 	DS_SRC_SETUP m_tmp
+00032c e446
+00032d 9340 024c
+00032f e040
+000330 9340 024d
+000332 ef4a
+000333 9340 024e
+000335 e040
+000336 9340 024f
+000338 e24c
+000339 9340 0250
+00033b e041
+00033c 9340 0251
+00033e ea4a
+00033f e053
+000340 940e 0072
+000342 6c60
+000343 9350 00a9
+000345 9340 00a8
+000347 9360 024b                 	DS_SRC_SPLOAD m_tmp
+000349 940e 0205                 	call ds_isr_trig
                                  	; setup draw loop
-000349 2744
-00034a 9340 00b0
-00034c 9340 00b1
-00034e e042
-00034f 9340 0070
-000351 2744
-000352 9340 0202
-000354 e042
-000355 9340 0201
-000357 2744
-000358 9340 020e
-00035a 2744
-00035b 9340 0090
-00035d 9340 0091
-00035f 9340 0092
-000361 e042
-000362 9340 0071
-000364 e1a6
-000365 e0b2
-000366 2766
-000367 e340
-000368 936d
-000369 954a
-00036a f7e9
-00036b e041
-00036c 9340 0247
-00036e 2744
-00036f 9340 0249
-000371 9340 024a
-000373 2744
-000374 9340 0120
-000376 9340 0121
-000378 9340 0122
-00037a e042
-00037b 9340 0073
-00037d e040
-00037e 9340 0205                 	ML_SRC_SETUP m_tmp
-000380 e440
-000381 e15f
-000382 940e 0072
-000384 9350 00b3
-000386 9360 0200
-000388 e041
-000389 9340 0203
-00038b e044
-00038c 9340 0204
-00038e e048
-00038f 9340 0210
-000391 e044
-000392 9340 020f
-000394 e043
-000395 9340 0248
-000397 e048
-000398 9340 0211
-00039a e043
-00039b 9340 0212
-00039d e345
-00039e e05c
-00039f dcd2
-0003a0 9350 0099
-0003a2 9340 0098
-0003a4 6068
-0003a5 9360 0246                 	ML_SRC_SPLOAD
+00034b 2744
+00034c 9340 00b0
+00034e 9340 00b1
+000350 e042
+000351 9340 0070
+000353 2744
+000354 9340 0202
+000356 e042
+000357 9340 0201
+000359 2744
+00035a 9340 020e
+00035c 2744
+00035d 9340 0090
+00035f 9340 0091
+000361 9340 0092
+000363 e042
+000364 9340 0071
+000366 e1a6
+000367 e0b2
+000368 2766
+000369 e340
+00036a 936d
+00036b 954a
+00036c f7e9
+00036d e041
+00036e 9340 0247
+000370 2744
+000371 9340 0249
+000373 9340 024a
+000375 2744
+000376 9340 0120
+000378 9340 0121
+00037a 9340 0122
+00037c e042
+00037d 9340 0073
+00037f e040
+000380 9340 0205                 	ML_SRC_SETUP m_tmp
+000382 e440
+000383 e15f
+000384 940e 0072
+000386 9350 00b3
+000388 9360 0200
+00038a e041
+00038b 9340 0203
+00038d e044
+00038e 9340 0204
+000390 e048
+000391 9340 0210
+000393 e044
+000394 9340 020f
+000396 e043
+000397 9340 0248
+000399 e048
+00039a 9340 0211
+00039c e043
+00039d 9340 0212
+00039f e345
+0003a0 e05c
+0003a1 dcd0
+0003a2 9350 0099
+0003a4 9340 0098
+0003a6 6068
+0003a7 9360 0246                 	ML_SRC_SPLOAD
                                  	; enter main loop
-0003a7 cd26                      	rjmp ml_l_loop
+0003a9 cd24                      	rjmp ml_l_loop
                                  
                                  #undef m_tmp
                                  
@@ -3741,16 +3741,16 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega2560" register use summary:
-x  :  13 y  :   0 z  :   6 r0 :   1 r1 :   0 r2 :  13 r3 :   7 r4 :   3 
+x  :  13 y  :   0 z  :   4 r0 :   1 r1 :   0 r2 :   9 r3 :   7 r4 :   3 
 r5 :   3 r6 :   4 r7 :   4 r8 :   8 r9 :   0 r10:   6 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  71 r17:  46 r18:  33 r19:   7 r20: 188 
-r21:  60 r22:  42 r23:   6 r24:   8 r25:  10 r26:   9 r27:   9 r28:   0 
-r29:   0 r30:  11 r31:  11 
+r13:   0 r14:   0 r15:   0 r16:  71 r17:  44 r18:  31 r19:   7 r20: 190 
+r21:  62 r22:  44 r23:   6 r24:   8 r25:  10 r26:   9 r27:   9 r28:   0 
+r29:   0 r30:   8 r31:   8 
 Registers used: 25 out of 35 (71.4%)
 
 "ATmega2560" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   6 add   :  13 adiw  :   1 and   :   1 
-andi  :  18 asr   :   0 bclr  :   0 bld   :   2 brbc  :   0 brbs  :   0 
+andi  :  17 asr   :   0 bclr  :   0 bld   :   2 brbc  :   0 brbs  :   0 
 brcc  :   5 brcs  :   0 break :   0 breq  :  12 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   3 brlt  :   0 brmi  :   0 
 brne  :  15 brpl  :   1 brsh  :   5 brtc  :   0 brts  :   0 brvc  :   0 
@@ -3759,22 +3759,22 @@ clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :  27 cls   :   0
 clt   :   0 clv   :   0 clz   :   0 com   :   3 cp    :   6 cpc   :   3 
 cpi   :   7 cpse  :   0 dec   :   6 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   1 inc   :   0 jmp   :   7 ld    :   6 ldd   :   0 ldi   :  91 
-lds   :  49 lpm   :   7 lsl   :   9 lsr   :   8 mov   :  27 movw  :   4 
+in    :   2 inc   :   0 jmp   :   7 ld    :   5 ldd   :   0 ldi   :  91 
+lds   :  49 lpm   :   7 lsl   :   9 lsr   :   8 mov   :  26 movw  :   3 
 mul   :   1 muls  :   0 mulsu :   0 neg   :   1 nop   :   0 or    :   6 
-ori   :   4 out   :  18 pop   :   2 push  :   2 rcall :  11 ret   :  17 
-reti  :   9 rjmp  :  37 rol   :   4 ror   :  12 sbc   :   1 sbci  :   0 
-sbi   :   3 sbic  :   1 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   5 
+ori   :   4 out   :  25 pop   :   0 push  :   0 rcall :  10 ret   :  19 
+reti  :   8 rjmp  :  37 rol   :   4 ror   :  12 sbc   :   1 sbci  :   0 
+sbi   :   6 sbic  :   4 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   2 
 sbrs  :   3 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   4 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
-st    :   9 std   :   0 sts   :  89 sub   :   8 subi  :   0 swap  :   5 
+st    :   8 std   :   0 sts   :  89 sub   :   8 subi  :   0 swap  :   5 
 tst   :   7 wdr   :   0 
-Instructions used: 56 out of 116 (48.3%)
+Instructions used: 54 out of 116 (46.6%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000750   1512    160   1672  262144   0.6%
+[.cseg] 0x000000 0x000754   1516    160   1676  262144   0.6%
 [.dseg] 0x000200 0x000256      0     86     86    8192   1.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 
