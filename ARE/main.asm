@@ -12,17 +12,6 @@
 
 #include "m2560def.inc"
 
-.eseg
-test: .db 0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF
-.cseg
-.dseg
-testtrg: .byte 8
-.cseg
-
-.eseg
-#include "bitmaps.asm"
-.cseg
-
 #include "utils.asm"
 #include "eeprom_prog.asm"
 #include "builtin_led.asm"
@@ -31,13 +20,17 @@ testtrg: .byte 8
 #include "main_loop.asm"
 #include "led_matrix.asm"
 #include "distance_sens.asm"
+
+.eseg
+#include "bitmaps.asm"
+.cseg
+
 ; main
 
 #define m_tmp rma
 
 ISR 0
 m_l_reset:
-	SP_SRC_LOAD_TO_RAM test, testtrg, 16
 	cli
 	; setup stack
 	STACK_SETUP m_tmp
@@ -53,7 +46,6 @@ m_l_reset:
 	call ds_isr_trig
 	; setup draw loop
 	ML_SRC_SETUP m_tmp
-	ML_SRC_SPLOAD
 	sei
 	; enter main loop
 	rjmp ml_l_loop
