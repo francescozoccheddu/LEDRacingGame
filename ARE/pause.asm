@@ -36,10 +36,9 @@ ee_p_dson_add: .db 4
 
 p_l_draw:
 	lds _p_tmp, _p_ram_prog
-	com _p_tmp
 	swap _p_tmp
 	andi _p_tmp, 0b1111
-	cp _p_tmp, _p_col
+	cp _p_col, _p_tmp
 	brsh _p_l_src_draw_pause
 	ldi XH, HIGH(_p_ram_bm_resuming)
 	ldi XL, LOW(_p_ram_bm_resuming)

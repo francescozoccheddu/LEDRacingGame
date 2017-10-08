@@ -45,7 +45,7 @@ def main():
         for by in range(0, math.ceil(sy / byteSize)):
             bout = ""
             for y in range(by * byteSize, (by + 1) * byteSize):
-                bout += "1" if y < sy and img.getpixel((sx - 1 - x,y)) > 127 else "0"
+                bout += "1" if y < sy and img.getpixel((x,y)) > 127 else "0"
             out = label.replace(xRegex, str(x)).replace(yRegex, str(by)).replace(bRegex, bout)
             print(out, end="", flush=True)
 

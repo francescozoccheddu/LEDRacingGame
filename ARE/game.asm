@@ -125,7 +125,6 @@ _g_l_update_smooth_zombie:
 	rcall _g_l_smooth
 	sts _g_ram_dsval, _g_tmp1
 _g_l_update_smooth_done:
-	com _g_tmp1
 	swap _g_tmp1
 	andi _g_tmp1, 0b00001111
 	sts _g_ram_col, _g_tmp1

@@ -52,10 +52,12 @@ _lm_l_src_send_col_out_dot:
 	ldi _lm_tmp2, (1 << _LM_BIT_G)
 	out _LM_PORT, _lm_tmp2
 	;send col
-	or _lm_tmp2, _lm_col
+	ldi _lm_tmp1, 15
+	sub _lm_tmp1, _lm_col
+	or _lm_tmp2, _lm_tmp1
 	out _LM_PORT, _lm_tmp2
 	;end G
-	out _LM_PORT, _lm_col
+	out _LM_PORT, _lm_tmp1
 	rjmp ml_l_sendcol_done
 
 #undef _lm_cl

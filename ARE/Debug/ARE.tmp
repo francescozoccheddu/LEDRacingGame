@@ -60,13 +60,13 @@
   <ds_ram_out_state><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>62</LINE></ds_ram_out_state>
   <_ml_l_update_sub><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>96</LINE></_ml_l_update_sub>
   <_ml_l_update_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>102</LINE></_ml_l_update_done>
-  <g_l_pause><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>178</LINE></g_l_pause>
+  <g_l_pause><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>177</LINE></g_l_pause>
   <g_l_pause_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>101</LINE></g_l_pause_done>
   <_ml_l_loop_column><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>112</LINE></_ml_l_loop_column>
-  <p_l_update><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>69</LINE></p_l_update>
+  <p_l_update><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>68</LINE></p_l_update>
   <p_l_update_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>111</LINE></p_l_update_done>
   <_ml_l_loop_draw_paused><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>120</LINE></_ml_l_loop_draw_paused>
-  <g_l_draw><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>138</LINE></g_l_draw>
+  <g_l_draw><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>137</LINE></g_l_draw>
   <_ml_l_loop_flush><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>128</LINE></_ml_l_loop_flush>
   <s_l_draw><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>51</LINE></s_l_draw>
   <p_l_draw><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>37</LINE></p_l_draw>
@@ -86,9 +86,9 @@
   <_s_ram_bm_digits><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>48</LINE></_s_ram_bm_digits>
   <_s_l_draw_scr><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>60</LINE></_s_l_draw_scr>
   <_s_l_draw_text><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>65</LINE></_s_l_draw_text>
-  <s_l_set><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>93</LINE></s_l_set>
-  <_s_sr_tobcd><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>111</LINE></_s_sr_tobcd>
-  <_s_l_sr_tobcd_overflow><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>118</LINE></_s_l_sr_tobcd_overflow>
+  <s_l_set><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>91</LINE></s_l_set>
+  <_s_sr_tobcd><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>109</LINE></_s_sr_tobcd>
+  <_s_l_sr_tobcd_overflow><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>116</LINE></_s_l_sr_tobcd_overflow>
   <_p_ram_prog><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>3</LINE></_p_ram_prog>
   <_p_ram_prsnc_add><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>4</LINE></_p_ram_prsnc_add>
   <_p_ram_absnc_sub><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>5</LINE></_p_ram_absnc_sub>
@@ -96,13 +96,13 @@
   <_p_ram_bm_resuming><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>8</LINE></_p_ram_bm_resuming>
   <ee_p_dsoff_sub><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>12</LINE></ee_p_dsoff_sub>
   <ee_p_dson_add><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>13</LINE></ee_p_dson_add>
-  <_p_l_src_draw_pause><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>47</LINE></_p_l_src_draw_pause>
-  <_p_l_src_draw_begin><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>50</LINE></_p_l_src_draw_begin>
-  <_p_l_src_draw_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>58</LINE></_p_l_src_draw_done>
-  <_p_l_src_update_sub><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>79</LINE></_p_l_src_update_sub>
-  <_p_l_src_update_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>85</LINE></_p_l_src_update_done>
-  <g_l_resume><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>183</LINE></g_l_resume>
-  <g_l_resume_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>84</LINE></g_l_resume_done>
+  <_p_l_src_draw_pause><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>46</LINE></_p_l_src_draw_pause>
+  <_p_l_src_draw_begin><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>49</LINE></_p_l_src_draw_begin>
+  <_p_l_src_draw_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>57</LINE></_p_l_src_draw_done>
+  <_p_l_src_update_sub><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>78</LINE></_p_l_src_update_sub>
+  <_p_l_src_update_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>84</LINE></_p_l_src_update_done>
+  <g_l_resume><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>182</LINE></g_l_resume>
+  <g_l_resume_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>83</LINE></g_l_resume_done>
   <_g_ram_smooth><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>51</LINE></_g_ram_smooth>
   <_g_ram_smooth_slow><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>52</LINE></_g_ram_smooth_slow>
   <_g_ram_dsval><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>53</LINE></_g_ram_dsval>
@@ -125,10 +125,10 @@
   <_g_l_update_smooth_zombie><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>120</LINE></_g_l_update_smooth_zombie>
   <ds_ram_out_val><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>61</LINE></ds_ram_out_val>
   <_g_l_update_smooth_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>127</LINE></_g_l_update_smooth_done>
-  <_g_l_draw_abs_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>154</LINE></_g_l_draw_abs_done>
-  <_g_l_over><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>167</LINE></_g_l_over>
-  <_g_l_oca_vframe_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>217</LINE></_g_l_oca_vframe_done>
-  <_g_l_oca_shift_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>223</LINE></_g_l_oca_shift_loop>
+  <_g_l_draw_abs_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>153</LINE></_g_l_draw_abs_done>
+  <_g_l_over><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>166</LINE></_g_l_over>
+  <_g_l_oca_vframe_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>216</LINE></_g_l_oca_vframe_done>
+  <_g_l_oca_shift_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>222</LINE></_g_l_oca_shift_loop>
   <_lm_l_src_send_col_row><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm</FILE><LINE>34</LINE></_lm_l_src_send_col_row>
   <_lm_l_src_send_col_out_dot><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm</FILE><LINE>40</LINE></_lm_l_src_send_col_out_dot>
   <ee_ds_period_propf><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>49</LINE></ee_ds_period_propf>

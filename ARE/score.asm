@@ -68,11 +68,9 @@ _s_l_draw_text:
 	adc XH, ml_tmp1
 	ld ml_ch, X
 	; draw score
-	mov ml_tmp2, ml_col
-	lsr ml_tmp2
-	lsr ml_tmp2
-	ldi ml_tmp1, 3
-	sub ml_tmp1, ml_tmp2
+	mov ml_tmp1, ml_col
+	lsr ml_tmp1
+	lsr ml_tmp1
 	add YL, ml_tmp1
 	clr ml_tmp1
 	adc YH, ml_tmp1
