@@ -30,8 +30,13 @@ _p_ram_absnc_sub: .byte 1
 
 p_l_draw:
 	lds _p_tmp, _p_ram_prog
-	cpi _p_tmp, 1 << 4
-	brlo _p_l_src_draw_pause
+	com _p_tmp
+	lsr _p_tmp
+	lsr _p_tmp
+	lsr _p_tmp
+	lsr _p_tmp
+	cp _p_tmp, _p_col
+	brsh _p_l_src_draw_pause
 	ldi ZH, HIGH(bm_resuming * 2)
 	ldi ZL, LOW(bm_resuming * 2)
 	rjmp _p_l_src_draw_begin
@@ -46,15 +51,6 @@ _p_l_src_draw_begin:
 	adc ZH, _p_tmp
 	lpm _p_cl, Z+
 	lpm _p_ch, Z
-	lds _p_tmp, _p_ram_prog
-	com _p_tmp
-	lsr _p_tmp
-	lsr _p_tmp
-	lsr _p_tmp
-	lsr _p_tmp
-	cp _p_tmp, _p_col
-	brsh _p_l_src_draw_done
-	ori _p_cl, _P_PROGRESS_COL
 _p_l_src_draw_done:
 	rjmp p_l_draw_done
 
@@ -74,7 +70,7 @@ p_l_update:
 	lds _p_tmp1, _p_ram_prsnc_add
 	add _p_tmp2, _p_tmp1
 	brcc _p_l_src_update_done
-	sts ml_ram_paused, _p_tmp2
+	sts ml_ram_screen, _p_tmp2
 	rjmp g_l_resume
 _p_l_src_update_sub:
 	lds _p_tmp1, _p_ram_absnc_sub

@@ -8,6 +8,10 @@
 
 TIM_DEF _ML, _ML_TIMER
 
+#define ML_SCREEN_PAUSE 2
+#define ML_SCREEN_SCORE 1
+#define ML_SCREEN_GAME 0
+
 #define _ml_setup_tmp @0
 
 ; [SOURCE] setup
@@ -23,17 +27,19 @@ TIM_DEF _ML, _ML_TIMER
 	; setup pause
 	clr _ml_setup_tmp
 	sts _ml_ram_pprog, _ml_setup_tmp
-	ser _ml_setup_tmp
-	sts ml_ram_paused, _ml_setup_tmp
+	ldi _ml_setup_tmp, ML_SCREEN_PAUSE
+	sts ml_ram_screen, _ml_setup_tmp
 	P_SRC_SETUP _ml_setup_tmp
 	G_SRC_SETUP _ml_setup_tmp, rmc
+	S_SRC_SETUP _ml_setup_tmp
 .endmacro
 
 #undef _ml_setup_tmp
 
+
 .dseg
 _ml_ram_tcs: .byte 1
-ml_ram_paused: .byte 1
+ml_ram_screen: .byte 1
 _ml_ram_pprog: .byte 1
 _ml_ram_pabsnc_add: .byte 1
 _ml_ram_pprsnc_sub: .byte 1
@@ -66,11 +72,12 @@ _ml_ram_pprsnc_sub: .byte 1
 #define ml_tmp4 rm0
 
 ml_l_loop:
+s_l_set_done:
 _ml_l_loop_begin:
 	ldi ml_col, 16
 
-	lds ml_tmp1, ml_ram_paused
-	tst ml_tmp1
+	lds ml_tmp1, ml_ram_screen
+	cpi ml_tmp1, ML_SCREEN_GAME
 	brne _ml_l_loop_update_paused
 
 	rjmp g_l_update
@@ -83,8 +90,8 @@ g_l_update_done:
 	lds ml_tmp1, _ml_ram_pabsnc_add
 	add ml_tmp2, ml_tmp1
 	brcc _ml_l_update_done
-	ser ml_tmp1
-	sts ml_ram_paused, ml_tmp1
+	ldi ml_tmp1, ML_SCREEN_PAUSE
+	sts ml_ram_screen, ml_tmp1
 	rjmp g_l_pause
 _ml_l_update_sub:
 	lds ml_tmp1, _ml_ram_pprsnc_sub
@@ -97,20 +104,25 @@ _ml_l_update_done:
 	
 	rjmp _ml_l_loop_column
 _ml_l_loop_update_paused:
+	cpi ml_tmp1, ML_SCREEN_PAUSE
+	brne _ml_l_loop_column
 	rjmp p_l_update
 
 p_l_update_done:
 _ml_l_loop_column:
 	dec ml_col
 
-	lds ml_tmp1, ml_ram_paused
-	tst ml_tmp1
+	lds ml_tmp1, ml_ram_screen
+	cpi ml_tmp1, ML_SCREEN_GAME
 	brne _ml_l_loop_draw_paused
 	rjmp g_l_draw
 	rjmp _ml_l_loop_flush
 _ml_l_loop_draw_paused:
+	cpi ml_tmp1, ML_SCREEN_PAUSE
+	brne s_l_draw
 	rjmp p_l_draw
 
+s_l_draw_done:
 p_l_draw_done:
 g_l_draw_done:
 _ml_l_loop_flush:
@@ -143,6 +155,7 @@ ISR _ML_OCAaddr
 
 #undef _ml_lock
 
+#include "score.asm"
 #include "pause.asm"
 #include "game.asm"
 
