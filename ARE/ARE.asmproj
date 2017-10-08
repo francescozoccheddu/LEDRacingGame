@@ -119,6 +119,9 @@
     <Compile Include="src\pause.asm">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\score.asm">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\serial_prog.asm">
       <SubType>Code</SubType>
     </Compile>
@@ -140,6 +143,10 @@
     <None Include="bitmaps\pause.png">
       <SubType>Code</SubType>
       <Link>ARE\bitmaps\pause.png</Link>
+    </None>
+    <None Include="bitmaps\resuming.png">
+      <SubType>Code</SubType>
+      <Link>ARE\bitmaps\resuming.png</Link>
     </None>
     <None Include="utils\batch_b2l.ps1">
       <SubType>Code</SubType>

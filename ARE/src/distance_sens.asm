@@ -183,7 +183,10 @@ _ds_l_isr_trig_clamp_smaller:
 
 _ds_l_isr_trig_clamp_stop:
 	; write output value
-	sts ds_ram_out_val, _ds_out
+	lds _ds_tmp1, ds_ram_out_val
+	add _ds_tmp1, _ds_out
+	ror _ds_tmp1
+	sts ds_ram_out_val, _ds_tmp1
 	; set output state to true
 	ser _ds_tmp1
 	rjmp _ds_isr_trig_done
