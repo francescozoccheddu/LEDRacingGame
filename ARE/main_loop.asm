@@ -45,6 +45,7 @@ _ml_ram_pabsnc_add: .byte 1
 _ml_ram_pprsnc_sub: .byte 1
 .cseg
 
+
 .macro ML_SRC_SPLOAD
 	#define ML_TIM 0.002
 
@@ -59,8 +60,6 @@ _ml_ram_pprsnc_sub: .byte 1
 	sts _ml_ram_pabsnc_add, rma
 	ldi rma, 4
 	sts _ml_ram_pprsnc_sub, rma
-	P_SRC_SPLOAD rma
-	G_SRC_SPLOAD rma
 .endmacro
 
 #define ml_col rmf

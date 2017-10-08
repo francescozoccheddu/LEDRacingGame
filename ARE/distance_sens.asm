@@ -29,18 +29,9 @@ IO_DEF _DS, _DS_IO
 	ldi _ds_tmp, 1 << _DS_TRIG_BIT
 	sts _DS_DDR, _ds_tmp
 	; load ee
-	SP_SRC_LOAD ee_ds_min_ic
-	sts _ds_ram_in_lol, sp_data
-	SP_SRC_LOAD ee_ds_min_ic + 1
-	sts _ds_ram_in_loh, sp_data
-	SP_SRC_LOAD ee_ds_max_ic
-	sts _ds_ram_in_hil, sp_data
-	SP_SRC_LOAD ee_ds_max_ic + 1
-	sts _ds_ram_in_hih, sp_data
-	SP_SRC_LOAD ee_ds_emax_ic
-	sts _ds_ram_in_ehil, sp_data
-	SP_SRC_LOAD ee_ds_emax_ic + 1
-	sts _ds_ram_in_ehih, sp_data
+	SP_SRC_LOAD_TO_RAM ee_ds_min_ic, _ds_ram_min, 2
+	SP_SRC_LOAD_TO_RAM ee_ds_max_ic, _ds_ram_max, 2
+	SP_SRC_LOAD_TO_RAM ee_ds_emax_ic, _ds_ram_emax, 2
 	SP_SRC_LOAD ee_ds_period_propf
 	mov rma, sp_data
 	SP_SRC_LOAD ee_ds_period_propf + 1
@@ -63,21 +54,11 @@ ee_ds_emax_ic: .dw 300
 
 .dseg
 _ds_ram_tccrb: .byte 1
-
-_ds_ram_in_lol: .byte 1
-_ds_ram_in_loh: .byte 1
-
-_ds_ram_in_hil: .byte 1
-_ds_ram_in_hih: .byte 1
-
-_ds_ram_in_ehil: .byte 1
-_ds_ram_in_ehih: .byte 1
-
-_ds_ram_ltimel: .byte 1
-_ds_ram_ltimeh: .byte 1
-
+_ds_ram_min: .byte 2
+_ds_ram_max: .byte 2
+_ds_ram_emax: .byte 2
+_ds_ram_ltime: .byte 2
 ds_ram_out_val: .byte 1
-
 ds_ram_out_state: .byte 1
 .cseg
 
@@ -108,10 +89,10 @@ ds_isr_trig:
 #define _ds_inh ri1
 
 	; skip if greater than max
-	lds _ds_cursl, _ds_ram_in_ehil
-	lds _ds_cursh, _ds_ram_in_ehih
-	lds _ds_inl, _ds_ram_ltimel
-	lds _ds_inh, _ds_ram_ltimeh
+	lds _ds_cursl, _ds_ram_emax
+	lds _ds_cursh, _ds_ram_emax + 1
+	lds _ds_inl, _ds_ram_ltime
+	lds _ds_inh, _ds_ram_ltime + 1
 	cp _ds_inl, _ds_cursl
 	cpc _ds_inh, _ds_cursh
 	brsh _ds_isr_trig_bad
@@ -126,10 +107,10 @@ ds_isr_trig:
 
 	; clamp
 	; setup clamp parameters
-	lds _ds_in_lol, _ds_ram_in_lol
-	lds _ds_in_loh, _ds_ram_in_loh
-	lds _ds_in_hil, _ds_ram_in_hil
-	lds _ds_in_hih, _ds_ram_in_hih
+	lds _ds_in_lol, _ds_ram_min
+	lds _ds_in_loh, _ds_ram_min + 1
+	lds _ds_in_hil, _ds_ram_max
+	lds _ds_in_hih, _ds_ram_max + 1
 	clr _ds_out_lo
 	ser _ds_out_hi
 	; start clamping
@@ -236,8 +217,8 @@ ISR _DS_ICPaddr
 	rjmp _ds_l_isr_icp_falling
 _ds_l_isr_icp_rising:
 	; save ICR to sram
-	sts _ds_ram_ltimel, _ds_icrl
-	sts _ds_ram_ltimeh, _ds_icrh
+	sts _ds_ram_ltime, _ds_icrl
+	sts _ds_ram_ltime + 1, _ds_icrh
 	; set input capture to falling edge
 	lds _ds_tmp1, _DS_TCCRB
 	andi _ds_tmp1, ~(ICES_VAL)
@@ -245,12 +226,12 @@ _ds_l_isr_icp_rising:
 	reti
 _ds_l_isr_icp_falling:
 	; save difference to sram
-	lds _ds_tmp1, _ds_ram_ltimel
-	lds _ds_tmp2, _ds_ram_ltimeh
+	lds _ds_tmp1, _ds_ram_ltime
+	lds _ds_tmp2, _ds_ram_ltime + 1
 	sub _ds_icrl, _ds_tmp1
 	sbc _ds_icrh, _ds_tmp2
-	sts _ds_ram_ltimel, _ds_icrl
-	sts _ds_ram_ltimeh, _ds_icrh
+	sts _ds_ram_ltime, _ds_icrl
+	sts _ds_ram_ltime + 1, _ds_icrh
 	; disable input capture interrupt
 	ldi _ds_tmp1, OCIEA_VAL
 	sts _DS_TIMSK, _ds_tmp1
