@@ -28,39 +28,38 @@ IO_DEF _DS, _DS_IO
 	; set data direction register to output for trig pin
 	ldi _ds_tmp, 1 << _DS_TRIG_BIT
 	sts _DS_DDR, _ds_tmp
-.endmacro
-
-#undef _ds_tmp
-
-.macro DS_SRC_SPLOAD
-#define DS_EMAX 300
-#define DS_MAX 250
-#define DS_MIN 70
-#define DS_TIM 0.06
-	
-	ldi rma, LOW( DS_MIN )
-	sts _ds_ram_in_lol, rma
-	ldi rma, HIGH( DS_MIN )
-	sts _ds_ram_in_loh, rma
-	ldi rma, LOW( DS_MAX )
-	sts _ds_ram_in_hil, rma
-	ldi rma, HIGH( DS_MAX )
-	sts _ds_ram_in_hih, rma
-	ldi rma, LOW( DS_EMAX )
-	sts _ds_ram_in_ehil, rma
-	ldi rma, HIGH( DS_EMAX )
-	sts _ds_ram_in_ehih, rma
-
-
-	ldi rma, LOW( int(DS_TIM * T16_PROPF+0.5) )
-	ldi rmb, HIGH( int(DS_TIM * T16_PROPF+0.5) )
-
+	; load ee
+	SP_SRC_LOAD ee_ds_min_ic
+	sts _ds_ram_in_lol, sp_data
+	SP_SRC_LOAD ee_ds_min_ic + 1
+	sts _ds_ram_in_loh, sp_data
+	SP_SRC_LOAD ee_ds_max_ic
+	sts _ds_ram_in_hil, sp_data
+	SP_SRC_LOAD ee_ds_max_ic + 1
+	sts _ds_ram_in_hih, sp_data
+	SP_SRC_LOAD ee_ds_emax_ic
+	sts _ds_ram_in_ehil, sp_data
+	SP_SRC_LOAD ee_ds_emax_ic + 1
+	sts _ds_ram_in_ehih, sp_data
+	SP_SRC_LOAD ee_ds_period_propf
+	mov rma, sp_data
+	SP_SRC_LOAD ee_ds_period_propf + 1
+	mov rmb, sp_data
 	call t_sr_calc
 	ori rmc, ICN_VAL | ICES_VAL
 	sts _DS_OCRAH, rmb
 	sts _DS_OCRAL, rma
 	sts _ds_ram_tccrb, rmc
 .endmacro
+
+#undef _ds_tmp
+
+.eseg
+ee_ds_period_propf: .dw int( 0.06 * T16_PROPF + 0.5)
+ee_ds_min_ic: .dw 70
+ee_ds_max_ic: .dw 250
+ee_ds_emax_ic: .dw 300
+.cseg
 
 .dseg
 _ds_ram_tccrb: .byte 1
