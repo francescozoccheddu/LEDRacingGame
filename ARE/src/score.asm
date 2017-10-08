@@ -19,7 +19,6 @@ TIM_DEF _S, _S_TIMER
 	sts _s_ram_state, _s_setup_tmp
 .endmacro
 
-
 #undef _s_setup_tmp
 
 .dseg
@@ -44,9 +43,11 @@ _s_l_draw_text:
 	add ZL, ml_col
 	adc ZH, ml_tmp1
 	lpm ml_ch, Z
+	; draw score
 	rjmp s_l_draw_done
 
 s_l_set:
+	; set timer
 	#define S_TIM 1
 	ldi rma, LOW( int(S_TIM * T16_PROPF + 0.5))
 	ldi rmb, HIGH( int(S_TIM * T16_PROPF + 0.5))
@@ -55,7 +56,36 @@ s_l_set:
 	sts _S_OCRAL, rma
 	ori rmc, WGMB_VAL(4)
 	sts _S_TCCRB, rmc
+	; save score
+	; load score
+	ldi XL, LOW(_s_ram_bcd_top)
+	ldi XH, HIGH(_s_ram_bcd_top)
+	ldi ml_tmp1, LOW(987)
+	ldi ml_tmp2, HIGH(987)
+	rcall _s_sr_tobcd
+	ldi XL, LOW(_s_ram_bcd_scr)
+	ldi XH, HIGH(_s_ram_bcd_scr)
+	ldi ml_tmp1, LOW(987)
+	ldi ml_tmp2, HIGH(987)
+	rcall _s_sr_tobcd
 	rjmp s_l_set_done
+
+_s_sr_tobcd:
+	cpi ml_tmp1, LOW(1000)
+	ldi ml_tmp3, HIGH(1000)
+	cpc ml_tmp2, ml_tmp3
+	brsh _s_l_sr_tobcd_overflow
+	rjmp _s_l_sr_tobcd_overflow ; remove
+	ret
+_s_l_sr_tobcd_overflow:
+	ldi ml_tmp3, 9
+	st X+, ml_tmp3
+	st X+, ml_tmp3
+	st X+, ml_tmp3
+	ldi ml_tmp3, 10
+	st X, ml_tmp3
+	ret
+	
 
 ISR _S_OCAaddr
 	lds ria, _s_ram_state
