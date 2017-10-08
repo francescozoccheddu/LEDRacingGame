@@ -5,8 +5,8 @@ $prefix = $args[2]#>
 
 param(
     [string]$inputdir = "..\bitmaps",
-    [string]$outputfile = "..\src\bitmaps.asm",
-    [string]$prefix = "bm_"
+    [string]$outputfile = "..\bitmaps.asm",
+    [string]$prefix = "ee_"
 )
 
 $files = Get-ChildItem $inputdir

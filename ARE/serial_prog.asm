@@ -52,11 +52,31 @@ _sp_l_isr_write:
 #define sp_data rma
 #define sp_addrh rmb
 #define sp_addrl rmc
+#define sp_size rmd
 
 .macro SP_SRC_LOAD
 	ldi sp_addrl, LOW( @0 )
 	ldi sp_addrh, HIGH( @0 )
 	rcall sp_sr_load
+.endmacro
+
+.macro SP_SRC_LOAD_TO_RAM
+.if @2 == 1
+	SP_SRC_LOAD @0
+	sts @1, sp_data
+.elif @2 == 2
+	SP_SRC_LOAD @0
+	sts @1, sp_data
+	SP_SRC_LOAD @0 + 1
+	sts @1 + 1, sp_data
+.else
+	ldi sp_addrl, LOW( @0 )
+	ldi sp_addrh, HIGH( @0 )
+	ldi XL, LOW( @1 )
+	ldi XH, HIGH( @1 )
+	ldi sp_size, @2
+	rcall sp_sr_load_to_ram
+.endif
 .endmacro
 
 .macro SP_SRC_STORE
@@ -69,6 +89,18 @@ sp_sr_load:
 	EP_SRC_WAIT
 	EP_SRC_ADDR sp_addrl, sp_addrh
 	EP_SRC_FREAD sp_data
+	ret
+
+sp_sr_load_to_ram:
+	EP_SRC_WAIT
+	EP_SRC_ADDR sp_addrl, sp_addrh
+	EP_SRC_FREAD sp_data
+	st X+, sp_data
+	inc sp_addrl
+	clr sp_data
+	adc sp_addrh, sp_data
+	dec sp_size
+	brne sp_sr_load_to_ram
 	ret
 
 sp_sr_store:

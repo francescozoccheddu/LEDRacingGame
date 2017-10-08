@@ -1,17 +1,4 @@
 
-.dseg
-_g_ram_smooth: .byte 1
-_g_ram_smooth_slow: .byte 1
-_g_ram_dsval: .byte 1
-_g_ram_dsval_slow: .byte 1
-_g_ram_col: .byte 1
-_g_ram_frame: .byte 16*3
-_g_ram_tccrb: .byte 1
-_g_ram_spawn_countdown: .byte 1
-_g_ram_spawn_period: .byte 1
-_g_ram_scorel: .byte 1
-_g_ram_scoreh: .byte 1
-.cseg
 
 #define _G_TIMER 3
 
@@ -44,24 +31,15 @@ _g_l_setup_clear_loop:
 	clr _g_setup_tmp1
 	sts _g_ram_scorel, _g_setup_tmp1
 	sts _g_ram_scoreh, _g_setup_tmp1
-.endmacro
-
-#undef _g_setup_tmp1
-#undef _g_setup_tmp2
-
-.macro G_SRC_SPLOAD
-#define ML_SMOOTH 8
-#define ML_SMOOTH_SLOW 3
-#define G_S 0.200
-	ldi rma, 3
-	sts _g_ram_spawn_period, rma
-	ldi rma, ML_SMOOTH
-	sts _g_ram_smooth, rma
-	ldi rma, ML_SMOOTH_SLOW
-	sts _g_ram_smooth_slow, rma
-
-	ldi rma, LOW( int(G_S * T16_PROPF + 0.5))
-	ldi rmb, HIGH( int(G_S * T16_PROPF + 0.5))
+	; load
+	SP_SRC_LOAD_TO_RAM ee_g_bm_player, _g_ram_bm_player, 16
+	SP_SRC_LOAD_TO_RAM ee_g_spawn_period, _g_ram_spawn_period, 1
+	SP_SRC_LOAD_TO_RAM ee_g_smooth, _g_ram_smooth, 1
+	SP_SRC_LOAD_TO_RAM ee_g_smooth_slow, _g_ram_smooth_slow, 1
+	SP_SRC_LOAD ee_g_tim_propf
+	mov rma, sp_data
+	SP_SRC_LOAD ee_g_tim_propf + 1
+	mov rmb, sp_data
 	rcall t_sr_calc
 	sts _G_OCRAH, rmb
 	sts _G_OCRAL, rma
@@ -69,6 +47,30 @@ _g_l_setup_clear_loop:
 	sts _g_ram_tccrb, rmc
 .endmacro
 
+.dseg
+_g_ram_smooth: .byte 1
+_g_ram_smooth_slow: .byte 1
+_g_ram_dsval: .byte 1
+_g_ram_dsval_slow: .byte 1
+_g_ram_col: .byte 1
+_g_ram_frame: .byte 16*3
+_g_ram_tccrb: .byte 1
+_g_ram_spawn_countdown: .byte 1
+_g_ram_spawn_period: .byte 1
+_g_ram_scorel: .byte 1
+_g_ram_scoreh: .byte 1
+_g_ram_bm_player: .byte 16
+.cseg
+
+.eseg
+ee_g_spawn_period: .db 3
+ee_g_smooth: .db 8
+ee_g_smooth_slow: .db 3
+ee_g_tim_propf: .dw int( 0.2 * T16_PROPF + 0.5 )
+.cseg
+
+#undef _g_setup_tmp1
+#undef _g_setup_tmp2
 
 #define _g_tmp1 ml_tmp1
 #define _g_tmp2 ml_tmp2
@@ -150,12 +152,12 @@ g_l_draw:
 	brpl _g_l_draw_abs_done
 	neg _g_tmp1
 _g_l_draw_abs_done:
-	ldi ZH, HIGH( bm_player * 2)
-	ldi ZL, LOW( bm_player * 2)
-	add ZL, _g_tmp1
+	ldi XH, HIGH( _g_ram_bm_player )
+	ldi XL, LOW( _g_ram_bm_player )
+	add XL, _g_tmp1
 	clr _g_tmp1
-	adc ZH, _g_tmp1
-	lpm _g_tmp1, Z
+	adc XH, _g_tmp1
+	ld _g_tmp1, X
 	mov _g_tmp2, _g_cl
 	and _g_tmp2, _g_tmp1
 	brne _g_l_over
