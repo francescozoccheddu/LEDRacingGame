@@ -13,16 +13,12 @@ $files = Get-ChildItem $inputdir
 New-Item $outputfile -type file -force
 
 foreach ($file in $files){
-    Add-Content $outputfile "$prefix$($file.BaseName):"
     $image  = New-Object -ComObject Wia.ImageFile
     $image.loadfile($file.FullName)
-    if ($image.Height -gt 8) {
-        $out = python "$PSScriptRoot\bitmap2lm.py" $($file.fullName) '.dw 0b%b ' 16
-    }
-    else {
-        Add-Content $outputfile ".db " -NoNewline  
-        $out = python "$PSScriptRoot\bitmap2lm.py" $($file.fullName) '0b%b,' 8
-        $out = $out.TrimEnd(",")
-    }
+    Add-Content $outputfile "$prefix$($file.BaseName): ; $($file.BaseName) $($image.Width)x$($image.Height)"
+    Add-Content $outputfile ".db " -NoNewline  
+    $out = python "$PSScriptRoot\bitmap2lm.py" $($file.fullName) '0b%b,' 8
+    $out = $out.TrimEnd(",")
     Add-Content $outputfile $out
+    Add-Content $outputfile "$prefix$($file.BaseName)_end:"
 }
