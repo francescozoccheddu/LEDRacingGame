@@ -29,6 +29,18 @@ TIM_DEF _ML, _ML_TIMER
 	sts _ml_ram_pprog, _ml_setup_tmp
 	ldi _ml_setup_tmp, ML_SCREEN_PAUSE
 	sts ml_ram_screen, _ml_setup_tmp
+	; load
+	SP_SRC_LOAD_TO_RAM ee_ml_dsoff_add, _ml_ram_pabsnc_add, 1
+	SP_SRC_LOAD_TO_RAM ee_ml_dson_sub, _ml_ram_pprsnc_sub, 1
+
+	SP_SRC_LOAD ee_ml_tim_propf
+	mov rma, sp_data
+	SP_SRC_LOAD ee_ml_tim_propf + 1
+	mov rmb, sp_data
+	call t_sr_calc
+	sts _ML_OCRA, rmb
+	sts _ml_ram_tcs, rmc
+	; submodules
 	P_SRC_SETUP _ml_setup_tmp
 	G_SRC_SETUP _ml_setup_tmp, rmc
 	S_SRC_SETUP _ml_setup_tmp
@@ -45,22 +57,11 @@ _ml_ram_pabsnc_add: .byte 1
 _ml_ram_pprsnc_sub: .byte 1
 .cseg
 
-
-.macro ML_SRC_SPLOAD
-	#define ML_TIM 0.002
-
-	ldi rma, LOW( int(ML_TIM * T8_PROPF+0.5) )
-	ldi rmb, HIGH( int(ML_TIM * T8_PROPF+0.5) )
-
-	call t_sr_calc
-	sts _ML_OCRA, rmb
-	sts _ml_ram_tcs, rmc
-
-	ldi rma, 1
-	sts _ml_ram_pabsnc_add, rma
-	ldi rma, 4
-	sts _ml_ram_pprsnc_sub, rma
-.endmacro
+.eseg
+ee_ml_tim_propf: .dw int( 0.002 * T8_PROPF + 0.5 )
+ee_ml_dsoff_add: .db 4
+ee_ml_dson_sub: .db 16
+.cseg
 
 #define ml_col rmf
 #define ml_cl rmd
