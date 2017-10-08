@@ -14,13 +14,13 @@
 
 
 #include "utils.asm"
+#include "eeprom_prog.asm"
 #include "builtin_led.asm"
+#include "uart_comm.asm"
+#include "serial_prog.asm"
 #include "main_loop.asm"
 #include "led_matrix.asm"
-#include "uart_comm.asm"
 #include "distance_sens.asm"
-#include "eeprom_prog.asm"
-#include "serial_prog.asm"
 #include "bitmaps.asm"
 
 ; main
@@ -29,6 +29,7 @@
 
 ISR 0
 m_l_reset:
+	cli
 	; setup stack
 	STACK_SETUP m_tmp
 	; setup builtin LED
@@ -40,11 +41,11 @@ m_l_reset:
 	UC_SRC_SETUP m_tmp
 	;setup distance sensor
 	DS_SRC_SETUP m_tmp
-	DS_SRC_SPLOAD m_tmp
 	call ds_isr_trig
 	; setup draw loop
 	ML_SRC_SETUP m_tmp
 	ML_SRC_SPLOAD
+	sei
 	; enter main loop
 	rjmp ml_l_loop
 

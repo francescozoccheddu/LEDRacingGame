@@ -53,6 +53,18 @@ _sp_l_isr_write:
 #define sp_addrh rmb
 #define sp_addrl rmc
 
+.macro SP_SRC_LOAD
+	ldi sp_addrl, LOW( @0 )
+	ldi sp_addrh, HIGH( @0 )
+	rcall sp_sr_load
+.endmacro
+
+.macro SP_SRC_STORE
+	ldi sp_addrl, LOW( @0 )
+	ldi sp_addrh, HIGH( @0 )
+	rcall sp_sr_store
+.endmacro
+
 sp_sr_load:
 	EP_SRC_WAIT
 	EP_SRC_ADDR sp_addrl, sp_addrh
