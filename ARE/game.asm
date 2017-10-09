@@ -31,6 +31,12 @@ _g_l_setup_clear_loop:
 	clr _g_setup_tmp1
 	sts g_ram_score, _g_setup_tmp1
 	sts g_ram_score + 1, _g_setup_tmp1
+	; set ds
+	ldi _g_setup_tmp1, 7
+	sts _g_ram_col, _g_setup_tmp1
+	ldi _g_setup_tmp1, 127
+	sts _g_ram_dsval, _g_setup_tmp1
+	sts _g_ram_dsval_slow, _g_setup_tmp1
 	; load
 	SP_SRC_LOAD_TO_RAM ee_g_bm_player, _g_ram_bm_player, 16
 	SP_SRC_LOAD_TO_RAM ee_g_spawn_period, _g_ram_spawn_period, 1
