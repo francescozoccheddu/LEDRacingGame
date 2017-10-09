@@ -29,8 +29,8 @@ _g_l_setup_clear_loop:
 	ldi _g_setup_tmp1, 1
 	sts _g_ram_spawn_countdown, _g_setup_tmp1
 	clr _g_setup_tmp1
-	sts _g_ram_scorel, _g_setup_tmp1
-	sts _g_ram_scoreh, _g_setup_tmp1
+	sts g_ram_score, _g_setup_tmp1
+	sts g_ram_score + 1, _g_setup_tmp1
 	; load
 	SP_SRC_LOAD_TO_RAM ee_g_bm_player, _g_ram_bm_player, 16
 	SP_SRC_LOAD_TO_RAM ee_g_spawn_period, _g_ram_spawn_period, 1
@@ -57,8 +57,7 @@ _g_ram_frame: .byte 16*3
 _g_ram_tccrb: .byte 1
 _g_ram_spawn_countdown: .byte 1
 _g_ram_spawn_period: .byte 1
-_g_ram_scorel: .byte 1
-_g_ram_scoreh: .byte 1
+g_ram_score: .byte 2
 _g_ram_bm_player: .byte 16
 .cseg
 
@@ -198,11 +197,11 @@ g_l_resume:
 
 ISR _G_OCAaddr
 	; score
-	lds XL, _g_ram_scorel
-	lds XH, _g_ram_scoreh
+	lds XL, g_ram_score
+	lds XH, g_ram_score + 1
 	adiw XH:XL, 1
-	sts _g_ram_scorel, XL
-	sts _g_ram_scoreh, XH
+	sts g_ram_score, XL
+	sts g_ram_score + 1, XH
 	; spawn
 	lds _g_tmp1, _g_ram_spawn_countdown
 	dec _g_tmp1
