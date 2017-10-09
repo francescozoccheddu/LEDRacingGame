@@ -94,34 +94,70 @@ s_l_set:
 	sts _S_TCCRB, rma
 	; save score
 	; load score
-	ldi XL, LOW(_s_ram_bcd_top)
-	ldi XH, HIGH(_s_ram_bcd_top)
-	ldi ml_tmp1, LOW(987)
-	ldi ml_tmp2, HIGH(987)
+	ldi YL, LOW(_s_ram_bcd_top)
+	ldi YH, HIGH(_s_ram_bcd_top)
+	ldi ml_tmp1, LOW(1000)
+	ldi ml_tmp2, HIGH(1000)
 	rcall _s_sr_tobcd
-	ldi XL, LOW(_s_ram_bcd_scr)
-	ldi XH, HIGH(_s_ram_bcd_scr)
-	ldi ml_tmp1, LOW(987)
-	ldi ml_tmp2, HIGH(987)
+	ldi YL, LOW(_s_ram_bcd_scr)
+	ldi YH, HIGH(_s_ram_bcd_scr)
+	ldi ml_tmp1, LOW(100)
+	ldi ml_tmp2, HIGH(100)
 	rcall _s_sr_tobcd
 	rjmp s_l_set_done
 
+#define bcd_l ml_tmp1
+#define bcd_h ml_tmp2
+#define bcd_z ml_tmp3
+#define bcd_c ml_ch
+
 _s_sr_tobcd:
-	cpi ml_tmp1, LOW(1000)
-	ldi ml_tmp3, HIGH(1000)
-	cpc ml_tmp2, ml_tmp3
+	ldi bcd_z, HIGH(1000)
+	cpi bcd_l, LOW(1000)
+	cpc bcd_h, bcd_z
 	brsh _s_l_sr_tobcd_overflow
-	rjmp _s_l_sr_tobcd_overflow ; remove
+	ldi bcd_z, 11
+	std Y+1, bcd_z
+	std Y+2, bcd_z
+	std Y+3, bcd_z
+_s_l_sr_tobcd_th_begin:
+	ldi bcd_c, 0
+	clr bcd_z
+_s_l_sr_tobcd_th_loop:
+	cpi bcd_l, 100
+	cpc bcd_h, bcd_z
+	brlo _s_l_sr_tobcd_th_done
+	inc bcd_c
+	subi bcd_l, 100
+	sbc bcd_h, bcd_z
+	rjmp _s_l_sr_tobcd_th_loop
+_s_l_sr_tobcd_th_done:
+	tst bcd_c
+	breq _s_l_sr_tobcd_nd_loop
+	st Y+, bcd_c
+	ldi bcd_c, 1 << 7
+_s_l_sr_tobcd_nd_loop:
+	cpi bcd_l, 10
+	brlo _s_l_sr_tobcd_nd_done
+	inc bcd_c
+	subi bcd_l, 10
+	rjmp _s_l_sr_tobcd_nd_loop
+_s_l_sr_tobcd_nd_done:
+	tst bcd_c
+	breq _s_l_sr_tobcd_rd
+	andi bcd_c, ~(1 << 7)
+	st Y+, bcd_c
+_s_l_sr_tobcd_rd:
+	st Y+, bcd_l
 	ret
 _s_l_sr_tobcd_overflow:
-	ldi ml_tmp3, 9
-	st X+, ml_tmp3
-	st X+, ml_tmp3
-	st X+, ml_tmp3
-	ldi ml_tmp3, 10
-	st X, ml_tmp3
+	ldi bcd_z, 9
+	st Y+, bcd_z
+	st Y+, bcd_z
+	st Y+, bcd_z
+	ldi bcd_z, 10
+	st Y, bcd_z
 	ret
-	
 
 ISR _S_OCAaddr
 	lds ria, _s_ram_state

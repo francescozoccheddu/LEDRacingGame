@@ -87,8 +87,14 @@
   <_s_l_draw_scr><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>60</LINE></_s_l_draw_scr>
   <_s_l_draw_text><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>65</LINE></_s_l_draw_text>
   <s_l_set><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>91</LINE></s_l_set>
-  <_s_sr_tobcd><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>109</LINE></_s_sr_tobcd>
-  <_s_l_sr_tobcd_overflow><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>116</LINE></_s_l_sr_tobcd_overflow>
+  <_s_sr_tobcd><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>114</LINE></_s_sr_tobcd>
+  <_s_l_sr_tobcd_overflow><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>153</LINE></_s_l_sr_tobcd_overflow>
+  <_s_l_sr_tobcd_th_begin><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>123</LINE></_s_l_sr_tobcd_th_begin>
+  <_s_l_sr_tobcd_th_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>126</LINE></_s_l_sr_tobcd_th_loop>
+  <_s_l_sr_tobcd_th_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>134</LINE></_s_l_sr_tobcd_th_done>
+  <_s_l_sr_tobcd_nd_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>139</LINE></_s_l_sr_tobcd_nd_loop>
+  <_s_l_sr_tobcd_nd_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>145</LINE></_s_l_sr_tobcd_nd_done>
+  <_s_l_sr_tobcd_rd><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>150</LINE></_s_l_sr_tobcd_rd>
   <_p_ram_prog><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>3</LINE></_p_ram_prog>
   <_p_ram_prsnc_add><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>4</LINE></_p_ram_prsnc_add>
   <_p_ram_absnc_sub><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>5</LINE></_p_ram_absnc_sub>
