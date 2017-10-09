@@ -36,6 +36,7 @@ TIM_DEF _S, _S_TIMER
 
 .eseg
 ee_s_tim: .dw int( 1 * T16_PROPF + 0.5)
+ee_s_top: .dw 14
 .cseg
 
 .dseg
@@ -88,21 +89,37 @@ _s_l_draw_text:
 	ld ml_cl, Y
 	rjmp s_l_draw_done
 
+#define te1 ml_cl
+#define te2 ml_ch
+
 s_l_set:
 	; set timer
-	lds rma, _s_ram_tccrb
-	sts _S_TCCRB, rma
+	lds ml_tmp1, _s_ram_tccrb
+	sts _S_TCCRB, ml_tmp1
 	; save score
+	SP_SRC_LOAD ee_s_top
+	mov ml_tmp1, sp_data
+	SP_SRC_LOAD ee_s_top + 1
+	mov ml_tmp2, sp_data
+	lds te1, g_ram_score
+	lds te2, g_ram_score + 1
+	cp ml_tmp1, te1
+	cpc ml_tmp2, te2
+	brsh _s_l_set_stored
+	mov sp_data, te1
+	SP_SRC_STORE ee_s_top
+	mov sp_data, te2
+	SP_SRC_STORE ee_s_top + 1
+	movw ml_tmp2:ml_tmp1, te2:te1
+_s_l_set_stored:
 	; load score
 	ldi YL, LOW(_s_ram_bcd_top)
 	ldi YH, HIGH(_s_ram_bcd_top)
-	ldi ml_tmp1, LOW(1000)
-	ldi ml_tmp2, HIGH(1000)
 	rcall _s_sr_tobcd
 	ldi YL, LOW(_s_ram_bcd_scr)
 	ldi YH, HIGH(_s_ram_bcd_scr)
-	ldi ml_tmp1, LOW(100)
-	ldi ml_tmp2, HIGH(100)
+	lds ml_tmp1, g_ram_score
+	lds ml_tmp2, g_ram_score + 1
 	rcall _s_sr_tobcd
 	rjmp s_l_set_done
 

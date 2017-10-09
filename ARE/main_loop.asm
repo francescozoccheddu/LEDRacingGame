@@ -63,9 +63,9 @@ ee_ml_dsoff_add: .db 4
 ee_ml_dson_sub: .db 16
 .cseg
 
-#define ml_col rmf
-#define ml_cl rmd
-#define ml_ch rme
+#define ml_col rmd
+#define ml_cl rme
+#define ml_ch rmf
 #define ml_tmp1 rma
 #define ml_tmp2 rmb
 #define ml_tmp3 rmc

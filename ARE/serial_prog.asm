@@ -3,6 +3,8 @@
 ; serial programming
 ; dirty UART RX complete interrupt
 
+
+
 #define _sp_data ric
 #define _sp_tmp rib
 
@@ -49,10 +51,10 @@ _sp_l_isr_write:
 #undef _sp_data
 #undef _sp_tmp
 
-#define sp_data rma
-#define sp_addrh rmb
-#define sp_addrl rmc
-#define sp_size rmd
+#define sp_data ria
+#define sp_addrh rib
+#define sp_addrl ric
+#define sp_size rid
 
 .macro SP_SRC_LOAD
 	ldi sp_addrl, LOW( @0 )
