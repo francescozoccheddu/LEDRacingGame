@@ -21,6 +21,7 @@
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE>
+  <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
@@ -35,8 +36,8 @@
   <FILE>ARE.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <t_sr_calc><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\utils.asm</FILE><LINE>266</LINE></t_sr_calc>
-  <t_isr_calc><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\utils.asm</FILE><LINE>269</LINE></t_isr_calc>
+  <t_sr_calc><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\utils.asm</FILE><LINE>267</LINE></t_sr_calc>
+  <t_isr_calc><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\utils.asm</FILE><LINE>270</LINE></t_isr_calc>
   <_sp_sr_ut><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>11</LINE></_sp_sr_ut>
   <_sp_sr_ur><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>15</LINE></_sp_sr_ur>
   <_sp_l_isr_write><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>41</LINE></_sp_l_isr_write>
@@ -169,6 +170,10 @@
   <_ds_isr_trig_bad_wait><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>179</LINE></_ds_isr_trig_bad_wait>
   <_ds_l_isr_icp_falling><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>227</LINE></_ds_l_isr_icp_falling>
   <_ds_l_isr_icp_rising><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>218</LINE></_ds_l_isr_icp_rising>
+  <_bz_ram_tick><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm</FILE><LINE>12</LINE></_bz_ram_tick>
+  <_bz_ram_ticks><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm</FILE><LINE>13</LINE></_bz_ram_ticks>
+  <_bz_isr_start><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm</FILE><LINE>69</LINE></_bz_isr_start>
+  <_bz_isr_start_copy_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm</FILE><LINE>73</LINE></_bz_isr_start_copy_loop>
   <ee_g_bm_player><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm</FILE><LINE>1</LINE></ee_g_bm_player>
   <ee_g_bm_player_end><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm</FILE><LINE>3</LINE></ee_g_bm_player_end>
   <ee_p_bm_paused><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm</FILE><LINE>4</LINE></ee_p_bm_paused>
@@ -183,6 +188,6 @@
   <ee_s_bm_splash_end><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm</FILE><LINE>18</LINE></ee_s_bm_splash_end>
   <ee_s_bm_top><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm</FILE><LINE>19</LINE></ee_s_bm_top>
   <ee_s_bm_top_end><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm</FILE><LINE>21</LINE></ee_s_bm_top_end>
-  <m_l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>33</LINE></m_l_reset>
+  <m_l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>34</LINE></m_l_reset>
  </LABELS>
 </ASSEMBLER_INFO>

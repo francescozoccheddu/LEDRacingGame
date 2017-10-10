@@ -98,6 +98,9 @@
     <Compile Include="builtin_led.asm">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="buzzer.asm">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="distance_sens.asm">
       <SubType>Code</SubType>
     </Compile>
