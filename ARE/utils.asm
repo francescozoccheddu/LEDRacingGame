@@ -154,6 +154,7 @@
 ; @0 (prefix)
 ; @1 (timer index)
 .macro TIM_DEF
+	.equ TIM_@1_TAKEN = 1
 	.if (@1 != 0) && (@1 != 1) && (@1 != 2) && (@1 != 3) && (@1 != 4) && (@1 != 5) 
 		.error "Bad timer index"
 	.else
@@ -275,6 +276,7 @@ t_isr_calc:
 ; @0 (prefix)
 ; @1 (IO letter)
 .macro IO_DEF
+	.equ IO_@1_TAKEN = 1
 	.equ @0_PIN = PIN@1
 	.equ @0_PORT = PORT@1
 	.equ @0_DDR = DDR@1

@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Mon Oct 09 17:42:19 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Tue Oct 10 21:21:28 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -14,7 +14,8 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(159): Including file 'C:\Use
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(160): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(15): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\utils.asm'
@@ -28,7 +29,8 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(159): Including file 'C:\Use
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(160): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm'
                                  
                                  ; Francesco Zoccheddu
                                  
@@ -2081,6 +2083,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  ; @0 (prefix)
                                  ; @1 (timer index)
                                  .macro TIM_DEF
+                                 	.equ TIM_@1_TAKEN = 1
                                  	.if (@1 != 0) && (@1 != 1) && (@1 != 2) && (@1 != 3) && (@1 != 4) && (@1 != 5) 
                                  		.error "Bad timer index"
                                  	.else
@@ -2292,6 +2295,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  ; @0 (prefix)
                                  ; @1 (IO letter)
                                  .macro IO_DEF
+                                 	.equ IO_@1_TAKEN = 1
                                  	.equ @0_PIN = PIN@1
                                  	.equ @0_PORT = PORT@1
                                  	.equ @0_DDR = DDR@1
@@ -3681,6 +3685,88 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  #undef _ds_tmp1
                                  #undef _ds_tmp2
                                  
+                                 #include "buzzer.asm"
+                                 
+                                 #define _BZ_SQ_TIMER 1
+                                 #define _BZ_IO G
+                                 
+                                 IO_DEF _BZ, _BZ_IO
+                                 TIM_DEF _BZ_PWM, _BZ_PWM_TIMER
+                                 TIM_DEF _BZ_SQ, _BZ_SQ_TIMER
+                                 
+                                 #define BZ_TICKS 10
+                                 
+                                 .dseg
+00031f                           _bz_ram_tick: .byte 1
+000320                           _bz_ram_ticks: .byte 2*2*BZ_TICKS
+                                 .cseg
+                                 
+                                 #define _BZ_WGM 2
+                                 #define _BZ_COMA 0
+                                 #define _BZ_COMB 1
+                                 
+                                 #define _bz_setup_tmp @0
+                                 
+                                 .macro BZ_SRC_SETUP
+                                 	; set data direction register to output
+                                 	ldi _bz_setup_tmp, 1 << 5
+                                 	out _BZ_DDR, _bz_setup_tmp
+                                 	; setup PWM timer 
+                                 	ldi _bz_setup_tmp, WGMA_VAL(2) | COMB_VAL(1)
+                                 	out _BZ_PWM_TCCRA, _bz_setup_tmp
+                                 	clr _bz_setup_tmp
+                                 	out _BZ_PWM_TCCRB, _bz_setup_tmp
+                                 	; setup SQ timer
+                                 	clr _bz_setup_tmp
+                                 	sts _BZ_SQ_TCCRA, _bz_setup_tmp
+                                 	sts _BZ_SQ_TCCRB, _bz_setup_tmp
+                                 	sts _BZ_SQ_TCCRC, _bz_setup_tmp
+                                 	; set timer interrupt mask
+                                 	ldi _bz_setup_tmp, OCIEA_VAL
+                                 	sts _BZ_SQ_TIMSK, _bz_setup_tmp
+                                 .endmacro
+                                 
+                                 #undef _bz_setup_tmp
+                                 
+                                 #define bz_cs @0
+                                 #define bz_top @1
+                                 
+                                 .macro _BZ_SRC_PWM
+                                 	out _BZ_PWM_OCRA, bz_top
+                                 	ori bz_cs, WGMB_VAL(_BZ_WGM)
+                                 	out _BZ_PWM_TCCRB, bz_cs
+                                 .endmacro
+                                 
+                                 #undef bz_cs
+                                 #undef bz_top
+                                 
+                                 #define _bz_start_ticks @0
+                                 
+                                 .macro BZ_SRC_START
+                                 	cli
+                                 	ldi ZH, HIGH( _bz_start_ticks )
+                                 	ldi ZL, LOW( _bz_start_ticks )
+                                 	call _bz_isr_start
+                                 .endmacro
+                                 
+                                 #undef _bz_start_ticks
+                                 
+                                 #define bz_tmp1 rma
+                                 #define bz_tmp2 rmb
+                                 
+                                 _bz_isr_start:
+000335 e0b3                      	ldi XH, HIGH( _bz_ram_ticks )
+000336 e2a0                      	ldi XL, LOW( _bz_ram_ticks )
+000337 e258                      	ldi bz_tmp2, 2*2*BZ_TICKS
+                                 _bz_isr_start_copy_loop:
+000338 9141                      	ld bz_tmp1, Z+
+000339 934d                      	st X+, bz_tmp1
+00033a 955a                      	dec bz_tmp2
+00033b f7e1                      	brne _bz_isr_start_copy_loop
+00033c 9350 031f                 	sts _bz_ram_tick, bz_tmp2
+000022 940c 033e                 ISR _BZ_SQ_OCAaddr
+00033e 9518                      	reti
+                                 
                                  
                                  .eseg
                                  #include "bitmaps.asm"
@@ -3891,259 +3977,272 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  
                                  #define m_tmp rma
                                  
-000000 940c 0335                 ISR 0
-                                 m_l_reset:
-000335 94f8                      	cli
+000000 940c 033f                 ISR 0
+                                 m_l_reset:	
+00033f 94f8                      	cli
                                  	; setup stack
-000336 e241
-000337 bf4e
-000338 ef4f
-000339 bf4d                      	STACK_SETUP m_tmp
+000340 e241
+000341 bf4e
+000342 ef4f
+000343 bf4d                      	STACK_SETUP m_tmp
                                  	; setup builtin LED
-00033a e840
-00033b b944                      	BL_SRC_SETUP m_tmp
-00033c 2744
-00033d b945                      	BL_SRC_OFF m_tmp
+000344 e840
+000345 b944                      	BL_SRC_SETUP m_tmp
+000346 2744
+000347 b945                      	BL_SRC_OFF m_tmp
                                  	; setup LED matrix
-00033e ef4f
-00033f b947                      	LM_SRC_SETUP m_tmp
+000348 ef4f
+000349 b947                      	LM_SRC_SETUP m_tmp
                                  	; setup UART communication
-000340 e040
-000341 9340 00c5
-000343 e647
-000344 9340 00c4
-000346 e040
-000347 9340 00c0
-000349 e948
-00034a 9340 00c1
-00034c e846
-00034d 9340 00c2                 	UC_SRC_SETUP m_tmp
+00034a e040
+00034b 9340 00c5
+00034d e647
+00034e 9340 00c4
+000350 e040
+000351 9340 00c0
+000353 e948
+000354 9340 00c1
+000356 e846
+000357 9340 00c2                 	UC_SRC_SETUP m_tmp
                                  	;setup distance sensor
-00034f 2744
-000350 9340 00a0
-000352 9340 00a1
-000354 9340 00a2
-000356 e242
-000357 9340 0072
-000359 e440
-00035a 9340 010a
-00035c e125
-00035d e010
-00035e dd96
-00035f 9300 0315
-000361 e126
-000362 e010
-000363 dd91
-000364 9300 0316
-000366 e127
+000359 2744
+00035a 9340 00a0
+00035c 9340 00a1
+00035e 9340 00a2
+000360 e242
+000361 9340 0072
+000363 e440
+000364 9340 010a
+000366 e125
 000367 e010
 000368 dd8c
-000369 9300 0317
-00036b e128
+000369 9300 0315
+00036b e126
 00036c e010
 00036d dd87
-00036e 9300 0318
-000370 e129
+00036e 9300 0316
+000370 e127
 000371 e010
 000372 dd82
-000373 9300 0319
-000375 e12a
+000373 9300 0317
+000375 e128
 000376 e010
 000377 dd7d
-000378 9300 031a
-00037a e123
+000378 9300 0318
+00037a e129
 00037b e010
 00037c dd78
-00037d 2f40
-00037e e124
-00037f e010
-000380 dd74
-000381 2f50
-000382 940e 0072
-000384 6c60
-000385 9350 00a9
-000387 9340 00a8
-000389 9360 0314                 	DS_SRC_SETUP m_tmp
-00038b 940e 02ba                 	call ds_isr_trig
+00037d 9300 0319
+00037f e12a
+000380 e010
+000381 dd73
+000382 9300 031a
+000384 e123
+000385 e010
+000386 dd6e
+000387 2f40
+000388 e124
+000389 e010
+00038a dd6a
+00038b 2f50
+00038c 940e 0072
+00038e 6c60
+00038f 9350 00a9
+000391 9340 00a8
+000393 9360 0314                 	DS_SRC_SETUP m_tmp
+000395 940e 02ba                 	call ds_isr_trig
+                                 	; setup buzzer
+000397 e240
+000398 bb43
+000399 e142
+00039a bd44
+00039b 2744
+00039c bd45
+00039d 2744
+00039e 9340 0080
+0003a0 9340 0081
+0003a2 9340 0082
+0003a4 e042
+0003a5 9340 006f                 	BZ_SRC_SETUP m_tmp
                                  	; setup draw loop
-00038d 2744
-00038e 9340 00b0
-000390 9340 00b1
-000392 e042
-000393 9340 0070
-000395 2744
-000396 9340 0202
-000398 e042
-000399 9340 0201
-00039b e022
-00039c e010
-00039d dd57
-00039e 9300 0203
-0003a0 e023
-0003a1 e010
-0003a2 dd52
-0003a3 9300 0204
-0003a5 e020
-0003a6 e010
-0003a7 dd4d
-0003a8 2f40
-0003a9 e021
-0003aa e010
-0003ab dd49
-0003ac 2f50
-0003ad 940e 0072
-0003af 9350 00b3
-0003b1 9360 0200
-0003b3 2744
-0003b4 9340 0287
-0003b6 e02c
-0003b7 e010
-0003b8 dd3c
-0003b9 9300 0289
-0003bb e02d
-0003bc e010
-0003bd dd37
-0003be 9300 0288
-0003c0 e22b
-0003c1 e010
-0003c2 e8aa
-0003c3 e0b2
-0003c4 e230
-0003c5 dd36
-0003c6 e42b
-0003c7 e010
-0003c8 eaaa
-0003c9 e0b2
-0003ca e230
-0003cb dd30
-0003cc 2744
-0003cd 9340 0090
-0003cf 9340 0091
-0003d1 9340 0092
-0003d3 e042
-0003d4 9340 0071
-0003d6 ecaf
-0003d7 e0b2
-0003d8 2766
-0003d9 e340
-0003da 936d
-0003db 954a
-0003dc f7e9
-0003dd e041
-0003de 9340 0300
-0003e0 2744
-0003e1 9340 0302
-0003e3 9340 0303
-0003e5 e047
-0003e6 9340 02ce
-0003e8 e74f
-0003e9 9340 02cc
-0003eb 9340 02cd
-0003ed e12b
-0003ee e010
-0003ef e0a4
-0003f0 e0b3
-0003f1 e130
-0003f2 dd09
-0003f3 e02e
-0003f4 e010
-0003f5 dcff
-0003f6 9300 0301
-0003f8 e02f
-0003f9 e010
-0003fa dcfa
-0003fb 9300 02ca
-0003fd e120
-0003fe e010
-0003ff dcf5
-000400 9300 02cb
-000402 e121
-000403 e010
-000404 dcf0
-000405 2f40
-000406 e122
-000407 e010
-000408 dcec
-000409 2f50
-00040a dc67
-00040b 9350 0099
-00040d 9340 0098
-00040f 6068
-000410 9360 02ff
-000412 2744
-000413 9340 0120
-000415 9340 0121
-000417 9340 0122
-000419 e042
-00041a 9340 0073
-00041c e042
-00041d 9340 0205
-00041f ea2b
-000420 e010
-000421 e1a7
-000422 e0b2
-000423 e230
-000424 dcd7
-000425 e92b
-000426 e010
-000427 e4a7
-000428 e0b2
-000429 e130
-00042a dcd1
-00042b ec2b
-00042c e010
-00042d e3a7
-00042e e0b2
-00042f e130
-000430 dccb
-000431 e62b
-000432 e010
-000433 e5a7
-000434 e0b2
-000435 e330
-000436 dcc5
-000437 e024
-000438 e010
-000439 dcbb
-00043a 2f40
-00043b e025
-00043c e010
-00043d dcb7
-00043e 2f50
-00043f 940e 0072
-000441 9340 0207
-000443 9350 0208
-000445 9360 0206
-000447 e026
-000448 e010
-000449 dcab
-00044a 2f40
-00044b e027
+0003a7 2744
+0003a8 9340 00b0
+0003aa 9340 00b1
+0003ac e042
+0003ad 9340 0070
+0003af 2744
+0003b0 9340 0202
+0003b2 e042
+0003b3 9340 0201
+0003b5 e022
+0003b6 e010
+0003b7 dd3d
+0003b8 9300 0203
+0003ba e023
+0003bb e010
+0003bc dd38
+0003bd 9300 0204
+0003bf e020
+0003c0 e010
+0003c1 dd33
+0003c2 2f40
+0003c3 e021
+0003c4 e010
+0003c5 dd2f
+0003c6 2f50
+0003c7 940e 0072
+0003c9 9350 00b3
+0003cb 9360 0200
+0003cd 2744
+0003ce 9340 0287
+0003d0 e02c
+0003d1 e010
+0003d2 dd22
+0003d3 9300 0289
+0003d5 e02d
+0003d6 e010
+0003d7 dd1d
+0003d8 9300 0288
+0003da e22b
+0003db e010
+0003dc e8aa
+0003dd e0b2
+0003de e230
+0003df dd1c
+0003e0 e42b
+0003e1 e010
+0003e2 eaaa
+0003e3 e0b2
+0003e4 e230
+0003e5 dd16
+0003e6 2744
+0003e7 9340 0090
+0003e9 9340 0091
+0003eb 9340 0092
+0003ed e042
+0003ee 9340 0071
+0003f0 ecaf
+0003f1 e0b2
+0003f2 2766
+0003f3 e340
+0003f4 936d
+0003f5 954a
+0003f6 f7e9
+0003f7 e041
+0003f8 9340 0300
+0003fa 2744
+0003fb 9340 0302
+0003fd 9340 0303
+0003ff e047
+000400 9340 02ce
+000402 e74f
+000403 9340 02cc
+000405 9340 02cd
+000407 e12b
+000408 e010
+000409 e0a4
+00040a e0b3
+00040b e130
+00040c dcef
+00040d e02e
+00040e e010
+00040f dce5
+000410 9300 0301
+000412 e02f
+000413 e010
+000414 dce0
+000415 9300 02ca
+000417 e120
+000418 e010
+000419 dcdb
+00041a 9300 02cb
+00041c e121
+00041d e010
+00041e dcd6
+00041f 2f40
+000420 e122
+000421 e010
+000422 dcd2
+000423 2f50
+000424 dc4d
+000425 9350 0099
+000427 9340 0098
+000429 6068
+00042a 9360 02ff
+00042c 2744
+00042d 9340 0120
+00042f 9340 0121
+000431 9340 0122
+000433 e042
+000434 9340 0073
+000436 e042
+000437 9340 0205
+000439 ea2b
+00043a e010
+00043b e1a7
+00043c e0b2
+00043d e230
+00043e dcbd
+00043f e92b
+000440 e010
+000441 e4a7
+000442 e0b2
+000443 e130
+000444 dcb7
+000445 ec2b
+000446 e010
+000447 e3a7
+000448 e0b2
+000449 e130
+00044a dcb1
+00044b e62b
 00044c e010
-00044d dca7
-00044e 2f50
-00044f 940e 0072
-000451 9340 020a
-000453 9350 020b
-000455 9360 0209
-000457 e028
-000458 e010
-000459 dc9b
-00045a 2f40
-00045b e029
-00045c e010
-00045d dc97
-00045e 2f50
-00045f 940e 0072
-000461 9340 020d
-000463 9350 020e
-000465 9360 020c                 	ML_SRC_SETUP m_tmp
-000467 9478                      	sei
+00044d e5a7
+00044e e0b2
+00044f e330
+000450 dcab
+000451 e024
+000452 e010
+000453 dca1
+000454 2f40
+000455 e025
+000456 e010
+000457 dc9d
+000458 2f50
+000459 940e 0072
+00045b 9340 0207
+00045d 9350 0208
+00045f 9360 0206
+000461 e026
+000462 e010
+000463 dc91
+000464 2f40
+000465 e027
+000466 e010
+000467 dc8d
+000468 2f50
+000469 940e 0072
+00046b 9340 020a
+00046d 9350 020b
+00046f 9360 0209
+000471 e028
+000472 e010
+000473 dc81
+000474 2f40
+000475 e029
+000476 e010
+000477 dc7d
+000478 2f50
+000479 940e 0072
+00047b 9340 020d
+00047d 9350 020e
+00047f 9360 020c                 	ML_SRC_SETUP m_tmp
+000481 9478                      	sei
                                  	; enter main loop
-000468 cca8                      	rjmp ml_l_loop
+000482 cc8e                      	rjmp ml_l_loop
+                                 
                                  
                                  #undef m_tmp
-                                 
 
 
 RESOURCE USE INFORMATION
@@ -4161,41 +4260,41 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega2560" register use summary:
-x  :  16 y  :  12 z  :   0 r0 :   1 r1 :   0 r2 :   9 r3 :   7 r4 :   3 
+x  :  17 y  :  12 z  :   1 r0 :   1 r1 :   0 r2 :   9 r3 :   7 r4 :   3 
 r5 :   3 r6 :   4 r7 :   4 r8 :   8 r9 :   0 r10:   6 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16: 112 r17:  87 r18:  74 r19:  18 r20: 203 
-r21:  73 r22:  50 r23:  12 r24:  11 r25:  22 r26:  24 r27:  24 r28:   7 
+r13:   0 r14:   0 r15:   0 r16: 112 r17:  87 r18:  74 r19:  18 r20: 217 
+r21:  76 r22:  50 r23:  12 r24:  11 r25:  22 r26:  25 r27:  25 r28:   7 
 r29:   7 r30:   0 r31:   0 
-Registers used: 25 out of 35 (71.4%)
+Registers used: 26 out of 35 (74.3%)
 
 "ATmega2560" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :  10 add   :  17 adiw  :   1 and   :   1 
 andi  :  20 asr   :   0 bclr  :   0 bld   :   2 brbc  :   0 brbs  :   0 
 brcc  :   5 brcs  :   0 break :   0 breq  :  16 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   5 brlt  :   0 brmi  :   0 
-brne  :  16 brpl  :   1 brsh  :   6 brtc  :   0 brts  :   0 brvc  :   0 
+brne  :  17 brpl  :   1 brsh  :   6 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   2 call  :   6 cbi   :   0 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   2 cln   :   0 clr   :  32 cls   :   0 
+clc   :   0 clh   :   0 cli   :   2 cln   :   0 clr   :  34 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   7 cpc   :   5 
-cpi   :  11 cpse  :   0 dec   :   7 eicall:   0 eijmp :   0 elpm  :   0 
+cpi   :  11 cpse  :   0 dec   :   8 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   3 inc   :   3 jmp   :   7 ld    :  13 ldd   :   0 ldi   : 176 
+in    :   3 inc   :   3 jmp   :   8 ld    :  14 ldd   :   0 ldi   : 182 
 lds   :  62 lpm   :   0 lsl   :  12 lsr   :   6 mov   :  45 movw  :   4 
 mul   :   1 muls  :   0 mulsu :   0 neg   :   1 nop   :   0 or    :   6 
-ori   :   3 out   :  27 pop   :   0 push  :   0 rcall :  46 ret   :  20 
-reti  :   8 rjmp  :  41 rol   :   4 ror   :  12 sbc   :   2 sbci  :   0 
+ori   :   3 out   :  30 pop   :   0 push  :   0 rcall :  46 ret   :  20 
+reti  :   9 rjmp  :  41 rol   :   4 ror   :  12 sbc   :   2 sbci  :   0 
 sbi   :   7 sbic  :   5 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   2 
 sbrs  :   3 sec   :   0 seh   :   0 sei   :   2 sen   :   0 ser   :   4 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
-st    :  12 std   :   3 sts   : 108 sub   :   9 subi  :   2 swap  :   6 
+st    :  13 std   :   3 sts   : 113 sub   :   9 subi  :   2 swap  :   6 
 tst   :   9 wdr   :   0 
 Instructions used: 55 out of 116 (47.4%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0008d2   2058      0   2058  262144   0.8%
-[.dseg] 0x000200 0x00031f      0    287    287    8192   3.5%
+[.cseg] 0x000000 0x000906   2114      0   2114  262144   0.8%
+[.dseg] 0x000200 0x000348      0    328    328    8192   4.0%
 [.eseg] 0x000000 0x0000db      0    219    219    4096   5.3%
 
 Assembly complete, 0 errors, 0 warnings

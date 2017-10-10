@@ -20,6 +20,7 @@
 #include "main_loop.asm"
 #include "led_matrix.asm"
 #include "distance_sens.asm"
+#include "buzzer.asm"
 
 .eseg
 #include "bitmaps.asm"
@@ -30,7 +31,7 @@
 #define m_tmp rma
 
 ISR 0
-m_l_reset:
+m_l_reset:	
 	cli
 	; setup stack
 	STACK_SETUP m_tmp
@@ -44,11 +45,13 @@ m_l_reset:
 	;setup distance sensor
 	DS_SRC_SETUP m_tmp
 	call ds_isr_trig
+	; setup buzzer
+	BZ_SRC_SETUP m_tmp
 	; setup draw loop
 	ML_SRC_SETUP m_tmp
 	sei
 	; enter main loop
 	rjmp ml_l_loop
 
-#undef m_tmp
 
+#undef m_tmp
