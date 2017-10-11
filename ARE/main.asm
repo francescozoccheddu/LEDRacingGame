@@ -31,7 +31,8 @@
 #define m_tmp rma
 
 ISR 0
-m_l_reset:	
+m_l_reset:
+	
 	cli
 	; setup stack
 	STACK_SETUP m_tmp
