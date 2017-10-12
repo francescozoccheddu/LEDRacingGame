@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Thu Oct 12 18:35:30 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Thu Oct 12 20:19:24 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -2702,7 +2702,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 000116 c11b                      	rjmp g_l_update
                                  g_l_update_done:
                                  	
-000117 9140 035e                 	lds ml_tmp1, ds_ram_out_state
+000117 9140 0337                 	lds ml_tmp1, ds_ram_out_state
 000119 9150 0202                 	lds ml_tmp2, _ml_ram_pprog
 00011b 2344                      	tst ml_tmp1
 00011c f441                      	brne _ml_l_update_sub
@@ -2746,7 +2746,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  g_l_draw_done:
                                  _ml_l_loop_flush:
 00013a 94f8                      	cli
-00013b c172                      	rjmp lm_l_sendcol
+00013b c185                      	rjmp lm_l_sendcol
                                  
                                  ml_l_sendcol_done:
                                  
@@ -3105,7 +3105,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  #define _p_tmp2 ml_tmp2
                                  
                                  p_l_update:
-00020d 9140 035e                 	lds _p_tmp1, ds_ram_out_state
+00020d 9140 0337                 	lds _p_tmp1, ds_ram_out_state
 00020f 9150 0287                 	lds _p_tmp2, _p_ram_prog
 000211 2344                      	tst _p_tmp1
 000212 f039                      	breq _p_l_src_update_sub
@@ -3133,8 +3133,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  
                                  TIM_DEF _G, _G_TIMER
                                  
-                                 #define _G_SPAWNS 4
-                                 #define _G_SPAWNS_PRNG_MASK (_G_SPAWNS - 1)
+                                 #define _G_SPAWN_COUNT 4
                                  
                                  #define _g_setup_tmp1 @0
                                  #define _g_setup_tmp2 @1
@@ -3142,6 +3141,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  .macro G_SRC_SETUP
                                  	; clear timer control registers
                                  	clr _g_setup_tmp1
+                                 	sts lol, _g_setup_tmp1
                                  	sts _G_TCCRA, _g_setup_tmp1
                                  	sts _G_TCCRB, _g_setup_tmp1
                                  	sts _G_TCCRC, _g_setup_tmp1
@@ -3170,8 +3170,9 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  	sts _g_ram_dsval, _g_setup_tmp1
                                  	sts _g_ram_dsval_slow, _g_setup_tmp1
                                  	; load
-                                 	SP_SRC_LOAD_TO_RAM ee_g_bm_player, _g_ram_bm_player, 16
-                                 	SP_SRC_LOAD_TO_RAM ee_g_bm_spawns, _g_ram_bm_spawns, 16*_G_SPAWNS
+                                 	SP_SRC_LOAD_TO_RAM ee_g_bm_player_acs, _g_ram_bm_player_acs, 16
+                                 	SP_SRC_LOAD_TO_RAM ee_g_bm_enemy_al, _g_ram_bm_enemy_al, 16
+                                 	SP_SRC_LOAD_TO_RAM ee_g_bm_spawns, _g_ram_bm_spawns, 2*_G_SPAWN_COUNT
                                  	SP_SRC_LOAD_TO_RAM ee_g_spawn_period, _g_ram_spawn_period, 1
                                  	SP_SRC_LOAD_TO_RAM ee_g_smooth, _g_ram_smooth, 1
                                  	SP_SRC_LOAD_TO_RAM ee_g_smooth_slow, _g_ram_smooth_slow, 1
@@ -3197,8 +3198,9 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 000300                           _g_ram_spawn_countdown: .byte 1
 000301                           _g_ram_spawn_period: .byte 1
 000302                           g_ram_score: .byte 2
-000304                           _g_ram_bm_player: .byte 16
-000314                           _g_ram_bm_spawns: .byte 16*_G_SPAWNS
+000304                           _g_ram_bm_player_acs: .byte 16
+000314                           _g_ram_bm_enemy_al: .byte 16
+000324                           _g_ram_bm_spawns: .byte 2*_G_SPAWN_COUNT
                                  .cseg
                                  
                                  .eseg
@@ -3241,10 +3243,10 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  
                                  g_l_update:
                                  	; smooth
-000232 9140 035e                 	lds _g_tmp1, ds_ram_out_state
+000232 9140 0337                 	lds _g_tmp1, ds_ram_out_state
 000234 2344                      	tst _g_tmp1
 000235 f089                      	breq _g_l_update_smooth_zombie
-000236 9150 035d                 	lds _g_tmp2, ds_ram_out_val
+000236 9150 0336                 	lds _g_tmp2, ds_ram_out_val
                                  	; svals = svals * smooths + rval * (1-smooths)
 000238 9140 02cd                 	lds _g_tmp1, _g_ram_dsval_slow
 00023a 9160 02cb                 	lds _g_tmp3, _g_ram_smooth_slow
@@ -3290,8 +3292,8 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 000261 f40a                      	brpl _g_l_draw_abs_done
 000262 9541                      	neg _g_tmp1
                                  _g_l_draw_abs_done:
-000263 e0b3                      	ldi XH, HIGH( _g_ram_bm_player )
-000264 e0a4                      	ldi XL, LOW( _g_ram_bm_player )
+000263 e0b3                      	ldi XH, HIGH( _g_ram_bm_player_acs )
+000264 e0a4                      	ldi XL, LOW( _g_ram_bm_player_acs )
 000265 0fa4                      	add XL, _g_tmp1
 000266 2744                      	clr _g_tmp1
 000267 1fb4                      	adc XH, _g_tmp1
@@ -3334,6 +3336,8 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  #define _g_tmp1 ria
                                  #define _g_tmp2 rib
                                  #define _g_tmp3 ric
+                                 #define _g_sl ri0
+                                 #define _g_sh ri1
                                  
 000040 940c 027e                 ISR _G_OCAaddr
                                  	; score
@@ -3345,49 +3349,76 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  	; spawn
 000287 9100 0300                 	lds _g_tmp1, _g_ram_spawn_countdown
 000289 950a                      	dec _g_tmp1
-00028a f491                      	brne _g_l_oca_vframe_done
+00028a f529                      	brne _g_l_oca_vframe_done
                                  	; spawn begin
-00028b e110                      	ldi _g_tmp2, 16
-00028c 9100 00a4                 	lds _g_tmp1, _DS_TCNTL
-00028e 7003                      	andi _g_tmp1, _G_SPAWNS_PRNG_MASK
-00028f 9f01                      	mul _g_tmp1, _g_tmp2
-000290 e1a4                      	ldi XL, LOW( _g_ram_bm_spawns )
-000291 e0b3                      	ldi XH, HIGH( _g_ram_bm_spawns )
-000292 0da0                      	add XL, mull
-000293 1db1                      	adc XH, mulh
-000294 ecef                      	ldi ZL, LOW( _g_ram_frame )
-000295 e0f2                      	ldi ZH, HIGH( _g_ram_frame )
-                                 _g_l_oca_spawn_loop:
-000296 910d                      	ld _g_tmp1, X+
-000297 8300                      	st Z, _g_tmp1
-000298 9633                      	adiw Z, 3
-000299 951a                      	dec _g_tmp2
-00029a f7d9                      	brne _g_l_oca_spawn_loop
+                                 	.dseg
+00032c                           	lol: .byte 1
+                                 	.cseg
+00028b 9100 032c                 	lds _g_tmp1, lol
+00028d 9503                      	inc _g_tmp1
+00028e 7003                      	andi _g_tmp1, 3
+00028f 9300 032c                 	sts lol, _g_tmp1
+                                 	; _g_tmp1 is rand betweeen 0 and _G_SPAWN_COUNT
+000291 e2e4                      	ldi ZL, LOW( _g_ram_bm_spawns )
+000292 e0f3                      	ldi ZH, HIGH( _g_ram_bm_spawns )
+000293 2711                      	clr _g_tmp2
+000294 0f00                      	lsl _g_tmp1
+000295 1f11                      	rol _g_tmp2
+000296 0fe0                      	add ZL, _g_tmp1
+000297 1ff1                      	adc ZH, _g_tmp2
+000298 9031                      	ld _g_sh, Z+
+000299 8020                      	ld _g_sl, Z
+00029a ecaf                      	ldi XL, LOW( _g_ram_frame )
+00029b e0b2                      	ldi XH, HIGH( _g_ram_frame )
+00029c e110                      	ldi _g_tmp2, 16
+00029d 2722                      	clr _g_tmp3
+                                 	; sh:sl is the spawn pattern, X is the frame, tmp2 is 16, tmp3 is 0
+                                 _g_l_spawn_loop:
+00029e 0c22                      	lsl _g_sl
+00029f 1c33                      	rol _g_sh
+0002a0 f418                      	brcc _g_l_spawn_loop_continue
+0002a1 e1e4                      	ldi ZL, LOW( _g_ram_bm_enemy_al )
+0002a2 e0f3                      	ldi ZH, HIGH( _g_ram_bm_enemy_al )
+0002a3 e120                      	ldi _g_tmp3, 16
+                                 _g_l_spawn_loop_continue:
+0002a4 2322                      	tst _g_tmp3
+0002a5 f019                      	breq _g_l_spawn_loop_void
+0002a6 952a                      	dec _g_tmp3
+0002a7 9101                      	ld _g_tmp1, Z+
+0002a8 c001                      	rjmp _g_l_spawn_loop_draw
+                                 _g_l_spawn_loop_void:
+0002a9 2700                      	clr _g_tmp1
+                                 _g_l_spawn_loop_draw:
+0002aa 930c                      	st X, _g_tmp1
+0002ab 9613                      	adiw XH:XL, 3
+0002ac 951a                      	dec _g_tmp2
+0002ad f781                      	brne _g_l_spawn_loop
                                  	; spawn end
-00029b 9100 0301                 	lds _g_tmp1, _g_ram_spawn_period
+0002ae 9100 0301                 	lds _g_tmp1, _g_ram_spawn_period
                                  _g_l_oca_vframe_done:
-00029d 9300 0300                 	sts _g_ram_spawn_countdown, _g_tmp1
+0002b0 9300 0300                 	sts _g_ram_spawn_countdown, _g_tmp1
                                  	; shift
-00029f ecaf                      	ldi XL, LOW( _g_ram_frame )
-0002a0 e0b2                      	ldi XH, HIGH( _g_ram_frame )
-0002a1 e100                      	ldi _g_tmp1, 16
+0002b2 ecaf                      	ldi XL, LOW( _g_ram_frame )
+0002b3 e0b2                      	ldi XH, HIGH( _g_ram_frame )
+0002b4 e100                      	ldi _g_tmp1, 16
                                  _g_l_oca_shift_loop:
-0002a2 911c                      	ld _g_tmp2, X
-0002a3 9516                      	lsr _g_tmp2
-0002a4 931d                      	st X+, _g_tmp2
-0002a5 911c                      	ld _g_tmp2, X
-0002a6 9517                      	ror _g_tmp2
-0002a7 931d                      	st X+, _g_tmp2
-0002a8 911c                      	ld _g_tmp2, X
-0002a9 9517                      	ror _g_tmp2
-0002aa 931d                      	st X+, _g_tmp2
-0002ab 950a                      	dec _g_tmp1
-0002ac f7a9                      	brne _g_l_oca_shift_loop
-0002ad 9518                      	reti
+0002b5 911c                      	ld _g_tmp2, X
+0002b6 9516                      	lsr _g_tmp2
+0002b7 931d                      	st X+, _g_tmp2
+0002b8 911c                      	ld _g_tmp2, X
+0002b9 9517                      	ror _g_tmp2
+0002ba 931d                      	st X+, _g_tmp2
+0002bb 911c                      	ld _g_tmp2, X
+0002bc 9517                      	ror _g_tmp2
+0002bd 931d                      	st X+, _g_tmp2
+0002be 950a                      	dec _g_tmp1
+0002bf f7a9                      	brne _g_l_oca_shift_loop
+0002c0 9518                      	reti
                                  
                                  #undef _g_tmp1
                                  #undef _g_tmp2
-                                 #undef _g_tmp3
+                                 #undef _g_sh
+                                 #undef _g_sl
                                  
                                  
                                  #include "led_matrix.asm"
@@ -3423,35 +3454,35 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  #define _lm_tmp2 ml_tmp2
                                  
                                  lm_l_sendcol:
-0002ae e140                      	ldi _lm_tmp1, 16
+0002c1 e140                      	ldi _lm_tmp1, 16
                                  _lm_l_src_send_col_row:
-0002af e350                      	ldi _lm_tmp2, (1 << _LM_BIT_G) | (1 << _LM_BIT_DI)
-0002b0 9596                      	lsr _lm_ch
-0002b1 9587                      	ror _lm_cl
-0002b2 f408                      	brcc _lm_l_src_send_col_out_dot
-0002b3 e150                      	ldi _lm_tmp2, (1 << _LM_BIT_G)
+0002c2 e350                      	ldi _lm_tmp2, (1 << _LM_BIT_G) | (1 << _LM_BIT_DI)
+0002c3 9596                      	lsr _lm_ch
+0002c4 9587                      	ror _lm_cl
+0002c5 f408                      	brcc _lm_l_src_send_col_out_dot
+0002c6 e150                      	ldi _lm_tmp2, (1 << _LM_BIT_G)
                                  _lm_l_src_send_col_out_dot:
-0002b4 b958                      	out _LM_PORT, _lm_tmp2
-0002b5 6450                      	ori _lm_tmp2, 1 << _LM_BIT_CLK
-0002b6 b958                      	out _LM_PORT, _lm_tmp2
-0002b7 7b5f                      	andi _lm_tmp2, ~(1 << _LM_BIT_CLK)
-0002b8 b958                      	out _LM_PORT, _lm_tmp2
+0002c7 b958                      	out _LM_PORT, _lm_tmp2
+0002c8 6450                      	ori _lm_tmp2, 1 << _LM_BIT_CLK
+0002c9 b958                      	out _LM_PORT, _lm_tmp2
+0002ca 7b5f                      	andi _lm_tmp2, ~(1 << _LM_BIT_CLK)
+0002cb b958                      	out _LM_PORT, _lm_tmp2
                                  	;loop
-0002b9 954a                      	dec _lm_tmp1
-0002ba f7a1                      	brne _lm_l_src_send_col_row
+0002cc 954a                      	dec _lm_tmp1
+0002cd f7a1                      	brne _lm_l_src_send_col_row
                                  	;send LAT
-0002bb e950                      	ldi _lm_tmp2, (1 << _LM_BIT_G) | (1 << _LM_BIT_LAT)
-0002bc b958                      	out _LM_PORT, _lm_tmp2
-0002bd e150                      	ldi _lm_tmp2, (1 << _LM_BIT_G)
-0002be b958                      	out _LM_PORT, _lm_tmp2
+0002ce e950                      	ldi _lm_tmp2, (1 << _LM_BIT_G) | (1 << _LM_BIT_LAT)
+0002cf b958                      	out _LM_PORT, _lm_tmp2
+0002d0 e150                      	ldi _lm_tmp2, (1 << _LM_BIT_G)
+0002d1 b958                      	out _LM_PORT, _lm_tmp2
                                  	;send col
-0002bf e04f                      	ldi _lm_tmp1, 15
-0002c0 1b47                      	sub _lm_tmp1, _lm_col
-0002c1 2b54                      	or _lm_tmp2, _lm_tmp1
-0002c2 b958                      	out _LM_PORT, _lm_tmp2
+0002d2 e04f                      	ldi _lm_tmp1, 15
+0002d3 1b47                      	sub _lm_tmp1, _lm_col
+0002d4 2b54                      	or _lm_tmp2, _lm_tmp1
+0002d5 b958                      	out _LM_PORT, _lm_tmp2
                                  	;end G
-0002c3 b948                      	out _LM_PORT, _lm_tmp1
-0002c4 ce77                      	rjmp ml_l_sendcol_done
+0002d6 b948                      	out _LM_PORT, _lm_tmp1
+0002d7 ce64                      	rjmp ml_l_sendcol_done
                                  
                                  #undef _lm_cl
                                  #undef _lm_ch
@@ -3514,33 +3545,33 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  .cseg
                                  
                                  .dseg
-000354                           _ds_ram_tccrb: .byte 1
-000355                           _ds_ram_min: .byte 2
-000357                           _ds_ram_max: .byte 2
-000359                           _ds_ram_emax: .byte 2
-00035b                           _ds_ram_ltime: .byte 2
-00035d                           ds_ram_out_val: .byte 1
-00035e                           ds_ram_out_state: .byte 1
+00032d                           _ds_ram_tccrb: .byte 1
+00032e                           _ds_ram_min: .byte 2
+000330                           _ds_ram_max: .byte 2
+000332                           _ds_ram_emax: .byte 2
+000334                           _ds_ram_ltime: .byte 2
+000336                           ds_ram_out_val: .byte 1
+000337                           ds_ram_out_state: .byte 1
                                  .cseg
                                  
-000054 940c 02c5                 ISR _DS_OCAaddr
+000054 940c 02d8                 ISR _DS_OCAaddr
                                  ds_isr_trig:
                                  
                                  #define _ds_tmp ria
                                  
                                  	; start trig
-0002c5 e400                      	ldi _ds_tmp, 1 << _DS_TRIG_BIT
-0002c6 9300 010b                 	sts _DS_PORT, _ds_tmp
+0002d8 e400                      	ldi _ds_tmp, 1 << _DS_TRIG_BIT
+0002d9 9300 010b                 	sts _DS_PORT, _ds_tmp
                                  	; stop timer
-0002c8 2700                      	clr _ds_tmp
-0002c9 9300 00a1                 	sts _DS_TCCRB, _ds_tmp
+0002db 2700                      	clr _ds_tmp
+0002dc 9300 00a1                 	sts _DS_TCCRB, _ds_tmp
                                  	; clear counter
-0002cb 9300 00a5                 	sts _DS_TCNTH, _ds_tmp
-0002cd 9300 00a4                 	sts _DS_TCNTL, _ds_tmp
+0002de 9300 00a5                 	sts _DS_TCNTH, _ds_tmp
+0002e0 9300 00a4                 	sts _DS_TCNTL, _ds_tmp
                                  	; skip if not measured
-0002cf 9100 0072                 	lds _ds_tmp, _DS_TIMSK
-0002d1 fd05                      	sbrc _ds_tmp, ICIE
-0002d2 c039                      	rjmp _ds_isr_trig_bad
+0002e2 9100 0072                 	lds _ds_tmp, _DS_TIMSK
+0002e4 fd05                      	sbrc _ds_tmp, ICIE
+0002e5 c039                      	rjmp _ds_isr_trig_bad
                                  
                                  #undef _ds_tmp
                                  
@@ -3550,13 +3581,13 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  #define _ds_inh ri1
                                  
                                  	; skip if greater than max
-0002d3 9100 0359                 	lds _ds_cursl, _ds_ram_emax
-0002d5 9110 035a                 	lds _ds_cursh, _ds_ram_emax + 1
-0002d7 9020 035b                 	lds _ds_inl, _ds_ram_ltime
-0002d9 9030 035c                 	lds _ds_inh, _ds_ram_ltime + 1
-0002db 1620                      	cp _ds_inl, _ds_cursl
-0002dc 0631                      	cpc _ds_inh, _ds_cursh
-0002dd f570                      	brsh _ds_isr_trig_bad
+0002e6 9100 0332                 	lds _ds_cursl, _ds_ram_emax
+0002e8 9110 0333                 	lds _ds_cursh, _ds_ram_emax + 1
+0002ea 9020 0334                 	lds _ds_inl, _ds_ram_ltime
+0002ec 9030 0335                 	lds _ds_inh, _ds_ram_ltime + 1
+0002ee 1620                      	cp _ds_inl, _ds_cursl
+0002ef 0631                      	cpc _ds_inh, _ds_cursh
+0002f0 f570                      	brsh _ds_isr_trig_bad
                                  
                                  #define _ds_in_lol ri2
                                  #define _ds_in_loh ri3
@@ -3568,45 +3599,45 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  
                                  	; clamp
                                  	; setup clamp parameters
-0002de 9040 0355                 	lds _ds_in_lol, _ds_ram_min
-0002e0 9050 0356                 	lds _ds_in_loh, _ds_ram_min + 1
-0002e2 9060 0357                 	lds _ds_in_hil, _ds_ram_max
-0002e4 9070 0358                 	lds _ds_in_hih, _ds_ram_max + 1
-0002e6 2722                      	clr _ds_out_lo
-0002e7 ef3f                      	ser _ds_out_hi
+0002f1 9040 032e                 	lds _ds_in_lol, _ds_ram_min
+0002f3 9050 032f                 	lds _ds_in_loh, _ds_ram_min + 1
+0002f5 9060 0330                 	lds _ds_in_hil, _ds_ram_max
+0002f7 9070 0331                 	lds _ds_in_hih, _ds_ram_max + 1
+0002f9 2722                      	clr _ds_out_lo
+0002fa ef3f                      	ser _ds_out_hi
                                  	; start clamping
                                  _ds_l_isr_trig_clamp_start:
-0002e8 0183                      	movw _ds_cursh:_ds_cursl, _ds_in_hih:_ds_in_hil
-0002e9 2e83                      	mov _ds_out, _ds_out_hi
+0002fb 0183                      	movw _ds_cursh:_ds_cursl, _ds_in_hih:_ds_in_hil
+0002fc 2e83                      	mov _ds_out, _ds_out_hi
                                  _ds_l_isr_trig_clamp_loop:
-0002ea 1b32                      	sub _ds_out_hi, _ds_out_lo
-0002eb 3032                      	cpi _ds_out_hi, 2
-0002ec f0b8                      	brlo _ds_l_isr_trig_clamp_stop
-0002ed 0f32                      	add _ds_out_hi, _ds_out_lo
-0002ee 1502                      	cp _ds_cursl, _ds_inl
-0002ef 0513                      	cpc _ds_cursh, _ds_inh
-0002f0 f099                      	breq _ds_l_isr_trig_clamp_stop
-0002f1 f448                      	brsh _ds_l_isr_trig_clamp_smaller
+0002fd 1b32                      	sub _ds_out_hi, _ds_out_lo
+0002fe 3032                      	cpi _ds_out_hi, 2
+0002ff f0b8                      	brlo _ds_l_isr_trig_clamp_stop
+000300 0f32                      	add _ds_out_hi, _ds_out_lo
+000301 1502                      	cp _ds_cursl, _ds_inl
+000302 0513                      	cpc _ds_cursh, _ds_inh
+000303 f099                      	breq _ds_l_isr_trig_clamp_stop
+000304 f448                      	brsh _ds_l_isr_trig_clamp_smaller
                                  _ds_l_isr_trig_clamp_greater:
-0002f2 0128                      	movw _ds_in_loh:_ds_in_lol, _ds_cursh:_ds_cursl
-0002f3 2d28                      	mov _ds_out_lo, _ds_out
-0002f4 0d06                      	add _ds_cursl, _ds_in_hil
-0002f5 1d17                      	adc _ds_cursh, _ds_in_hih
-0002f6 9517                      	ror _ds_cursh
-0002f7 9507                      	ror _ds_cursl
-0002f8 0e83                      	add _ds_out, _ds_out_hi
-0002f9 9487                      	ror _ds_out
-0002fa cfef                      	rjmp _ds_l_isr_trig_clamp_loop
+000305 0128                      	movw _ds_in_loh:_ds_in_lol, _ds_cursh:_ds_cursl
+000306 2d28                      	mov _ds_out_lo, _ds_out
+000307 0d06                      	add _ds_cursl, _ds_in_hil
+000308 1d17                      	adc _ds_cursh, _ds_in_hih
+000309 9517                      	ror _ds_cursh
+00030a 9507                      	ror _ds_cursl
+00030b 0e83                      	add _ds_out, _ds_out_hi
+00030c 9487                      	ror _ds_out
+00030d cfef                      	rjmp _ds_l_isr_trig_clamp_loop
                                  _ds_l_isr_trig_clamp_smaller:
-0002fb 0138                      	movw _ds_in_hih:_ds_in_hil, _ds_cursh:_ds_cursl
-0002fc 2d38                      	mov _ds_out_hi, _ds_out
-0002fd 0d04                      	add _ds_cursl, _ds_in_lol
-0002fe 1d15                      	adc _ds_cursh, _ds_in_loh
-0002ff 9517                      	ror _ds_cursh
-000300 9507                      	ror _ds_cursl
-000301 0e82                      	add _ds_out, _ds_out_lo
-000302 9487                      	ror _ds_out
-000303 cfe6                      	rjmp _ds_l_isr_trig_clamp_loop
+00030e 0138                      	movw _ds_in_hih:_ds_in_hil, _ds_cursh:_ds_cursl
+00030f 2d38                      	mov _ds_out_hi, _ds_out
+000310 0d04                      	add _ds_cursl, _ds_in_lol
+000311 1d15                      	adc _ds_cursh, _ds_in_loh
+000312 9517                      	ror _ds_cursh
+000313 9507                      	ror _ds_cursl
+000314 0e82                      	add _ds_out, _ds_out_lo
+000315 9487                      	ror _ds_out
+000316 cfe6                      	rjmp _ds_l_isr_trig_clamp_loop
                                  
                                  #undef _ds_cursl
                                  #undef _ds_cursh
@@ -3624,41 +3655,41 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  
                                  _ds_l_isr_trig_clamp_stop:
                                  	; write output value
-000304 9100 035d                 	lds _ds_tmp1, ds_ram_out_val
-000306 0d08                      	add _ds_tmp1, _ds_out
-000307 9507                      	ror _ds_tmp1
-000308 9300 035d                 	sts ds_ram_out_val, _ds_tmp1
+000317 9100 0336                 	lds _ds_tmp1, ds_ram_out_val
+000319 0d08                      	add _ds_tmp1, _ds_out
+00031a 9507                      	ror _ds_tmp1
+00031b 9300 0336                 	sts ds_ram_out_val, _ds_tmp1
                                  	; set output state to true
-00030a ef0f                      	ser _ds_tmp1
-00030b c004                      	rjmp _ds_isr_trig_done
+00031d ef0f                      	ser _ds_tmp1
+00031e c004                      	rjmp _ds_isr_trig_done
                                  
                                  #undef _ds_out
                                  
                                  _ds_isr_trig_bad:
                                  	; wait
-00030c e305                      	ldi _ds_tmp1, 53
+00031f e305                      	ldi _ds_tmp1, 53
                                  _ds_isr_trig_bad_wait:
-00030d 950a                      	dec _ds_tmp1
-00030e f7f1                          brne _ds_isr_trig_bad_wait
+000320 950a                      	dec _ds_tmp1
+000321 f7f1                          brne _ds_isr_trig_bad_wait
                                  	; set output state to false
-00030f 2700                      	clr _ds_tmp1
+000322 2700                      	clr _ds_tmp1
                                  _ds_isr_trig_done:
                                  	; write output state
-000310 9300 035e                 	sts ds_ram_out_state, _ds_tmp1
-000312 b905                      	BL_SRC_OUT _ds_tmp1
+000323 9300 0337                 	sts ds_ram_out_state, _ds_tmp1
+000325 b905                      	BL_SRC_OUT _ds_tmp1
                                  	; cancel pending interrupts
-000313 e202                      	ldi _ds_tmp1, ICF_VAL | OCFA_VAL
-000314 bb09                      	out _DS_TIFR, _ds_tmp1
+000326 e202                      	ldi _ds_tmp1, ICF_VAL | OCFA_VAL
+000327 bb09                      	out _DS_TIFR, _ds_tmp1
                                  	; enable interrupts
-000315 e202                      	ldi _ds_tmp1, ICIE_VAL | OCIEA_VAL
-000316 9300 0072                 	sts _DS_TIMSK, _ds_tmp1
+000328 e202                      	ldi _ds_tmp1, ICIE_VAL | OCIEA_VAL
+000329 9300 0072                 	sts _DS_TIMSK, _ds_tmp1
                                  	; stop trig
-000318 2700                      	clr _ds_tmp1
-000319 9300 010b                 	sts _DS_PORT, _ds_tmp1
+00032b 2700                      	clr _ds_tmp1
+00032c 9300 010b                 	sts _DS_PORT, _ds_tmp1
                                  	; start timer
-00031b 9100 0354                 	lds _ds_tmp1, _ds_ram_tccrb
-00031d 9300 00a1                 	sts _DS_TCCRB, _ds_tmp1
-00031f 9518                      	reti
+00032e 9100 032d                 	lds _ds_tmp1, _ds_ram_tccrb
+000330 9300 00a1                 	sts _DS_TCCRB, _ds_tmp1
+000332 9518                      	reti
                                  
                                  #undef _ds_tmp1
                                  #undef _ds_tmp2
@@ -3668,35 +3699,35 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  #define _ds_tmp1 ria
                                  #define _ds_tmp2 rib
                                  
-000052 940c 0320                 ISR _DS_ICPaddr
+000052 940c 0333                 ISR _DS_ICPaddr
                                  	; load ICR
-000320 9020 00a6                 	lds _ds_icrl, _DS_ICRL
-000322 9030 00a7                 	lds _ds_icrh, _DS_ICRH
+000333 9020 00a6                 	lds _ds_icrl, _DS_ICRL
+000335 9030 00a7                 	lds _ds_icrh, _DS_ICRH
                                  	; check if rising or falling edge
-000324 9100 00a1                 	lds _ds_tmp1, _DS_TCCRB
-000326 ff06                      	sbrs _ds_tmp1, ICES
-000327 c00a                      	rjmp _ds_l_isr_icp_falling
+000337 9100 00a1                 	lds _ds_tmp1, _DS_TCCRB
+000339 ff06                      	sbrs _ds_tmp1, ICES
+00033a c00a                      	rjmp _ds_l_isr_icp_falling
                                  _ds_l_isr_icp_rising:
                                  	; save ICR to sram
-000328 9220 035b                 	sts _ds_ram_ltime, _ds_icrl
-00032a 9230 035c                 	sts _ds_ram_ltime + 1, _ds_icrh
+00033b 9220 0334                 	sts _ds_ram_ltime, _ds_icrl
+00033d 9230 0335                 	sts _ds_ram_ltime + 1, _ds_icrh
                                  	; set input capture to falling edge
-00032c 9100 00a1                 	lds _ds_tmp1, _DS_TCCRB
-00032e 7b0f                      	andi _ds_tmp1, ~(ICES_VAL)
-00032f 9300 00a1                 	sts _DS_TCCRB, _ds_tmp1
-000331 9518                      	reti
+00033f 9100 00a1                 	lds _ds_tmp1, _DS_TCCRB
+000341 7b0f                      	andi _ds_tmp1, ~(ICES_VAL)
+000342 9300 00a1                 	sts _DS_TCCRB, _ds_tmp1
+000344 9518                      	reti
                                  _ds_l_isr_icp_falling:
                                  	; save difference to sram
-000332 9100 035b                 	lds _ds_tmp1, _ds_ram_ltime
-000334 9110 035c                 	lds _ds_tmp2, _ds_ram_ltime + 1
-000336 1a20                      	sub _ds_icrl, _ds_tmp1
-000337 0a31                      	sbc _ds_icrh, _ds_tmp2
-000338 9220 035b                 	sts _ds_ram_ltime, _ds_icrl
-00033a 9230 035c                 	sts _ds_ram_ltime + 1, _ds_icrh
+000345 9100 0334                 	lds _ds_tmp1, _ds_ram_ltime
+000347 9110 0335                 	lds _ds_tmp2, _ds_ram_ltime + 1
+000349 1a20                      	sub _ds_icrl, _ds_tmp1
+00034a 0a31                      	sbc _ds_icrh, _ds_tmp2
+00034b 9220 0334                 	sts _ds_ram_ltime, _ds_icrl
+00034d 9230 0335                 	sts _ds_ram_ltime + 1, _ds_icrh
                                  	; disable input capture interrupt
-00033c e002                      	ldi _ds_tmp1, OCIEA_VAL
-00033d 9300 0072                 	sts _DS_TIMSK, _ds_tmp1
-00033f 9518                      	reti
+00034f e002                      	ldi _ds_tmp1, OCIEA_VAL
+000350 9300 0072                 	sts _DS_TIMSK, _ds_tmp1
+000352 9518                      	reti
                                  
                                  #undef _ds_icrh
                                  #undef _ds_icrl
@@ -3717,7 +3748,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  #define _BZ_IO_BIT 5
                                  
                                  .dseg
-00035f                           _bz_ram_ticks: .byte 2
+000338                           _bz_ram_ticks: .byte 2
                                  .cseg
                                  
                                  #define _BZ_WGM 2
@@ -3826,45 +3857,45 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  
                                  #undef _bz_ee
                                  
-000022 940c 0340                 ISR _BZ_SQ_OCAaddr
+000022 940c 0353                 ISR _BZ_SQ_OCAaddr
                                  	; increment tick and set Z pointer
-000340 91e0 035f                 	lds ZL, _bz_ram_ticks
-000342 91f0 0360                 	lds ZH, _bz_ram_ticks + 1
+000353 91e0 0338                 	lds ZL, _bz_ram_ticks
+000355 91f0 0339                 	lds ZH, _bz_ram_ticks + 1
                                  _bz_isr_start:
                                  	; set PWM
-000344 9141                      	ld bz_tmp1, Z+
-000345 bd45                      	out _BZ_PWM_TCCRB, bz_tmp1
-000346 2344                      	tst bz_tmp1
-000347 f009                      	breq _bz_isr_start_mute
-000348 e240                      	ldi bz_tmp1, 1 << _BZ_IO_BIT
+000357 9141                      	ld bz_tmp1, Z+
+000358 bd45                      	out _BZ_PWM_TCCRB, bz_tmp1
+000359 2344                      	tst bz_tmp1
+00035a f009                      	breq _bz_isr_start_mute
+00035b e240                      	ldi bz_tmp1, 1 << _BZ_IO_BIT
                                  _bz_isr_start_mute:
-000349 bb43                      	out _BZ_DDR, bz_tmp1
-00034a 9141                      	ld bz_tmp1, Z+
-00034b bd47                      	out _BZ_PWM_OCRA, bz_tmp1
+00035c bb43                      	out _BZ_DDR, bz_tmp1
+00035d 9141                      	ld bz_tmp1, Z+
+00035e bd47                      	out _BZ_PWM_OCRA, bz_tmp1
                                  	; set SQ
-00034c 2744                      	clr bz_tmp1
-00034d 9340 0081                 	sts _BZ_SQ_TCCRB, bz_tmp1
-00034f 9340 0085                 	sts _BZ_SQ_TCNTH, bz_tmp1
-000351 9340 0084                 	sts _BZ_SQ_TCNTL, bz_tmp1
-000353 9141                      	ld bz_tmp1, Z+
-000354 9340 0081                 	sts _BZ_SQ_TCCRB, bz_tmp1
-000356 9141                      	ld bz_tmp1, Z+
-000357 9340 0089                 	sts _BZ_SQ_OCRAH, bz_tmp1
-000359 9141                      	ld bz_tmp1, Z+
-00035a 9340 0088                 	sts _BZ_SQ_OCRAL, bz_tmp1
+00035f 2744                      	clr bz_tmp1
+000360 9340 0081                 	sts _BZ_SQ_TCCRB, bz_tmp1
+000362 9340 0085                 	sts _BZ_SQ_TCNTH, bz_tmp1
+000364 9340 0084                 	sts _BZ_SQ_TCNTL, bz_tmp1
+000366 9141                      	ld bz_tmp1, Z+
+000367 9340 0081                 	sts _BZ_SQ_TCCRB, bz_tmp1
+000369 9141                      	ld bz_tmp1, Z+
+00036a 9340 0089                 	sts _BZ_SQ_OCRAH, bz_tmp1
+00036c 9141                      	ld bz_tmp1, Z+
+00036d 9340 0088                 	sts _BZ_SQ_OCRAL, bz_tmp1
                                  	; store pointer
-00035c 93e0 035f                 	sts _bz_ram_ticks, ZL
-00035e 93f0 0360                 	sts _bz_ram_ticks + 1, ZH
-000360 9518                      	reti
+00036f 93e0 0338                 	sts _bz_ram_ticks, ZL
+000371 93f0 0339                 	sts _bz_ram_ticks + 1, ZH
+000373 9518                      	reti
                                  
                                  
                                  .eseg
                                  #include "bitmaps.asm"
                                  
-00001b 0d
-00001c 06
+00001b 06
+00001c 03
 00001d 03
-00001e 01
+00001e 06
 00001f 00
 000020 00
 000021 00
@@ -3876,13 +3907,13 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 000027 00
 000028 00
 000029 00
-00002a 00                        .db 0b00001101,0b00000110,0b00000011,0b00000001,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000
-                                 ee_g_bm_player_end:
-                                 ee_g_bm_spawns: ; g_bm_spawns 64x8
-00002b 06
-00002c 03
-00002d 03
-00002e 06
+00002a 00                        .db 0b00000110,0b00000011,0b00000011,0b00000110,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000
+                                 ee_g_bm_enemy_al_end:
+                                 ee_g_bm_player_acs: ; g_bm_player_acs 16x8
+00002b 02
+00002c 01
+00002d 00
+00002e 00
 00002f 00
 000030 00
 000031 00
@@ -3894,15 +3925,19 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 000037 00
 000038 00
 000039 00
-00003a 00
+00003a 00                        .db 0b00000010,0b00000001,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000
+                                 ee_g_bm_player_acs_end:
+                                 ee_g_bm_spawns: ; g_bm_spawns 4x16
 00003b 00
-00003c 00
+00003c 08
 00003d 00
-00003e 00
-00003f 06
-000040 01
-000041 01
-000042 06
+00003e 80
+00003f 08
+000040 00
+000041 80
+000042 00                        .db 0b00000000,0b00001000,0b00000000,0b10000000,0b00001000,0b00000000,0b10000000,0b00000000
+                                 ee_g_bm_spawns_end:
+                                 ee_p_bm_paused: ; p_bm_paused 16x16
 000043 00
 000044 00
 000045 00
@@ -3911,22 +3946,22 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 000048 00
 000049 00
 00004a 00
-00004b 00
-00004c 00
-00004d 00
-00004e 00
-00004f 00
-000050 00
+00004b 07
+00004c e0
+00004d 07
+00004e e0
+00004f 07
+000050 e0
 000051 00
 000052 00
-000053 06
-000054 03
-000055 03
-000056 06
-000057 00
-000058 00
-000059 00
-00005a 00
+000053 00
+000054 00
+000055 07
+000056 e0
+000057 07
+000058 e0
+000059 07
+00005a e0
 00005b 00
 00005c 00
 00005d 00
@@ -3934,474 +3969,440 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 00005f 00
 000060 00
 000061 00
-000062 00
-000063 00
-000064 00
-000065 00
-000066 00
-000067 06
-000068 03
-000069 03
-00006a 06                        .db 0b00000110,0b00000011,0b00000011,0b00000110,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000110,0b00000001,0b0000000                                 1,0b00000110,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000110,0b00000011,0b00000011,0b00000110,0b00000000,0b00000000,                                 0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000110,0b00000011,0b00000011,0b00000110
-00006b 00
-00006c 00
-00006d 00
-00006e 00
-00006f 00
-000070 00
-000071 00
-000072 00
-000073 07
-000074 e0
-000075 07
-000076 e0
-000077 07
-000078 e0
-000079 00
-00007a 00
-00007b 00
-00007c 00
-00007d 07
-00007e e0
-00007f 07
-000080 e0
-000081 07
-000082 e0
+000062 00                        .db 0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000111,0b11100000,0b00000111,0b11100000,0b00000111,0b11100000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000111,0b11100000,0b00000111,0b11100000,0b0000011                                 1,0b11100000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000
+                                 ee_p_bm_paused_end:
+000063 ff
+000064 ff
+000065 ff
+000066 ff
+000067 ff
+000068 ff
+000069 ff
+00006a ff
+00006b f8
+00006c 1f
+00006d f8
+00006e 1f
+00006f f8
+000070 1f
+000071 ff
+000072 ff
+000073 ff
+000074 ff
+000075 f8
+000076 1f
+000077 f8
+000078 1f
+000079 f8
+00007a 1f
+00007b ff
+00007c ff
+00007d ff
+00007e ff
+00007f ff
+000080 ff
+000081 ff
+000082 ff                        ee_p_bm_resuming: ; p_bm_resuming 16x16
+                                 .db 0b11111111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111000,0b00011111,0b11111000,0b00011111,0b11111000,0b00011111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111000,0b00011111,0b11111000,0b00011111,0b1111100                                 0,0b00011111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111111
 000083 00
-000084 00
-000085 00
-000086 00
+000084 3e
+000085 22
+000086 3e
 000087 00
 000088 00
 000089 00
-00008a 00                        ee_g_bm_spawns_end:
-                                 ee_p_bm_paused: ; p_bm_paused 16x16
-                                 .db 0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000111,0b11100000,0b00000111,0b11100000,0b00000111,0b11100000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000111,0b11100000,0b00000111,0b11100000,0b000001100008b ff
-00008c ff
-00008d ff
-00008e ff
-00008f ff
-000090 ff
-000091 ff
-000092 ff
-000093 f8
-000094 1f
-000095 f8
-000096 1f
-000097 f8
-000098 1f
-000099 ff
-00009a ff
-00009b ff
-00009c ff
-00009d f8
-00009e 1f
-00009f f8
-0000a0 1f
-0000a1 f8
-0000a2 1f
-0000a3 ff
-0000a4 ff
-0000a5 ff
-0000a6 ff
-0000a7 ff
-0000a8 ff
-0000a9 ff
-0000aa ff                        1,0b11100000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000,0b00000000
-                                 ee_p_bm_paused_end:
-                                 ee_p_bm_resuming: ; p_bm_resuming 16x16
+00008a 3e
+00008b 00
+00008c 2e
+00008d 2a
+00008e 3a
+00008f 00
+000090 2a
+000091 2a
+000092 3e
+000093 00
+000094 38
+000095 08
+000096 3e
+000097 00
+000098 3a
+000099 2a
+00009a 2e
+00009b 00
+00009c 3e
+00009d 2a
+00009e 2e
+00009f 00
+0000a0 30
+0000a1 20
+0000a2 3e
+0000a3 00
+0000a4 3e
+0000a5 2a
+0000a6 3e
+0000a7 00
+0000a8 3a
+0000a9 2a
+0000aa 3e
 0000ab 00
-0000ac 3e
-0000ad 22
-0000ae 3e
+0000ac 20
+0000ad 20
+0000ae 00
 0000af 00
 0000b0 00
 0000b1 00
-0000b2 3e
-0000b3 00
-0000b4 2e
+0000b2 00                        ee_p_bm_resuming_end:
+                                 ee_s_bm_digits: ; s_bm_digits 48x8
+                                 .db 0b00000000,0b00111110,0b00100010,0b00111110,0b00000000,0b00000000,0b00000000,0b00111110,0b00000000,0b00101110,0b00101010,0b00111010,0b00000000,0b00101010,0b00101010,0b00111110,0b00000000,0b00111000,0b00001000,0b00111110,0b00000000,0b00111010,0b00101010000b3 00
+0000b4 3a
 0000b5 2a
-0000b6 3a
+0000b6 2e
 0000b7 00
-0000b8 2a
-0000b9 2a
-0000ba 3e
+0000b8 3e
+0000b9 22
+0000ba 22
 0000bb 00
-0000bc 38
-0000bd 08
-0000be 3e
+0000bc 3e
+0000bd 2c
+0000be 3a
 0000bf 00
-0000c0 3a
-0000c1 2a
-0000c2 2e
-0000c3 00
-0000c4 3e
-0000c5 2a
-0000c6 2e
-0000c7 00
-0000c8 30
-0000c9 20
-0000ca 3e
-0000cb 00
-0000cc 3e
-0000cd 2a
-0000ce 3e
-0000cf 00
-0000d0 3a
-0000d1 2a
-0000d2 3e
-0000d3 00
-0000d4 20
-0000d5 20
-0000d6 00
-0000d7 00
-0000d8 00
-0000d9 00
-0000da 00                        .db 0b11111111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111000,0b00011111,0b11111000,0b00011111,0b11111000,0b00011111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111000,0b00011111,0b11111000,0b00011111,0b1111100                                 0,0b00011111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111111,0b11111111
-                                 ee_p_bm_resuming_end:
-0000db 00
-0000dc 3a
-0000dd 2a
-0000de 2e
-0000df 00
-0000e0 3e
-0000e1 22
-0000e2 22
-0000e3 00
-0000e4 3e
-0000e5 2c
-0000e6 3a
-0000e7 00
-0000e8 12
-0000e9 00
-0000ea 00                        ee_s_bm_digits: ; s_bm_digits 48x8
-                                 .db 0b00000000,0b00111110,0b00100010,0b00111110,0b00000000,0b00000000,0b00000000,0b00111110,0b00000000,0b00101110,0b00101010,0b00111010,0b00000000,0b00101010,0b00101010,0b00111110,0b00000000,0b00111000,0b00001000,0b00111110,0b00000000,0b00111010,0b0010101                                 0,0b00101110,0b00000000,0b00111110,0b00101010,0b00101110,0b00000000,0b00110000,0b00100000,0b00111110,0b00000000,0b00111110,0b00101010,0b00111110,0b00000000,0b00111010,0b00101010,0b00111110,0b00000000,0b00100000,0b00100000,0b00000000,0b00000000,0b00000000,0000eb 00
-0000ec 00
-0000ed 7c
-0000ee fe
-0000ef 44
-0000f0 82
-0000f1 5c
-0000f2 fe
-0000f3 00
-0000f4 00
-0000f5 7c
-0000f6 f8
-0000f7 50
-0000f8 06
-0000f9 7c
-0000fa f8
-0000fb 00
-0000fc 00
-0000fd 7c
-0000fe fe
-0000ff 60
-000100 92
-000101 7c
-000102 00
-000103 00
-000104 fe
-000105 7c
-000106 98
-000107 54
-000108 f6
-000109 00
-00010a 00                        0b00000000,0b00000000
+0000c0 12
+0000c1 00
+0000c2 00                        0,0b00101110,0b00000000,0b00111110,0b00101010,0b00101110,0b00000000,0b00110000,0b00100000,0b00111110,0b00000000,0b00111110,0b00101010,0b00111110,0b00000000,0b00111010,0b00101010,0b00111110,0b00000000,0b00100000,0b00100000,0b00000000,0b00000000,0b00000000,                                 0b00000000,0b00000000
                                  ee_s_bm_digits_end:
-                                 ee_s_bm_scr: ; s_bm_scr 16x8
-00010b 00
-00010c 20
-00010d 3e
-00010e 20
-00010f 00
-000110 3e
-000111 22
-000112 3e
-000113 00
-000114 3e
-000115 28
-000116 38
-000117 00
-000118 12
-000119 00
-00011a 00                        .db 0b00000000,0b00111010,0b00101010,0b00101110,0b00000000,0b00111110,0b00100010,0b00100010,0b00000000,0b00111110,0b00101100,0b00111010,0b00000000,0b00010010,0b00000000,0b00000000
+0000c3 00
+0000c4 00
+0000c5 7c
+0000c6 fe
+0000c7 44
+0000c8 82
+0000c9 5c
+0000ca fe
+0000cb 00
+0000cc 00
+0000cd 7c
+0000ce f8
+0000cf 50
+0000d0 06
+0000d1 7c
+0000d2 f8
+0000d3 00
+0000d4 00
+0000d5 7c
+0000d6 fe
+0000d7 60
+0000d8 92
+0000d9 7c
+0000da 00
+0000db 00
+0000dc fe
+0000dd 7c
+0000de 98
+0000df 54
+0000e0 f6
+0000e1 00
+0000e2 00                        ee_s_bm_scr: ; s_bm_scr 16x8
+                                 .db 0b00000000,0b00111010,0b00101010,0b00101110,0b00000000,0b00111110,0b00100010,0b00100010,0b00000000,0b00111110,0b00101100,0b00111010,0b00000000,0b00010010,0b00000000,0b00000000
                                  ee_s_bm_scr_end:
-                                 .cseg
+0000e3 00
+0000e4 20
+0000e5 3e
+0000e6 20
+0000e7 00
+0000e8 3e
+0000e9 22
+0000ea 3e
+0000eb 00
+0000ec 3e
+0000ed 28
+0000ee 38
+0000ef 00
+0000f0 12
+0000f1 00
+0000f2 00                        ee_s_bm_splash: ; s_bm_splash 16x16
+                                 .db 0b00000000,0b00000000,0b01111100,0b11111110,0b01000100,0b10000010,0b01011100,0b11111110,0b00000000,0b00000000,0b01111100,0b11111000,0b01010000,0b00000110,0b01111100,0b11111000,0b00000000,0b00000000,0b01111100,0b11111110,0b01100000,0b10010010,0b0111110                                 .cseg
                                  
                                  ; main
                                  
                                  #define m_tmp rma
                                  
-000000 940c 0361                 ISR 0
+000000 940c 0374                 ISR 0
                                  m_l_reset:
                                  	
-000361 94f8                      	cli
+000374 94f8                      	cli
                                  	; setup stack
-000362 e241
-000363 bf4e
-000364 ef4f
-000365 bf4d                      	STACK_SETUP m_tmp
+000375 e241
+000376 bf4e
+000377 ef4f
+000378 bf4d                      	STACK_SETUP m_tmp
                                  	; setup builtin LED
-000366 e840
-000367 b944                      	BL_SRC_SETUP m_tmp
-000368 2744
-000369 b945                      	BL_SRC_OFF m_tmp
-                                 	; setup LED matrix
-00036a ef4f
-00036b b947                      	LM_SRC_SETUP m_tmp
-                                 	; setup UART communication
-00036c e040
-00036d 9340 00c5
-00036f e647
-000370 9340 00c4
-000372 e040
-000373 9340 00c0
-000375 e948
-000376 9340 00c1
-000378 e846
-000379 9340 00c2                 	UC_SRC_SETUP m_tmp
-                                 	;setup distance sensor
+000379 e840
+00037a b944                      	BL_SRC_SETUP m_tmp
 00037b 2744
-00037c 9340 00a0
-00037e 9340 00a1
-000380 9340 00a2
-000382 e242
-000383 9340 0072
-000385 e440
-000386 9340 010a
-000388 e125
-000389 e010
-00038a dd6a
-00038b 9300 0355
-00038d e126
-00038e e010
-00038f dd65
-000390 9300 0356
-000392 e127
-000393 e010
-000394 dd60
-000395 9300 0357
-000397 e128
-000398 e010
-000399 dd5b
-00039a 9300 0358
-00039c e129
-00039d e010
-00039e dd56
-00039f 9300 0359
-0003a1 e12a
-0003a2 e010
-0003a3 dd51
-0003a4 9300 035a
-0003a6 e123
-0003a7 e010
-0003a8 dd4c
-0003a9 2f40
-0003aa e124
+00037c b945                      	BL_SRC_OFF m_tmp
+                                 	; setup LED matrix
+00037d ef4f
+00037e b947                      	LM_SRC_SETUP m_tmp
+                                 	; setup UART communication
+00037f e040
+000380 9340 00c5
+000382 e647
+000383 9340 00c4
+000385 e040
+000386 9340 00c0
+000388 e948
+000389 9340 00c1
+00038b e846
+00038c 9340 00c2                 	UC_SRC_SETUP m_tmp
+                                 	;setup distance sensor
+00038e 2744
+00038f 9340 00a0
+000391 9340 00a1
+000393 9340 00a2
+000395 e242
+000396 9340 0072
+000398 e440
+000399 9340 010a
+00039b e125
+00039c e010
+00039d dd57
+00039e 9300 032e
+0003a0 e126
+0003a1 e010
+0003a2 dd52
+0003a3 9300 032f
+0003a5 e127
+0003a6 e010
+0003a7 dd4d
+0003a8 9300 0330
+0003aa e128
 0003ab e010
 0003ac dd48
-0003ad 2f50
-0003ae 940e 0072
-0003b0 6c60
-0003b1 9350 00a9
-0003b3 9340 00a8
-0003b5 9360 0354                 	DS_SRC_SETUP m_tmp
-0003b7 940e 02c5                 	call ds_isr_trig
+0003ad 9300 0331
+0003af e129
+0003b0 e010
+0003b1 dd43
+0003b2 9300 0332
+0003b4 e12a
+0003b5 e010
+0003b6 dd3e
+0003b7 9300 0333
+0003b9 e123
+0003ba e010
+0003bb dd39
+0003bc 2f40
+0003bd e124
+0003be e010
+0003bf dd35
+0003c0 2f50
+0003c1 940e 0072
+0003c3 6c60
+0003c4 9350 00a9
+0003c6 9340 00a8
+0003c8 9360 032d                 	DS_SRC_SETUP m_tmp
+0003ca 940e 02d8                 	call ds_isr_trig
                                  	; setup buzzer
-0003b9 2744
-0003ba bb43
-0003bb e142
-0003bc bd44
-0003bd 2744
-0003be bd45
-0003bf 2744
-0003c0 9340 0080
-0003c2 9340 0081
-0003c4 9340 0082
-0003c6 e042
-0003c7 9340 006f                 	BZ_SRC_SETUP m_tmp
+0003cc 2744
+0003cd bb43
+0003ce e142
+0003cf bd44
+0003d0 2744
+0003d1 bd45
+0003d2 2744
+0003d3 9340 0080
+0003d5 9340 0081
+0003d7 9340 0082
+0003d9 e042
+0003da 9340 006f                 	BZ_SRC_SETUP m_tmp
                                  	; setup draw loop
-0003c9 2744
-0003ca 9340 00b0
-0003cc 9340 00b1
-0003ce e042
-0003cf 9340 0070
-0003d1 2744
-0003d2 9340 0202
-0003d4 e042
-0003d5 9340 0201
-0003d7 e022
-0003d8 e010
-0003d9 dd1b
-0003da 9300 0203
-0003dc e023
-0003dd e010
-0003de dd16
-0003df 9300 0204
-0003e1 e020
-0003e2 e010
-0003e3 dd11
-0003e4 2f40
-0003e5 e021
-0003e6 e010
-0003e7 dd0d
-0003e8 2f50
-0003e9 940e 0072
-0003eb 9350 00b3
-0003ed 9360 0200
-0003ef 2744
-0003f0 9340 0287
-0003f2 e02c
-0003f3 e010
-0003f4 dd00
-0003f5 9300 0289
-0003f7 e02d
-0003f8 e010
-0003f9 dcfb
-0003fa 9300 0288
-0003fc e62b
-0003fd e010
-0003fe e8aa
-0003ff e0b2
-000400 e230
-000401 dcfa
-000402 e82b
-000403 e010
-000404 eaaa
-000405 e0b2
-000406 e230
-000407 dcf4
-000408 2744
-000409 9340 0090
-00040b 9340 0091
-00040d 9340 0092
-00040f e042
-000410 9340 0071
-000412 ecaf
-000413 e0b2
-000414 2766
-000415 e340
-000416 936d
-000417 954a
-000418 f7e9
-000419 e041
-00041a 9340 0300
-00041c 2744
-00041d 9340 0302
-00041f 9340 0303
-000421 e047
-000422 9340 02ce
-000424 e74f
-000425 9340 02cc
-000427 9340 02cd
-000429 e12b
-00042a e010
-00042b e0a4
-00042c e0b3
-00042d e130
-00042e dccd
-00042f e22b
-000430 e010
-000431 e1a4
-000432 e0b3
-000433 e430
-000434 dcc7
-000435 e02e
-000436 e010
-000437 dcbd
-000438 9300 0301
-00043a e02f
-00043b e010
-00043c dcb8
-00043d 9300 02ca
-00043f e120
-000440 e010
-000441 dcb3
-000442 9300 02cb
-000444 e121
+0003dc 2744
+0003dd 9340 00b0
+0003df 9340 00b1
+0003e1 e042
+0003e2 9340 0070
+0003e4 2744
+0003e5 9340 0202
+0003e7 e042
+0003e8 9340 0201
+0003ea e022
+0003eb e010
+0003ec dd08
+0003ed 9300 0203
+0003ef e023
+0003f0 e010
+0003f1 dd03
+0003f2 9300 0204
+0003f4 e020
+0003f5 e010
+0003f6 dcfe
+0003f7 2f40
+0003f8 e021
+0003f9 e010
+0003fa dcfa
+0003fb 2f50
+0003fc 940e 0072
+0003fe 9350 00b3
+000400 9360 0200
+000402 2744
+000403 9340 0287
+000405 e02c
+000406 e010
+000407 dced
+000408 9300 0289
+00040a e02d
+00040b e010
+00040c dce8
+00040d 9300 0288
+00040f e423
+000410 e010
+000411 e8aa
+000412 e0b2
+000413 e230
+000414 dce7
+000415 e623
+000416 e010
+000417 eaaa
+000418 e0b2
+000419 e230
+00041a dce1
+00041b 2744
+00041c 9340 032c
+00041e 9340 0090
+000420 9340 0091
+000422 9340 0092
+000424 e042
+000425 9340 0071
+000427 ecaf
+000428 e0b2
+000429 2766
+00042a e340
+00042b 936d
+00042c 954a
+00042d f7e9
+00042e e041
+00042f 9340 0300
+000431 2744
+000432 9340 0302
+000434 9340 0303
+000436 e047
+000437 9340 02ce
+000439 e74f
+00043a 9340 02cc
+00043c 9340 02cd
+00043e e22b
+00043f e010
+000440 e0a4
+000441 e0b3
+000442 e130
+000443 dcb8
+000444 e12b
 000445 e010
-000446 dcae
-000447 2f40
-000448 e122
-000449 e010
-00044a dcaa
-00044b 2f50
-00044c dc25
-00044d 9350 0099
-00044f 9340 0098
-000451 6068
-000452 9360 02ff
-000454 2744
-000455 9340 0120
-000457 9340 0121
-000459 9340 0122
-00045b e042
-00045c 9340 0073
-00045e e042
-00045f 9340 0205
-000461 ee2b
-000462 e010
-000463 e1a7
-000464 e0b2
-000465 e230
-000466 dc95
-000467 ed2b
-000468 e010
-000469 e4a7
-00046a e0b2
-00046b e130
-00046c dc8f
-00046d e02b
-00046e e011
-00046f e3a7
-000470 e0b2
-000471 e130
-000472 dc89
-000473 ea2b
-000474 e010
-000475 e5a7
-000476 e0b2
-000477 e330
-000478 dc83
-000479 e024
-00047a e010
-00047b dc79
-00047c 2f40
-00047d e025
-00047e e010
-00047f dc75
-000480 2f50
-000481 940e 0072
-000483 9340 0207
-000485 9350 0208
-000487 9360 0206
-000489 e026
-00048a e010
-00048b dc69
-00048c 2f40
-00048d e027
-00048e e010
-00048f dc65
-000490 2f50
-000491 940e 0072
-000493 9340 020a
-000495 9350 020b
-000497 9360 0209
-000499 e028
-00049a e010
-00049b dc59
-00049c 2f40
-00049d e029
-00049e e010
-00049f dc55
-0004a0 2f50
-0004a1 940e 0072
-0004a3 9340 020d
-0004a5 9350 020e
-0004a7 9360 020c                 	ML_SRC_SETUP m_tmp
-0004a9 9478                      	sei
+000446 e1a4
+000447 e0b3
+000448 e130
+000449 dcb2
+00044a e32b
+00044b e010
+00044c e2a4
+00044d e0b3
+00044e e038
+00044f dcac
+000450 e02e
+000451 e010
+000452 dca2
+000453 9300 0301
+000455 e02f
+000456 e010
+000457 dc9d
+000458 9300 02ca
+00045a e120
+00045b e010
+00045c dc98
+00045d 9300 02cb
+00045f e121
+000460 e010
+000461 dc93
+000462 2f40
+000463 e122
+000464 e010
+000465 dc8f
+000466 2f50
+000467 dc0a
+000468 9350 0099
+00046a 9340 0098
+00046c 6068
+00046d 9360 02ff
+00046f 2744
+000470 9340 0120
+000472 9340 0121
+000474 9340 0122
+000476 e042
+000477 9340 0073
+000479 e042
+00047a 9340 0205
+00047c ec23
+00047d e010
+00047e e1a7
+00047f e0b2
+000480 e230
+000481 dc7a
+000482 eb23
+000483 e010
+000484 e4a7
+000485 e0b2
+000486 e130
+000487 dc74
+000488 ee23
+000489 e010
+00048a e3a7
+00048b e0b2
+00048c e130
+00048d dc6e
+00048e e823
+00048f e010
+000490 e5a7
+000491 e0b2
+000492 e330
+000493 dc68
+000494 e024
+000495 e010
+000496 dc5e
+000497 2f40
+000498 e025
+000499 e010
+00049a dc5a
+00049b 2f50
+00049c 940e 0072
+00049e 9340 0207
+0004a0 9350 0208
+0004a2 9360 0206
+0004a4 e026
+0004a5 e010
+0004a6 dc4e
+0004a7 2f40
+0004a8 e027
+0004a9 e010
+0004aa dc4a
+0004ab 2f50
+0004ac 940e 0072
+0004ae 9340 020a
+0004b0 9350 020b
+0004b2 9360 0209
+0004b4 e028
+0004b5 e010
+0004b6 dc3e
+0004b7 2f40
+0004b8 e029
+0004b9 e010
+0004ba dc3a
+0004bb 2f50
+0004bc 940e 0072
+0004be 9340 020d
+0004c0 9350 020e
+0004c2 9360 020c                 	ML_SRC_SETUP m_tmp
+0004c4 9478                      	sei
                                  	; enter main loop
-0004aa cc66                      	rjmp ml_l_loop
+0004c5 cc4b                      	rjmp ml_l_loop
                                  
                                  
                                  #undef m_tmp
@@ -4422,41 +4423,41 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega2560" register use summary:
-x  :  17 y  :  12 z  :   7 r0 :   2 r1 :   1 r2 :   9 r3 :   7 r4 :   3 
+x  :  17 y  :  12 z  :   8 r0 :   1 r1 :   0 r2 :  11 r3 :   9 r4 :   3 
 r5 :   3 r6 :   4 r7 :   4 r8 :   8 r9 :   0 r10:   6 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16: 114 r17:  91 r18:  75 r19:  19 r20: 232 
-r21:  73 r22:  50 r23:  12 r24:  11 r25:  22 r26:  27 r27:  27 r28:   7 
-r29:   7 r30:   3 r31:   3 
-Registers used: 29 out of 35 (82.9%)
+r13:   0 r14:   0 r15:   0 r16: 118 r17:  94 r18:  80 r19:  20 r20: 233 
+r21:  73 r22:  50 r23:  12 r24:  11 r25:  22 r26:  28 r27:  28 r28:   7 
+r29:   7 r30:   5 r31:   5 
+Registers used: 28 out of 35 (80.0%)
 
 "ATmega2560" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :  11 add   :  18 adiw  :   2 and   :   1 
 andi  :  21 asr   :   0 bclr  :   0 bld   :   2 brbc  :   0 brbs  :   0 
-brcc  :   5 brcs  :   0 break :   0 breq  :  17 brge  :   0 brhc  :   0 
+brcc  :   6 brcs  :   0 break :   0 breq  :  18 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   5 brlt  :   0 brmi  :   0 
 brne  :  17 brpl  :   1 brsh  :   6 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   2 call  :   6 cbi   :   0 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   2 cln   :   0 clr   :  36 cls   :   0 
+clc   :   0 clh   :   0 cli   :   2 cln   :   0 clr   :  39 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   7 cpc   :   5 
-cpi   :  11 cpse  :   0 dec   :   8 eicall:   0 eijmp :   0 elpm  :   0 
+cpi   :  11 cpse  :   0 dec   :   9 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   3 inc   :   3 jmp   :   8 ld    :  19 ldd   :   0 ldi   : 188 
-lds   :  65 lpm   :   0 lsl   :  12 lsr   :   6 mov   :  45 movw  :   4 
-mul   :   2 muls  :   0 mulsu :   0 neg   :   1 nop   :   0 or    :   6 
-ori   :   3 out   :  33 pop   :   0 push  :   0 rcall :  47 ret   :  20 
-reti  :   9 rjmp  :  41 rol   :   4 ror   :  12 sbc   :   2 sbci  :   0 
+in    :   3 inc   :   4 jmp   :   8 ld    :  21 ldd   :   0 ldi   : 196 
+lds   :  65 lpm   :   0 lsl   :  14 lsr   :   6 mov   :  45 movw  :   4 
+mul   :   1 muls  :   0 mulsu :   0 neg   :   1 nop   :   0 or    :   6 
+ori   :   3 out   :  33 pop   :   0 push  :   0 rcall :  48 ret   :  20 
+reti  :   9 rjmp  :  42 rol   :   6 ror   :  12 sbc   :   2 sbci  :   0 
 sbi   :   7 sbic  :   5 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   2 
 sbrs  :   3 sec   :   0 seh   :   0 sei   :   2 sen   :   0 ser   :   4 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
-st    :  13 std   :   3 sts   : 118 sub   :   9 subi  :   2 swap  :   6 
-tst   :  10 wdr   :   0 
+st    :  13 std   :   3 sts   : 120 sub   :   9 subi  :   2 swap  :   6 
+tst   :  11 wdr   :   0 
 Instructions used: 55 out of 116 (47.4%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000956   2194      0   2194  262144   0.8%
-[.dseg] 0x000200 0x000361      0    353    353    8192   4.3%
-[.eseg] 0x000000 0x00011b      0    283    283    4096   6.9%
+[.cseg] 0x000000 0x00098c   2248      0   2248  262144   0.9%
+[.dseg] 0x000200 0x00033a      0    314    314    8192   3.8%
+[.eseg] 0x000000 0x0000f3      0    243    243    4096   5.9%
 
 Assembly complete, 0 errors, 0 warnings
