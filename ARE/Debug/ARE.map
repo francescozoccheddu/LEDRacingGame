@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Thu Oct 12 20:19:24 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Thu Oct 12 20:25:22 2017
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1407,7 +1407,7 @@ CSEG _sp_sr_ut    000000ce
 CSEG _uc_l_src_t@UC_SRC_T@4276 000000ce
 CSEG _sp_sr_ur    000000d5
 CSEG _uc_l_src_r@UC_SRC_R@4290 000000d5
-SET  ISR_PC       00000374
+SET  ISR_PC       00000371
 CSEG _sp_l_isr_write 000000ec
 CSEG _ep_l_src_wait@EP_SRC_WAIT@4330 000000e4
 CSEG _ep_l_src_wait@EP_SRC_WAIT@4350 000000ed
@@ -1442,7 +1442,7 @@ CSEG _ml_l_loop_begin 00000111
 CSEG _ml_l_loop_update_paused 0000012d
 CSEG g_l_update   00000232
 CSEG g_l_update_done 00000117
-DSEG ds_ram_out_state 00000337
+DSEG ds_ram_out_state 00000336
 CSEG _ml_l_update_sub 00000125
 CSEG _ml_l_update_done 0000012a
 CSEG g_l_pause    00000275
@@ -1458,7 +1458,7 @@ CSEG p_l_draw     000001fa
 CSEG s_l_draw_done 0000013a
 CSEG p_l_draw_done 0000013a
 CSEG g_l_draw_done 0000013a
-CSEG lm_l_sendcol 000002c1
+CSEG lm_l_sendcol 000002be
 CSEG ml_l_sendcol_done 0000013c
 CSEG _ml_l_loop_wait 00000145
 EQU  TIM_5_TAKEN  00000001
@@ -1570,23 +1570,23 @@ CSEG _g_l_smooth  00000222
 CSEG _g_l_smooth_greater 0000022a
 CSEG _g_l_smooth_clamp 00000230
 CSEG _g_l_update_smooth_zombie 00000247
-DSEG ds_ram_out_val 00000336
+DSEG ds_ram_out_val 00000335
 CSEG _g_l_update_smooth_done 00000250
 CSEG _g_l_draw_abs_done 00000263
 CSEG _g_l_over    0000026e
-CSEG _g_l_oca_vframe_done 000002b0
-DSEG lol          0000032c
-CSEG _g_l_spawn_loop 0000029e
-CSEG _g_l_spawn_loop_continue 000002a4
-CSEG _g_l_spawn_loop_void 000002a9
-CSEG _g_l_spawn_loop_draw 000002aa
-CSEG _g_l_oca_shift_loop 000002b5
+CSEG _g_l_oca_vframe_done 000002ad
+EQU  _DS_TCNTL    000000a4
+CSEG _g_l_spawn_loop 0000029b
+CSEG _g_l_spawn_loop_continue 000002a1
+CSEG _g_l_spawn_loop_void 000002a6
+CSEG _g_l_spawn_loop_draw 000002a7
+CSEG _g_l_oca_shift_loop 000002b2
 EQU  IO_C_TAKEN   00000001
 EQU  _LM_PIN      00000006
 EQU  _LM_PORT     00000008
 EQU  _LM_DDR      00000007
-CSEG _lm_l_src_send_col_row 000002c2
-CSEG _lm_l_src_send_col_out_dot 000002c7
+CSEG _lm_l_src_send_col_row 000002bf
+CSEG _lm_l_src_send_col_out_dot 000002c4
 EQU  TIM_4_TAKEN  00000001
 EQU  _DS_TCCRA    000000a0
 EQU  _DS_TCCRB    000000a1
@@ -1601,7 +1601,6 @@ EQU  _DS_ICPaddr  00000052
 EQU  _DS_ICRH     000000a7
 EQU  _DS_ICRL     000000a6
 EQU  _DS_TCNTH    000000a5
-EQU  _DS_TCNTL    000000a4
 EQU  _DS_OCRAH    000000a9
 EQU  _DS_OCRAL    000000a8
 EQU  _DS_OCRBH    000000ab
@@ -1616,22 +1615,22 @@ ESEG ee_ds_period_propf 00000013
 ESEG ee_ds_min_ic 00000015
 ESEG ee_ds_max_ic 00000017
 ESEG ee_ds_emax_ic 00000019
-DSEG _ds_ram_tccrb 0000032d
-DSEG _ds_ram_min  0000032e
-DSEG _ds_ram_max  00000330
-DSEG _ds_ram_emax 00000332
-DSEG _ds_ram_ltime 00000334
-CSEG ds_isr_trig  000002d8
-CSEG _ds_isr_trig_bad 0000031f
-CSEG _ds_l_isr_trig_clamp_start 000002fb
-CSEG _ds_l_isr_trig_clamp_loop 000002fd
-CSEG _ds_l_isr_trig_clamp_stop 00000317
-CSEG _ds_l_isr_trig_clamp_smaller 0000030e
-CSEG _ds_l_isr_trig_clamp_greater 00000305
-CSEG _ds_isr_trig_done 00000323
-CSEG _ds_isr_trig_bad_wait 00000320
-CSEG _ds_l_isr_icp_falling 00000345
-CSEG _ds_l_isr_icp_rising 0000033b
+DSEG _ds_ram_tccrb 0000032c
+DSEG _ds_ram_min  0000032d
+DSEG _ds_ram_max  0000032f
+DSEG _ds_ram_emax 00000331
+DSEG _ds_ram_ltime 00000333
+CSEG ds_isr_trig  000002d5
+CSEG _ds_isr_trig_bad 0000031c
+CSEG _ds_l_isr_trig_clamp_start 000002f8
+CSEG _ds_l_isr_trig_clamp_loop 000002fa
+CSEG _ds_l_isr_trig_clamp_stop 00000314
+CSEG _ds_l_isr_trig_clamp_smaller 0000030b
+CSEG _ds_l_isr_trig_clamp_greater 00000302
+CSEG _ds_isr_trig_done 00000320
+CSEG _ds_isr_trig_bad_wait 0000031d
+CSEG _ds_l_isr_icp_falling 00000342
+CSEG _ds_l_isr_icp_rising 00000338
 EQU  IO_G_TAKEN   00000001
 EQU  _BZ_PIN      00000012
 EQU  _BZ_PORT     00000014
@@ -1668,9 +1667,9 @@ EQU  _BZ_SQ_OCRBH 0000008b
 EQU  _BZ_SQ_OCRBL 0000008a
 EQU  _BZ_SQ_OCRCH 0000008d
 EQU  _BZ_SQ_OCRCL 0000008c
-DSEG _bz_ram_ticks 00000338
-CSEG _bz_isr_start 00000357
-CSEG _bz_isr_start_mute 0000035c
+DSEG _bz_ram_ticks 00000337
+CSEG _bz_isr_start 00000354
+CSEG _bz_isr_start_mute 00000359
 ESEG ee_g_bm_enemy_al 0000001b
 ESEG ee_g_bm_enemy_al_end 0000002b
 ESEG ee_g_bm_player_acs 0000002b
@@ -1689,5 +1688,5 @@ ESEG ee_s_bm_splash 000000c3
 ESEG ee_s_bm_splash_end 000000e3
 ESEG ee_s_bm_top  000000e3
 ESEG ee_s_bm_top_end 000000f3
-CSEG m_l_reset    00000374
-CSEG _g_l_setup_clear_loop@G_SRC_SETUP@6472 0000042b
+CSEG m_l_reset    00000371
+CSEG _g_l_setup_clear_loop@G_SRC_SETUP@6467 00000426

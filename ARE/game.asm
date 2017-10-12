@@ -5,6 +5,7 @@
 TIM_DEF _G, _G_TIMER
 
 #define _G_SPAWN_COUNT 4
+#define _G_SPAWN_RAND_MASK (_G_SPAWN_COUNT - 1)
 
 #define _g_setup_tmp1 @0
 #define _g_setup_tmp2 @1
@@ -12,7 +13,6 @@ TIM_DEF _G, _G_TIMER
 .macro G_SRC_SETUP
 	; clear timer control registers
 	clr _g_setup_tmp1
-	sts lol, _g_setup_tmp1
 	sts _G_TCCRA, _g_setup_tmp1
 	sts _G_TCCRB, _g_setup_tmp1
 	sts _G_TCCRC, _g_setup_tmp1
@@ -222,13 +222,8 @@ ISR _G_OCAaddr
 	dec _g_tmp1
 	brne _g_l_oca_vframe_done
 	; spawn begin
-	.dseg
-	lol: .byte 1
-	.cseg
-	lds _g_tmp1, lol
-	inc _g_tmp1
-	andi _g_tmp1, 3
-	sts lol, _g_tmp1
+	lds _g_tmp1, _DS_TCNTL
+	andi _g_tmp1, _G_SPAWN_RAND_MASK
 	; _g_tmp1 is rand betweeen 0 and _G_SPAWN_COUNT
 	ldi ZL, LOW( _g_ram_bm_spawns )
 	ldi ZH, HIGH( _g_ram_bm_spawns )
