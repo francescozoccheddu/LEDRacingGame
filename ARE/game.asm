@@ -4,6 +4,9 @@
 
 TIM_DEF _G, _G_TIMER
 
+#define _G_SPAWNS 4
+#define _G_SPAWNS_PRNG_MASK (_G_SPAWNS - 1)
+
 #define _g_setup_tmp1 @0
 #define _g_setup_tmp2 @1
 
@@ -39,6 +42,7 @@ _g_l_setup_clear_loop:
 	sts _g_ram_dsval_slow, _g_setup_tmp1
 	; load
 	SP_SRC_LOAD_TO_RAM ee_g_bm_player, _g_ram_bm_player, 16
+	SP_SRC_LOAD_TO_RAM ee_g_bm_spawns, _g_ram_bm_spawns, 16*_G_SPAWNS
 	SP_SRC_LOAD_TO_RAM ee_g_spawn_period, _g_ram_spawn_period, 1
 	SP_SRC_LOAD_TO_RAM ee_g_smooth, _g_ram_smooth, 1
 	SP_SRC_LOAD_TO_RAM ee_g_smooth_slow, _g_ram_smooth_slow, 1
@@ -65,13 +69,14 @@ _g_ram_spawn_countdown: .byte 1
 _g_ram_spawn_period: .byte 1
 g_ram_score: .byte 2
 _g_ram_bm_player: .byte 16
+_g_ram_bm_spawns: .byte 16*_G_SPAWNS
 .cseg
 
 .eseg
-ee_g_spawn_period: .db 3
+ee_g_spawn_period: .db 8
 ee_g_smooth: .db 8
 ee_g_smooth_slow: .db 3
-ee_g_tim_propf: .dw int( 0.2 * T16_PROPF + 0.5 )
+ee_g_tim_propf: .dw int( 0.1 * T16_PROPF + 0.5 )
 .cseg
 
 #undef _g_setup_tmp1
@@ -213,9 +218,22 @@ ISR _G_OCAaddr
 	dec _g_tmp1
 	brne _g_l_oca_vframe_done
 	; spawn begin
-	ldi _g_tmp1, 3
-	sts _g_ram_frame, _g_tmp1
-	sts _g_ram_frame + 6, _g_tmp1
+	ldi _g_tmp2, 16
+	lds _g_tmp1, _DS_TCNTL
+	andi _g_tmp1, _G_SPAWNS_PRNG_MASK
+	mul _g_tmp1, _g_tmp2
+	ldi XL, LOW( _g_ram_bm_spawns )
+	ldi XH, HIGH( _g_ram_bm_spawns )
+	add XL, mull
+	adc XH, mulh
+	ldi ZL, LOW( _g_ram_frame )
+	ldi ZH, HIGH( _g_ram_frame )
+_g_l_oca_spawn_loop:
+	ld _g_tmp1, X+
+	st Z, _g_tmp1
+	adiw Z, 3
+	dec _g_tmp2
+	brne _g_l_oca_spawn_loop
 	; spawn end
 	lds _g_tmp1, _g_ram_spawn_period
 _g_l_oca_vframe_done:

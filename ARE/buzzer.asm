@@ -8,6 +8,7 @@ TIM_DEF _BZ_SQ, _BZ_SQ_TIMER
 
 #define BZ_TICKS 10
 #define BZ_TICKS_BYTES BZ_TICKS*5
+#define _BZ_IO_BIT 5
 
 .dseg
 _bz_ram_ticks: .byte 2
@@ -21,7 +22,7 @@ _bz_ram_ticks: .byte 2
 
 .macro BZ_SRC_SETUP
 	; set data direction register to output
-	ldi _bz_setup_tmp, 1 << 5
+	clr _bz_setup_tmp
 	out _BZ_DDR, _bz_setup_tmp
 	; setup PWM timer 
 	ldi _bz_setup_tmp, WGMA_VAL(2) | COMB_VAL(1)
@@ -127,6 +128,11 @@ _bz_isr_start:
 	; set PWM
 	ld bz_tmp1, Z+
 	out _BZ_PWM_TCCRB, bz_tmp1
+	tst bz_tmp1
+	breq _bz_isr_start_mute
+	ldi bz_tmp1, 1 << _BZ_IO_BIT
+_bz_isr_start_mute:
+	out _BZ_DDR, bz_tmp1
 	ld bz_tmp1, Z+
 	out _BZ_PWM_OCRA, bz_tmp1
 	; set SQ
