@@ -148,13 +148,12 @@
   <_g_l_update_smooth_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>139</LINE></_g_l_update_smooth_done>
   <_g_l_draw_abs_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>165</LINE></_g_l_draw_abs_done>
   <_g_l_over><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>178</LINE></_g_l_over>
-  <_g_l_oca_vframe_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>269</LINE></_g_l_oca_vframe_done>
-  <lol><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>226</LINE></lol>
-  <_g_l_spawn_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>247</LINE></_g_l_spawn_loop>
-  <_g_l_spawn_loop_continue><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>254</LINE></_g_l_spawn_loop_continue>
-  <_g_l_spawn_loop_void><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>260</LINE></_g_l_spawn_loop_void>
-  <_g_l_spawn_loop_draw><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>262</LINE></_g_l_spawn_loop_draw>
-  <_g_l_oca_shift_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>275</LINE></_g_l_oca_shift_loop>
+  <_g_l_oca_vframe_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>264</LINE></_g_l_oca_vframe_done>
+  <_g_l_spawn_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>242</LINE></_g_l_spawn_loop>
+  <_g_l_spawn_loop_continue><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>249</LINE></_g_l_spawn_loop_continue>
+  <_g_l_spawn_loop_void><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>255</LINE></_g_l_spawn_loop_void>
+  <_g_l_spawn_loop_draw><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>257</LINE></_g_l_spawn_loop_draw>
+  <_g_l_oca_shift_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>270</LINE></_g_l_oca_shift_loop>
   <_lm_l_src_send_col_row><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm</FILE><LINE>34</LINE></_lm_l_src_send_col_row>
   <_lm_l_src_send_col_out_dot><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm</FILE><LINE>40</LINE></_lm_l_src_send_col_out_dot>
   <ee_ds_period_propf><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>49</LINE></ee_ds_period_propf>
