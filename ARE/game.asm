@@ -4,8 +4,7 @@
 
 TIM_DEF _G, _G_TIMER
 
-#define _G_SPAWNS 4
-#define _G_SPAWNS_PRNG_MASK (_G_SPAWNS - 1)
+#define _G_SPAWN_COUNT 4
 
 #define _g_setup_tmp1 @0
 #define _g_setup_tmp2 @1
@@ -13,6 +12,7 @@ TIM_DEF _G, _G_TIMER
 .macro G_SRC_SETUP
 	; clear timer control registers
 	clr _g_setup_tmp1
+	sts lol, _g_setup_tmp1
 	sts _G_TCCRA, _g_setup_tmp1
 	sts _G_TCCRB, _g_setup_tmp1
 	sts _G_TCCRC, _g_setup_tmp1
@@ -41,8 +41,9 @@ _g_l_setup_clear_loop:
 	sts _g_ram_dsval, _g_setup_tmp1
 	sts _g_ram_dsval_slow, _g_setup_tmp1
 	; load
-	SP_SRC_LOAD_TO_RAM ee_g_bm_player, _g_ram_bm_player, 16
-	SP_SRC_LOAD_TO_RAM ee_g_bm_spawns, _g_ram_bm_spawns, 16*_G_SPAWNS
+	SP_SRC_LOAD_TO_RAM ee_g_bm_player_acs, _g_ram_bm_player_acs, 16
+	SP_SRC_LOAD_TO_RAM ee_g_bm_enemy_al, _g_ram_bm_enemy_al, 16
+	SP_SRC_LOAD_TO_RAM ee_g_bm_spawns, _g_ram_bm_spawns, 2*_G_SPAWN_COUNT
 	SP_SRC_LOAD_TO_RAM ee_g_spawn_period, _g_ram_spawn_period, 1
 	SP_SRC_LOAD_TO_RAM ee_g_smooth, _g_ram_smooth, 1
 	SP_SRC_LOAD_TO_RAM ee_g_smooth_slow, _g_ram_smooth_slow, 1
@@ -68,8 +69,9 @@ _g_ram_tccrb: .byte 1
 _g_ram_spawn_countdown: .byte 1
 _g_ram_spawn_period: .byte 1
 g_ram_score: .byte 2
-_g_ram_bm_player: .byte 16
-_g_ram_bm_spawns: .byte 16*_G_SPAWNS
+_g_ram_bm_player_acs: .byte 16
+_g_ram_bm_enemy_al: .byte 16
+_g_ram_bm_spawns: .byte 2*_G_SPAWN_COUNT
 .cseg
 
 .eseg
@@ -161,8 +163,8 @@ g_l_draw:
 	brpl _g_l_draw_abs_done
 	neg _g_tmp1
 _g_l_draw_abs_done:
-	ldi XH, HIGH( _g_ram_bm_player )
-	ldi XL, LOW( _g_ram_bm_player )
+	ldi XH, HIGH( _g_ram_bm_player_acs )
+	ldi XL, LOW( _g_ram_bm_player_acs )
 	add XL, _g_tmp1
 	clr _g_tmp1
 	adc XH, _g_tmp1
@@ -205,6 +207,8 @@ g_l_resume:
 #define _g_tmp1 ria
 #define _g_tmp2 rib
 #define _g_tmp3 ric
+#define _g_sl ri0
+#define _g_sh ri1
 
 ISR _G_OCAaddr
 	; score
@@ -218,22 +222,48 @@ ISR _G_OCAaddr
 	dec _g_tmp1
 	brne _g_l_oca_vframe_done
 	; spawn begin
+	.dseg
+	lol: .byte 1
+	.cseg
+	lds _g_tmp1, lol
+	inc _g_tmp1
+	andi _g_tmp1, 3
+	sts lol, _g_tmp1
+	; _g_tmp1 is rand betweeen 0 and _G_SPAWN_COUNT
+	ldi ZL, LOW( _g_ram_bm_spawns )
+	ldi ZH, HIGH( _g_ram_bm_spawns )
+	clr _g_tmp2
+	lsl _g_tmp1
+	rol _g_tmp2
+	add ZL, _g_tmp1
+	adc ZH, _g_tmp2
+	ld _g_sh, Z+
+	ld _g_sl, Z
+	ldi XL, LOW( _g_ram_frame )
+	ldi XH, HIGH( _g_ram_frame )
 	ldi _g_tmp2, 16
-	lds _g_tmp1, _DS_TCNTL
-	andi _g_tmp1, _G_SPAWNS_PRNG_MASK
-	mul _g_tmp1, _g_tmp2
-	ldi XL, LOW( _g_ram_bm_spawns )
-	ldi XH, HIGH( _g_ram_bm_spawns )
-	add XL, mull
-	adc XH, mulh
-	ldi ZL, LOW( _g_ram_frame )
-	ldi ZH, HIGH( _g_ram_frame )
-_g_l_oca_spawn_loop:
-	ld _g_tmp1, X+
-	st Z, _g_tmp1
-	adiw Z, 3
+	clr _g_tmp3
+	; sh:sl is the spawn pattern, X is the frame, tmp2 is 16, tmp3 is 0
+_g_l_spawn_loop:
+	lsl _g_sl
+	rol _g_sh
+	brcc _g_l_spawn_loop_continue
+	ldi ZL, LOW( _g_ram_bm_enemy_al )
+	ldi ZH, HIGH( _g_ram_bm_enemy_al )
+	ldi _g_tmp3, 16
+_g_l_spawn_loop_continue:
+	tst _g_tmp3
+	breq _g_l_spawn_loop_void
+	dec _g_tmp3
+	ld _g_tmp1, Z+
+	rjmp _g_l_spawn_loop_draw
+_g_l_spawn_loop_void:
+	clr _g_tmp1
+_g_l_spawn_loop_draw:
+	st X, _g_tmp1
+	adiw XH:XL, 3
 	dec _g_tmp2
-	brne _g_l_oca_spawn_loop
+	brne _g_l_spawn_loop
 	; spawn end
 	lds _g_tmp1, _g_ram_spawn_period
 _g_l_oca_vframe_done:
@@ -258,5 +288,6 @@ _g_l_oca_shift_loop:
 
 #undef _g_tmp1
 #undef _g_tmp2
-#undef _g_tmp3
+#undef _g_sh
+#undef _g_sl
 
