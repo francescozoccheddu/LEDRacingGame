@@ -56,6 +56,15 @@ _g_l_setup_clear_loop:
 	sts _G_OCRAL, rma
 	ori rmc, WGMB_VAL(4)
 	sts _g_ram_tccrb, rmc
+	ldi XL, LOW( _g_ram_snd_pause )
+	ldi XH, HIGH( _g_ram_snd_pause )
+	BZ_SRC_LOAD ee_g_snd_pause
+	ldi XL, LOW( _g_ram_snd_resume )
+	ldi XH, HIGH( _g_ram_snd_resume )
+	BZ_SRC_LOAD ee_g_snd_resume
+	ldi XL, LOW( _g_ram_snd_over )
+	ldi XH, HIGH( _g_ram_snd_over )
+	BZ_SRC_LOAD ee_g_snd_over
 .endmacro
 
 .dseg
@@ -72,6 +81,9 @@ g_ram_score: .byte 2
 _g_ram_bm_player_acs: .byte 16
 _g_ram_bm_enemy_al: .byte 16
 _g_ram_bm_spawns: .byte 2*_G_SPAWN_COUNT
+_g_ram_snd_pause: .byte BZ_SND_BYTES
+_g_ram_snd_resume: .byte BZ_SND_BYTES
+_g_ram_snd_over: .byte BZ_SND_BYTES
 .cseg
 
 .eseg
@@ -79,6 +91,19 @@ ee_g_spawn_period: .db 8
 ee_g_smooth: .db 8
 ee_g_smooth_slow: .db 3
 ee_g_tim_propf: .dw int( 0.1 * T16_PROPF + 0.5 )
+ee_g_snd_pause:
+.dw 10000, int( 0.1 * T16_PROPF + 0.5)
+.dw 15000, int( 0.1 * T16_PROPF + 0.5)
+.dw 0, 0
+ee_g_snd_resume:
+.dw 15000, int( 0.1 * T16_PROPF + 0.5)
+.dw 10000, int( 0.1 * T16_PROPF + 0.5)
+.dw 0, 0
+ee_g_snd_over:
+.dw 10000, int( 0.1 * T16_PROPF + 0.5)
+.dw 15000, int( 0.1 * T16_PROPF + 0.5)
+.dw 20000, int( 0.1 * T16_PROPF + 0.5)
+.dw 0, 0
 .cseg
 
 #undef _g_setup_tmp1
@@ -176,6 +201,7 @@ _g_l_draw_abs_done:
 	rjmp g_l_draw_done
 
 _g_l_over:
+	BZ_SRC_START _g_ram_snd_over
 	ldi _g_tmp1, ML_SCREEN_SCORE
 	sts ml_ram_screen, _g_tmp1
 	clr _g_tmp1
@@ -187,15 +213,13 @@ _g_l_over:
 #undef _g_ch
 
 g_l_pause:
+	BZ_SRC_START _g_ram_snd_pause
 	clr _g_tmp1
 	sts _G_TCCRB, _g_tmp1
 	rjmp g_l_pause_done
 
 g_l_resume:
-	/*lds _g_tmp1, ds_ram_out_val
-	sts _g_ram_dsval, _g_tmp1
-	sts _g_ram_dsval_slow, _g_tmp1*/
-	; start timer
+	BZ_SRC_START _g_ram_snd_resume
 	lds _g_tmp1, _g_ram_tccrb
 	sts _G_TCCRB, _g_tmp1
 	rjmp g_l_resume_done

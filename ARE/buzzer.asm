@@ -7,7 +7,7 @@ TIM_DEF _BZ_PWM, _BZ_PWM_TIMER
 TIM_DEF _BZ_SQ, _BZ_SQ_TIMER
 
 #define BZ_TICKS 10
-#define BZ_TICKS_BYTES BZ_TICKS*5
+#define BZ_SND_BYTES BZ_TICKS*5
 #define _BZ_IO_BIT 5
 
 .dseg
