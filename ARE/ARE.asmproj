@@ -104,9 +104,6 @@
     <Compile Include="distance_sens.asm">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="eeprom_prog.asm">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="game.asm">
       <SubType>Code</SubType>
     </Compile>

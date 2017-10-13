@@ -21,22 +21,17 @@
 .def ri4 = r6
 .def ri5 = r7
 .def ri6 = r8
-.def ri7 = r9
 ; main loop registers
 ; immediate
-.def rma = r20
-.def rmb = r21
-.def rmc = r22
-.def rmd = r23
-.def rme = r24
-.def rmf = r25
+.def rmla = r20
+.def rmlb = r21
+.def rmlc = r22
+.def rmld = r23
+.def rmle = r24
+.def rmlf = r25
 ; non-immediate
-.def rm0 = r10
-.def rm1 = r11
-.def rm2 = r12
-.def rm3 = r13
-.def rm4 = r14
-.def rm5 = r15
+.def rml0 = r10
+.def rml1 = r11
 ; mul registers
 .def mulh = r1
 .def mull = r0

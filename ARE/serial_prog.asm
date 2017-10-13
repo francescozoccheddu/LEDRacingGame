@@ -89,9 +89,9 @@ _sp_l_isr_write:
 #undef _sp_r_rc_tmp
 
 #define sp_data ria
-#define sp_data_tl rib
-#define sp_data_th ric
-#define sp_size rid
+#define sp_data_tl ric
+#define sp_data_th rid
+#define sp_size rib
 
 .macro SP_SRC_LOAD
 	ldi YL, LOW( @0 )

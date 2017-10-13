@@ -1,3 +1,8 @@
+#ifdef _INC_M
+#error cannot include main
+#else
+#define _INC_M
+
 ; Francesco Zoccheddu
 ; ARE
 ; main
@@ -13,7 +18,6 @@
 #include "m2560def.inc"
 
 #include "utils.asm"
-#include "eeprom_prog.asm"
 #include "builtin_led.asm"
 #include "serial_prog.asm"
 #include "buzzer.asm"
@@ -42,7 +46,7 @@ ee_m_snd_start:
 _m_ram_snd_start: .byte BZ_SND_BYTES
 .cseg
 
-#define m_tmp rma
+#define m_tmp rmla
 
 ISR 0
 m_l_reset:
@@ -73,7 +77,9 @@ m_l_reset:
 	cli
 	rcall ds_isr_trig
 	; enter main loop
-	rjmp ml_l_loop
+	ML_SRC_LOOP rmla, rmlb, rmlc, rmld, rmle, rml0, rml1
 
 
 #undef m_tmp
+
+#endif

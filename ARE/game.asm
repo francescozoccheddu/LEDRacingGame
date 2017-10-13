@@ -205,7 +205,6 @@ _g_l_draw_abs_done:
 	sts ml_ram_screen, _g_tmp1
 	clr _g_tmp1
 	sts _G_TCCRB, _g_tmp1
-	rjmp ml_l_gameover
 _g_l_draw_done:
 .endmacro
 

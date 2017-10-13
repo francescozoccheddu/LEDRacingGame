@@ -46,12 +46,6 @@ _bz_ram_ticks: .byte 2
 
 #undef _bz_setup_tmp
 
-#define bz_cs @0
-#define bz_top @1
-
-#undef bz_cs
-#undef bz_top
-
 #define _bz_start_ram @0
 
 .macro BZ_SRC_START
@@ -87,12 +81,9 @@ _bz_load_loop:
 	brne _bz_load_loop
 .endmacro
 
-#undef _bz_r_load_tmp1
-#undef _bz_r_load_tmp2
-#undef _bz_r_load_tmp3
-#undef _bz_r_load_tmp4
-#undef _bz_r_load_tmp5
 #undef _bz_load_ee
+#undef _bz_load_ram
+#undef _bz_r_load_tmp
 
 #define _bz_r_sqocia_tmp ria
 
