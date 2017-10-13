@@ -77,8 +77,6 @@ ee_ml_dson_sub: .db 16
 #include "game.asm"
 
 ml_l_loop:
-s_l_set_done:
-_ml_l_loop_begin:
 	ldi ml_col, 16
 
 	lds ml_tmp1, ml_ram_screen
@@ -124,9 +122,6 @@ _ml_l_loop_draw_paused:
 	brne _ml_s_l_draw
 	rjmp _ml_p_l_draw
 
-s_l_draw_done:
-p_l_draw_done:
-g_l_draw_done:
 _ml_l_loop_flush:
 	cli
 	rjmp lm_l_sendcol
@@ -148,7 +143,7 @@ _ml_l_loop_wait:
 
 	tst ml_col
 	brne _ml_l_loop_column
-	rjmp _ml_l_loop_begin
+	rjmp ml_l_loop
 
 ISR _ML_OCAaddr
 	clr _ml_lock
@@ -166,7 +161,7 @@ _ml_s_l_draw:
 	rjmp _ml_l_loop_flush
 
 _ml_p_l_draw:
-	P_SRC_DRAW
+	P_SRC_DRAW ml_col, ml_cl, ml_ch, ml_tmp1
 	rjmp _ml_l_loop_flush
 
 _ml_g_l_draw:

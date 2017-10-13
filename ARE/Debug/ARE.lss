@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Fri Oct 13 12:06:51 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Fri Oct 13 17:22:53 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -2850,23 +2850,24 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  
                                  TIM_DEF _S, _S_TIMER
                                  
-                                 #define _s_setup_tmp @0
                                  #define _S_STATE_SCR 0
                                  #define _S_STATE_TOP 1
                                  #define _S_STATE_SPLASH 2
                                  
+                                 #define _s_r_setup_tmp @0
+                                 
                                  .macro S_SRC_SETUP
                                  	; clear timer control registers
-                                 	clr _s_setup_tmp
-                                 	sts _S_TCCRA, _s_setup_tmp
-                                 	sts _S_TCCRB, _s_setup_tmp
-                                 	sts _S_TCCRC, _s_setup_tmp
+                                 	clr _s_r_setup_tmp
+                                 	sts _S_TCCRA, _s_r_setup_tmp
+                                 	sts _S_TCCRB, _s_r_setup_tmp
+                                 	sts _S_TCCRC, _s_r_setup_tmp
                                  	; set timer interrupt mask
-                                 	ldi _s_setup_tmp, OCIEA_VAL
-                                 	sts _S_TIMSK, _s_setup_tmp
+                                 	ldi _s_r_setup_tmp, OCIEA_VAL
+                                 	sts _S_TIMSK, _s_r_setup_tmp
                                  	; set state
-                                 	ldi _s_setup_tmp, _S_STATE_SPLASH
-                                 	sts _s_ram_state, _s_setup_tmp
+                                 	ldi _s_r_setup_tmp, _S_STATE_SPLASH
+                                 	sts _s_ram_state, _s_r_setup_tmp
                                  	; load bitmaps
                                  	SP_SRC_LOAD_TO_RAM ee_s_bm_splash, _s_ram_bm_splash, 2*16
                                  	SP_SRC_LOAD_TO_RAM ee_s_bm_scr, _s_ram_bm_scr, 16
@@ -2901,7 +2902,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  	sts _s_ram_tccrb_top, rmc
                                  .endmacro
                                  
-                                 #undef _s_setup_tmp
+                                 #undef _s_r_setup_tmp
                                  
                                  .eseg
 000004 09 3d                     ee_s_tim_splash: .dw int( 1 * T16_PROPF + 0.5)
@@ -2966,7 +2967,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  	clr ml_tmp1
                                  	adc YH, ml_tmp1
                                  	ld ml_cl, Y
-                                 	rjmp s_l_draw_done
+                                 	rjmp _s_l_draw_done
                                  _s_l_draw_splash:
                                  	ldi XL, LOW( _s_ram_bm_splash )
                                  	ldi XH, HIGH( _s_ram_bm_splash )
@@ -3077,32 +3078,42 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  	rcall _s_sr_tobcd
                                  .endmacro
                                  
+                                 #define _s_r_ocia_tmp1 ria
+                                 #define _s_r_ocia_tmp2 rib
+                                 #define _s_r_ocia_tmp3 ric
+                                 #define _s_r_ocia_tmp4 rid
+                                 
 00005e 940c 0132                 ISR _S_OCAaddr
-000132 2700                      	clr ria
-000133 9300 0121                 	sts _S_TCCRB, ria
-000135 9300 0125                 	sts _S_TCNTH, ria
-000137 9300 0124                 	sts _S_TCNTL, ria
-000139 9100 0207                 	lds ria, _s_ram_state
-00013b 3000                      	cpi ria, _S_STATE_SCR
+000132 2700                      	clr _s_r_ocia_tmp1
+000133 9300 0121                 	sts _S_TCCRB, _s_r_ocia_tmp1
+000135 9300 0125                 	sts _S_TCNTH, _s_r_ocia_tmp1
+000137 9300 0124                 	sts _S_TCNTL, _s_r_ocia_tmp1
+000139 9100 0207                 	lds _s_r_ocia_tmp1, _s_ram_state
+00013b 3000                      	cpi _s_r_ocia_tmp1, _S_STATE_SCR
 00013c f041                      	breq _s_l_isr_oca_scr
                                  	; from top
-00013d e000                      	ldi ria, _S_STATE_SCR
-00013e 9110 020c                 	lds rib, _s_ram_ttop_scr
-000140 9120 020d                 	lds ric, _s_ram_ttop_scr + 1
-000142 9130 020b                 	lds rid, _s_ram_tccrb_scr
+00013d e000                      	ldi _s_r_ocia_tmp1, _S_STATE_SCR
+00013e 9110 020c                 	lds _s_r_ocia_tmp2, _s_ram_ttop_scr
+000140 9120 020d                 	lds _s_r_ocia_tmp3, _s_ram_ttop_scr + 1
+000142 9130 020b                 	lds _s_r_ocia_tmp4, _s_ram_tccrb_scr
 000144 c007                      	rjmp _s_l_isr_oca_done
                                  _s_l_isr_oca_scr:
                                  	; from scr
-000145 e001                      	ldi ria, _S_STATE_TOP
-000146 9110 020f                 	lds rib, _s_ram_ttop_top
-000148 9120 0210                 	lds ric, _s_ram_ttop_top + 1
-00014a 9130 020e                 	lds rid, _s_ram_tccrb_top
+000145 e001                      	ldi _s_r_ocia_tmp1, _S_STATE_TOP
+000146 9110 020f                 	lds _s_r_ocia_tmp2, _s_ram_ttop_top
+000148 9120 0210                 	lds _s_r_ocia_tmp3, _s_ram_ttop_top + 1
+00014a 9130 020e                 	lds _s_r_ocia_tmp4, _s_ram_tccrb_top
                                  _s_l_isr_oca_done:
-00014c 9300 0207                 	sts _s_ram_state, ria
-00014e 9320 0129                 	sts _S_OCRAH, ric
-000150 9310 0128                 	sts _S_OCRAL, rib
-000152 9330 0121                 	sts _S_TCCRB, rid
+00014c 9300 0207                 	sts _s_ram_state, _s_r_ocia_tmp1
+00014e 9320 0129                 	sts _S_OCRAH, _s_r_ocia_tmp3
+000150 9310 0128                 	sts _S_OCRAL, _s_r_ocia_tmp2
+000152 9330 0121                 	sts _S_TCCRB, _s_r_ocia_tmp4
 000154 9518                      	reti
+                                 
+                                 #undef _s_r_ocia_tmp1
+                                 #undef _s_r_ocia_tmp2
+                                 #undef _s_r_ocia_tmp3
+                                 #undef _s_r_ocia_tmp4
                                  #include "pause.asm"
                                  
                                  .dseg
@@ -3119,11 +3130,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 00000d 04                        ee_p_dson_add: .db 4
                                  .cseg
                                  
-                                 #define _p_setup_tmp @0
+                                 #define _p_r_setup_tmp @0
                                  
                                  .macro P_SRC_SETUP
-                                 	clr _p_setup_tmp
-                                 	sts _p_ram_prog, _p_setup_tmp
+                                 	clr _p_r_setup_tmp
+                                 	sts _p_ram_prog, _p_r_setup_tmp
                                  	; load
                                  	SP_SRC_LOAD_TO_RAM ee_p_dsoff_sub, _p_ram_absnc_sub, 1
                                  	SP_SRC_LOAD_TO_RAM ee_p_dson_add, _p_ram_prsnc_add, 1
@@ -3131,20 +3142,18 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  	SP_SRC_LOAD_TO_RAM ee_p_bm_resuming, _p_ram_bm_resuming, 2*16
                                  .endmacro
                                  
-                                 #undef _p_setup_tmp
+                                 #undef _p_r_setup_tmp
                                  
-                                 #define _P_PROGRESS_COL 0b00000011
-                                 
-                                 #define _p_col ml_col
-                                 #define _p_cl ml_cl
-                                 #define _p_ch ml_ch
-                                 #define _p_tmp ml_tmp1
+                                 #define _p_r_draw_col @0
+                                 #define _p_r_draw_cl @1
+                                 #define _p_r_draw_ch @2
+                                 #define _p_r_draw_tmp @3
                                  
                                  .macro P_SRC_DRAW
-                                 	lds _p_tmp, _p_ram_prog
-                                 	swap _p_tmp
-                                 	andi _p_tmp, 0b1111
-                                 	cp _p_col, _p_tmp
+                                 	lds _p_r_draw_tmp, _p_ram_prog
+                                 	swap _p_r_draw_tmp
+                                 	andi _p_r_draw_tmp, 0b1111
+                                 	cp _p_r_draw_col, _p_r_draw_tmp
                                  	brsh _p_l_src_draw_pause
                                  	ldi XH, HIGH(_p_ram_bm_resuming)
                                  	ldi XL, LOW(_p_ram_bm_resuming)
@@ -3153,46 +3162,46 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  	ldi XH, HIGH(_p_ram_bm_paused)
                                  	ldi XL, LOW(_p_ram_bm_paused)
                                  _p_l_src_draw_begin:
-                                 	mov _p_tmp, _p_col
-                                 	lsl _p_tmp
-                                 	add XL, _p_tmp
-                                 	clr _p_tmp
-                                 	adc XH, _p_tmp
-                                 	ld _p_ch, X+
-                                 	ld _p_cl, X
+                                 	mov _p_r_draw_tmp, _p_r_draw_col
+                                 	lsl _p_r_draw_tmp
+                                 	add XL, _p_r_draw_tmp
+                                 	clr _p_r_draw_tmp
+                                 	adc XH, _p_r_draw_tmp
+                                 	ld _p_r_draw_ch, X+
+                                 	ld _p_r_draw_cl, X
                                  _p_l_src_draw_done:
                                  .endmacro
                                  
-                                 #undef _p_col
-                                 #undef _p_cl
-                                 #undef _p_ch
-                                 #undef _p_tmp
+                                 #undef _p_r_draw_col
+                                 #undef _p_r_draw_cl
+                                 #undef _p_r_draw_ch
+                                 #undef _p_r_draw_tmp
                                  
-                                 #define _p_tmp1 @0
-                                 #define _p_tmp2 @1
+                                 #define _p_r_update_tmp1 @0
+                                 #define _p_r_update_tmp2 @1
                                  
                                  .macro P_SRC_UPDATE
-                                 	lds _p_tmp1, ds_ram_out_state
-                                 	lds _p_tmp2, _p_ram_prog
-                                 	tst _p_tmp1
+                                 	lds _p_r_update_tmp1, ds_ram_out_state
+                                 	lds _p_r_update_tmp2, _p_ram_prog
+                                 	tst _p_r_update_tmp1
                                  	breq _p_l_src_update_sub
-                                 	lds _p_tmp1, _p_ram_prsnc_add
-                                 	add _p_tmp2, _p_tmp1
+                                 	lds _p_r_update_tmp1, _p_ram_prsnc_add
+                                 	add _p_r_update_tmp2, _p_r_update_tmp1
                                  	brcc _p_l_src_update_done
-                                 	sts ml_ram_screen, _p_tmp2
+                                 	sts ml_ram_screen, _p_r_update_tmp2
                                  	G_SRC_RESUME
                                  	rjmp _p_l_src_update_done
                                  _p_l_src_update_sub:
-                                 	lds _p_tmp1, _p_ram_absnc_sub
-                                 	sub _p_tmp2, _p_tmp1
+                                 	lds _p_r_update_tmp1, _p_ram_absnc_sub
+                                 	sub _p_r_update_tmp2, _p_r_update_tmp1
                                  	brcc _p_l_src_update_done
-                                 	clr _p_tmp2
+                                 	clr _p_r_update_tmp2
                                  _p_l_src_update_done:
-                                 	sts _p_ram_prog, _p_tmp2
+                                 	sts _p_ram_prog, _p_r_update_tmp2
                                  .endmacro
                                  
-                                 #undef _p_tmp1
-                                 #undef _p_tmp2
+                                 #undef _p_r_update_tmp1
+                                 #undef _p_r_update_tmp2
                                  #include "game.asm"
                                  
                                  
@@ -3525,8 +3534,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  
                                  
                                  ml_l_loop:
-                                 s_l_set_done:
-                                 _ml_l_loop_begin:
 000199 e170                      	ldi ml_col, 16
                                  
 00019a 9140 0203                 	lds ml_tmp1, ml_ram_screen
@@ -3577,9 +3584,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 0001c7 f599                      	brne _ml_s_l_draw
 0001c8 c062                      	rjmp _ml_p_l_draw
                                  
-                                 s_l_draw_done:
-                                 p_l_draw_done:
-                                 g_l_draw_done:
                                  _ml_l_loop_flush:
 0001c9 94f8                      	cli
 0001ca c126                      	rjmp lm_l_sendcol
@@ -3601,7 +3605,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  
 0001d6 2377                      	tst ml_col
 0001d7 f741                      	brne _ml_l_loop_column
-0001d8 cfc0                      	rjmp _ml_l_loop_begin
+0001d8 cfc0                      	rjmp ml_l_loop
                                  
 00001a 940c 01d9                 ISR _ML_OCAaddr
 0001d9 2799                      	clr _ml_lock
@@ -3670,7 +3674,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 00021d 2744
 00021e 1fd4
 00021f 8188
-000220 cfa8
+000220 c009
 000221 e1a9
 000222 e0b2
 000223 2f47
@@ -3699,7 +3703,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 000239 2744
 00023a 1fb4
 00023b 919d
-00023c 918c                      	P_SRC_DRAW
+00023c 918c                      	P_SRC_DRAW ml_col, ml_cl, ml_ch, ml_tmp1
 00023d cf8b                      	rjmp _ml_l_loop_flush
                                  
                                  _ml_g_l_draw:
