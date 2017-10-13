@@ -78,7 +78,7 @@ _s_ram_bm_scr: .byte 16
 _s_ram_bm_digits: .byte 12*4
 .cseg
 
-s_l_draw:
+.macro S_SRC_DRAW
 	lds ml_tmp1, _s_ram_state
 	cpi ml_tmp1, _S_STATE_SCR
 	breq _s_l_draw_scr
@@ -129,7 +129,8 @@ _s_l_draw_splash:
 	adc XH, ml_tmp1
 	ld ml_ch, X+
 	ld ml_cl, X
-	rjmp s_l_draw_done
+_s_l_draw_done:
+.endmacro
 
 #define te1 ml_cl
 #define te2 ml_ch
