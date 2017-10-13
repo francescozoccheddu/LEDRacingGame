@@ -72,8 +72,8 @@
   <_s_ram_bm_top><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>77</LINE></_s_ram_bm_top>
   <_s_ram_bm_scr><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>78</LINE></_s_ram_bm_scr>
   <_s_ram_bm_digits><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>79</LINE></_s_ram_bm_digits>
-  <_s_l_isr_oca_scr><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>252</LINE></_s_l_isr_oca_scr>
-  <_s_l_isr_oca_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>258</LINE></_s_l_isr_oca_done>
+  <_s_l_isr_oca_scr><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>268</LINE></_s_l_isr_oca_scr>
+  <_s_l_isr_oca_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE><LINE>274</LINE></_s_l_isr_oca_done>
   <_p_ram_prog><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>3</LINE></_p_ram_prog>
   <_p_ram_prsnc_add><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>4</LINE></_p_ram_prsnc_add>
   <_p_ram_absnc_sub><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE><LINE>5</LINE></_p_ram_absnc_sub>

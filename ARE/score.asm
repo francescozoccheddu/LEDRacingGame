@@ -79,11 +79,14 @@ _s_ram_bm_scr: .byte 16
 _s_ram_bm_digits: .byte 12*4
 .cseg
 
+#define _s_r_draw_tmp1 @0
+#define _s_r_draw_tmp2 @1
+
 .macro S_SRC_DRAW
-	lds ml_tmp1, _s_ram_state
-	cpi ml_tmp1, _S_STATE_SCR
+	lds _s_r_draw_tmp1, _s_ram_state
+	cpi _s_r_draw_tmp1, _S_STATE_SCR
 	breq _s_l_draw_scr
-	cpi ml_tmp1, _S_STATE_SPLASH
+	cpi _s_r_draw_tmp1, _S_STATE_SPLASH
 	breq _s_l_draw_splash
 	ldi XL, LOW( _s_ram_bm_top )
 	ldi XH, HIGH( _s_ram_bm_top )
@@ -96,42 +99,50 @@ _s_l_draw_scr:
 	ldi YL, LOW( _s_ram_bcd_scr )
 	ldi YH, HIGH( _s_ram_bcd_scr )
 _s_l_draw_text:
-	clr ml_tmp1
+	clr _s_r_draw_tmp1
 	add XL, ml_col
-	adc XH, ml_tmp1
+	adc XH, _s_r_draw_tmp1
 	ld ml_ch, X
 	; draw score
-	mov ml_tmp1, ml_col
-	lsr ml_tmp1
-	lsr ml_tmp1
-	add YL, ml_tmp1
-	clr ml_tmp1
-	adc YH, ml_tmp1
-	ld ml_tmp1, Y
-	lsl ml_tmp1
-	lsl ml_tmp1
-	mov ml_tmp2, ml_col
-	andi ml_tmp2, 0b11
-	add ml_tmp1, ml_tmp2
+	mov _s_r_draw_tmp1, ml_col
+	lsr _s_r_draw_tmp1
+	lsr _s_r_draw_tmp1
+	add YL, _s_r_draw_tmp1
+	clr _s_r_draw_tmp1
+	adc YH, _s_r_draw_tmp1
+	ld _s_r_draw_tmp1, Y
+	lsl _s_r_draw_tmp1
+	lsl _s_r_draw_tmp1
+	mov _s_r_draw_tmp2, ml_col
+	andi _s_r_draw_tmp2, 0b11
+	add _s_r_draw_tmp1, _s_r_draw_tmp2
 	ldi YL, LOW( _s_ram_bm_digits )
 	ldi YH, HIGH( _s_ram_bm_digits )
-	add YL, ml_tmp1
-	clr ml_tmp1
-	adc YH, ml_tmp1
+	add YL, _s_r_draw_tmp1
+	clr _s_r_draw_tmp1
+	adc YH, _s_r_draw_tmp1
 	ld ml_cl, Y
 	rjmp _s_l_draw_done
 _s_l_draw_splash:
 	ldi XL, LOW( _s_ram_bm_splash )
 	ldi XH, HIGH( _s_ram_bm_splash )
-	mov ml_tmp1, ml_col
-	lsl ml_tmp1
-	add XL, ml_tmp1
-	clr ml_tmp1
-	adc XH, ml_tmp1
+	mov _s_r_draw_tmp1, ml_col
+	lsl _s_r_draw_tmp1
+	add XL, _s_r_draw_tmp1
+	clr _s_r_draw_tmp1
+	adc XH, _s_r_draw_tmp1
 	ld ml_ch, X+
 	ld ml_cl, X
 _s_l_draw_done:
 .endmacro
+
+#undef _s_r_draw_tmp1
+#undef _s_r_draw_tmp2
+
+#define _s_r_set_tmp1 @0
+#define _s_r_set_tmp2 @1
+#define _s_r_set_tmp3 @2
+#define _s_r_set_tmp4 @3
 
 #define te1 ml_cl
 #define te2 ml_ch
@@ -229,6 +240,11 @@ _s_l_set_stored:
 	lds ml_tmp2, g_ram_score + 1
 	rcall _s_sr_tobcd
 .endmacro
+
+#undef _s_r_set_tmp1
+#undef _s_r_set_tmp2
+#undef _s_r_set_tmp3
+#undef _s_r_set_tmp4
 
 #define _s_r_ocia_tmp1 ria
 #define _s_r_ocia_tmp2 rib

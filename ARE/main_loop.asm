@@ -157,7 +157,7 @@ _ml_p_l_update:
 	rjmp _ml_l_loop_column
 
 _ml_s_l_draw:
-	S_SRC_DRAW
+	S_SRC_DRAW ml_tmp1, ml_tmp2
 	rjmp _ml_l_loop_flush
 
 _ml_p_l_draw:
