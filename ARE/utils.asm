@@ -225,6 +225,8 @@ _t_src_cs_5:
 	ldi _t_cs, 5
 	ret
 _t_src_cs_1:
+	tst _t_tl
+	breq _t_src_cs_0
 	mov _t_th, _t_cs
 	lsl _t_th
 	lsl _t_th
@@ -258,6 +260,9 @@ _t_src_cs_4:
 	rol _t_th
 	ldi _t_cs, 4
 	ret
+_t_src_cs_0:
+	clr _t_cs
+	ret
 .endmacro
 
 #undef _t_comp1
@@ -268,12 +273,6 @@ _t_src_cs_4:
 #undef _t_tl
 #undef _t_th
 #undef _t_cs
-
-t_sr_calc:
-	T_SRC_SR_CALC rma, rmb, rmc
-
-t_isr_calc:
-	T_SRC_SR_CALC ria, rib, ric
 
 ; IO
 

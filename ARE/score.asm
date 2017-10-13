@@ -31,32 +31,20 @@ TIM_DEF _S, _S_TIMER
 	SP_SRC_LOAD_TO_RAM ee_s_bm_top, _s_ram_bm_top, 16
 	SP_SRC_LOAD_TO_RAM ee_s_bm_digits, _s_ram_bm_digits, 12*4
 
-	SP_SRC_LOAD ee_s_tim_splash
-	mov rma, sp_data
-	SP_SRC_LOAD ee_s_tim_splash + 1
-	mov rmb, sp_data
-	call t_sr_calc
-	sts _s_ram_ttop_splash, rma
-	sts _s_ram_ttop_splash + 1, rmb
-	sts _s_ram_tccrb_splash, rmc
+	SP_SRC_LOADI_TIME ee_s_tim_splash
+	sts _s_ram_ttop_splash, sp_data_tl
+	sts _s_ram_ttop_splash + 1, sp_data_th
+	sts _s_ram_tccrb_splash, sp_data
 
-	SP_SRC_LOAD ee_s_tim_scr
-	mov rma, sp_data
-	SP_SRC_LOAD ee_s_tim_scr + 1
-	mov rmb, sp_data
-	call t_sr_calc
-	sts _s_ram_ttop_scr, rma
-	sts _s_ram_ttop_scr + 1, rmb
-	sts _s_ram_tccrb_scr, rmc
+	SP_SRC_LOADI_TIME ee_s_tim_scr
+	sts _s_ram_ttop_scr, sp_data_tl
+	sts _s_ram_ttop_scr + 1, sp_data_th
+	sts _s_ram_tccrb_scr, sp_data
 
-	SP_SRC_LOAD ee_s_tim_top
-	mov rma, sp_data
-	SP_SRC_LOAD ee_s_tim_top + 1
-	mov rmb, sp_data
-	call t_sr_calc
-	sts _s_ram_ttop_top, rma
-	sts _s_ram_ttop_top + 1, rmb
-	sts _s_ram_tccrb_top, rmc
+	SP_SRC_LOADI_TIME ee_s_tim_top
+	sts _s_ram_ttop_top, sp_data_tl
+	sts _s_ram_ttop_top + 1, sp_data_th
+	sts _s_ram_tccrb_top, sp_data
 .endmacro
 
 #undef _s_r_setup_tmp

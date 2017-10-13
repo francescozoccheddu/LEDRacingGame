@@ -89,63 +89,75 @@ _sp_l_isr_write:
 #undef _sp_r_rc_tmp
 
 #define sp_data ria
-#define sp_addrh rib
-#define sp_addrl ric
+#define sp_data_tl rib
+#define sp_data_th ric
 #define sp_size rid
 
 .macro SP_SRC_LOAD
-	ldi sp_addrl, LOW( @0 )
-	ldi sp_addrh, HIGH( @0 )
+	ldi YL, LOW( @0 )
+	ldi YH, HIGH( @0 )
 	rcall sp_sr_load
 .endmacro
 
+.macro SP_SRC_LOAD_TIME
+	rcall sp_sr_load
+	mov sp_data_tl, sp_data
+	adiw YH:YL, 1
+	rcall sp_sr_load
+	mov sp_data_th, sp_data
+	rcall _sp_t_sr_calc
+.endmacro
+
+.macro SP_SRC_LOADI_TIME
+	ldi YL, LOW( @0 )
+	ldi YH, HIGH( @0 )
+	SP_SRC_LOAD_TIME
+.endmacro
+
 .macro SP_SRC_LOAD_TO_RAM
-.if @2 == 1
-	SP_SRC_LOAD @0
-	sts @1, sp_data
-.elif @2 == 2
-	SP_SRC_LOAD @0
-	sts @1, sp_data
-	SP_SRC_LOAD @0 + 1
-	sts @1 + 1, sp_data
-.else
-	ldi sp_addrl, LOW( @0 )
-	ldi sp_addrh, HIGH( @0 )
+	ldi YL, LOW( @0 )
+	ldi YH, HIGH( @0 )
 	ldi XL, LOW( @1 )
 	ldi XH, HIGH( @1 )
 	ldi sp_size, @2
 	rcall sp_sr_load_to_ram
-.endif
 .endmacro
 
 .macro SP_SRC_STORE
-	ldi sp_addrl, LOW( @0 )
-	ldi sp_addrh, HIGH( @0 )
+	ldi YL, LOW( @0 )
+	ldi YH, HIGH( @0 )
 	rcall sp_sr_store
 .endmacro
 
 sp_sr_load:
-	EP_SRC_WAIT
-	EP_SRC_ADDR sp_addrl, sp_addrh
-	EP_SRC_FREAD sp_data
+	sbic EECR, EEPE
+	rjmp sp_sr_load
+	out EEARL, YL
+	out EEARH, YH
+	sbi EECR, EERE
+	in sp_data, EEDR
 	ret
 
+_sp_load_to_ram_inc:
+	adiw YH:YL, 1
 sp_sr_load_to_ram:
-	EP_SRC_WAIT
-	EP_SRC_ADDR sp_addrl, sp_addrh
-	EP_SRC_FREAD sp_data
+	rcall sp_sr_load
 	st X+, sp_data
-	inc sp_addrl
-	clr sp_data
-	adc sp_addrh, sp_data
 	dec sp_size
-	brne sp_sr_load_to_ram
+	brne _sp_load_to_ram_inc
 	ret
 
 sp_sr_store:
-	EP_SRC_WAIT
-	EP_SRC_ADDR sp_addrl, sp_addrh
-	EP_SRC_FWRITE sp_data
+	sbic EECR, EEPE
+	rjmp sp_sr_store
+	out EEARL, YL
+	out EEARH, YH
+	out EEDR, sp_data
+	sbi EECR, EEMPE
+	sbi EECR, EEPE
 	ret
+
+_sp_t_sr_calc:
+	T_SRC_SR_CALC sp_data_tl, sp_data_th, sp_data
 
 #endif
