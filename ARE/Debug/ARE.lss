@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Fri Oct 13 20:55:28 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Fri Oct 13 21:18:13 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -2316,15 +2316,15 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  ; EEPROM programming
                                  ; dirty EEPROM module and registers
                                  
-                                 #define _ep_addrl @0
-                                 #define _ep_addrh @1
+                                 #define _ep_r_addrl @0
+                                 #define _ep_r_addrh @1
                                  
                                  ; [SOURCE] set EEPROM address to '@1:@0'
                                  ; @0 (eeprom address l)
                                  ; @1 (eeprom address h)
                                  .macro EP_SRC_ADDR
-                                 	out EEARL, _ep_addrl
-                                 	out EEARH, _ep_addrh
+                                 	out EEARL, _ep_r_addrl
+                                 	out EEARH, _ep_r_addrh
                                  .endmacro
                                  
                                  ; [SOURCE] wait until EEPROM is ready
@@ -2334,12 +2334,12 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  	rjmp _ep_l_src_wait
                                  .endmacro
                                  
-                                 #define _ep_data @0
+                                 #define _ep_r_data @0
                                  
                                  ; [SOURCE] immediately write '@2' to EEPROM
                                  ; @0 (data)
                                  .macro EP_SRC_FWRITE
-                                 	out EEDR, _ep_data
+                                 	out EEDR, _ep_r_data
                                  	sbi EECR, EEMPE
                                  	sbi EECR, EEPE
                                  .endmacro
@@ -2348,10 +2348,10 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  ; @0 (data out)
                                  .macro EP_SRC_FREAD
                                  	sbi EECR, EERE
-                                 	in _ep_data, EEDR
+                                 	in _ep_r_data, EEDR
                                  .endmacro
                                  
-                                 #undef _ep_data
+                                 #undef _ep_r_data
                                  
                                  #endif
                                  #include "builtin_led.asm"
@@ -4037,22 +4037,22 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  #define _DS_ICP_BIT 0 ; digital pin 49
                                  #define _DS_TRIG_BIT 6 ; digital pin 43
                                  
-                                 #define _ds_tmp @0
+                                 #define _ds_r_setup_tmp @0
                                  
                                  ; [SOURCE] setup
                                  ; @0 (dirty immediate register)
                                  .macro DS_SRC_SETUP
                                  	; clear timer control registers
-                                 	clr _ds_tmp
-                                 	sts _DS_TCCRA, _ds_tmp
-                                 	sts _DS_TCCRB, _ds_tmp
-                                 	sts _DS_TCCRC, _ds_tmp
+                                 	clr _ds_r_setup_tmp
+                                 	sts _DS_TCCRA, _ds_r_setup_tmp
+                                 	sts _DS_TCCRB, _ds_r_setup_tmp
+                                 	sts _DS_TCCRC, _ds_r_setup_tmp
                                  	; set timer interrupt mask
-                                 	ldi _ds_tmp, ICIE_VAL | OCIEA_VAL
-                                 	sts _DS_TIMSK, _ds_tmp
+                                 	ldi _ds_r_setup_tmp, ICIE_VAL | OCIEA_VAL
+                                 	sts _DS_TIMSK, _ds_r_setup_tmp
                                  	; set data direction register to output for trig pin
-                                 	ldi _ds_tmp, 1 << _DS_TRIG_BIT
-                                 	sts _DS_DDR, _ds_tmp
+                                 	ldi _ds_r_setup_tmp, 1 << _DS_TRIG_BIT
+                                 	sts _DS_DDR, _ds_r_setup_tmp
                                  	; load ee
                                  	SP_SRC_LOAD_TO_RAM ee_ds_min_ic, _ds_ram_min, 2
                                  	SP_SRC_LOAD_TO_RAM ee_ds_max_ic, _ds_ram_max, 2
@@ -4068,7 +4068,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  	sts _ds_ram_tccrb, rmc
                                  .endmacro
                                  
-                                 #undef _ds_tmp
+                                 #undef _ds_r_setup_tmp
                                  
                                  .eseg
 00003b aa 03                     ee_ds_period_propf: .dw int( 0.06 * T16_PROPF + 0.5)
@@ -4090,182 +4090,182 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 000054 940c 0308                 ISR _DS_OCAaddr
                                  ds_isr_trig:
                                  
-                                 #define _ds_tmp ria
+                                 #define _ds_rr_trig_tmp ria
                                  
                                  	; start trig
-000308 e400                      	ldi _ds_tmp, 1 << _DS_TRIG_BIT
-000309 9300 010b                 	sts _DS_PORT, _ds_tmp
+000308 e400                      	ldi _ds_rr_trig_tmp, 1 << _DS_TRIG_BIT
+000309 9300 010b                 	sts _DS_PORT, _ds_rr_trig_tmp
                                  	; stop timer
-00030b 2700                      	clr _ds_tmp
-00030c 9300 00a1                 	sts _DS_TCCRB, _ds_tmp
+00030b 2700                      	clr _ds_rr_trig_tmp
+00030c 9300 00a1                 	sts _DS_TCCRB, _ds_rr_trig_tmp
                                  	; clear counter
-00030e 9300 00a5                 	sts _DS_TCNTH, _ds_tmp
-000310 9300 00a4                 	sts _DS_TCNTL, _ds_tmp
+00030e 9300 00a5                 	sts _DS_TCNTH, _ds_rr_trig_tmp
+000310 9300 00a4                 	sts _DS_TCNTL, _ds_rr_trig_tmp
                                  	; skip if not measured
-000312 9100 0072                 	lds _ds_tmp, _DS_TIMSK
-000314 fd05                      	sbrc _ds_tmp, ICIE
+000312 9100 0072                 	lds _ds_rr_trig_tmp, _DS_TIMSK
+000314 fd05                      	sbrc _ds_rr_trig_tmp, ICIE
 000315 c039                      	rjmp _ds_isr_trig_bad
                                  
-                                 #undef _ds_tmp
+                                 #undef _ds_rr_trig_tmp
                                  
-                                 #define _ds_cursl ria
-                                 #define _ds_cursh rib
-                                 #define _ds_inl ri0
-                                 #define _ds_inh ri1
+                                 #define _ds_rr_trig_cursl ria
+                                 #define _ds_rr_trig_cursh rib
+                                 #define _ds_rr_trig_inl ri0
+                                 #define _ds_rr_trig_inh ri1
                                  
                                  	; skip if greater than max
-000316 9100 03c9                 	lds _ds_cursl, _ds_ram_emax
-000318 9110 03ca                 	lds _ds_cursh, _ds_ram_emax + 1
-00031a 9020 03cb                 	lds _ds_inl, _ds_ram_ltime
-00031c 9030 03cc                 	lds _ds_inh, _ds_ram_ltime + 1
-00031e 1620                      	cp _ds_inl, _ds_cursl
-00031f 0631                      	cpc _ds_inh, _ds_cursh
+000316 9100 03c9                 	lds _ds_rr_trig_cursl, _ds_ram_emax
+000318 9110 03ca                 	lds _ds_rr_trig_cursh, _ds_ram_emax + 1
+00031a 9020 03cb                 	lds _ds_rr_trig_inl, _ds_ram_ltime
+00031c 9030 03cc                 	lds _ds_rr_trig_inh, _ds_ram_ltime + 1
+00031e 1620                      	cp _ds_rr_trig_inl, _ds_rr_trig_cursl
+00031f 0631                      	cpc _ds_rr_trig_inh, _ds_rr_trig_cursh
 000320 f570                      	brsh _ds_isr_trig_bad
                                  
-                                 #define _ds_in_lol ri2
-                                 #define _ds_in_loh ri3
-                                 #define _ds_in_hil ri4
-                                 #define _ds_in_hih ri5
-                                 #define _ds_out_lo ric
-                                 #define _ds_out_hi rid
-                                 #define _ds_out ri6
+                                 #define _ds_rr_trig_in_lol ri2
+                                 #define _ds_rr_trig_in_loh ri3
+                                 #define _ds_rr_trig_in_hil ri4
+                                 #define _ds_rr_trig_in_hih ri5
+                                 #define _ds_rr_trig_out_lo ric
+                                 #define _ds_rr_trig_out_hi rid
+                                 #define _ds_rr_trig_out ri6
                                  
                                  	; clamp
                                  	; setup clamp parameters
-000321 9040 03c5                 	lds _ds_in_lol, _ds_ram_min
-000323 9050 03c6                 	lds _ds_in_loh, _ds_ram_min + 1
-000325 9060 03c7                 	lds _ds_in_hil, _ds_ram_max
-000327 9070 03c8                 	lds _ds_in_hih, _ds_ram_max + 1
-000329 2722                      	clr _ds_out_lo
-00032a ef3f                      	ser _ds_out_hi
+000321 9040 03c5                 	lds _ds_rr_trig_in_lol, _ds_ram_min
+000323 9050 03c6                 	lds _ds_rr_trig_in_loh, _ds_ram_min + 1
+000325 9060 03c7                 	lds _ds_rr_trig_in_hil, _ds_ram_max
+000327 9070 03c8                 	lds _ds_rr_trig_in_hih, _ds_ram_max + 1
+000329 2722                      	clr _ds_rr_trig_out_lo
+00032a ef3f                      	ser _ds_rr_trig_out_hi
                                  	; start clamping
                                  _ds_l_isr_trig_clamp_start:
-00032b 0183                      	movw _ds_cursh:_ds_cursl, _ds_in_hih:_ds_in_hil
-00032c 2e83                      	mov _ds_out, _ds_out_hi
+00032b 0183                      	movw _ds_rr_trig_cursh:_ds_rr_trig_cursl, _ds_rr_trig_in_hih:_ds_rr_trig_in_hil
+00032c 2e83                      	mov _ds_rr_trig_out, _ds_rr_trig_out_hi
                                  _ds_l_isr_trig_clamp_loop:
-00032d 1b32                      	sub _ds_out_hi, _ds_out_lo
-00032e 3032                      	cpi _ds_out_hi, 2
+00032d 1b32                      	sub _ds_rr_trig_out_hi, _ds_rr_trig_out_lo
+00032e 3032                      	cpi _ds_rr_trig_out_hi, 2
 00032f f0b8                      	brlo _ds_l_isr_trig_clamp_stop
-000330 0f32                      	add _ds_out_hi, _ds_out_lo
-000331 1502                      	cp _ds_cursl, _ds_inl
-000332 0513                      	cpc _ds_cursh, _ds_inh
+000330 0f32                      	add _ds_rr_trig_out_hi, _ds_rr_trig_out_lo
+000331 1502                      	cp _ds_rr_trig_cursl, _ds_rr_trig_inl
+000332 0513                      	cpc _ds_rr_trig_cursh, _ds_rr_trig_inh
 000333 f099                      	breq _ds_l_isr_trig_clamp_stop
 000334 f448                      	brsh _ds_l_isr_trig_clamp_smaller
                                  _ds_l_isr_trig_clamp_greater:
-000335 0128                      	movw _ds_in_loh:_ds_in_lol, _ds_cursh:_ds_cursl
-000336 2d28                      	mov _ds_out_lo, _ds_out
-000337 0d06                      	add _ds_cursl, _ds_in_hil
-000338 1d17                      	adc _ds_cursh, _ds_in_hih
-000339 9517                      	ror _ds_cursh
-00033a 9507                      	ror _ds_cursl
-00033b 0e83                      	add _ds_out, _ds_out_hi
-00033c 9487                      	ror _ds_out
+000335 0128                      	movw _ds_rr_trig_in_loh:_ds_rr_trig_in_lol, _ds_rr_trig_cursh:_ds_rr_trig_cursl
+000336 2d28                      	mov _ds_rr_trig_out_lo, _ds_rr_trig_out
+000337 0d06                      	add _ds_rr_trig_cursl, _ds_rr_trig_in_hil
+000338 1d17                      	adc _ds_rr_trig_cursh, _ds_rr_trig_in_hih
+000339 9517                      	ror _ds_rr_trig_cursh
+00033a 9507                      	ror _ds_rr_trig_cursl
+00033b 0e83                      	add _ds_rr_trig_out, _ds_rr_trig_out_hi
+00033c 9487                      	ror _ds_rr_trig_out
 00033d cfef                      	rjmp _ds_l_isr_trig_clamp_loop
                                  _ds_l_isr_trig_clamp_smaller:
-00033e 0138                      	movw _ds_in_hih:_ds_in_hil, _ds_cursh:_ds_cursl
-00033f 2d38                      	mov _ds_out_hi, _ds_out
-000340 0d04                      	add _ds_cursl, _ds_in_lol
-000341 1d15                      	adc _ds_cursh, _ds_in_loh
-000342 9517                      	ror _ds_cursh
-000343 9507                      	ror _ds_cursl
-000344 0e82                      	add _ds_out, _ds_out_lo
-000345 9487                      	ror _ds_out
+00033e 0138                      	movw _ds_rr_trig_in_hih:_ds_rr_trig_in_hil, _ds_rr_trig_cursh:_ds_rr_trig_cursl
+00033f 2d38                      	mov _ds_rr_trig_out_hi, _ds_rr_trig_out
+000340 0d04                      	add _ds_rr_trig_cursl, _ds_rr_trig_in_lol
+000341 1d15                      	adc _ds_rr_trig_cursh, _ds_rr_trig_in_loh
+000342 9517                      	ror _ds_rr_trig_cursh
+000343 9507                      	ror _ds_rr_trig_cursl
+000344 0e82                      	add _ds_rr_trig_out, _ds_rr_trig_out_lo
+000345 9487                      	ror _ds_rr_trig_out
 000346 cfe6                      	rjmp _ds_l_isr_trig_clamp_loop
                                  
-                                 #undef _ds_cursl
-                                 #undef _ds_cursh
-                                 #undef _ds_inl
-                                 #undef _ds_inh
-                                 #undef _ds_in_lol
-                                 #undef _ds_in_loh
-                                 #undef _ds_in_hil
-                                 #undef _ds_in_hih
-                                 #undef _ds_out_lo
-                                 #undef _ds_out_hi
+                                 #undef _ds_rr_trig_cursl
+                                 #undef _ds_rr_trig_cursh
+                                 #undef _ds_rr_trig_inl
+                                 #undef _ds_rr_trig_inh
+                                 #undef _ds_rr_trig_in_lol
+                                 #undef _ds_rr_trig_in_loh
+                                 #undef _ds_rr_trig_in_hil
+                                 #undef _ds_rr_trig_in_hih
+                                 #undef _ds_rr_trig_out_lo
+                                 #undef _ds_rr_trig_out_hi
                                  
-                                 #define _ds_tmp1 ria
-                                 #define _ds_tmp2 rib
+                                 #define _ds_rr_trig_tmp1 ria
+                                 #define _ds_rr_trig_tmp2 rib
                                  
                                  _ds_l_isr_trig_clamp_stop:
                                  	; write output value
-000347 9100 03cd                 	lds _ds_tmp1, ds_ram_out_val
-000349 0d08                      	add _ds_tmp1, _ds_out
-00034a 9507                      	ror _ds_tmp1
-00034b 9300 03cd                 	sts ds_ram_out_val, _ds_tmp1
+000347 9100 03cd                 	lds _ds_rr_trig_tmp1, ds_ram_out_val
+000349 0d08                      	add _ds_rr_trig_tmp1, _ds_rr_trig_out
+00034a 9507                      	ror _ds_rr_trig_tmp1
+00034b 9300 03cd                 	sts ds_ram_out_val, _ds_rr_trig_tmp1
                                  	; set output state to true
-00034d ef0f                      	ser _ds_tmp1
+00034d ef0f                      	ser _ds_rr_trig_tmp1
 00034e c004                      	rjmp _ds_isr_trig_done
                                  
-                                 #undef _ds_out
+                                 #undef _ds_rr_trig_out
                                  
                                  _ds_isr_trig_bad:
                                  	; wait
-00034f e305                      	ldi _ds_tmp1, 53
+00034f e305                      	ldi _ds_rr_trig_tmp1, 53
                                  _ds_isr_trig_bad_wait:
-000350 950a                      	dec _ds_tmp1
+000350 950a                      	dec _ds_rr_trig_tmp1
 000351 f7f1                          brne _ds_isr_trig_bad_wait
                                  	; set output state to false
-000352 2700                      	clr _ds_tmp1
+000352 2700                      	clr _ds_rr_trig_tmp1
                                  _ds_isr_trig_done:
                                  	; write output state
-000353 9300 03ce                 	sts ds_ram_out_state, _ds_tmp1
-000355 b905                      	BL_SRC_OUT _ds_tmp1
+000353 9300 03ce                 	sts ds_ram_out_state, _ds_rr_trig_tmp1
+000355 b905                      	BL_SRC_OUT _ds_rr_trig_tmp1
                                  	; cancel pending interrupts
-000356 e202                      	ldi _ds_tmp1, ICF_VAL | OCFA_VAL
-000357 bb09                      	out _DS_TIFR, _ds_tmp1
+000356 e202                      	ldi _ds_rr_trig_tmp1, ICF_VAL | OCFA_VAL
+000357 bb09                      	out _DS_TIFR, _ds_rr_trig_tmp1
                                  	; enable interrupts
-000358 e202                      	ldi _ds_tmp1, ICIE_VAL | OCIEA_VAL
-000359 9300 0072                 	sts _DS_TIMSK, _ds_tmp1
+000358 e202                      	ldi _ds_rr_trig_tmp1, ICIE_VAL | OCIEA_VAL
+000359 9300 0072                 	sts _DS_TIMSK, _ds_rr_trig_tmp1
                                  	; stop trig
-00035b 2700                      	clr _ds_tmp1
-00035c 9300 010b                 	sts _DS_PORT, _ds_tmp1
+00035b 2700                      	clr _ds_rr_trig_tmp1
+00035c 9300 010b                 	sts _DS_PORT, _ds_rr_trig_tmp1
                                  	; start timer
-00035e 9100 03c4                 	lds _ds_tmp1, _ds_ram_tccrb
-000360 9300 00a1                 	sts _DS_TCCRB, _ds_tmp1
+00035e 9100 03c4                 	lds _ds_rr_trig_tmp1, _ds_ram_tccrb
+000360 9300 00a1                 	sts _DS_TCCRB, _ds_rr_trig_tmp1
 000362 9518                      	reti
                                  
-                                 #undef _ds_tmp1
-                                 #undef _ds_tmp2
+                                 #undef _ds_rr_trig_tmp1
+                                 #undef _ds_rr_trig_tmp2
                                  
-                                 #define _ds_icrl ri0
-                                 #define _ds_icrh ri1
-                                 #define _ds_tmp1 ria
-                                 #define _ds_tmp2 rib
+                                 #define _ds_r_ici_icrl ri0
+                                 #define _ds_r_ici_icrh ri1
+                                 #define _ds_r_ici_tmp1 ria
+                                 #define _ds_r_ici_tmp2 rib
                                  
 000052 940c 0363                 ISR _DS_ICPaddr
                                  	; load ICR
-000363 9020 00a6                 	lds _ds_icrl, _DS_ICRL
-000365 9030 00a7                 	lds _ds_icrh, _DS_ICRH
+000363 9020 00a6                 	lds _ds_r_ici_icrl, _DS_ICRL
+000365 9030 00a7                 	lds _ds_r_ici_icrh, _DS_ICRH
                                  	; check if rising or falling edge
-000367 9100 00a1                 	lds _ds_tmp1, _DS_TCCRB
-000369 ff06                      	sbrs _ds_tmp1, ICES
+000367 9100 00a1                 	lds _ds_r_ici_tmp1, _DS_TCCRB
+000369 ff06                      	sbrs _ds_r_ici_tmp1, ICES
 00036a c00a                      	rjmp _ds_l_isr_icp_falling
                                  _ds_l_isr_icp_rising:
                                  	; save ICR to sram
-00036b 9220 03cb                 	sts _ds_ram_ltime, _ds_icrl
-00036d 9230 03cc                 	sts _ds_ram_ltime + 1, _ds_icrh
+00036b 9220 03cb                 	sts _ds_ram_ltime, _ds_r_ici_icrl
+00036d 9230 03cc                 	sts _ds_ram_ltime + 1, _ds_r_ici_icrh
                                  	; set input capture to falling edge
-00036f 9100 00a1                 	lds _ds_tmp1, _DS_TCCRB
-000371 7b0f                      	andi _ds_tmp1, ~(ICES_VAL)
-000372 9300 00a1                 	sts _DS_TCCRB, _ds_tmp1
+00036f 9100 00a1                 	lds _ds_r_ici_tmp1, _DS_TCCRB
+000371 7b0f                      	andi _ds_r_ici_tmp1, ~(ICES_VAL)
+000372 9300 00a1                 	sts _DS_TCCRB, _ds_r_ici_tmp1
 000374 9518                      	reti
                                  _ds_l_isr_icp_falling:
                                  	; save difference to sram
-000375 9100 03cb                 	lds _ds_tmp1, _ds_ram_ltime
-000377 9110 03cc                 	lds _ds_tmp2, _ds_ram_ltime + 1
-000379 1a20                      	sub _ds_icrl, _ds_tmp1
-00037a 0a31                      	sbc _ds_icrh, _ds_tmp2
-00037b 9220 03cb                 	sts _ds_ram_ltime, _ds_icrl
-00037d 9230 03cc                 	sts _ds_ram_ltime + 1, _ds_icrh
+000375 9100 03cb                 	lds _ds_r_ici_tmp1, _ds_ram_ltime
+000377 9110 03cc                 	lds _ds_r_ici_tmp2, _ds_ram_ltime + 1
+000379 1a20                      	sub _ds_r_ici_icrl, _ds_r_ici_tmp1
+00037a 0a31                      	sbc _ds_r_ici_icrh, _ds_r_ici_tmp2
+00037b 9220 03cb                 	sts _ds_ram_ltime, _ds_r_ici_icrl
+00037d 9230 03cc                 	sts _ds_ram_ltime + 1, _ds_r_ici_icrh
                                  	; disable input capture interrupt
-00037f e002                      	ldi _ds_tmp1, OCIEA_VAL
-000380 9300 0072                 	sts _DS_TIMSK, _ds_tmp1
+00037f e002                      	ldi _ds_r_ici_tmp1, OCIEA_VAL
+000380 9300 0072                 	sts _DS_TIMSK, _ds_r_ici_tmp1
 000382 9518                      	reti
                                  
-                                 #undef _ds_icrh
-                                 #undef _ds_icrl
-                                 #undef _ds_tmp1
-                                 #undef _ds_tmp2
+                                 #undef _ds_r_ici_icrh
+                                 #undef _ds_r_ici_icrl
+                                 #undef _ds_r_ici_tmp1
+                                 #undef _ds_r_ici_tmp2
                                  
                                  #endif
                                  
