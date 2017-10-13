@@ -2,23 +2,24 @@
 
 TIM_DEF _S, _S_TIMER
 
-#define _s_setup_tmp @0
 #define _S_STATE_SCR 0
 #define _S_STATE_TOP 1
 #define _S_STATE_SPLASH 2
 
+#define _s_r_setup_tmp @0
+
 .macro S_SRC_SETUP
 	; clear timer control registers
-	clr _s_setup_tmp
-	sts _S_TCCRA, _s_setup_tmp
-	sts _S_TCCRB, _s_setup_tmp
-	sts _S_TCCRC, _s_setup_tmp
+	clr _s_r_setup_tmp
+	sts _S_TCCRA, _s_r_setup_tmp
+	sts _S_TCCRB, _s_r_setup_tmp
+	sts _S_TCCRC, _s_r_setup_tmp
 	; set timer interrupt mask
-	ldi _s_setup_tmp, OCIEA_VAL
-	sts _S_TIMSK, _s_setup_tmp
+	ldi _s_r_setup_tmp, OCIEA_VAL
+	sts _S_TIMSK, _s_r_setup_tmp
 	; set state
-	ldi _s_setup_tmp, _S_STATE_SPLASH
-	sts _s_ram_state, _s_setup_tmp
+	ldi _s_r_setup_tmp, _S_STATE_SPLASH
+	sts _s_ram_state, _s_r_setup_tmp
 	; load bitmaps
 	SP_SRC_LOAD_TO_RAM ee_s_bm_splash, _s_ram_bm_splash, 2*16
 	SP_SRC_LOAD_TO_RAM ee_s_bm_scr, _s_ram_bm_scr, 16
@@ -53,7 +54,7 @@ TIM_DEF _S, _S_TIMER
 	sts _s_ram_tccrb_top, rmc
 .endmacro
 
-#undef _s_setup_tmp
+#undef _s_r_setup_tmp
 
 .eseg
 ee_s_tim_splash: .dw int( 1 * T16_PROPF + 0.5)
@@ -118,7 +119,7 @@ _s_l_draw_text:
 	clr ml_tmp1
 	adc YH, ml_tmp1
 	ld ml_cl, Y
-	rjmp s_l_draw_done
+	rjmp _s_l_draw_done
 _s_l_draw_splash:
 	ldi XL, LOW( _s_ram_bm_splash )
 	ldi XH, HIGH( _s_ram_bm_splash )
@@ -229,30 +230,40 @@ _s_l_set_stored:
 	rcall _s_sr_tobcd
 .endmacro
 
+#define _s_r_ocia_tmp1 ria
+#define _s_r_ocia_tmp2 rib
+#define _s_r_ocia_tmp3 ric
+#define _s_r_ocia_tmp4 rid
+
 ISR _S_OCAaddr
-	clr ria
-	sts _S_TCCRB, ria
-	sts _S_TCNTH, ria
-	sts _S_TCNTL, ria
-	lds ria, _s_ram_state
-	cpi ria, _S_STATE_SCR
+	clr _s_r_ocia_tmp1
+	sts _S_TCCRB, _s_r_ocia_tmp1
+	sts _S_TCNTH, _s_r_ocia_tmp1
+	sts _S_TCNTL, _s_r_ocia_tmp1
+	lds _s_r_ocia_tmp1, _s_ram_state
+	cpi _s_r_ocia_tmp1, _S_STATE_SCR
 	breq _s_l_isr_oca_scr
 	; from top
-	ldi ria, _S_STATE_SCR
-	lds rib, _s_ram_ttop_scr
-	lds ric, _s_ram_ttop_scr + 1
-	lds rid, _s_ram_tccrb_scr
+	ldi _s_r_ocia_tmp1, _S_STATE_SCR
+	lds _s_r_ocia_tmp2, _s_ram_ttop_scr
+	lds _s_r_ocia_tmp3, _s_ram_ttop_scr + 1
+	lds _s_r_ocia_tmp4, _s_ram_tccrb_scr
 	rjmp _s_l_isr_oca_done
 _s_l_isr_oca_scr:
 	; from scr
-	ldi ria, _S_STATE_TOP
-	lds rib, _s_ram_ttop_top
-	lds ric, _s_ram_ttop_top + 1
-	lds rid, _s_ram_tccrb_top
+	ldi _s_r_ocia_tmp1, _S_STATE_TOP
+	lds _s_r_ocia_tmp2, _s_ram_ttop_top
+	lds _s_r_ocia_tmp3, _s_ram_ttop_top + 1
+	lds _s_r_ocia_tmp4, _s_ram_tccrb_top
 _s_l_isr_oca_done:
-	sts _s_ram_state, ria
-	sts _S_OCRAH, ric
-	sts _S_OCRAL, rib
-	sts _S_TCCRB, rid
+	sts _s_ram_state, _s_r_ocia_tmp1
+	sts _S_OCRAH, _s_r_ocia_tmp3
+	sts _S_OCRAL, _s_r_ocia_tmp2
+	sts _S_TCCRB, _s_r_ocia_tmp4
 	reti
+
+#undef _s_r_ocia_tmp1
+#undef _s_r_ocia_tmp2
+#undef _s_r_ocia_tmp3
+#undef _s_r_ocia_tmp4
 	
