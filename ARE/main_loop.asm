@@ -1,3 +1,8 @@
+#ifdef _INC_ML
+#error __FILE__ already included
+#else
+#define _INC_ML
+
 ; Francesco Zoccheddu
 ; ARE
 ; EEPROM programming
@@ -169,9 +174,11 @@ _ml_g_l_draw:
 	rjmp _ml_l_loop_flush
 
 ml_l_gameover:
-	S_SRC_SET
+	S_SRC_SET rma, rmb, rm0, rm1
 	rjmp ml_l_loop
 
 _ml_g_l_update:
 	G_SRC_UPDATE
 	rjmp _ml_g_update_done
+
+#endif

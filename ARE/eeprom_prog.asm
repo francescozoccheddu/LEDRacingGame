@@ -1,3 +1,8 @@
+#ifdef _INC_EP
+#error __FILE__ already included
+#else
+#define _INC_EP
+
 ; Francesco Zoccheddu
 ; ARE
 ; EEPROM programming
@@ -39,3 +44,5 @@ _ep_l_src_wait:
 .endmacro
 
 #undef _ep_data
+
+#endif

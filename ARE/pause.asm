@@ -1,3 +1,7 @@
+#ifdef _INC_P
+#error __FILE__ already included
+#else
+#define _INC_P
 
 .dseg
 _p_ram_prog: .byte 1
@@ -85,3 +89,5 @@ _p_l_src_update_done:
 
 #undef _p_r_update_tmp1
 #undef _p_r_update_tmp2
+
+#endif

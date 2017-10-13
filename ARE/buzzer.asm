@@ -1,3 +1,8 @@
+#ifdef _INC_BZ
+#error __FILE__ already included
+#else
+#define _INC_BZ
+
 #define _BZ_PWM_TIMER 0
 #define _BZ_SQ_TIMER 1
 #define _BZ_IO G
@@ -161,3 +166,5 @@ _bz_isr_start_mute:
 	reti
 
 #undef _bz_r_sqocia_tmp
+
+#endif

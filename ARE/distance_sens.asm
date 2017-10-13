@@ -1,3 +1,8 @@
+#ifdef _INC_DS
+#error __FILE__ already included
+#else
+#define _INC_DS
+
 ; Francesco Zoccheddu
 ; ARE
 ; distance sensor
@@ -242,3 +247,4 @@ _ds_l_isr_icp_falling:
 #undef _ds_tmp1
 #undef _ds_tmp2
 
+#endif
