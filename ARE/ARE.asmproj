@@ -128,9 +128,6 @@
     <Compile Include="serial_prog.asm">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="uart_comm.asm">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="utils.asm">
       <SubType>Code</SubType>
     </Compile>

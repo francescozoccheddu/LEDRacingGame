@@ -75,8 +75,9 @@ _p_l_src_draw_done:
 	lds _p_r_update_tmp1, _p_ram_prsnc_add
 	add _p_r_update_tmp2, _p_r_update_tmp1
 	brcc _p_l_src_update_done
-	sts ml_ram_screen, _p_r_update_tmp2
-	G_SRC_RESUME
+	ldi _p_r_update_tmp1, ML_SCREEN_GAME
+	sts ml_ram_screen, _p_r_update_tmp1
+	G_SRC_RESUME _p_r_update_tmp1
 	rjmp _p_l_src_update_done
 _p_l_src_update_sub:
 	lds _p_r_update_tmp1, _p_ram_absnc_sub

@@ -11,7 +11,6 @@ TIM_DEF _G, _G_TIMER
 #define _G_SPAWN_RAND_MASK (_G_SPAWN_COUNT - 1)
 
 #define _g_setup_tmp1 @0
-#define _g_setup_tmp2 @1
 
 .macro G_SRC_SETUP
 	; clear timer control registers
@@ -25,10 +24,10 @@ TIM_DEF _G, _G_TIMER
 	; clear frame
 	ldi XL, LOW( _g_ram_frame )
 	ldi XH, HIGH( _g_ram_frame )
-	clr _g_setup_tmp2
+	clr YL
 	ldi _g_setup_tmp1, 16*3
 _g_l_setup_clear_loop:
-	st X+, _g_setup_tmp2
+	st X+, YL
 	dec _g_setup_tmp1
 	brne _g_l_setup_clear_loop
 	;set empty
@@ -102,10 +101,10 @@ ee_g_snd_over:
 #undef _g_setup_tmp1
 #undef _g_setup_tmp2
 
-#define _g_tmp1 ml_tmp1
-#define _g_tmp2 ml_tmp2
-#define _g_tmp3 ml_tmp3
-#define _g_tmp4 ml_tmp4
+#define _g_tmp1 @0
+#define _g_tmp2 @1
+#define _g_tmp3 @2
+#define _g_tmp4 @3
 
 .macro G_SRC_UPDATE
 	rjmp _g_l_update
@@ -163,9 +162,16 @@ _g_l_update_smooth_done:
 
 .endmacro
 
-#define _g_col ml_col
-#define _g_cl ml_cl
-#define _g_ch ml_ch
+#undef _g_tmp1
+#undef _g_tmp2
+#undef _g_tmp3
+#undef _g_tmp4
+
+#define _g_col @0
+#define _g_cl @1
+#define _g_ch @2
+#define _g_tmp1 @3
+#define _g_tmp2 @4
 
 .macro G_SRC_DRAW
 	; draw frame
@@ -203,26 +209,31 @@ _g_l_draw_abs_done:
 _g_l_draw_done:
 .endmacro
 
-
+#undef _g_tmp1
+#undef _g_tmp2
 #undef _g_col
 #undef _g_cl
 #undef _g_ch
 
+#define _g_tmp @0
+
 .macro G_SRC_PAUSE
 	BZ_SRC_START _g_ram_snd_pause
-	clr _g_tmp1
-	sts _G_TCCRB, _g_tmp1
+	clr _g_tmp
+	sts _G_TCCRB, _g_tmp
 .endmacro
+
+#undef _g_tmp
+
+#define _g_tmp @0
 
 .macro G_SRC_RESUME
 	BZ_SRC_START _g_ram_snd_resume
-	lds _g_tmp1, _g_ram_tccrb
-	sts _G_TCCRB, _g_tmp1
+	lds _g_tmp, _g_ram_tccrb
+	sts _G_TCCRB, _g_tmp
 .endmacro
 
-#undef _g_tmp1
-#undef _g_tmp2
-#undef _g_tmp3
+#undef _g_tmp
 
 #define _g_tmp1 ria
 #define _g_tmp2 rib
