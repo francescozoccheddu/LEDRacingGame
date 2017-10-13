@@ -171,7 +171,7 @@ _g_l_update_smooth_done:
 #define _g_cl ml_cl
 #define _g_ch ml_ch
 
-g_l_draw:
+.macro G_SRC_DRAW
 	; draw frame
 	ldi XH, HIGH(_g_ram_frame + 1)
 	ldi XL, LOW(_g_ram_frame + 1)
@@ -195,34 +195,34 @@ _g_l_draw_abs_done:
 	adc XH, _g_tmp1
 	ld _g_tmp1, X
 	mov _g_tmp2, _g_cl
-	and _g_tmp2, _g_tmp1
-	brne _g_l_over
 	or _g_cl, _g_tmp1
-	rjmp g_l_draw_done
-
-_g_l_over:
+	and _g_tmp2, _g_tmp1
+	breq _g_l_draw_done
 	BZ_SRC_START _g_ram_snd_over
 	ldi _g_tmp1, ML_SCREEN_SCORE
 	sts ml_ram_screen, _g_tmp1
 	clr _g_tmp1
 	sts _G_TCCRB, _g_tmp1
 	rjmp s_l_set
+_g_l_draw_done:
+.endmacro
+
 
 #undef _g_col
 #undef _g_cl
 #undef _g_ch
 
-g_l_pause:
+.macro G_SRC_PAUSE
 	BZ_SRC_START _g_ram_snd_pause
 	clr _g_tmp1
 	sts _G_TCCRB, _g_tmp1
-	rjmp g_l_pause_done
+.endmacro
 
-g_l_resume:
+.macro G_SRC_RESUME
 	BZ_SRC_START _g_ram_snd_resume
 	lds _g_tmp1, _g_ram_tccrb
 	sts _G_TCCRB, _g_tmp1
-	rjmp g_l_resume_done
+.endmacro
 
 #undef _g_tmp1
 #undef _g_tmp2
@@ -236,71 +236,75 @@ g_l_resume:
 
 ISR _G_OCAaddr
 	; score
-	lds XL, g_ram_score
-	lds XH, g_ram_score + 1
-	adiw XH:XL, 1
-	sts g_ram_score, XL
-	sts g_ram_score + 1, XH
+	lds ZL, g_ram_score
+	lds ZH, g_ram_score + 1
+	adiw ZH:ZL, 1
+	sts g_ram_score, ZL
+	sts g_ram_score + 1, ZH
 	; spawn
 	lds _g_tmp1, _g_ram_spawn_countdown
 	dec _g_tmp1
 	brne _g_l_oca_vframe_done
 	; spawn begin
+	push XL
+	push XH
 	lds _g_tmp1, _DS_TCNTL
 	andi _g_tmp1, _G_SPAWN_RAND_MASK
 	; _g_tmp1 is rand betweeen 0 and _G_SPAWN_COUNT
-	ldi ZL, LOW( _g_ram_bm_spawns )
-	ldi ZH, HIGH( _g_ram_bm_spawns )
+	ldi XL, LOW( _g_ram_bm_spawns )
+	ldi XH, HIGH( _g_ram_bm_spawns )
 	clr _g_tmp2
 	lsl _g_tmp1
 	rol _g_tmp2
-	add ZL, _g_tmp1
-	adc ZH, _g_tmp2
-	ld _g_sh, Z+
-	ld _g_sl, Z
-	ldi XL, LOW( _g_ram_frame )
-	ldi XH, HIGH( _g_ram_frame )
+	add XL, _g_tmp1
+	adc XH, _g_tmp2
+	ld _g_sh, X+
+	ld _g_sl, X
+	ldi ZL, LOW( _g_ram_frame )
+	ldi ZH, HIGH( _g_ram_frame )
 	ldi _g_tmp2, 16
 	clr _g_tmp3
-	; sh:sl is the spawn pattern, X is the frame, tmp2 is 16, tmp3 is 0
+	; sh:sl is the spawn pattern, Z is the frame, tmp2 is 16, tmp3 is 0
 _g_l_spawn_loop:
 	lsl _g_sl
 	rol _g_sh
 	brcc _g_l_spawn_loop_continue
-	ldi ZL, LOW( _g_ram_bm_enemy_al )
-	ldi ZH, HIGH( _g_ram_bm_enemy_al )
+	ldi XL, LOW( _g_ram_bm_enemy_al )
+	ldi XH, HIGH( _g_ram_bm_enemy_al )
 	ldi _g_tmp3, 16
 _g_l_spawn_loop_continue:
 	tst _g_tmp3
 	breq _g_l_spawn_loop_void
 	dec _g_tmp3
-	ld _g_tmp1, Z+
+	ld _g_tmp1, X+
 	rjmp _g_l_spawn_loop_draw
 _g_l_spawn_loop_void:
 	clr _g_tmp1
 _g_l_spawn_loop_draw:
-	st X, _g_tmp1
-	adiw XH:XL, 3
+	st Z, _g_tmp1
+	adiw ZH:ZL, 3
 	dec _g_tmp2
 	brne _g_l_spawn_loop
 	; spawn end
 	lds _g_tmp1, _g_ram_spawn_period
+	pop XH
+	pop XL
 _g_l_oca_vframe_done:
 	sts _g_ram_spawn_countdown, _g_tmp1
 	; shift
-	ldi XL, LOW( _g_ram_frame )
-	ldi XH, HIGH( _g_ram_frame )
+	ldi ZL, LOW( _g_ram_frame )
+	ldi ZH, HIGH( _g_ram_frame )
 	ldi _g_tmp1, 16
 _g_l_oca_shift_loop:
-	ld _g_tmp2, X
+	ld _g_tmp2, Z
 	lsr _g_tmp2
-	st X+, _g_tmp2
-	ld _g_tmp2, X
+	st Z+, _g_tmp2
+	ld _g_tmp2, Z
 	ror _g_tmp2
-	st X+, _g_tmp2
-	ld _g_tmp2, X
+	st Z+, _g_tmp2
+	ld _g_tmp2, Z
 	ror _g_tmp2
-	st X+, _g_tmp2
+	st Z+, _g_tmp2
 	dec _g_tmp1
 	brne _g_l_oca_shift_loop
 	reti

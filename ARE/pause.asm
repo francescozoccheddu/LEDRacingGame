@@ -34,7 +34,7 @@ ee_p_dson_add: .db 4
 #define _p_ch ml_ch
 #define _p_tmp ml_tmp1
 
-p_l_draw:
+.macro P_SRC_DRAW
 	lds _p_tmp, _p_ram_prog
 	swap _p_tmp
 	andi _p_tmp, 0b1111
@@ -55,17 +55,17 @@ _p_l_src_draw_begin:
 	ld _p_ch, X+
 	ld _p_cl, X
 _p_l_src_draw_done:
-	rjmp p_l_draw_done
+.endmacro
 
 #undef _p_col
 #undef _p_cl
 #undef _p_ch
 #undef _p_tmp
 
-#define _p_tmp1 ml_tmp1
-#define _p_tmp2 ml_tmp2
+#define _p_tmp1 @0
+#define _p_tmp2 @1
 
-p_l_update:
+.macro P_SRC_UPDATE
 	lds _p_tmp1, ds_ram_out_state
 	lds _p_tmp2, _p_ram_prog
 	tst _p_tmp1
@@ -74,16 +74,16 @@ p_l_update:
 	add _p_tmp2, _p_tmp1
 	brcc _p_l_src_update_done
 	sts ml_ram_screen, _p_tmp2
-	rjmp g_l_resume
+	G_SRC_RESUME
+	rjmp _p_l_src_update_done
 _p_l_src_update_sub:
 	lds _p_tmp1, _p_ram_absnc_sub
 	sub _p_tmp2, _p_tmp1
 	brcc _p_l_src_update_done
 	clr _p_tmp2
-g_l_resume_done:
 _p_l_src_update_done:
 	sts _p_ram_prog, _p_tmp2
-	rjmp p_l_update_done
+.endmacro
 
 #undef _p_tmp1
 #undef _p_tmp2

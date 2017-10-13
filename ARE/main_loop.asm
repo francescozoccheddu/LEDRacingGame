@@ -63,6 +63,7 @@ ee_ml_dsoff_add: .db 4
 ee_ml_dson_sub: .db 16
 .cseg
 
+
 #define ml_col rmd
 #define ml_cl rme
 #define ml_ch rmf
@@ -70,6 +71,10 @@ ee_ml_dson_sub: .db 16
 #define ml_tmp2 rmb
 #define ml_tmp3 rmc
 #define ml_tmp4 rm0
+
+#include "score.asm"
+#include "pause.asm"
+#include "game.asm"
 
 ml_l_loop:
 s_l_set_done:
@@ -92,13 +97,13 @@ g_l_update_done:
 	brcc _ml_l_update_done
 	ldi ml_tmp1, ML_SCREEN_PAUSE
 	sts ml_ram_screen, ml_tmp1
-	rjmp g_l_pause
+	G_SRC_PAUSE
+	rjmp _ml_l_update_done
 _ml_l_update_sub:
 	lds ml_tmp1, _ml_ram_pprsnc_sub
 	sub ml_tmp2, ml_tmp1
 	brcc _ml_l_update_done
 	clr ml_tmp2
-g_l_pause_done:
 _ml_l_update_done:
 	sts _ml_ram_pprog, ml_tmp2
 	
@@ -106,21 +111,19 @@ _ml_l_update_done:
 _ml_l_loop_update_paused:
 	cpi ml_tmp1, ML_SCREEN_PAUSE
 	brne _ml_l_loop_column
-	rjmp p_l_update
+	rjmp _ml_p_l_update
 
-p_l_update_done:
 _ml_l_loop_column:
 	dec ml_col
 
 	lds ml_tmp1, ml_ram_screen
 	cpi ml_tmp1, ML_SCREEN_GAME
 	brne _ml_l_loop_draw_paused
-	rjmp g_l_draw
-	rjmp _ml_l_loop_flush
+	rjmp _ml_g_l_draw
 _ml_l_loop_draw_paused:
 	cpi ml_tmp1, ML_SCREEN_PAUSE
-	brne s_l_draw
-	rjmp p_l_draw
+	brne _ml_s_l_draw
+	rjmp _ml_p_l_draw
 
 s_l_draw_done:
 p_l_draw_done:
@@ -155,7 +158,18 @@ ISR _ML_OCAaddr
 
 #undef _ml_lock
 
-#include "score.asm"
-#include "pause.asm"
-#include "game.asm"
+_ml_p_l_update:
+	P_SRC_UPDATE ml_tmp1, ml_tmp2
+	rjmp _ml_l_loop_column
 
+_ml_s_l_draw:
+	S_SRC_DRAW
+	rjmp _ml_l_loop_flush
+
+_ml_p_l_draw:
+	P_SRC_DRAW
+	rjmp _ml_l_loop_flush
+
+_ml_g_l_draw:
+	G_SRC_DRAW
+	rjmp _ml_l_loop_flush
