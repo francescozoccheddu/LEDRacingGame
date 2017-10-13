@@ -84,9 +84,8 @@ _ml_l_loop_begin:
 	lds ml_tmp1, ml_ram_screen
 	cpi ml_tmp1, ML_SCREEN_GAME
 	brne _ml_l_loop_update_paused
-
-	rjmp g_l_update
-g_l_update_done:
+	rjmp _ml_g_l_update
+_ml_g_update_done:
 	
 	lds ml_tmp1, ds_ram_out_state
 	lds ml_tmp2, _ml_ram_pprog
@@ -173,3 +172,11 @@ _ml_p_l_draw:
 _ml_g_l_draw:
 	G_SRC_DRAW
 	rjmp _ml_l_loop_flush
+
+ml_l_gameover:
+	S_SRC_SET
+	rjmp ml_l_loop
+
+_ml_g_l_update:
+	G_SRC_UPDATE
+	rjmp _ml_g_update_done

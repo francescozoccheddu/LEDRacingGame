@@ -114,6 +114,8 @@ ee_g_snd_over:
 #define _g_tmp3 ml_tmp3
 #define _g_tmp4 ml_tmp4
 
+.macro G_SRC_UPDATE
+	rjmp _g_l_update
 ; tmp1 (a)
 ; tmp2 (b)
 ; tmp3 (prog)
@@ -137,7 +139,7 @@ _g_l_smooth_clamp:
 	mov _g_tmp1, _g_tmp2
 	ret
 
-g_l_update:
+_g_l_update:
 	; smooth
 	lds _g_tmp1, ds_ram_out_state
 	tst _g_tmp1
@@ -165,7 +167,8 @@ _g_l_update_smooth_done:
 	swap _g_tmp1
 	andi _g_tmp1, 0b00001111
 	sts _g_ram_col, _g_tmp1
-	rjmp g_l_update_done
+
+.endmacro
 
 #define _g_col ml_col
 #define _g_cl ml_cl
@@ -203,7 +206,7 @@ _g_l_draw_abs_done:
 	sts ml_ram_screen, _g_tmp1
 	clr _g_tmp1
 	sts _G_TCCRB, _g_tmp1
-	rjmp s_l_set
+	rjmp ml_l_gameover
 _g_l_draw_done:
 .endmacro
 
