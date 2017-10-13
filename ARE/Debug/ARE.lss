@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Fri Oct 13 17:22:53 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Fri Oct 13 20:00:55 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -2354,44 +2354,44 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  IO_DEF _BL, _BL_IO
                                  #define _BL_BIT 7
                                  
-                                 #define _bl_tmp @0
+                                 #define _bl_r_tmp @0
                                  
                                  ; [SOURCE] setup
                                  ; @0 (dirty immediate register)
                                  .macro BL_SRC_SETUP
                                  	; set data direction register to output for LED pin
-                                 	ldi _bl_tmp, 1 << _BL_BIT
-                                 	out _BL_DDR, _bl_tmp
+                                 	ldi _bl_r_tmp, 1 << _BL_BIT
+                                 	out _BL_DDR, _bl_r_tmp
                                  .endmacro
                                  
                                  ; [SOURCE] turn builtin LED on
                                  ; @0 (dirty immediate register)
                                  .macro BL_SRC_ON
-                                 	ser _bl_tmp
-                                 	out _BL_PORT, _bl_tmp
+                                 	ser _bl_r_tmp
+                                 	out _BL_PORT, _bl_r_tmp
                                  .endmacro
                                  
                                  ; [SOURCE] turn builtin LED off
                                  ; @0 (dirty immediate register)
                                  .macro BL_SRC_OFF
-                                 	clr _bl_tmp
-                                 	out _BL_PORT, _bl_tmp
+                                 	clr _bl_r_tmp
+                                 	out _BL_PORT, _bl_r_tmp
                                  .endmacro
                                  
                                  ; [SOURCE] toggle builtin LED state
                                  ; @0 (dirty immediate register)
                                  .macro BL_SRC_TOGGLE
-                                 	ser _bl_tmp
-                                 	out _BL_PIN, _bl_tmp
+                                 	ser _bl_r_tmp
+                                 	out _BL_PIN, _bl_r_tmp
                                  .endmacro
                                  
                                  ; [SOURCE] set builtin LED state (dirty all port pins)
                                  ; @0 (state on bit 7)
                                  .macro BL_SRC_OUT
-                                 	out _BL_PORT, _bl_tmp
+                                 	out _BL_PORT, _bl_r_tmp
                                  .endmacro
                                  
-                                 #undef _bl_tmp
+                                 #undef _bl_r_tmp
                                  #include "uart_comm.asm"
                                  
                                  ; ARE
@@ -2927,11 +2927,14 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 000259                           _s_ram_bm_digits: .byte 12*4
                                  .cseg
                                  
+                                 #define _s_r_draw_tmp1 @0
+                                 #define _s_r_draw_tmp2 @1
+                                 
                                  .macro S_SRC_DRAW
-                                 	lds ml_tmp1, _s_ram_state
-                                 	cpi ml_tmp1, _S_STATE_SCR
+                                 	lds _s_r_draw_tmp1, _s_ram_state
+                                 	cpi _s_r_draw_tmp1, _S_STATE_SCR
                                  	breq _s_l_draw_scr
-                                 	cpi ml_tmp1, _S_STATE_SPLASH
+                                 	cpi _s_r_draw_tmp1, _S_STATE_SPLASH
                                  	breq _s_l_draw_splash
                                  	ldi XL, LOW( _s_ram_bm_top )
                                  	ldi XH, HIGH( _s_ram_bm_top )
@@ -2944,42 +2947,50 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  	ldi YL, LOW( _s_ram_bcd_scr )
                                  	ldi YH, HIGH( _s_ram_bcd_scr )
                                  _s_l_draw_text:
-                                 	clr ml_tmp1
+                                 	clr _s_r_draw_tmp1
                                  	add XL, ml_col
-                                 	adc XH, ml_tmp1
+                                 	adc XH, _s_r_draw_tmp1
                                  	ld ml_ch, X
                                  	; draw score
-                                 	mov ml_tmp1, ml_col
-                                 	lsr ml_tmp1
-                                 	lsr ml_tmp1
-                                 	add YL, ml_tmp1
-                                 	clr ml_tmp1
-                                 	adc YH, ml_tmp1
-                                 	ld ml_tmp1, Y
-                                 	lsl ml_tmp1
-                                 	lsl ml_tmp1
-                                 	mov ml_tmp2, ml_col
-                                 	andi ml_tmp2, 0b11
-                                 	add ml_tmp1, ml_tmp2
+                                 	mov _s_r_draw_tmp1, ml_col
+                                 	lsr _s_r_draw_tmp1
+                                 	lsr _s_r_draw_tmp1
+                                 	add YL, _s_r_draw_tmp1
+                                 	clr _s_r_draw_tmp1
+                                 	adc YH, _s_r_draw_tmp1
+                                 	ld _s_r_draw_tmp1, Y
+                                 	lsl _s_r_draw_tmp1
+                                 	lsl _s_r_draw_tmp1
+                                 	mov _s_r_draw_tmp2, ml_col
+                                 	andi _s_r_draw_tmp2, 0b11
+                                 	add _s_r_draw_tmp1, _s_r_draw_tmp2
                                  	ldi YL, LOW( _s_ram_bm_digits )
                                  	ldi YH, HIGH( _s_ram_bm_digits )
-                                 	add YL, ml_tmp1
-                                 	clr ml_tmp1
-                                 	adc YH, ml_tmp1
+                                 	add YL, _s_r_draw_tmp1
+                                 	clr _s_r_draw_tmp1
+                                 	adc YH, _s_r_draw_tmp1
                                  	ld ml_cl, Y
                                  	rjmp _s_l_draw_done
                                  _s_l_draw_splash:
                                  	ldi XL, LOW( _s_ram_bm_splash )
                                  	ldi XH, HIGH( _s_ram_bm_splash )
-                                 	mov ml_tmp1, ml_col
-                                 	lsl ml_tmp1
-                                 	add XL, ml_tmp1
-                                 	clr ml_tmp1
-                                 	adc XH, ml_tmp1
+                                 	mov _s_r_draw_tmp1, ml_col
+                                 	lsl _s_r_draw_tmp1
+                                 	add XL, _s_r_draw_tmp1
+                                 	clr _s_r_draw_tmp1
+                                 	adc XH, _s_r_draw_tmp1
                                  	ld ml_ch, X+
                                  	ld ml_cl, X
                                  _s_l_draw_done:
                                  .endmacro
+                                 
+                                 #undef _s_r_draw_tmp1
+                                 #undef _s_r_draw_tmp2
+                                 
+                                 #define _s_r_set_tmp1 @0
+                                 #define _s_r_set_tmp2 @1
+                                 #define _s_r_set_tmp3 @2
+                                 #define _s_r_set_tmp4 @3
                                  
                                  #define te1 ml_cl
                                  #define te2 ml_ch
@@ -3077,6 +3088,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  	lds ml_tmp2, g_ram_score + 1
                                  	rcall _s_sr_tobcd
                                  .endmacro
+                                 
+                                 #undef _s_r_set_tmp1
+                                 #undef _s_r_set_tmp2
+                                 #undef _s_r_set_tmp3
+                                 #undef _s_r_set_tmp4
                                  
                                  #define _s_r_ocia_tmp1 ria
                                  #define _s_r_ocia_tmp2 rib
@@ -3683,7 +3699,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 000226 2744
 000227 1fb4
 000228 919d
-000229 918c                      	S_SRC_DRAW
+000229 918c                      	S_SRC_DRAW ml_tmp1, ml_tmp2
 00022a cf9e                      	rjmp _ml_l_loop_flush
                                  
                                  _ml_p_l_draw:
