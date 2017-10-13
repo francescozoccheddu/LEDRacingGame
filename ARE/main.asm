@@ -18,8 +18,11 @@
 #include "serial_prog.asm"
 #include "buzzer.asm"
 #include "led_matrix.asm"
-#include "main_loop.asm"
 #include "distance_sens.asm"
+#include "score.asm"
+#include "pause.asm"
+#include "game.asm"
+#include "main_loop.asm"
 
 .eseg
 #include "bitmaps.asm"
@@ -58,6 +61,10 @@ m_l_reset:
 	DS_SRC_SETUP m_tmp
 	; setup buzzer
 	BZ_SRC_SETUP m_tmp
+	; setup screens
+	P_SRC_SETUP m_tmp
+	G_SRC_SETUP m_tmp
+	S_SRC_SETUP m_tmp
 	; setup draw loop
 	ML_SRC_SETUP m_tmp
 	; play startup sound

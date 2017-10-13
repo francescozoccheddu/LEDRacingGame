@@ -72,8 +72,11 @@ _s_ram_bm_scr: .byte 16
 _s_ram_bm_digits: .byte 12*4
 .cseg
 
-#define _s_r_draw_tmp1 @0
-#define _s_r_draw_tmp2 @1
+#define _s_r_draw_col @0
+#define _s_r_draw_cl @1
+#define _s_r_draw_ch @2
+#define _s_r_draw_tmp1 @3
+#define _s_r_draw_tmp2 @4
 
 .macro S_SRC_DRAW
 	lds _s_r_draw_tmp1, _s_ram_state
@@ -93,11 +96,11 @@ _s_l_draw_scr:
 	ldi YH, HIGH( _s_ram_bcd_scr )
 _s_l_draw_text:
 	clr _s_r_draw_tmp1
-	add XL, ml_col
+	add XL, _s_r_draw_col
 	adc XH, _s_r_draw_tmp1
-	ld ml_ch, X
+	ld _s_r_draw_ch, X
 	; draw score
-	mov _s_r_draw_tmp1, ml_col
+	mov _s_r_draw_tmp1, _s_r_draw_col
 	lsr _s_r_draw_tmp1
 	lsr _s_r_draw_tmp1
 	add YL, _s_r_draw_tmp1
@@ -106,7 +109,7 @@ _s_l_draw_text:
 	ld _s_r_draw_tmp1, Y
 	lsl _s_r_draw_tmp1
 	lsl _s_r_draw_tmp1
-	mov _s_r_draw_tmp2, ml_col
+	mov _s_r_draw_tmp2, _s_r_draw_col
 	andi _s_r_draw_tmp2, 0b11
 	add _s_r_draw_tmp1, _s_r_draw_tmp2
 	ldi YL, LOW( _s_ram_bm_digits )
@@ -114,21 +117,24 @@ _s_l_draw_text:
 	add YL, _s_r_draw_tmp1
 	clr _s_r_draw_tmp1
 	adc YH, _s_r_draw_tmp1
-	ld ml_cl, Y
+	ld _s_r_draw_cl, Y
 	rjmp _s_l_draw_done
 _s_l_draw_splash:
 	ldi XL, LOW( _s_ram_bm_splash )
 	ldi XH, HIGH( _s_ram_bm_splash )
-	mov _s_r_draw_tmp1, ml_col
+	mov _s_r_draw_tmp1, _s_r_draw_col
 	lsl _s_r_draw_tmp1
 	add XL, _s_r_draw_tmp1
 	clr _s_r_draw_tmp1
 	adc XH, _s_r_draw_tmp1
-	ld ml_ch, X+
-	ld ml_cl, X
+	ld _s_r_draw_ch, X+
+	ld _s_r_draw_cl, X
 _s_l_draw_done:
 .endmacro
 
+#undef _s_r_draw_col
+#undef _s_r_draw_cl
+#undef _s_r_draw_ch
 #undef _s_r_draw_tmp1
 #undef _s_r_draw_tmp2
 
@@ -140,10 +146,10 @@ _s_l_draw_done:
 .macro S_SRC_SET
 	rjmp _s_l_set
 
-#define _s_rr_set_bcd_l ml_tmp1
-#define _s_rr_set_bcd_h ml_tmp2
-#define _s_rr_set_bcd_z ml_tmp3
-#define _s_rr_set_bcd_c ml_ch
+#define _s_rr_set_bcd_l _s_r_set_tmp1
+#define _s_rr_set_bcd_h _s_r_set_tmp2
+#define _s_rr_set_bcd_z _s_r_set_tmp3
+#define _s_rr_set_bcd_c _s_r_set_tmp4
 
 _s_sr_tobcd:
 	ldi _s_rr_set_bcd_z, HIGH(1000)

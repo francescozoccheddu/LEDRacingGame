@@ -58,7 +58,7 @@ _bz_ram_ticks: .byte 2
 	cli
 	ldi ZH, HIGH( _bz_start_ram )
 	ldi ZL, LOW( _bz_start_ram )
-	call _bz_isr_start
+	rcall _bz_isr_start
 .endmacro
 
 #undef _bz_start_ram

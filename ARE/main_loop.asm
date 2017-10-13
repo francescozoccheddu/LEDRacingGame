@@ -13,9 +13,9 @@
 
 TIM_DEF _ML, _ML_TIMER
 
-#define ML_SCREEN_PAUSE 2
-#define ML_SCREEN_SCORE 1
-#define ML_SCREEN_GAME 0
+.equ ML_SCREEN_PAUSE = 2
+.equ ML_SCREEN_SCORE = 1
+.equ ML_SCREEN_GAME = 0
 
 #define _ml_setup_tmp @0
 
@@ -41,10 +41,6 @@ TIM_DEF _ML, _ML_TIMER
 	SP_SRC_LOADI_TIME ee_ml_tim_propf
 	sts _ML_OCRA, sp_data_th
 	sts _ml_ram_tcs, sp_data
-	; submodules
-	P_SRC_SETUP _ml_setup_tmp
-	G_SRC_SETUP _ml_setup_tmp, rmc
-	S_SRC_SETUP _ml_setup_tmp
 .endmacro
 
 #undef _ml_setup_tmp
@@ -73,10 +69,6 @@ ee_ml_dson_sub: .db 16
 #define ml_tmp3 rmc
 #define ml_tmp4 rm0
 
-#include "score.asm"
-#include "pause.asm"
-#include "game.asm"
-
 ml_l_loop:
 	ldi ml_col, 16
 
@@ -95,7 +87,7 @@ _ml_g_update_done:
 	brcc _ml_l_update_done
 	ldi ml_tmp1, ML_SCREEN_PAUSE
 	sts ml_ram_screen, ml_tmp1
-	G_SRC_PAUSE
+	G_SRC_PAUSE ml_tmp1
 	rjmp _ml_l_update_done
 _ml_l_update_sub:
 	lds ml_tmp1, _ml_ram_pprsnc_sub
@@ -158,7 +150,7 @@ _ml_p_l_update:
 	rjmp _ml_l_loop_column
 
 _ml_s_l_draw:
-	S_SRC_DRAW ml_tmp1, ml_tmp2
+	S_SRC_DRAW ml_col, ml_cl, ml_ch, ml_tmp1, ml_tmp2
 	rjmp _ml_l_loop_flush
 
 _ml_p_l_draw:
@@ -166,7 +158,7 @@ _ml_p_l_draw:
 	rjmp _ml_l_loop_flush
 
 _ml_g_l_draw:
-	G_SRC_DRAW
+	G_SRC_DRAW ml_col, ml_cl, ml_ch, ml_tmp1, ml_tmp2
 	rjmp _ml_l_loop_flush
 
 _ml_lm_l_sendcol:
@@ -174,11 +166,19 @@ _ml_lm_l_sendcol:
 	rjmp _ml_l_sendcol_done
 
 ml_l_gameover:
-	S_SRC_SET rma, rmb, rm0, rm1
+	S_SRC_SET rma, rmb, rmc, rmd
 	rjmp ml_l_loop
 
 _ml_g_l_update:
-	G_SRC_UPDATE
+	G_SRC_UPDATE ml_tmp1, ml_tmp2, ml_tmp3, ml_tmp4
 	rjmp _ml_g_update_done
+
+#undef ml_col 
+#undef ml_cl 
+#undef ml_ch 
+#undef ml_tmp1 
+#undef ml_tmp2 
+#undef ml_tmp3 
+#undef ml_tmp4 
 
 #endif

@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Fri Oct 13 22:50:32 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Fri Oct 13 23:24:18 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -9,12 +9,12 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(17): Including file 'C:\Users\zoc
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(18): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(19): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(20): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(76): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(77): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(78): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(24): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(28): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(15): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\utils.asm'
@@ -23,12 +23,12 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(17): Including file 'C:\Users\zoc
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(18): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(19): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(20): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(76): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(77): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(78): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(24): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(28): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm'
                                  
                                  ; Francesco Zoccheddu
                                  
@@ -2589,7 +2589,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  	cli
                                  	ldi ZH, HIGH( _bz_start_ram )
                                  	ldi ZL, LOW( _bz_start_ram )
-                                 	call _bz_isr_start
+                                 	rcall _bz_isr_start
                                  .endmacro
                                  
                                  #undef _bz_start_ram
@@ -2735,81 +2735,252 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  #undef _lm_r_tmp2
                                  
                                  #endif
-                                 #include "main_loop.asm"
+                                 #include "distance_sens.asm"
                                  
                                  #else
-                                 #define _INC_ML
+                                 #define _INC_DS
                                  
                                  ; Francesco Zoccheddu
                                  ; ARE
-                                 ; EEPROM programming
-                                 ; dirty timer 0 and registers
+                                 ; distance sensor
+                                 ; dirty timer 4 module and registers
                                  
+                                 #define _DS_TIMER 4
+                                 #define _DS_IO L
                                  
-                                 #define _ML_TIMER 2
+                                 TIM_DEF _DS, _DS_TIMER
+                                 IO_DEF _DS, _DS_IO
                                  
-                                 TIM_DEF _ML, _ML_TIMER
+                                 #define _DS_ICP_BIT 0 ; digital pin 49
+                                 #define _DS_TRIG_BIT 6 ; digital pin 43
                                  
-                                 #define ML_SCREEN_PAUSE 2
-                                 #define ML_SCREEN_SCORE 1
-                                 #define ML_SCREEN_GAME 0
-                                 
-                                 #define _ml_setup_tmp @0
+                                 #define _ds_r_setup_tmp @0
                                  
                                  ; [SOURCE] setup
                                  ; @0 (dirty immediate register)
-                                 .macro ML_SRC_SETUP
+                                 .macro DS_SRC_SETUP
                                  	; clear timer control registers
-                                 	clr _ml_setup_tmp
-                                 	sts _ML_TCCRA, _ml_setup_tmp
-                                 	sts _ML_TCCRB, _ml_setup_tmp
+                                 	clr _ds_r_setup_tmp
+                                 	sts _DS_TCCRA, _ds_r_setup_tmp
+                                 	sts _DS_TCCRB, _ds_r_setup_tmp
+                                 	sts _DS_TCCRC, _ds_r_setup_tmp
                                  	; set timer interrupt mask
-                                 	ldi _ml_setup_tmp, OCIEA_VAL
-                                 	sts _ML_TIMSK, _ml_setup_tmp
-                                 	; setup pause
-                                 	clr _ml_setup_tmp
-                                 	sts _ml_ram_pprog, _ml_setup_tmp
-                                 	ldi _ml_setup_tmp, ML_SCREEN_PAUSE
-                                 	sts ml_ram_screen, _ml_setup_tmp
-                                 	; load
-                                 	SP_SRC_LOAD_TO_RAM ee_ml_dsoff_add, _ml_ram_pabsnc_add, 1
-                                 	SP_SRC_LOAD_TO_RAM ee_ml_dson_sub, _ml_ram_pprsnc_sub, 1
-                                 
-                                 	SP_SRC_LOADI_TIME ee_ml_tim_propf
-                                 	sts _ML_OCRA, sp_data_th
-                                 	sts _ml_ram_tcs, sp_data
-                                 	; submodules
-                                 	P_SRC_SETUP _ml_setup_tmp
-                                 	G_SRC_SETUP _ml_setup_tmp, rmc
-                                 	S_SRC_SETUP _ml_setup_tmp
+                                 	ldi _ds_r_setup_tmp, ICIE_VAL | OCIEA_VAL
+                                 	sts _DS_TIMSK, _ds_r_setup_tmp
+                                 	; set data direction register to output for trig pin
+                                 	ldi _ds_r_setup_tmp, 1 << _DS_TRIG_BIT
+                                 	sts _DS_DDR, _ds_r_setup_tmp
+                                 	; load ee
+                                 	SP_SRC_LOAD_TO_RAM ee_ds_min_ic, _ds_ram_min, 2
+                                 	SP_SRC_LOAD_TO_RAM ee_ds_max_ic, _ds_ram_max, 2
+                                 	SP_SRC_LOAD_TO_RAM ee_ds_emax_ic, _ds_ram_emax, 2
+                                 	SP_SRC_LOADI_TIME ee_ds_period_propf
+                                 	ori sp_data, ICN_VAL | ICES_VAL
+                                 	sts _DS_OCRAH, sp_data_th
+                                 	sts _DS_OCRAL, sp_data_tl
+                                 	sts _ds_ram_tccrb, sp_data
                                  .endmacro
                                  
-                                 #undef _ml_setup_tmp
-                                 
-                                 
-                                 .dseg
-000202                           _ml_ram_tcs: .byte 1
-000203                           ml_ram_screen: .byte 1
-000204                           _ml_ram_pprog: .byte 1
-000205                           _ml_ram_pabsnc_add: .byte 1
-000206                           _ml_ram_pprsnc_sub: .byte 1
-                                 .cseg
+                                 #undef _ds_r_setup_tmp
                                  
                                  .eseg
-000000 40 1f                     ee_ml_tim_propf: .dw int( 0.002 * T8_PROPF + 0.5 )
-000002 04                        ee_ml_dsoff_add: .db 4
-000003 10                        ee_ml_dson_sub: .db 16
+000000 aa 03                     ee_ds_period_propf: .dw int( 0.06 * T16_PROPF + 0.5)
+000002 46 00                     ee_ds_min_ic: .dw 70
+000004 fa 00                     ee_ds_max_ic: .dw 250
+000006 2c 01                     ee_ds_emax_ic: .dw 300
                                  .cseg
                                  
+                                 .dseg
+000202                           _ds_ram_tccrb: .byte 1
+000203                           _ds_ram_min: .byte 2
+000205                           _ds_ram_max: .byte 2
+000207                           _ds_ram_emax: .byte 2
+000209                           _ds_ram_ltime: .byte 2
+00020b                           ds_ram_out_val: .byte 1
+00020c                           ds_ram_out_state: .byte 1
+                                 .cseg
                                  
-                                 #define ml_col rmd
-                                 #define ml_cl rme
-                                 #define ml_ch rmf
-                                 #define ml_tmp1 rma
-                                 #define ml_tmp2 rmb
-                                 #define ml_tmp3 rmc
-                                 #define ml_tmp4 rm0
+000054 940c 0101                 ISR _DS_OCAaddr
+                                 ds_isr_trig:
                                  
+                                 #define _ds_rr_trig_tmp ria
+                                 
+                                 	; start trig
+000101 e400                      	ldi _ds_rr_trig_tmp, 1 << _DS_TRIG_BIT
+000102 9300 010b                 	sts _DS_PORT, _ds_rr_trig_tmp
+                                 	; stop timer
+000104 2700                      	clr _ds_rr_trig_tmp
+000105 9300 00a1                 	sts _DS_TCCRB, _ds_rr_trig_tmp
+                                 	; clear counter
+000107 9300 00a5                 	sts _DS_TCNTH, _ds_rr_trig_tmp
+000109 9300 00a4                 	sts _DS_TCNTL, _ds_rr_trig_tmp
+                                 	; skip if not measured
+00010b 9100 0072                 	lds _ds_rr_trig_tmp, _DS_TIMSK
+00010d fd05                      	sbrc _ds_rr_trig_tmp, ICIE
+00010e c039                      	rjmp _ds_isr_trig_bad
+                                 
+                                 #undef _ds_rr_trig_tmp
+                                 
+                                 #define _ds_rr_trig_cursl ria
+                                 #define _ds_rr_trig_cursh rib
+                                 #define _ds_rr_trig_inl ri0
+                                 #define _ds_rr_trig_inh ri1
+                                 
+                                 	; skip if greater than max
+00010f 9100 0207                 	lds _ds_rr_trig_cursl, _ds_ram_emax
+000111 9110 0208                 	lds _ds_rr_trig_cursh, _ds_ram_emax + 1
+000113 9020 0209                 	lds _ds_rr_trig_inl, _ds_ram_ltime
+000115 9030 020a                 	lds _ds_rr_trig_inh, _ds_ram_ltime + 1
+000117 1620                      	cp _ds_rr_trig_inl, _ds_rr_trig_cursl
+000118 0631                      	cpc _ds_rr_trig_inh, _ds_rr_trig_cursh
+000119 f570                      	brsh _ds_isr_trig_bad
+                                 
+                                 #define _ds_rr_trig_in_lol ri2
+                                 #define _ds_rr_trig_in_loh ri3
+                                 #define _ds_rr_trig_in_hil ri4
+                                 #define _ds_rr_trig_in_hih ri5
+                                 #define _ds_rr_trig_out_lo ric
+                                 #define _ds_rr_trig_out_hi rid
+                                 #define _ds_rr_trig_out ri6
+                                 
+                                 	; clamp
+                                 	; setup clamp parameters
+00011a 9040 0203                 	lds _ds_rr_trig_in_lol, _ds_ram_min
+00011c 9050 0204                 	lds _ds_rr_trig_in_loh, _ds_ram_min + 1
+00011e 9060 0205                 	lds _ds_rr_trig_in_hil, _ds_ram_max
+000120 9070 0206                 	lds _ds_rr_trig_in_hih, _ds_ram_max + 1
+000122 2722                      	clr _ds_rr_trig_out_lo
+000123 ef3f                      	ser _ds_rr_trig_out_hi
+                                 	; start clamping
+                                 _ds_l_isr_trig_clamp_start:
+000124 0183                      	movw _ds_rr_trig_cursh:_ds_rr_trig_cursl, _ds_rr_trig_in_hih:_ds_rr_trig_in_hil
+000125 2e83                      	mov _ds_rr_trig_out, _ds_rr_trig_out_hi
+                                 _ds_l_isr_trig_clamp_loop:
+000126 1b32                      	sub _ds_rr_trig_out_hi, _ds_rr_trig_out_lo
+000127 3032                      	cpi _ds_rr_trig_out_hi, 2
+000128 f0b8                      	brlo _ds_l_isr_trig_clamp_stop
+000129 0f32                      	add _ds_rr_trig_out_hi, _ds_rr_trig_out_lo
+00012a 1502                      	cp _ds_rr_trig_cursl, _ds_rr_trig_inl
+00012b 0513                      	cpc _ds_rr_trig_cursh, _ds_rr_trig_inh
+00012c f099                      	breq _ds_l_isr_trig_clamp_stop
+00012d f448                      	brsh _ds_l_isr_trig_clamp_smaller
+                                 _ds_l_isr_trig_clamp_greater:
+00012e 0128                      	movw _ds_rr_trig_in_loh:_ds_rr_trig_in_lol, _ds_rr_trig_cursh:_ds_rr_trig_cursl
+00012f 2d28                      	mov _ds_rr_trig_out_lo, _ds_rr_trig_out
+000130 0d06                      	add _ds_rr_trig_cursl, _ds_rr_trig_in_hil
+000131 1d17                      	adc _ds_rr_trig_cursh, _ds_rr_trig_in_hih
+000132 9517                      	ror _ds_rr_trig_cursh
+000133 9507                      	ror _ds_rr_trig_cursl
+000134 0e83                      	add _ds_rr_trig_out, _ds_rr_trig_out_hi
+000135 9487                      	ror _ds_rr_trig_out
+000136 cfef                      	rjmp _ds_l_isr_trig_clamp_loop
+                                 _ds_l_isr_trig_clamp_smaller:
+000137 0138                      	movw _ds_rr_trig_in_hih:_ds_rr_trig_in_hil, _ds_rr_trig_cursh:_ds_rr_trig_cursl
+000138 2d38                      	mov _ds_rr_trig_out_hi, _ds_rr_trig_out
+000139 0d04                      	add _ds_rr_trig_cursl, _ds_rr_trig_in_lol
+00013a 1d15                      	adc _ds_rr_trig_cursh, _ds_rr_trig_in_loh
+00013b 9517                      	ror _ds_rr_trig_cursh
+00013c 9507                      	ror _ds_rr_trig_cursl
+00013d 0e82                      	add _ds_rr_trig_out, _ds_rr_trig_out_lo
+00013e 9487                      	ror _ds_rr_trig_out
+00013f cfe6                      	rjmp _ds_l_isr_trig_clamp_loop
+                                 
+                                 #undef _ds_rr_trig_cursl
+                                 #undef _ds_rr_trig_cursh
+                                 #undef _ds_rr_trig_inl
+                                 #undef _ds_rr_trig_inh
+                                 #undef _ds_rr_trig_in_lol
+                                 #undef _ds_rr_trig_in_loh
+                                 #undef _ds_rr_trig_in_hil
+                                 #undef _ds_rr_trig_in_hih
+                                 #undef _ds_rr_trig_out_lo
+                                 #undef _ds_rr_trig_out_hi
+                                 
+                                 #define _ds_rr_trig_tmp1 ria
+                                 #define _ds_rr_trig_tmp2 rib
+                                 
+                                 _ds_l_isr_trig_clamp_stop:
+                                 	; write output value
+000140 9100 020b                 	lds _ds_rr_trig_tmp1, ds_ram_out_val
+000142 0d08                      	add _ds_rr_trig_tmp1, _ds_rr_trig_out
+000143 9507                      	ror _ds_rr_trig_tmp1
+000144 9300 020b                 	sts ds_ram_out_val, _ds_rr_trig_tmp1
+                                 	; set output state to true
+000146 ef0f                      	ser _ds_rr_trig_tmp1
+000147 c004                      	rjmp _ds_isr_trig_done
+                                 
+                                 #undef _ds_rr_trig_out
+                                 
+                                 _ds_isr_trig_bad:
+                                 	; wait
+000148 e305                      	ldi _ds_rr_trig_tmp1, 53
+                                 _ds_isr_trig_bad_wait:
+000149 950a                      	dec _ds_rr_trig_tmp1
+00014a f7f1                          brne _ds_isr_trig_bad_wait
+                                 	; set output state to false
+00014b 2700                      	clr _ds_rr_trig_tmp1
+                                 _ds_isr_trig_done:
+                                 	; write output state
+00014c 9300 020c                 	sts ds_ram_out_state, _ds_rr_trig_tmp1
+00014e b905                      	BL_SRC_OUT _ds_rr_trig_tmp1
+                                 	; cancel pending interrupts
+00014f e202                      	ldi _ds_rr_trig_tmp1, ICF_VAL | OCFA_VAL
+000150 bb09                      	out _DS_TIFR, _ds_rr_trig_tmp1
+                                 	; enable interrupts
+000151 e202                      	ldi _ds_rr_trig_tmp1, ICIE_VAL | OCIEA_VAL
+000152 9300 0072                 	sts _DS_TIMSK, _ds_rr_trig_tmp1
+                                 	; stop trig
+000154 2700                      	clr _ds_rr_trig_tmp1
+000155 9300 010b                 	sts _DS_PORT, _ds_rr_trig_tmp1
+                                 	; start timer
+000157 9100 0202                 	lds _ds_rr_trig_tmp1, _ds_ram_tccrb
+000159 9300 00a1                 	sts _DS_TCCRB, _ds_rr_trig_tmp1
+00015b 9518                      	reti
+                                 
+                                 #undef _ds_rr_trig_tmp1
+                                 #undef _ds_rr_trig_tmp2
+                                 
+                                 #define _ds_r_ici_icrl ri0
+                                 #define _ds_r_ici_icrh ri1
+                                 #define _ds_r_ici_tmp1 ria
+                                 #define _ds_r_ici_tmp2 rib
+                                 
+000052 940c 015c                 ISR _DS_ICPaddr
+                                 	; load ICR
+00015c 9020 00a6                 	lds _ds_r_ici_icrl, _DS_ICRL
+00015e 9030 00a7                 	lds _ds_r_ici_icrh, _DS_ICRH
+                                 	; check if rising or falling edge
+000160 9100 00a1                 	lds _ds_r_ici_tmp1, _DS_TCCRB
+000162 ff06                      	sbrs _ds_r_ici_tmp1, ICES
+000163 c00a                      	rjmp _ds_l_isr_icp_falling
+                                 _ds_l_isr_icp_rising:
+                                 	; save ICR to sram
+000164 9220 0209                 	sts _ds_ram_ltime, _ds_r_ici_icrl
+000166 9230 020a                 	sts _ds_ram_ltime + 1, _ds_r_ici_icrh
+                                 	; set input capture to falling edge
+000168 9100 00a1                 	lds _ds_r_ici_tmp1, _DS_TCCRB
+00016a 7b0f                      	andi _ds_r_ici_tmp1, ~(ICES_VAL)
+00016b 9300 00a1                 	sts _DS_TCCRB, _ds_r_ici_tmp1
+00016d 9518                      	reti
+                                 _ds_l_isr_icp_falling:
+                                 	; save difference to sram
+00016e 9100 0209                 	lds _ds_r_ici_tmp1, _ds_ram_ltime
+000170 9110 020a                 	lds _ds_r_ici_tmp2, _ds_ram_ltime + 1
+000172 1a20                      	sub _ds_r_ici_icrl, _ds_r_ici_tmp1
+000173 0a31                      	sbc _ds_r_ici_icrh, _ds_r_ici_tmp2
+000174 9220 0209                 	sts _ds_ram_ltime, _ds_r_ici_icrl
+000176 9230 020a                 	sts _ds_ram_ltime + 1, _ds_r_ici_icrh
+                                 	; disable input capture interrupt
+000178 e002                      	ldi _ds_r_ici_tmp1, OCIEA_VAL
+000179 9300 0072                 	sts _DS_TIMSK, _ds_r_ici_tmp1
+00017b 9518                      	reti
+                                 
+                                 #undef _ds_r_ici_icrh
+                                 #undef _ds_r_ici_icrl
+                                 #undef _ds_r_ici_tmp1
+                                 #undef _ds_r_ici_tmp2
+                                 
+                                 #endif
                                  #include "score.asm"
                                  
                                  #else
@@ -2862,30 +3033,33 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  #undef _s_r_setup_tmp
                                  
                                  .eseg
-000004 09 3d                     ee_s_tim_splash: .dw int( 1 * T16_PROPF + 0.5)
-000006 12 7a                     ee_s_tim_scr: .dw int( 2 * T16_PROPF + 0.5)
-000008 8e 5b                     ee_s_tim_top: .dw int( 1.5 * T16_PROPF + 0.5)
-00000a 0e 00                     ee_s_top: .dw 14
+000008 09 3d                     ee_s_tim_splash: .dw int( 1 * T16_PROPF + 0.5)
+00000a 12 7a                     ee_s_tim_scr: .dw int( 2 * T16_PROPF + 0.5)
+00000c 8e 5b                     ee_s_tim_top: .dw int( 1.5 * T16_PROPF + 0.5)
+00000e 0e 00                     ee_s_top: .dw 14
                                  .cseg
                                  
                                  .dseg
-000207                           _s_ram_state: .byte 1
-000208                           _s_ram_tccrb_splash: .byte 1
-000209                           _s_ram_ttop_splash: .byte 2
-00020b                           _s_ram_tccrb_scr: .byte 1
-00020c                           _s_ram_ttop_scr: .byte 2
-00020e                           _s_ram_tccrb_top: .byte 1
-00020f                           _s_ram_ttop_top: .byte 2
-000211                           _s_ram_bcd_top: .byte 4
-000215                           _s_ram_bcd_scr: .byte 4
-000219                           _s_ram_bm_splash: .byte 2*16
-000239                           _s_ram_bm_top: .byte 16
-000249                           _s_ram_bm_scr: .byte 16
-000259                           _s_ram_bm_digits: .byte 12*4
+00020d                           _s_ram_state: .byte 1
+00020e                           _s_ram_tccrb_splash: .byte 1
+00020f                           _s_ram_ttop_splash: .byte 2
+000211                           _s_ram_tccrb_scr: .byte 1
+000212                           _s_ram_ttop_scr: .byte 2
+000214                           _s_ram_tccrb_top: .byte 1
+000215                           _s_ram_ttop_top: .byte 2
+000217                           _s_ram_bcd_top: .byte 4
+00021b                           _s_ram_bcd_scr: .byte 4
+00021f                           _s_ram_bm_splash: .byte 2*16
+00023f                           _s_ram_bm_top: .byte 16
+00024f                           _s_ram_bm_scr: .byte 16
+00025f                           _s_ram_bm_digits: .byte 12*4
                                  .cseg
                                  
-                                 #define _s_r_draw_tmp1 @0
-                                 #define _s_r_draw_tmp2 @1
+                                 #define _s_r_draw_col @0
+                                 #define _s_r_draw_cl @1
+                                 #define _s_r_draw_ch @2
+                                 #define _s_r_draw_tmp1 @3
+                                 #define _s_r_draw_tmp2 @4
                                  
                                  .macro S_SRC_DRAW
                                  	lds _s_r_draw_tmp1, _s_ram_state
@@ -2905,11 +3079,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  	ldi YH, HIGH( _s_ram_bcd_scr )
                                  _s_l_draw_text:
                                  	clr _s_r_draw_tmp1
-                                 	add XL, ml_col
+                                 	add XL, _s_r_draw_col
                                  	adc XH, _s_r_draw_tmp1
-                                 	ld ml_ch, X
+                                 	ld _s_r_draw_ch, X
                                  	; draw score
-                                 	mov _s_r_draw_tmp1, ml_col
+                                 	mov _s_r_draw_tmp1, _s_r_draw_col
                                  	lsr _s_r_draw_tmp1
                                  	lsr _s_r_draw_tmp1
                                  	add YL, _s_r_draw_tmp1
@@ -2918,7 +3092,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  	ld _s_r_draw_tmp1, Y
                                  	lsl _s_r_draw_tmp1
                                  	lsl _s_r_draw_tmp1
-                                 	mov _s_r_draw_tmp2, ml_col
+                                 	mov _s_r_draw_tmp2, _s_r_draw_col
                                  	andi _s_r_draw_tmp2, 0b11
                                  	add _s_r_draw_tmp1, _s_r_draw_tmp2
                                  	ldi YL, LOW( _s_ram_bm_digits )
@@ -2926,21 +3100,24 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  	add YL, _s_r_draw_tmp1
                                  	clr _s_r_draw_tmp1
                                  	adc YH, _s_r_draw_tmp1
-                                 	ld ml_cl, Y
+                                 	ld _s_r_draw_cl, Y
                                  	rjmp _s_l_draw_done
                                  _s_l_draw_splash:
                                  	ldi XL, LOW( _s_ram_bm_splash )
                                  	ldi XH, HIGH( _s_ram_bm_splash )
-                                 	mov _s_r_draw_tmp1, ml_col
+                                 	mov _s_r_draw_tmp1, _s_r_draw_col
                                  	lsl _s_r_draw_tmp1
                                  	add XL, _s_r_draw_tmp1
                                  	clr _s_r_draw_tmp1
                                  	adc XH, _s_r_draw_tmp1
-                                 	ld ml_ch, X+
-                                 	ld ml_cl, X
+                                 	ld _s_r_draw_ch, X+
+                                 	ld _s_r_draw_cl, X
                                  _s_l_draw_done:
                                  .endmacro
                                  
+                                 #undef _s_r_draw_col
+                                 #undef _s_r_draw_cl
+                                 #undef _s_r_draw_ch
                                  #undef _s_r_draw_tmp1
                                  #undef _s_r_draw_tmp2
                                  
@@ -2952,10 +3129,10 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  .macro S_SRC_SET
                                  	rjmp _s_l_set
                                  
-                                 #define _s_rr_set_bcd_l ml_tmp1
-                                 #define _s_rr_set_bcd_h ml_tmp2
-                                 #define _s_rr_set_bcd_z ml_tmp3
-                                 #define _s_rr_set_bcd_c ml_ch
+                                 #define _s_rr_set_bcd_l _s_r_set_tmp1
+                                 #define _s_rr_set_bcd_h _s_r_set_tmp2
+                                 #define _s_rr_set_bcd_z _s_r_set_tmp3
+                                 #define _s_rr_set_bcd_c _s_r_set_tmp4
                                  
                                  _s_sr_tobcd:
                                  	ldi _s_rr_set_bcd_z, HIGH(1000)
@@ -3058,32 +3235,32 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  #define _s_r_ocia_tmp3 ric
                                  #define _s_r_ocia_tmp4 rid
                                  
-00005e 940c 0101                 ISR _S_OCAaddr
-000101 2700                      	clr _s_r_ocia_tmp1
-000102 9300 0121                 	sts _S_TCCRB, _s_r_ocia_tmp1
-000104 9300 0125                 	sts _S_TCNTH, _s_r_ocia_tmp1
-000106 9300 0124                 	sts _S_TCNTL, _s_r_ocia_tmp1
-000108 9100 0207                 	lds _s_r_ocia_tmp1, _s_ram_state
-00010a 3000                      	cpi _s_r_ocia_tmp1, _S_STATE_SCR
-00010b f041                      	breq _s_l_isr_oca_scr
+00005e 940c 017c                 ISR _S_OCAaddr
+00017c 2700                      	clr _s_r_ocia_tmp1
+00017d 9300 0121                 	sts _S_TCCRB, _s_r_ocia_tmp1
+00017f 9300 0125                 	sts _S_TCNTH, _s_r_ocia_tmp1
+000181 9300 0124                 	sts _S_TCNTL, _s_r_ocia_tmp1
+000183 9100 020d                 	lds _s_r_ocia_tmp1, _s_ram_state
+000185 3000                      	cpi _s_r_ocia_tmp1, _S_STATE_SCR
+000186 f041                      	breq _s_l_isr_oca_scr
                                  	; from top
-00010c e000                      	ldi _s_r_ocia_tmp1, _S_STATE_SCR
-00010d 9110 020c                 	lds _s_r_ocia_tmp2, _s_ram_ttop_scr
-00010f 9120 020d                 	lds _s_r_ocia_tmp3, _s_ram_ttop_scr + 1
-000111 9130 020b                 	lds _s_r_ocia_tmp4, _s_ram_tccrb_scr
-000113 c007                      	rjmp _s_l_isr_oca_done
+000187 e000                      	ldi _s_r_ocia_tmp1, _S_STATE_SCR
+000188 9110 0212                 	lds _s_r_ocia_tmp2, _s_ram_ttop_scr
+00018a 9120 0213                 	lds _s_r_ocia_tmp3, _s_ram_ttop_scr + 1
+00018c 9130 0211                 	lds _s_r_ocia_tmp4, _s_ram_tccrb_scr
+00018e c007                      	rjmp _s_l_isr_oca_done
                                  _s_l_isr_oca_scr:
                                  	; from scr
-000114 e001                      	ldi _s_r_ocia_tmp1, _S_STATE_TOP
-000115 9110 020f                 	lds _s_r_ocia_tmp2, _s_ram_ttop_top
-000117 9120 0210                 	lds _s_r_ocia_tmp3, _s_ram_ttop_top + 1
-000119 9130 020e                 	lds _s_r_ocia_tmp4, _s_ram_tccrb_top
+00018f e001                      	ldi _s_r_ocia_tmp1, _S_STATE_TOP
+000190 9110 0215                 	lds _s_r_ocia_tmp2, _s_ram_ttop_top
+000192 9120 0216                 	lds _s_r_ocia_tmp3, _s_ram_ttop_top + 1
+000194 9130 0214                 	lds _s_r_ocia_tmp4, _s_ram_tccrb_top
                                  _s_l_isr_oca_done:
-00011b 9300 0207                 	sts _s_ram_state, _s_r_ocia_tmp1
-00011d 9320 0129                 	sts _S_OCRAH, _s_r_ocia_tmp3
-00011f 9310 0128                 	sts _S_OCRAL, _s_r_ocia_tmp2
-000121 9330 0121                 	sts _S_TCCRB, _s_r_ocia_tmp4
-000123 9518                      	reti
+000196 9300 020d                 	sts _s_ram_state, _s_r_ocia_tmp1
+000198 9320 0129                 	sts _S_OCRAH, _s_r_ocia_tmp3
+00019a 9310 0128                 	sts _S_OCRAL, _s_r_ocia_tmp2
+00019c 9330 0121                 	sts _S_TCCRB, _s_r_ocia_tmp4
+00019e 9518                      	reti
                                  
                                  #undef _s_r_ocia_tmp1
                                  #undef _s_r_ocia_tmp2
@@ -3097,17 +3274,17 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  #define _INC_P
                                  
                                  .dseg
-000289                           _p_ram_prog: .byte 1
-00028a                           _p_ram_prsnc_add: .byte 1
-00028b                           _p_ram_absnc_sub: .byte 1
+00028f                           _p_ram_prog: .byte 1
+000290                           _p_ram_prsnc_add: .byte 1
+000291                           _p_ram_absnc_sub: .byte 1
                                  
-00028c                           _p_ram_bm_paused: .byte 2*16
-0002ac                           _p_ram_bm_resuming: .byte 2*16
+000292                           _p_ram_bm_paused: .byte 2*16
+0002b2                           _p_ram_bm_resuming: .byte 2*16
                                  .cseg
                                  
                                  .eseg
-00000c 08                        ee_p_dsoff_sub: .db 8
-00000d 04                        ee_p_dson_add: .db 4
+000010 08                        ee_p_dsoff_sub: .db 8
+000011 04                        ee_p_dson_add: .db 4
                                  .cseg
                                  
                                  #define _p_r_setup_tmp @0
@@ -3168,8 +3345,9 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  	lds _p_r_update_tmp1, _p_ram_prsnc_add
                                  	add _p_r_update_tmp2, _p_r_update_tmp1
                                  	brcc _p_l_src_update_done
-                                 	sts ml_ram_screen, _p_r_update_tmp2
-                                 	G_SRC_RESUME
+                                 	ldi _p_r_update_tmp1, ML_SCREEN_GAME
+                                 	sts ml_ram_screen, _p_r_update_tmp1
+                                 	G_SRC_RESUME _p_r_update_tmp1
                                  	rjmp _p_l_src_update_done
                                  _p_l_src_update_sub:
                                  	lds _p_r_update_tmp1, _p_ram_absnc_sub
@@ -3197,7 +3375,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  #define _G_SPAWN_RAND_MASK (_G_SPAWN_COUNT - 1)
                                  
                                  #define _g_setup_tmp1 @0
-                                 #define _g_setup_tmp2 @1
                                  
                                  .macro G_SRC_SETUP
                                  	; clear timer control registers
@@ -3211,10 +3388,10 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  	; clear frame
                                  	ldi XL, LOW( _g_ram_frame )
                                  	ldi XH, HIGH( _g_ram_frame )
-                                 	clr _g_setup_tmp2
+                                 	clr YL
                                  	ldi _g_setup_tmp1, 16*3
                                  _g_l_setup_clear_loop:
-                                 	st X+, _g_setup_tmp2
+                                 	st X+, YL
                                  	dec _g_setup_tmp1
                                  	brne _g_l_setup_clear_loop
                                  	;set empty
@@ -3247,61 +3424,61 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  .endmacro
                                  
                                  .dseg
-0002cc                           _g_ram_smooth: .byte 1
-0002cd                           _g_ram_smooth_slow: .byte 1
-0002ce                           _g_ram_dsval: .byte 1
-0002cf                           _g_ram_dsval_slow: .byte 1
-0002d0                           _g_ram_col: .byte 1
-0002d1                           _g_ram_frame: .byte 16*3
-000301                           _g_ram_tccrb: .byte 1
-000302                           _g_ram_spawn_countdown: .byte 1
-000303                           _g_ram_spawn_period: .byte 1
-000304                           g_ram_score: .byte 2
-000306                           _g_ram_bm_player_acs: .byte 16
-000316                           _g_ram_bm_enemy_al: .byte 16
-000326                           _g_ram_bm_spawns: .byte 2*_G_SPAWN_COUNT
-00032e                           _g_ram_snd_pause: .byte BZ_SND_BYTES
-000360                           _g_ram_snd_resume: .byte BZ_SND_BYTES
-000392                           _g_ram_snd_over: .byte BZ_SND_BYTES
+0002d2                           _g_ram_smooth: .byte 1
+0002d3                           _g_ram_smooth_slow: .byte 1
+0002d4                           _g_ram_dsval: .byte 1
+0002d5                           _g_ram_dsval_slow: .byte 1
+0002d6                           _g_ram_col: .byte 1
+0002d7                           _g_ram_frame: .byte 16*3
+000307                           _g_ram_tccrb: .byte 1
+000308                           _g_ram_spawn_countdown: .byte 1
+000309                           _g_ram_spawn_period: .byte 1
+00030a                           g_ram_score: .byte 2
+00030c                           _g_ram_bm_player_acs: .byte 16
+00031c                           _g_ram_bm_enemy_al: .byte 16
+00032c                           _g_ram_bm_spawns: .byte 2*_G_SPAWN_COUNT
+000334                           _g_ram_snd_pause: .byte BZ_SND_BYTES
+000366                           _g_ram_snd_resume: .byte BZ_SND_BYTES
+000398                           _g_ram_snd_over: .byte BZ_SND_BYTES
                                  .cseg
                                  
                                  .eseg
-00000e 08                        ee_g_spawn_period: .db 8
-00000f 08                        ee_g_smooth: .db 8
-000010 03                        ee_g_smooth_slow: .db 3
-000011 1b 06                     ee_g_tim_propf: .dw int( 0.1 * T16_PROPF + 0.5 )
+000012 08                        ee_g_spawn_period: .db 8
+000013 08                        ee_g_smooth: .db 8
+000014 03                        ee_g_smooth_slow: .db 3
+000015 1b 06                     ee_g_tim_propf: .dw int( 0.1 * T16_PROPF + 0.5 )
                                  ee_g_snd_pause:
-000013 10 27
-000015 1b 06                     .dw 10000, int( 0.1 * T16_PROPF + 0.5)
-000017 98 3a
-000019 1b 06                     .dw 15000, int( 0.1 * T16_PROPF + 0.5)
-00001b 00 00
-00001d 00 00                     .dw 0, 0
+000017 10 27
+000019 1b 06                     .dw 10000, int( 0.1 * T16_PROPF + 0.5)
+00001b 98 3a
+00001d 1b 06                     .dw 15000, int( 0.1 * T16_PROPF + 0.5)
+00001f 00 00
+000021 00 00                     .dw 0, 0
                                  ee_g_snd_resume:
-00001f 98 3a
-000021 1b 06                     .dw 15000, int( 0.1 * T16_PROPF + 0.5)
-000023 10 27
-000025 1b 06                     .dw 10000, int( 0.1 * T16_PROPF + 0.5)
-000027 00 00
-000029 00 00                     .dw 0, 0
+000023 98 3a
+000025 1b 06                     .dw 15000, int( 0.1 * T16_PROPF + 0.5)
+000027 10 27
+000029 1b 06                     .dw 10000, int( 0.1 * T16_PROPF + 0.5)
+00002b 00 00
+00002d 00 00                     .dw 0, 0
                                  ee_g_snd_over:
-00002b 10 27
-00002d 1b 06                     .dw 10000, int( 0.1 * T16_PROPF + 0.5)
-00002f 98 3a
-000031 1b 06                     .dw 15000, int( 0.1 * T16_PROPF + 0.5)
-000033 20 4e
-000035 1b 06                     .dw 20000, int( 0.1 * T16_PROPF + 0.5)
-000037 00 00
-000039 00 00                     .dw 0, 0
+00002f 10 27
+000031 1b 06                     .dw 10000, int( 0.1 * T16_PROPF + 0.5)
+000033 98 3a
+000035 1b 06                     .dw 15000, int( 0.1 * T16_PROPF + 0.5)
+000037 20 4e
+000039 1b 06                     .dw 20000, int( 0.1 * T16_PROPF + 0.5)
+00003b 00 00
+00003d 00 00                     .dw 0, 0
                                  .cseg
                                  
                                  #undef _g_setup_tmp1
                                  #undef _g_setup_tmp2
                                  
-                                 #define _g_tmp1 ml_tmp1
-                                 #define _g_tmp2 ml_tmp2
-                                 #define _g_tmp3 ml_tmp3
-                                 #define _g_tmp4 ml_tmp4
+                                 #define _g_tmp1 @0
+                                 #define _g_tmp2 @1
+                                 #define _g_tmp3 @2
+                                 #define _g_tmp4 @3
                                  
                                  .macro G_SRC_UPDATE
                                  	rjmp _g_l_update
@@ -3359,9 +3536,16 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  
                                  .endmacro
                                  
-                                 #define _g_col ml_col
-                                 #define _g_cl ml_cl
-                                 #define _g_ch ml_ch
+                                 #undef _g_tmp1
+                                 #undef _g_tmp2
+                                 #undef _g_tmp3
+                                 #undef _g_tmp4
+                                 
+                                 #define _g_col @0
+                                 #define _g_cl @1
+                                 #define _g_ch @2
+                                 #define _g_tmp1 @3
+                                 #define _g_tmp2 @4
                                  
                                  .macro G_SRC_DRAW
                                  	; draw frame
@@ -3399,26 +3583,31 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  _g_l_draw_done:
                                  .endmacro
                                  
-                                 
+                                 #undef _g_tmp1
+                                 #undef _g_tmp2
                                  #undef _g_col
                                  #undef _g_cl
                                  #undef _g_ch
                                  
+                                 #define _g_tmp @0
+                                 
                                  .macro G_SRC_PAUSE
                                  	BZ_SRC_START _g_ram_snd_pause
-                                 	clr _g_tmp1
-                                 	sts _G_TCCRB, _g_tmp1
+                                 	clr _g_tmp
+                                 	sts _G_TCCRB, _g_tmp
                                  .endmacro
+                                 
+                                 #undef _g_tmp
+                                 
+                                 #define _g_tmp @0
                                  
                                  .macro G_SRC_RESUME
                                  	BZ_SRC_START _g_ram_snd_resume
-                                 	lds _g_tmp1, _g_ram_tccrb
-                                 	sts _G_TCCRB, _g_tmp1
+                                 	lds _g_tmp, _g_ram_tccrb
+                                 	sts _G_TCCRB, _g_tmp
                                  .endmacro
                                  
-                                 #undef _g_tmp1
-                                 #undef _g_tmp2
-                                 #undef _g_tmp3
+                                 #undef _g_tmp
                                  
                                  #define _g_tmp1 ria
                                  #define _g_tmp2 rib
@@ -3426,80 +3615,80 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  #define _g_sl ri0
                                  #define _g_sh ri1
                                  
-000040 940c 0124                 ISR _G_OCAaddr
+000040 940c 019f                 ISR _G_OCAaddr
                                  	; score
-000124 91e0 0304                 	lds ZL, g_ram_score
-000126 91f0 0305                 	lds ZH, g_ram_score + 1
-000128 9631                      	adiw ZH:ZL, 1
-000129 93e0 0304                 	sts g_ram_score, ZL
-00012b 93f0 0305                 	sts g_ram_score + 1, ZH
+00019f 91e0 030a                 	lds ZL, g_ram_score
+0001a1 91f0 030b                 	lds ZH, g_ram_score + 1
+0001a3 9631                      	adiw ZH:ZL, 1
+0001a4 93e0 030a                 	sts g_ram_score, ZL
+0001a6 93f0 030b                 	sts g_ram_score + 1, ZH
                                  	; spawn
-00012d 9100 0302                 	lds _g_tmp1, _g_ram_spawn_countdown
-00012f 950a                      	dec _g_tmp1
-000130 f531                      	brne _g_l_oca_vframe_done
+0001a8 9100 0308                 	lds _g_tmp1, _g_ram_spawn_countdown
+0001aa 950a                      	dec _g_tmp1
+0001ab f531                      	brne _g_l_oca_vframe_done
                                  	; spawn begin
-000131 93af                      	push XL
-000132 93bf                      	push XH
-000133 9100 00a4                 	lds _g_tmp1, _DS_TCNTL
-000135 7003                      	andi _g_tmp1, _G_SPAWN_RAND_MASK
+0001ac 93af                      	push XL
+0001ad 93bf                      	push XH
+0001ae 9100 00a4                 	lds _g_tmp1, _DS_TCNTL
+0001b0 7003                      	andi _g_tmp1, _G_SPAWN_RAND_MASK
                                  	; _g_tmp1 is rand betweeen 0 and _G_SPAWN_COUNT
-000136 e2a6                      	ldi XL, LOW( _g_ram_bm_spawns )
-000137 e0b3                      	ldi XH, HIGH( _g_ram_bm_spawns )
-000138 2711                      	clr _g_tmp2
-000139 0f00                      	lsl _g_tmp1
-00013a 1f11                      	rol _g_tmp2
-00013b 0fa0                      	add XL, _g_tmp1
-00013c 1fb1                      	adc XH, _g_tmp2
-00013d 903d                      	ld _g_sh, X+
-00013e 902c                      	ld _g_sl, X
-00013f ede1                      	ldi ZL, LOW( _g_ram_frame )
-000140 e0f2                      	ldi ZH, HIGH( _g_ram_frame )
-000141 e110                      	ldi _g_tmp2, 16
-000142 2722                      	clr _g_tmp3
+0001b1 e2ac                      	ldi XL, LOW( _g_ram_bm_spawns )
+0001b2 e0b3                      	ldi XH, HIGH( _g_ram_bm_spawns )
+0001b3 2711                      	clr _g_tmp2
+0001b4 0f00                      	lsl _g_tmp1
+0001b5 1f11                      	rol _g_tmp2
+0001b6 0fa0                      	add XL, _g_tmp1
+0001b7 1fb1                      	adc XH, _g_tmp2
+0001b8 903d                      	ld _g_sh, X+
+0001b9 902c                      	ld _g_sl, X
+0001ba ede7                      	ldi ZL, LOW( _g_ram_frame )
+0001bb e0f2                      	ldi ZH, HIGH( _g_ram_frame )
+0001bc e110                      	ldi _g_tmp2, 16
+0001bd 2722                      	clr _g_tmp3
                                  	; sh:sl is the spawn pattern, Z is the frame, tmp2 is 16, tmp3 is 0
                                  _g_l_spawn_loop:
-000143 0c22                      	lsl _g_sl
-000144 1c33                      	rol _g_sh
-000145 f418                      	brcc _g_l_spawn_loop_continue
-000146 e1a6                      	ldi XL, LOW( _g_ram_bm_enemy_al )
-000147 e0b3                      	ldi XH, HIGH( _g_ram_bm_enemy_al )
-000148 e120                      	ldi _g_tmp3, 16
+0001be 0c22                      	lsl _g_sl
+0001bf 1c33                      	rol _g_sh
+0001c0 f418                      	brcc _g_l_spawn_loop_continue
+0001c1 e1ac                      	ldi XL, LOW( _g_ram_bm_enemy_al )
+0001c2 e0b3                      	ldi XH, HIGH( _g_ram_bm_enemy_al )
+0001c3 e120                      	ldi _g_tmp3, 16
                                  _g_l_spawn_loop_continue:
-000149 2322                      	tst _g_tmp3
-00014a f019                      	breq _g_l_spawn_loop_void
-00014b 952a                      	dec _g_tmp3
-00014c 910d                      	ld _g_tmp1, X+
-00014d c001                      	rjmp _g_l_spawn_loop_draw
+0001c4 2322                      	tst _g_tmp3
+0001c5 f019                      	breq _g_l_spawn_loop_void
+0001c6 952a                      	dec _g_tmp3
+0001c7 910d                      	ld _g_tmp1, X+
+0001c8 c001                      	rjmp _g_l_spawn_loop_draw
                                  _g_l_spawn_loop_void:
-00014e 2700                      	clr _g_tmp1
+0001c9 2700                      	clr _g_tmp1
                                  _g_l_spawn_loop_draw:
-00014f 8300                      	st Z, _g_tmp1
-000150 9633                      	adiw ZH:ZL, 3
-000151 951a                      	dec _g_tmp2
-000152 f781                      	brne _g_l_spawn_loop
+0001ca 8300                      	st Z, _g_tmp1
+0001cb 9633                      	adiw ZH:ZL, 3
+0001cc 951a                      	dec _g_tmp2
+0001cd f781                      	brne _g_l_spawn_loop
                                  	; spawn end
-000153 9100 0303                 	lds _g_tmp1, _g_ram_spawn_period
-000155 91bf                      	pop XH
-000156 91af                      	pop XL
+0001ce 9100 0309                 	lds _g_tmp1, _g_ram_spawn_period
+0001d0 91bf                      	pop XH
+0001d1 91af                      	pop XL
                                  _g_l_oca_vframe_done:
-000157 9300 0302                 	sts _g_ram_spawn_countdown, _g_tmp1
+0001d2 9300 0308                 	sts _g_ram_spawn_countdown, _g_tmp1
                                  	; shift
-000159 ede1                      	ldi ZL, LOW( _g_ram_frame )
-00015a e0f2                      	ldi ZH, HIGH( _g_ram_frame )
-00015b e100                      	ldi _g_tmp1, 16
+0001d4 ede7                      	ldi ZL, LOW( _g_ram_frame )
+0001d5 e0f2                      	ldi ZH, HIGH( _g_ram_frame )
+0001d6 e100                      	ldi _g_tmp1, 16
                                  _g_l_oca_shift_loop:
-00015c 8110                      	ld _g_tmp2, Z
-00015d 9516                      	lsr _g_tmp2
-00015e 9311                      	st Z+, _g_tmp2
-00015f 8110                      	ld _g_tmp2, Z
-000160 9517                      	ror _g_tmp2
-000161 9311                      	st Z+, _g_tmp2
-000162 8110                      	ld _g_tmp2, Z
-000163 9517                      	ror _g_tmp2
-000164 9311                      	st Z+, _g_tmp2
-000165 950a                      	dec _g_tmp1
-000166 f7a9                      	brne _g_l_oca_shift_loop
-000167 9518                      	reti
+0001d7 8110                      	ld _g_tmp2, Z
+0001d8 9516                      	lsr _g_tmp2
+0001d9 9311                      	st Z+, _g_tmp2
+0001da 8110                      	ld _g_tmp2, Z
+0001db 9517                      	ror _g_tmp2
+0001dc 9311                      	st Z+, _g_tmp2
+0001dd 8110                      	ld _g_tmp2, Z
+0001de 9517                      	ror _g_tmp2
+0001df 9311                      	st Z+, _g_tmp2
+0001e0 950a                      	dec _g_tmp1
+0001e1 f7a9                      	brne _g_l_oca_shift_loop
+0001e2 9518                      	reti
                                  
                                  #undef _g_tmp1
                                  #undef _g_tmp2
@@ -3507,607 +3696,440 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  #undef _g_sl
                                  
                                  #endif
+                                 #include "main_loop.asm"
+                                 
+                                 #else
+                                 #define _INC_ML
+                                 
+                                 ; Francesco Zoccheddu
+                                 ; ARE
+                                 ; EEPROM programming
+                                 ; dirty timer 0 and registers
+                                 
+                                 
+                                 #define _ML_TIMER 2
+                                 
+                                 TIM_DEF _ML, _ML_TIMER
+                                 
+                                 .equ ML_SCREEN_PAUSE = 2
+                                 .equ ML_SCREEN_SCORE = 1
+                                 .equ ML_SCREEN_GAME = 0
+                                 
+                                 #define _ml_setup_tmp @0
+                                 
+                                 ; [SOURCE] setup
+                                 ; @0 (dirty immediate register)
+                                 .macro ML_SRC_SETUP
+                                 	; clear timer control registers
+                                 	clr _ml_setup_tmp
+                                 	sts _ML_TCCRA, _ml_setup_tmp
+                                 	sts _ML_TCCRB, _ml_setup_tmp
+                                 	; set timer interrupt mask
+                                 	ldi _ml_setup_tmp, OCIEA_VAL
+                                 	sts _ML_TIMSK, _ml_setup_tmp
+                                 	; setup pause
+                                 	clr _ml_setup_tmp
+                                 	sts _ml_ram_pprog, _ml_setup_tmp
+                                 	ldi _ml_setup_tmp, ML_SCREEN_PAUSE
+                                 	sts ml_ram_screen, _ml_setup_tmp
+                                 	; load
+                                 	SP_SRC_LOAD_TO_RAM ee_ml_dsoff_add, _ml_ram_pabsnc_add, 1
+                                 	SP_SRC_LOAD_TO_RAM ee_ml_dson_sub, _ml_ram_pprsnc_sub, 1
+                                 
+                                 	SP_SRC_LOADI_TIME ee_ml_tim_propf
+                                 	sts _ML_OCRA, sp_data_th
+                                 	sts _ml_ram_tcs, sp_data
+                                 .endmacro
+                                 
+                                 #undef _ml_setup_tmp
+                                 
+                                 
+                                 .dseg
+0003ca                           _ml_ram_tcs: .byte 1
+0003cb                           ml_ram_screen: .byte 1
+0003cc                           _ml_ram_pprog: .byte 1
+0003cd                           _ml_ram_pabsnc_add: .byte 1
+0003ce                           _ml_ram_pprsnc_sub: .byte 1
+                                 .cseg
+                                 
+                                 .eseg
+00003f 40 1f                     ee_ml_tim_propf: .dw int( 0.002 * T8_PROPF + 0.5 )
+000041 04                        ee_ml_dsoff_add: .db 4
+000042 10                        ee_ml_dson_sub: .db 16
+                                 .cseg
+                                 
+                                 
+                                 #define ml_col rmd
+                                 #define ml_cl rme
+                                 #define ml_ch rmf
+                                 #define ml_tmp1 rma
+                                 #define ml_tmp2 rmb
+                                 #define ml_tmp3 rmc
+                                 #define ml_tmp4 rm0
                                  
                                  ml_l_loop:
-000168 e170                      	ldi ml_col, 16
+0001e3 e170                      	ldi ml_col, 16
                                  
-000169 9140 0203                 	lds ml_tmp1, ml_ram_screen
-00016b 3040                      	cpi ml_tmp1, ML_SCREEN_GAME
-00016c f4f9                      	brne _ml_l_loop_update_paused
-00016d c135                      	rjmp _ml_g_l_update
+0001e4 9140 03cb                 	lds ml_tmp1, ml_ram_screen
+0001e6 3040                      	cpi ml_tmp1, ML_SCREEN_GAME
+0001e7 f4f1                      	brne _ml_l_loop_update_paused
+0001e8 c133                      	rjmp _ml_g_l_update
                                  _ml_g_update_done:
                                  	
-00016e 9140 03ce                 	lds ml_tmp1, ds_ram_out_state
-000170 9150 0204                 	lds ml_tmp2, _ml_ram_pprog
-000172 2344                      	tst ml_tmp1
-000173 f481                      	brne _ml_l_update_sub
-000174 9140 0205                 	lds ml_tmp1, _ml_ram_pabsnc_add
-000176 0f54                      	add ml_tmp2, ml_tmp1
-000177 f488                      	brcc _ml_l_update_done
-000178 e042                      	ldi ml_tmp1, ML_SCREEN_PAUSE
-000179 9340 0203                 	sts ml_ram_screen, ml_tmp1
-00017b 94f8
-00017c e0f3
-00017d e2ee
-00017e 940e 00e4
-000180 2744
-000181 9340 0091                 	G_SRC_PAUSE
-000183 c005                      	rjmp _ml_l_update_done
+0001e9 9140 020c                 	lds ml_tmp1, ds_ram_out_state
+0001eb 9150 03cc                 	lds ml_tmp2, _ml_ram_pprog
+0001ed 2344                      	tst ml_tmp1
+0001ee f479                      	brne _ml_l_update_sub
+0001ef 9140 03cd                 	lds ml_tmp1, _ml_ram_pabsnc_add
+0001f1 0f54                      	add ml_tmp2, ml_tmp1
+0001f2 f480                      	brcc _ml_l_update_done
+0001f3 e042                      	ldi ml_tmp1, ML_SCREEN_PAUSE
+0001f4 9340 03cb                 	sts ml_ram_screen, ml_tmp1
+0001f6 94f8
+0001f7 e0f3
+0001f8 e3e4
+0001f9 deea
+0001fa 2744
+0001fb 9340 0091                 	G_SRC_PAUSE ml_tmp1
+0001fd c005                      	rjmp _ml_l_update_done
                                  _ml_l_update_sub:
-000184 9140 0206                 	lds ml_tmp1, _ml_ram_pprsnc_sub
-000186 1b54                      	sub ml_tmp2, ml_tmp1
-000187 f408                      	brcc _ml_l_update_done
-000188 2755                      	clr ml_tmp2
+0001fe 9140 03ce                 	lds ml_tmp1, _ml_ram_pprsnc_sub
+000200 1b54                      	sub ml_tmp2, ml_tmp1
+000201 f408                      	brcc _ml_l_update_done
+000202 2755                      	clr ml_tmp2
                                  _ml_l_update_done:
-000189 9350 0204                 	sts _ml_ram_pprog, ml_tmp2
+000203 9350 03cc                 	sts _ml_ram_pprog, ml_tmp2
                                  	
-00018b c003                      	rjmp _ml_l_loop_column
+000205 c003                      	rjmp _ml_l_loop_column
                                  _ml_l_loop_update_paused:
-00018c 3042                      	cpi ml_tmp1, ML_SCREEN_PAUSE
-00018d f409                      	brne _ml_l_loop_column
-00018e c01d                      	rjmp _ml_p_l_update
+000206 3042                      	cpi ml_tmp1, ML_SCREEN_PAUSE
+000207 f409                      	brne _ml_l_loop_column
+000208 c01d                      	rjmp _ml_p_l_update
                                  
                                  _ml_l_loop_column:
-00018f 957a                      	dec ml_col
+000209 957a                      	dec ml_col
                                  
-000190 9140 0203                 	lds ml_tmp1, ml_ram_screen
-000192 3040                      	cpi ml_tmp1, ML_SCREEN_GAME
-000193 f409                      	brne _ml_l_loop_draw_paused
-000194 c078                      	rjmp _ml_g_l_draw
+00020a 9140 03cb                 	lds ml_tmp1, ml_ram_screen
+00020c 3040                      	cpi ml_tmp1, ML_SCREEN_GAME
+00020d f409                      	brne _ml_l_loop_draw_paused
+00020e c078                      	rjmp _ml_g_l_draw
                                  _ml_l_loop_draw_paused:
-000195 3042                      	cpi ml_tmp1, ML_SCREEN_PAUSE
-000196 f599                      	brne _ml_s_l_draw
-000197 c062                      	rjmp _ml_p_l_draw
+00020f 3042                      	cpi ml_tmp1, ML_SCREEN_PAUSE
+000210 f599                      	brne _ml_s_l_draw
+000211 c062                      	rjmp _ml_p_l_draw
                                  
                                  _ml_l_loop_flush:
-000198 94f8                      	cli
-000199 c098                      	rjmp _ml_lm_l_sendcol
+000212 94f8                      	cli
+000213 c097                      	rjmp _ml_lm_l_sendcol
                                  
                                  _ml_l_sendcol_done:
                                  
                                  #define _ml_lock ml_ch
                                  
-00019a 2744                      	clr ml_tmp1
-00019b 9340 00b2                 	sts _ML_TCNT, ml_tmp1
-00019d 9140 0202                 	lds ml_tmp1, _ml_ram_tcs
-00019f 9340 00b1                 	sts _ML_TCCRB, ml_tmp1
-0001a1 ef9f                      	ser _ml_lock
-0001a2 9478                      	sei
+000214 2744                      	clr ml_tmp1
+000215 9340 00b2                 	sts _ML_TCNT, ml_tmp1
+000217 9140 03ca                 	lds ml_tmp1, _ml_ram_tcs
+000219 9340 00b1                 	sts _ML_TCCRB, ml_tmp1
+00021b ef9f                      	ser _ml_lock
+00021c 9478                      	sei
                                  
                                  _ml_l_loop_wait:
-0001a3 2399                      	tst _ml_lock
-0001a4 f7f1                      	brne _ml_l_loop_wait
+00021d 2399                      	tst _ml_lock
+00021e f7f1                      	brne _ml_l_loop_wait
                                  
-0001a5 2377                      	tst ml_col
-0001a6 f741                      	brne _ml_l_loop_column
-0001a7 cfc0                      	rjmp ml_l_loop
+00021f 2377                      	tst ml_col
+000220 f741                      	brne _ml_l_loop_column
+000221 cfc1                      	rjmp ml_l_loop
                                  
-00001a 940c 01a8                 ISR _ML_OCAaddr
-0001a8 2799                      	clr _ml_lock
-0001a9 9390 00b1                 	sts _ML_TCCRB, _ml_lock
-0001ab 9518                      	reti
+00001a 940c 0222                 ISR _ML_OCAaddr
+000222 2799                      	clr _ml_lock
+000223 9390 00b1                 	sts _ML_TCCRB, _ml_lock
+000225 9518                      	reti
                                  
                                  #undef _ml_lock
                                  
                                  _ml_p_l_update:
-0001ac 9140 03ce
-0001ae 9150 0289
-0001b0 2344
-0001b1 f081
-0001b2 9140 028a
-0001b4 0f54
-0001b5 f488
-0001b6 9350 0203
-0001b8 94f8
-0001b9 e0f3
-0001ba e6e0
-0001bb 940e 00e4
-0001bd 9140 0301
-0001bf 9340 0091
-0001c1 c005
-0001c2 9140 028b
-0001c4 1b54
-0001c5 f408
-0001c6 2755
-0001c7 9350 0289                 	P_SRC_UPDATE ml_tmp1, ml_tmp2
-0001c9 cfc5                      	rjmp _ml_l_loop_column
+000226 9140 020c
+000228 9150 028f
+00022a 2344
+00022b f081
+00022c 9140 0290
+00022e 0f54
+00022f f488
+000230 e040
+000231 9340 03cb
+000233 94f8
+000234 e0f3
+000235 e6e6
+000236 dead
+000237 9140 0307
+000239 9340 0091
+00023b c005
+00023c 9140 0291
+00023e 1b54
+00023f f408
+000240 2755
+000241 9350 028f                 	P_SRC_UPDATE ml_tmp1, ml_tmp2
+000243 cfc5                      	rjmp _ml_l_loop_column
                                  
                                  _ml_s_l_draw:
-0001ca 9140 0207
-0001cc 3040
-0001cd f039
-0001ce 3042
-0001cf f101
-0001d0 e3a9
-0001d1 e0b2
-0001d2 e1c1
-0001d3 e0d2
-0001d4 c004
-0001d5 e4a9
-0001d6 e0b2
-0001d7 e1c5
-0001d8 e0d2
-0001d9 2744
-0001da 0fa7
-0001db 1fb4
-0001dc 919c
-0001dd 2f47
-0001de 9546
-0001df 9546
-0001e0 0fc4
-0001e1 2744
-0001e2 1fd4
-0001e3 8148
-0001e4 0f44
-0001e5 0f44
-0001e6 2f57
-0001e7 7053
-0001e8 0f45
-0001e9 e5c9
-0001ea e0d2
-0001eb 0fc4
-0001ec 2744
-0001ed 1fd4
-0001ee 8188
-0001ef c009
-0001f0 e1a9
-0001f1 e0b2
-0001f2 2f47
-0001f3 0f44
-0001f4 0fa4
-0001f5 2744
-0001f6 1fb4
-0001f7 919d
-0001f8 918c                      	S_SRC_DRAW ml_tmp1, ml_tmp2
-0001f9 cf9e                      	rjmp _ml_l_loop_flush
+000244 9140 020d
+000246 3040
+000247 f039
+000248 3042
+000249 f101
+00024a e3af
+00024b e0b2
+00024c e1c7
+00024d e0d2
+00024e c004
+00024f e4af
+000250 e0b2
+000251 e1cb
+000252 e0d2
+000253 2744
+000254 0fa7
+000255 1fb4
+000256 919c
+000257 2f47
+000258 9546
+000259 9546
+00025a 0fc4
+00025b 2744
+00025c 1fd4
+00025d 8148
+00025e 0f44
+00025f 0f44
+000260 2f57
+000261 7053
+000262 0f45
+000263 e5cf
+000264 e0d2
+000265 0fc4
+000266 2744
+000267 1fd4
+000268 8188
+000269 c009
+00026a e1af
+00026b e0b2
+00026c 2f47
+00026d 0f44
+00026e 0fa4
+00026f 2744
+000270 1fb4
+000271 919d
+000272 918c                      	S_SRC_DRAW ml_col, ml_cl, ml_ch, ml_tmp1, ml_tmp2
+000273 cf9e                      	rjmp _ml_l_loop_flush
                                  
                                  _ml_p_l_draw:
-0001fa 9140 0289
-0001fc 9542
-0001fd 704f
-0001fe 1774
-0001ff f418
-000200 e0b2
-000201 eaac
-000202 c002
-000203 e0b2
-000204 e8ac
-000205 2f47
-000206 0f44
-000207 0fa4
-000208 2744
-000209 1fb4
-00020a 919d
-00020b 918c                      	P_SRC_DRAW ml_col, ml_cl, ml_ch, ml_tmp1
-00020c cf8b                      	rjmp _ml_l_loop_flush
+000274 9140 028f
+000276 9542
+000277 704f
+000278 1774
+000279 f418
+00027a e0b2
+00027b eba2
+00027c c002
+00027d e0b2
+00027e e9a2
+00027f 2f47
+000280 0f44
+000281 0fa4
+000282 2744
+000283 1fb4
+000284 919d
+000285 918c                      	P_SRC_DRAW ml_col, ml_cl, ml_ch, ml_tmp1
+000286 cf8b                      	rjmp _ml_l_loop_flush
                                  
                                  _ml_g_l_draw:
-00020d e0b2
-00020e eda2
-00020f e043
-000210 9f47
-000211 2744
-000212 0da0
-000213 1fb4
-000214 919d
-000215 918c
-000216 9140 02d0
-000218 1b47
-000219 f40a
-00021a 9541
-00021b e0b3
-00021c e0a6
-00021d 0fa4
-00021e 2744
-00021f 1fb4
-000220 914c
-000221 2f58
-000222 2b84
-000223 2354
-000224 f061
-000225 94f8
-000226 e0f3
-000227 e9e2
-000228 940e 00e4
-00022a e041
-00022b 9340 0203
-00022d 2744
-00022e 9340 0091
-000230 c018                      	G_SRC_DRAW
-000231 cf66                      	rjmp _ml_l_loop_flush
+000287 e0b2
+000288 eda8
+000289 e043
+00028a 9f47
+00028b 2744
+00028c 0da0
+00028d 1fb4
+00028e 919d
+00028f 918c
+000290 9140 02d6
+000292 1b47
+000293 f40a
+000294 9541
+000295 e0b3
+000296 e0ac
+000297 0fa4
+000298 2744
+000299 1fb4
+00029a 914c
+00029b 2f58
+00029c 2b84
+00029d 2354
+00029e f059
+00029f 94f8
+0002a0 e0f3
+0002a1 e9e8
+0002a2 de41
+0002a3 e041
+0002a4 9340 03cb
+0002a6 2744
+0002a7 9340 0091
+0002a9 c018                      	G_SRC_DRAW ml_col, ml_cl, ml_ch, ml_tmp1, ml_tmp2
+0002aa cf67                      	rjmp _ml_l_loop_flush
                                  
                                  _ml_lm_l_sendcol:
-000232 e140
-000233 e350
-000234 9596
-000235 9587
-000236 f408
-000237 e150
-000238 b958
-000239 6450
-00023a b958
-00023b 7b5f
-00023c b958
-00023d 954a
-00023e f7a1
-00023f e950
-000240 b958
-000241 e150
-000242 b958
-000243 e04f
-000244 1b47
-000245 2b54
-000246 b958
-000247 b948                      	LM_SRC_SENDCOL ml_col, ml_cl, ml_ch, ml_tmp1, ml_tmp2
-000248 cf51                      	rjmp _ml_l_sendcol_done
+0002ab e140
+0002ac e350
+0002ad 9596
+0002ae 9587
+0002af f408
+0002b0 e150
+0002b1 b958
+0002b2 6450
+0002b3 b958
+0002b4 7b5f
+0002b5 b958
+0002b6 954a
+0002b7 f7a1
+0002b8 e950
+0002b9 b958
+0002ba e150
+0002bb b958
+0002bc e04f
+0002bd 1b47
+0002be 2b54
+0002bf b958
+0002c0 b948                      	LM_SRC_SENDCOL ml_col, ml_cl, ml_ch, ml_tmp1, ml_tmp2
+0002c1 cf52                      	rjmp _ml_l_sendcol_done
                                  
                                  ml_l_gameover:
-000249 c027
-00024a e063
-00024b 3e48
-00024c 0756
-00024d f4e0
-00024e e06b
-00024f 8369
-000250 836a
-000251 836b
-000252 e090
-000253 2766
-000254 3644
-000255 0756
-000256 f020
-000257 9593
-000258 5644
-000259 0b56
-00025a cff9
-00025b 2399
-00025c f011
-00025d 9399
-00025e e890
-00025f 304a
-000260 f018
-000261 9593
-000262 504a
-000263 cffb
-000264 2399
-000265 f011
-000266 779f
-000267 9399
-000268 9349
-000269 9508
-00026a e069
-00026b 9369
-00026c 9369
-00026d 9369
-00026e e06a
-00026f 8368
-000270 9508
-000271 e042
-000272 9340 0207
-000274 9140 0209
-000276 9150 020a
-000278 9350 0129
-00027a 9340 0128
-00027c 9140 0208
-00027e 9340 0121
-000280 e0ca
-000281 e0d0
-000282 de16
-000283 2f40
-000284 e0cb
-000285 e0d0
-000286 de12
-000287 2f50
-000288 90a0 0304
-00028a 90b0 0305
-00028c 154a
-00028d 055b
-00028e f448
-00028f 2d0a
-000290 e0ca
-000291 e0d0
-000292 de13
-000293 2d0b
-000294 e0cb
-000295 e0d0
-000296 de0f
-000297 01a5
-000298 e1c1
-000299 e0d2
-00029a dfaf
-00029b e1c5
-00029c e0d2
-00029d 9140 0304
-00029f 9150 0305
-0002a1 dfa8                      	S_SRC_SET rma, rmb, rm0, rm1
-0002a2 cec5                      	rjmp ml_l_loop
+0002c2 c027
+0002c3 e063
+0002c4 3e48
+0002c5 0756
+0002c6 f4e0
+0002c7 e06b
+0002c8 8369
+0002c9 836a
+0002ca 836b
+0002cb e070
+0002cc 2766
+0002cd 3644
+0002ce 0756
+0002cf f020
+0002d0 9573
+0002d1 5644
+0002d2 0b56
+0002d3 cff9
+0002d4 2377
+0002d5 f011
+0002d6 9379
+0002d7 e870
+0002d8 304a
+0002d9 f018
+0002da 9573
+0002db 504a
+0002dc cffb
+0002dd 2377
+0002de f011
+0002df 777f
+0002e0 9379
+0002e1 9349
+0002e2 9508
+0002e3 e069
+0002e4 9369
+0002e5 9369
+0002e6 9369
+0002e7 e06a
+0002e8 8368
+0002e9 9508
+0002ea e042
+0002eb 9340 020d
+0002ed 9140 020f
+0002ef 9150 0210
+0002f1 9350 0129
+0002f3 9340 0128
+0002f5 9140 020e
+0002f7 9340 0121
+0002f9 e0ce
+0002fa e0d0
+0002fb dd9d
+0002fc 2f40
+0002fd e0cf
+0002fe e0d0
+0002ff dd99
+000300 2f50
+000301 9160 030a
+000303 9170 030b
+000305 1746
+000306 0757
+000307 f448
+000308 2f06
+000309 e0ce
+00030a e0d0
+00030b dd9a
+00030c 2f07
+00030d e0cf
+00030e e0d0
+00030f dd96
+000310 01ab
+000311 e1c7
+000312 e0d2
+000313 dfaf
+000314 e1cb
+000315 e0d2
+000316 9140 030a
+000318 9150 030b
+00031a dfa8                      	S_SRC_SET rma, rmb, rmc, rmd
+00031b cec7                      	rjmp ml_l_loop
                                  
                                  _ml_g_l_update:
-0002a3 c010
-0002a4 1745
-0002a5 f430
-0002a6 2ea5
-0002a7 1aa4
-0002a8 16a6
-0002a9 f040
-0002aa 0f46
-0002ab 9508
-0002ac 2ea4
-0002ad 1aa5
-0002ae 16a6
-0002af f010
-0002b0 1b46
-0002b1 9508
-0002b2 2f45
-0002b3 9508
-0002b4 9140 03ce
-0002b6 2344
-0002b7 f089
-0002b8 9150 03cd
-0002ba 9140 02cf
-0002bc 9160 02cd
-0002be dfe5
-0002bf 9340 02cf
-0002c1 9140 02ce
-0002c3 9160 02cc
-0002c5 dfde
-0002c6 9340 02ce
-0002c8 c009
-0002c9 9140 02ce
-0002cb 9150 02cf
-0002cd 9160 02cc
-0002cf dfd4
-0002d0 9340 02ce
-0002d2 9542
-0002d3 704f
-0002d4 9340 02d0                 	G_SRC_UPDATE
-0002d6 ce97                      	rjmp _ml_g_update_done
+00031c c010
+00031d 1745
+00031e f430
+00031f 2ea5
+000320 1aa4
+000321 16a6
+000322 f040
+000323 0f46
+000324 9508
+000325 2ea4
+000326 1aa5
+000327 16a6
+000328 f010
+000329 1b46
+00032a 9508
+00032b 2f45
+00032c 9508
+00032d 9140 020c
+00032f 2344
+000330 f089
+000331 9150 020b
+000333 9140 02d5
+000335 9160 02d3
+000337 dfe5
+000338 9340 02d5
+00033a 9140 02d4
+00033c 9160 02d2
+00033e dfde
+00033f 9340 02d4
+000341 c009
+000342 9140 02d4
+000344 9150 02d5
+000346 9160 02d2
+000348 dfd4
+000349 9340 02d4
+00034b 9542
+00034c 704f
+00034d 9340 02d6                 	G_SRC_UPDATE ml_tmp1, ml_tmp2, ml_tmp3, ml_tmp4
+00034f ce99                      	rjmp _ml_g_update_done
                                  
-                                 #endif
-                                 #include "distance_sens.asm"
-                                 
-                                 #else
-                                 #define _INC_DS
-                                 
-                                 ; Francesco Zoccheddu
-                                 ; ARE
-                                 ; distance sensor
-                                 ; dirty timer 4 module and registers
-                                 
-                                 #define _DS_TIMER 4
-                                 #define _DS_IO L
-                                 
-                                 TIM_DEF _DS, _DS_TIMER
-                                 IO_DEF _DS, _DS_IO
-                                 
-                                 #define _DS_ICP_BIT 0 ; digital pin 49
-                                 #define _DS_TRIG_BIT 6 ; digital pin 43
-                                 
-                                 #define _ds_r_setup_tmp @0
-                                 
-                                 ; [SOURCE] setup
-                                 ; @0 (dirty immediate register)
-                                 .macro DS_SRC_SETUP
-                                 	; clear timer control registers
-                                 	clr _ds_r_setup_tmp
-                                 	sts _DS_TCCRA, _ds_r_setup_tmp
-                                 	sts _DS_TCCRB, _ds_r_setup_tmp
-                                 	sts _DS_TCCRC, _ds_r_setup_tmp
-                                 	; set timer interrupt mask
-                                 	ldi _ds_r_setup_tmp, ICIE_VAL | OCIEA_VAL
-                                 	sts _DS_TIMSK, _ds_r_setup_tmp
-                                 	; set data direction register to output for trig pin
-                                 	ldi _ds_r_setup_tmp, 1 << _DS_TRIG_BIT
-                                 	sts _DS_DDR, _ds_r_setup_tmp
-                                 	; load ee
-                                 	SP_SRC_LOAD_TO_RAM ee_ds_min_ic, _ds_ram_min, 2
-                                 	SP_SRC_LOAD_TO_RAM ee_ds_max_ic, _ds_ram_max, 2
-                                 	SP_SRC_LOAD_TO_RAM ee_ds_emax_ic, _ds_ram_emax, 2
-                                 	SP_SRC_LOADI_TIME ee_ds_period_propf
-                                 	ori sp_data, ICN_VAL | ICES_VAL
-                                 	sts _DS_OCRAH, sp_data_th
-                                 	sts _DS_OCRAL, sp_data_tl
-                                 	sts _ds_ram_tccrb, sp_data
-                                 .endmacro
-                                 
-                                 #undef _ds_r_setup_tmp
-                                 
-                                 .eseg
-00003b aa 03                     ee_ds_period_propf: .dw int( 0.06 * T16_PROPF + 0.5)
-00003d 46 00                     ee_ds_min_ic: .dw 70
-00003f fa 00                     ee_ds_max_ic: .dw 250
-000041 2c 01                     ee_ds_emax_ic: .dw 300
-                                 .cseg
-                                 
-                                 .dseg
-0003c4                           _ds_ram_tccrb: .byte 1
-0003c5                           _ds_ram_min: .byte 2
-0003c7                           _ds_ram_max: .byte 2
-0003c9                           _ds_ram_emax: .byte 2
-0003cb                           _ds_ram_ltime: .byte 2
-0003cd                           ds_ram_out_val: .byte 1
-0003ce                           ds_ram_out_state: .byte 1
-                                 .cseg
-                                 
-000054 940c 02d7                 ISR _DS_OCAaddr
-                                 ds_isr_trig:
-                                 
-                                 #define _ds_rr_trig_tmp ria
-                                 
-                                 	; start trig
-0002d7 e400                      	ldi _ds_rr_trig_tmp, 1 << _DS_TRIG_BIT
-0002d8 9300 010b                 	sts _DS_PORT, _ds_rr_trig_tmp
-                                 	; stop timer
-0002da 2700                      	clr _ds_rr_trig_tmp
-0002db 9300 00a1                 	sts _DS_TCCRB, _ds_rr_trig_tmp
-                                 	; clear counter
-0002dd 9300 00a5                 	sts _DS_TCNTH, _ds_rr_trig_tmp
-0002df 9300 00a4                 	sts _DS_TCNTL, _ds_rr_trig_tmp
-                                 	; skip if not measured
-0002e1 9100 0072                 	lds _ds_rr_trig_tmp, _DS_TIMSK
-0002e3 fd05                      	sbrc _ds_rr_trig_tmp, ICIE
-0002e4 c039                      	rjmp _ds_isr_trig_bad
-                                 
-                                 #undef _ds_rr_trig_tmp
-                                 
-                                 #define _ds_rr_trig_cursl ria
-                                 #define _ds_rr_trig_cursh rib
-                                 #define _ds_rr_trig_inl ri0
-                                 #define _ds_rr_trig_inh ri1
-                                 
-                                 	; skip if greater than max
-0002e5 9100 03c9                 	lds _ds_rr_trig_cursl, _ds_ram_emax
-0002e7 9110 03ca                 	lds _ds_rr_trig_cursh, _ds_ram_emax + 1
-0002e9 9020 03cb                 	lds _ds_rr_trig_inl, _ds_ram_ltime
-0002eb 9030 03cc                 	lds _ds_rr_trig_inh, _ds_ram_ltime + 1
-0002ed 1620                      	cp _ds_rr_trig_inl, _ds_rr_trig_cursl
-0002ee 0631                      	cpc _ds_rr_trig_inh, _ds_rr_trig_cursh
-0002ef f570                      	brsh _ds_isr_trig_bad
-                                 
-                                 #define _ds_rr_trig_in_lol ri2
-                                 #define _ds_rr_trig_in_loh ri3
-                                 #define _ds_rr_trig_in_hil ri4
-                                 #define _ds_rr_trig_in_hih ri5
-                                 #define _ds_rr_trig_out_lo ric
-                                 #define _ds_rr_trig_out_hi rid
-                                 #define _ds_rr_trig_out ri6
-                                 
-                                 	; clamp
-                                 	; setup clamp parameters
-0002f0 9040 03c5                 	lds _ds_rr_trig_in_lol, _ds_ram_min
-0002f2 9050 03c6                 	lds _ds_rr_trig_in_loh, _ds_ram_min + 1
-0002f4 9060 03c7                 	lds _ds_rr_trig_in_hil, _ds_ram_max
-0002f6 9070 03c8                 	lds _ds_rr_trig_in_hih, _ds_ram_max + 1
-0002f8 2722                      	clr _ds_rr_trig_out_lo
-0002f9 ef3f                      	ser _ds_rr_trig_out_hi
-                                 	; start clamping
-                                 _ds_l_isr_trig_clamp_start:
-0002fa 0183                      	movw _ds_rr_trig_cursh:_ds_rr_trig_cursl, _ds_rr_trig_in_hih:_ds_rr_trig_in_hil
-0002fb 2e83                      	mov _ds_rr_trig_out, _ds_rr_trig_out_hi
-                                 _ds_l_isr_trig_clamp_loop:
-0002fc 1b32                      	sub _ds_rr_trig_out_hi, _ds_rr_trig_out_lo
-0002fd 3032                      	cpi _ds_rr_trig_out_hi, 2
-0002fe f0b8                      	brlo _ds_l_isr_trig_clamp_stop
-0002ff 0f32                      	add _ds_rr_trig_out_hi, _ds_rr_trig_out_lo
-000300 1502                      	cp _ds_rr_trig_cursl, _ds_rr_trig_inl
-000301 0513                      	cpc _ds_rr_trig_cursh, _ds_rr_trig_inh
-000302 f099                      	breq _ds_l_isr_trig_clamp_stop
-000303 f448                      	brsh _ds_l_isr_trig_clamp_smaller
-                                 _ds_l_isr_trig_clamp_greater:
-000304 0128                      	movw _ds_rr_trig_in_loh:_ds_rr_trig_in_lol, _ds_rr_trig_cursh:_ds_rr_trig_cursl
-000305 2d28                      	mov _ds_rr_trig_out_lo, _ds_rr_trig_out
-000306 0d06                      	add _ds_rr_trig_cursl, _ds_rr_trig_in_hil
-000307 1d17                      	adc _ds_rr_trig_cursh, _ds_rr_trig_in_hih
-000308 9517                      	ror _ds_rr_trig_cursh
-000309 9507                      	ror _ds_rr_trig_cursl
-00030a 0e83                      	add _ds_rr_trig_out, _ds_rr_trig_out_hi
-00030b 9487                      	ror _ds_rr_trig_out
-00030c cfef                      	rjmp _ds_l_isr_trig_clamp_loop
-                                 _ds_l_isr_trig_clamp_smaller:
-00030d 0138                      	movw _ds_rr_trig_in_hih:_ds_rr_trig_in_hil, _ds_rr_trig_cursh:_ds_rr_trig_cursl
-00030e 2d38                      	mov _ds_rr_trig_out_hi, _ds_rr_trig_out
-00030f 0d04                      	add _ds_rr_trig_cursl, _ds_rr_trig_in_lol
-000310 1d15                      	adc _ds_rr_trig_cursh, _ds_rr_trig_in_loh
-000311 9517                      	ror _ds_rr_trig_cursh
-000312 9507                      	ror _ds_rr_trig_cursl
-000313 0e82                      	add _ds_rr_trig_out, _ds_rr_trig_out_lo
-000314 9487                      	ror _ds_rr_trig_out
-000315 cfe6                      	rjmp _ds_l_isr_trig_clamp_loop
-                                 
-                                 #undef _ds_rr_trig_cursl
-                                 #undef _ds_rr_trig_cursh
-                                 #undef _ds_rr_trig_inl
-                                 #undef _ds_rr_trig_inh
-                                 #undef _ds_rr_trig_in_lol
-                                 #undef _ds_rr_trig_in_loh
-                                 #undef _ds_rr_trig_in_hil
-                                 #undef _ds_rr_trig_in_hih
-                                 #undef _ds_rr_trig_out_lo
-                                 #undef _ds_rr_trig_out_hi
-                                 
-                                 #define _ds_rr_trig_tmp1 ria
-                                 #define _ds_rr_trig_tmp2 rib
-                                 
-                                 _ds_l_isr_trig_clamp_stop:
-                                 	; write output value
-000316 9100 03cd                 	lds _ds_rr_trig_tmp1, ds_ram_out_val
-000318 0d08                      	add _ds_rr_trig_tmp1, _ds_rr_trig_out
-000319 9507                      	ror _ds_rr_trig_tmp1
-00031a 9300 03cd                 	sts ds_ram_out_val, _ds_rr_trig_tmp1
-                                 	; set output state to true
-00031c ef0f                      	ser _ds_rr_trig_tmp1
-00031d c004                      	rjmp _ds_isr_trig_done
-                                 
-                                 #undef _ds_rr_trig_out
-                                 
-                                 _ds_isr_trig_bad:
-                                 	; wait
-00031e e305                      	ldi _ds_rr_trig_tmp1, 53
-                                 _ds_isr_trig_bad_wait:
-00031f 950a                      	dec _ds_rr_trig_tmp1
-000320 f7f1                          brne _ds_isr_trig_bad_wait
-                                 	; set output state to false
-000321 2700                      	clr _ds_rr_trig_tmp1
-                                 _ds_isr_trig_done:
-                                 	; write output state
-000322 9300 03ce                 	sts ds_ram_out_state, _ds_rr_trig_tmp1
-000324 b905                      	BL_SRC_OUT _ds_rr_trig_tmp1
-                                 	; cancel pending interrupts
-000325 e202                      	ldi _ds_rr_trig_tmp1, ICF_VAL | OCFA_VAL
-000326 bb09                      	out _DS_TIFR, _ds_rr_trig_tmp1
-                                 	; enable interrupts
-000327 e202                      	ldi _ds_rr_trig_tmp1, ICIE_VAL | OCIEA_VAL
-000328 9300 0072                 	sts _DS_TIMSK, _ds_rr_trig_tmp1
-                                 	; stop trig
-00032a 2700                      	clr _ds_rr_trig_tmp1
-00032b 9300 010b                 	sts _DS_PORT, _ds_rr_trig_tmp1
-                                 	; start timer
-00032d 9100 03c4                 	lds _ds_rr_trig_tmp1, _ds_ram_tccrb
-00032f 9300 00a1                 	sts _DS_TCCRB, _ds_rr_trig_tmp1
-000331 9518                      	reti
-                                 
-                                 #undef _ds_rr_trig_tmp1
-                                 #undef _ds_rr_trig_tmp2
-                                 
-                                 #define _ds_r_ici_icrl ri0
-                                 #define _ds_r_ici_icrh ri1
-                                 #define _ds_r_ici_tmp1 ria
-                                 #define _ds_r_ici_tmp2 rib
-                                 
-000052 940c 0332                 ISR _DS_ICPaddr
-                                 	; load ICR
-000332 9020 00a6                 	lds _ds_r_ici_icrl, _DS_ICRL
-000334 9030 00a7                 	lds _ds_r_ici_icrh, _DS_ICRH
-                                 	; check if rising or falling edge
-000336 9100 00a1                 	lds _ds_r_ici_tmp1, _DS_TCCRB
-000338 ff06                      	sbrs _ds_r_ici_tmp1, ICES
-000339 c00a                      	rjmp _ds_l_isr_icp_falling
-                                 _ds_l_isr_icp_rising:
-                                 	; save ICR to sram
-00033a 9220 03cb                 	sts _ds_ram_ltime, _ds_r_ici_icrl
-00033c 9230 03cc                 	sts _ds_ram_ltime + 1, _ds_r_ici_icrh
-                                 	; set input capture to falling edge
-00033e 9100 00a1                 	lds _ds_r_ici_tmp1, _DS_TCCRB
-000340 7b0f                      	andi _ds_r_ici_tmp1, ~(ICES_VAL)
-000341 9300 00a1                 	sts _DS_TCCRB, _ds_r_ici_tmp1
-000343 9518                      	reti
-                                 _ds_l_isr_icp_falling:
-                                 	; save difference to sram
-000344 9100 03cb                 	lds _ds_r_ici_tmp1, _ds_ram_ltime
-000346 9110 03cc                 	lds _ds_r_ici_tmp2, _ds_ram_ltime + 1
-000348 1a20                      	sub _ds_r_ici_icrl, _ds_r_ici_tmp1
-000349 0a31                      	sbc _ds_r_ici_icrh, _ds_r_ici_tmp2
-00034a 9220 03cb                 	sts _ds_ram_ltime, _ds_r_ici_icrl
-00034c 9230 03cc                 	sts _ds_ram_ltime + 1, _ds_r_ici_icrh
-                                 	; disable input capture interrupt
-00034e e002                      	ldi _ds_r_ici_tmp1, OCIEA_VAL
-00034f 9300 0072                 	sts _DS_TIMSK, _ds_r_ici_tmp1
-000351 9518                      	reti
-                                 
-                                 #undef _ds_r_ici_icrh
-                                 #undef _ds_r_ici_icrl
-                                 #undef _ds_r_ici_tmp1
-                                 #undef _ds_r_ici_tmp2
+                                 #undef ml_col 
+                                 #undef ml_cl 
+                                 #undef ml_ch 
+                                 #undef ml_tmp1 
+                                 #undef ml_tmp2 
+                                 #undef ml_tmp3 
+                                 #undef ml_tmp4 
                                  
                                  #endif
                                  
@@ -4364,348 +4386,350 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
                                  
                                  #define m_tmp rma
                                  
-000000 940c 0352                 ISR 0
+000000 940c 0350                 ISR 0
                                  m_l_reset:
                                  	
-000352 94f8                      	cli
+000350 94f8                      	cli
                                  	; setup stack
-000353 e241
-000354 bf4e
-000355 ef4f
-000356 bf4d                      	STACK_SETUP m_tmp
+000351 e241
+000352 bf4e
+000353 ef4f
+000354 bf4d                      	STACK_SETUP m_tmp
                                  	; setup serial programming
-000357 e040
-000358 9340 00c5
-00035a e647
-00035b 9340 00c4
-00035d e040
-00035e 9340 00c0
-000360 e948
-000361 9340 00c1
-000363 e846
-000364 9340 00c2                 	SP_SRC_SETUP m_tmp
+000355 e040
+000356 9340 00c5
+000358 e647
+000359 9340 00c4
+00035b e040
+00035c 9340 00c0
+00035e e948
+00035f 9340 00c1
+000361 e846
+000362 9340 00c2                 	SP_SRC_SETUP m_tmp
                                  	; setup builtin LED
-000366 e840
-000367 b944                      	BL_SRC_SETUP m_tmp
-000368 2744
-000369 b945                      	BL_SRC_OFF m_tmp
+000364 e840
+000365 b944                      	BL_SRC_SETUP m_tmp
+000366 2744
+000367 b945                      	BL_SRC_OFF m_tmp
                                  	; setup LED matrix
-00036a ef4f
-00036b b947                      	LM_SRC_SETUP m_tmp
+000368 ef4f
+000369 b947                      	LM_SRC_SETUP m_tmp
                                  	;setup distance sensor
-00036c 2744
-00036d 9340 00a0
-00036f 9340 00a1
-000371 9340 00a2
-000373 e242
-000374 9340 0072
-000376 e440
-000377 9340 010a
-000379 e3cd
-00037a e0d0
-00037b eca5
-00037c e0b3
-00037d e032
-00037e dd22
-00037f e3cf
-000380 e0d0
-000381 eca7
-000382 e0b3
-000383 e032
-000384 dd1c
-000385 e4c1
-000386 e0d0
-000387 eca9
-000388 e0b3
-000389 e032
-00038a dd16
-00038b e3cb
-00038c e0d0
-00038d dd0b
-00038e 2f10
-00038f 9621
-000390 dd08
-000391 2f20
-000392 dd1b
-000393 6c00
-000394 9320 00a9
-000396 9310 00a8
-000398 9300 03c4                 	DS_SRC_SETUP m_tmp
+00036a 2744
+00036b 9340 00a0
+00036d 9340 00a1
+00036f 9340 00a2
+000371 e242
+000372 9340 0072
+000374 e440
+000375 9340 010a
+000377 e0c2
+000378 e0d0
+000379 e0a3
+00037a e0b2
+00037b e032
+00037c dd24
+00037d e0c4
+00037e e0d0
+00037f e0a5
+000380 e0b2
+000381 e032
+000382 dd1e
+000383 e0c6
+000384 e0d0
+000385 e0a7
+000386 e0b2
+000387 e032
+000388 dd18
+000389 e0c0
+00038a e0d0
+00038b dd0d
+00038c 2f10
+00038d 9621
+00038e dd0a
+00038f 2f20
+000390 dd1d
+000391 6c00
+000392 9320 00a9
+000394 9310 00a8
+000396 9300 0202                 	DS_SRC_SETUP m_tmp
                                  	; setup buzzer
-00039a 2744
-00039b bb43
-00039c e142
-00039d bd44
+000398 2744
+000399 bb43
+00039a e142
+00039b bd44
+00039c 2744
+00039d bd45
 00039e 2744
-00039f bd45
-0003a0 2744
-0003a1 9340 0080
-0003a3 9340 0081
-0003a5 9340 0082
-0003a7 e042
-0003a8 9340 006f                 	BZ_SRC_SETUP m_tmp
-                                 	; setup draw loop
-0003aa 2744
-0003ab 9340 00b0
-0003ad 9340 00b1
-0003af e042
-0003b0 9340 0070
-0003b2 2744
-0003b3 9340 0204
-0003b5 e042
-0003b6 9340 0203
-0003b8 e0c2
-0003b9 e0d0
-0003ba e0a5
-0003bb e0b2
-0003bc e031
-0003bd dce3
-0003be e0c3
-0003bf e0d0
-0003c0 e0a6
-0003c1 e0b2
-0003c2 e031
-0003c3 dcdd
-0003c4 e0c0
-0003c5 e0d0
-0003c6 dcd2
-0003c7 2f10
-0003c8 9621
-0003c9 dccf
-0003ca 2f20
-0003cb dce2
-0003cc 9320 00b3
-0003ce 9300 0202
-0003d0 2744
-0003d1 9340 0289
-0003d3 e0cc
-0003d4 e0d0
-0003d5 e8ab
-0003d6 e0b2
-0003d7 e031
-0003d8 dcc8
-0003d9 e0cd
-0003da e0d0
-0003db e8aa
-0003dc e0b2
-0003dd e031
-0003de dcc2
-0003df e6cb
-0003e0 e0d0
-0003e1 e8ac
-0003e2 e0b2
-0003e3 e230
-0003e4 dcbc
-0003e5 e8cb
-0003e6 e0d0
-0003e7 eaac
-0003e8 e0b2
-0003e9 e230
-0003ea dcb6
-0003eb 2744
-0003ec 9340 0090
-0003ee 9340 0091
-0003f0 9340 0092
-0003f2 e042
-0003f3 9340 0071
-0003f5 eda1
-0003f6 e0b2
-0003f7 2766
-0003f8 e340
-0003f9 936d
-0003fa 954a
-0003fb f7e9
-0003fc e041
-0003fd 9340 0302
-0003ff 2744
-000400 9340 0304
-000402 9340 0305
-000404 e047
-000405 9340 02d0
-000407 e74f
-000408 9340 02ce
-00040a 9340 02cf
-00040c e5c3
-00040d e0d0
-00040e e0a6
-00040f e0b3
-000410 e130
-000411 dc8f
-000412 e4c3
-000413 e0d0
-000414 e1a6
-000415 e0b3
-000416 e130
-000417 dc89
-000418 e6c3
+00039f 9340 0080
+0003a1 9340 0081
+0003a3 9340 0082
+0003a5 e042
+0003a6 9340 006f                 	BZ_SRC_SETUP m_tmp
+                                 	; setup screens
+0003a8 2744
+0003a9 9340 028f
+0003ab e1c0
+0003ac e0d0
+0003ad e9a1
+0003ae e0b2
+0003af e031
+0003b0 dcf0
+0003b1 e1c1
+0003b2 e0d0
+0003b3 e9a0
+0003b4 e0b2
+0003b5 e031
+0003b6 dcea
+0003b7 e6cb
+0003b8 e0d0
+0003b9 e9a2
+0003ba e0b2
+0003bb e230
+0003bc dce4
+0003bd e8cb
+0003be e0d0
+0003bf eba2
+0003c0 e0b2
+0003c1 e230
+0003c2 dcde                      	P_SRC_SETUP m_tmp
+0003c3 2744
+0003c4 9340 0090
+0003c6 9340 0091
+0003c8 9340 0092
+0003ca e042
+0003cb 9340 0071
+0003cd eda7
+0003ce e0b2
+0003cf 27cc
+0003d0 e340
+0003d1 93cd
+0003d2 954a
+0003d3 f7e9
+0003d4 e041
+0003d5 9340 0308
+0003d7 2744
+0003d8 9340 030a
+0003da 9340 030b
+0003dc e047
+0003dd 9340 02d6
+0003df e74f
+0003e0 9340 02d4
+0003e2 9340 02d5
+0003e4 e5c3
+0003e5 e0d0
+0003e6 e0ac
+0003e7 e0b3
+0003e8 e130
+0003e9 dcb7
+0003ea e4c3
+0003eb e0d0
+0003ec e1ac
+0003ed e0b3
+0003ee e130
+0003ef dcb1
+0003f0 e6c3
+0003f1 e0d0
+0003f2 e2ac
+0003f3 e0b3
+0003f4 e038
+0003f5 dcab
+0003f6 e1c2
+0003f7 e0d0
+0003f8 e0a9
+0003f9 e0b3
+0003fa e031
+0003fb dca5
+0003fc e1c3
+0003fd e0d0
+0003fe eda2
+0003ff e0b2
+000400 e031
+000401 dc9f
+000402 e1c4
+000403 e0d0
+000404 eda3
+000405 e0b2
+000406 e031
+000407 dc99
+000408 e1c5
+000409 e0d0
+00040a dc8e
+00040b 2f10
+00040c 9621
+00040d dc8b
+00040e 2f20
+00040f dc9e
+000410 9320 0099
+000412 9310 0098
+000414 6008
+000415 9300 0307
+000417 e04a
+000418 e1c7
 000419 e0d0
-00041a e2a6
+00041a e3a4
 00041b e0b3
-00041c e038
-00041d dc83
-00041e e0ce
-00041f e0d0
-000420 e0a3
-000421 e0b3
-000422 e031
-000423 dc7d
-000424 e0cf
-000425 e0d0
-000426 ecac
-000427 e0b2
-000428 e031
-000429 dc77
-00042a e1c0
-00042b e0d0
-00042c ecad
-00042d e0b2
-00042e e031
-00042f dc71
-000430 e1c1
-000431 e0d0
-000432 dc66
-000433 2f10
-000434 9621
-000435 dc63
-000436 2f20
-000437 dc76
-000438 9320 0099
-00043a 9310 0098
-00043c 6008
-00043d 9300 0301
-00043f e04a
-000440 e1c3
-000441 e0d0
-000442 e2ae
-000443 e0b3
-000444 dc54
-000445 2f10
-000446 9621
-000447 dc51
-000448 2f20
-000449 dc64
-00044a 9621
-00044b 930d
-00044c 932d
-00044d dc4b
-00044e 2f10
-00044f 9621
+00041c dc7c
+00041d 2f10
+00041e 9621
+00041f dc79
+000420 2f20
+000421 dc8c
+000422 9621
+000423 930d
+000424 932d
+000425 dc73
+000426 2f10
+000427 9621
+000428 dc70
+000429 2f20
+00042a dc83
+00042b 9621
+00042c 930d
+00042d 932d
+00042e 931d
+00042f 954a
+000430 f759
+000431 e04a
+000432 e2c3
+000433 e0d0
+000434 e6a6
+000435 e0b3
+000436 dc62
+000437 2f10
+000438 9621
+000439 dc5f
+00043a 2f20
+00043b dc72
+00043c 9621
+00043d 930d
+00043e 932d
+00043f dc59
+000440 2f10
+000441 9621
+000442 dc56
+000443 2f20
+000444 dc69
+000445 9621
+000446 930d
+000447 932d
+000448 931d
+000449 954a
+00044a f759
+00044b e04a
+00044c e2cf
+00044d e0d0
+00044e e9a8
+00044f e0b3
 000450 dc48
-000451 2f20
-000452 dc5b
-000453 9621
-000454 930d
-000455 932d
-000456 931d
-000457 954a
-000458 f759
-000459 e04a
-00045a e1cf
-00045b e0d0
-00045c e6a0
-00045d e0b3
-00045e dc3a
-00045f 2f10
-000460 9621
-000461 dc37
-000462 2f20
-000463 dc4a
-000464 9621
-000465 930d
-000466 932d
-000467 dc31
-000468 2f10
-000469 9621
-00046a dc2e
-00046b 2f20
-00046c dc41
-00046d 9621
-00046e 930d
-00046f 932d
-000470 931d
-000471 954a
-000472 f759
-000473 e04a
-000474 e2cb
-000475 e0d0
-000476 e9a2
-000477 e0b3
-000478 dc20
-000479 2f10
-00047a 9621
-00047b dc1d
-00047c 2f20
-00047d dc30
-00047e 9621
-00047f 930d
-000480 932d
-000481 dc17
-000482 2f10
-000483 9621
-000484 dc14
-000485 2f20
-000486 dc27
-000487 9621
-000488 930d
-000489 932d
-00048a 931d
-00048b 954a
-00048c f759
-00048d 2744
-00048e 9340 0120
-000490 9340 0121
-000492 9340 0122
-000494 e042
-000495 9340 0073
-000497 e042
-000498 9340 0207
-00049a eecb
-00049b e0d0
-00049c e1a9
-00049d e0b2
-00049e e230
-00049f dc01
-0004a0 edcb
-0004a1 e0d0
-0004a2 e4a9
-0004a3 e0b2
-0004a4 e130
-0004a5 dbfb
-0004a6 e0cb
-0004a7 e0d1
-0004a8 e3a9
-0004a9 e0b2
-0004aa e130
-0004ab dbf5
-0004ac eacb
-0004ad e0d0
-0004ae e5a9
-0004af e0b2
-0004b0 e330
-0004b1 dbef
-0004b2 e0c4
-0004b3 e0d0
-0004b4 dbe4
-0004b5 2f10
-0004b6 9621
-0004b7 dbe1
-0004b8 2f20
-0004b9 dbf4
-0004ba 9310 0209
-0004bc 9320 020a
-0004be 9300 0208
-0004c0 e0c6
-0004c1 e0d0
-0004c2 dbd6
-0004c3 2f10
-0004c4 9621
-0004c5 dbd3
-0004c6 2f20
-0004c7 dbe6
-0004c8 9310 020c
-0004ca 9320 020d
-0004cc 9300 020b
-0004ce e0c8
+000451 2f10
+000452 9621
+000453 dc45
+000454 2f20
+000455 dc58
+000456 9621
+000457 930d
+000458 932d
+000459 dc3f
+00045a 2f10
+00045b 9621
+00045c dc3c
+00045d 2f20
+00045e dc4f
+00045f 9621
+000460 930d
+000461 932d
+000462 931d
+000463 954a
+000464 f759                      	G_SRC_SETUP m_tmp
+000465 2744
+000466 9340 0120
+000468 9340 0121
+00046a 9340 0122
+00046c e042
+00046d 9340 0073
+00046f e042
+000470 9340 020d
+000472 eecb
+000473 e0d0
+000474 e1af
+000475 e0b2
+000476 e230
+000477 dc29
+000478 edcb
+000479 e0d0
+00047a e4af
+00047b e0b2
+00047c e130
+00047d dc23
+00047e e0cb
+00047f e0d1
+000480 e3af
+000481 e0b2
+000482 e130
+000483 dc1d
+000484 eacb
+000485 e0d0
+000486 e5af
+000487 e0b2
+000488 e330
+000489 dc17
+00048a e0c8
+00048b e0d0
+00048c dc0c
+00048d 2f10
+00048e 9621
+00048f dc09
+000490 2f20
+000491 dc1c
+000492 9310 020f
+000494 9320 0210
+000496 9300 020e
+000498 e0ca
+000499 e0d0
+00049a dbfe
+00049b 2f10
+00049c 9621
+00049d dbfb
+00049e 2f20
+00049f dc0e
+0004a0 9310 0212
+0004a2 9320 0213
+0004a4 9300 0211
+0004a6 e0cc
+0004a7 e0d0
+0004a8 dbf0
+0004a9 2f10
+0004aa 9621
+0004ab dbed
+0004ac 2f20
+0004ad dc00
+0004ae 9310 0215
+0004b0 9320 0216
+0004b2 9300 0214                 	S_SRC_SETUP m_tmp
+                                 	; setup draw loop
+0004b4 2744
+0004b5 9340 00b0
+0004b7 9340 00b1
+0004b9 e042
+0004ba 9340 0070
+0004bc 2744
+0004bd 9340 03cc
+0004bf e042
+0004c0 9340 03cb
+0004c2 e4c1
+0004c3 e0d0
+0004c4 ecad
+0004c5 e0b3
+0004c6 e031
+0004c7 dbd9
+0004c8 e4c2
+0004c9 e0d0
+0004ca ecae
+0004cb e0b3
+0004cc e031
+0004cd dbd3
+0004ce e3cf
 0004cf e0d0
 0004d0 dbc8
 0004d1 2f10
@@ -4713,44 +4737,43 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zoc
 0004d3 dbc5
 0004d4 2f20
 0004d5 dbd8
-0004d6 9310 020f
-0004d8 9320 0210
-0004da 9300 020e                 	ML_SRC_SETUP m_tmp
+0004d6 9320 00b3
+0004d8 9300 03ca                 	ML_SRC_SETUP m_tmp
                                  	; play startup sound
-0004dc e04a
-0004dd e1cb
-0004de e0d1
-0004df ecaf
-0004e0 e0b3
-0004e1 dbb7
-0004e2 2f10
-0004e3 9621
-0004e4 dbb4
-0004e5 2f20
-0004e6 dbc7
-0004e7 9621
-0004e8 930d
-0004e9 932d
-0004ea dbae
-0004eb 2f10
-0004ec 9621
-0004ed dbab
-0004ee 2f20
-0004ef dbbe
-0004f0 9621
-0004f1 930d
-0004f2 932d
-0004f3 931d
-0004f4 954a
-0004f5 f759                      	BZ_SRC_LOAD ee_m_snd_start, _m_ram_snd_start, m_tmp
-0004f6 94f8
-0004f7 e0f3
-0004f8 ecef
-0004f9 940e 00e4                 	BZ_SRC_START _m_ram_snd_start
-0004fb 94f8                      	cli
-0004fc ddda                      	rcall ds_isr_trig
+0004da e04a
+0004db e1cb
+0004dc e0d1
+0004dd ecaf
+0004de e0b3
+0004df dbb9
+0004e0 2f10
+0004e1 9621
+0004e2 dbb6
+0004e3 2f20
+0004e4 dbc9
+0004e5 9621
+0004e6 930d
+0004e7 932d
+0004e8 dbb0
+0004e9 2f10
+0004ea 9621
+0004eb dbad
+0004ec 2f20
+0004ed dbc0
+0004ee 9621
+0004ef 930d
+0004f0 932d
+0004f1 931d
+0004f2 954a
+0004f3 f759                      	BZ_SRC_LOAD ee_m_snd_start, _m_ram_snd_start, m_tmp
+0004f4 94f8
+0004f5 e0f3
+0004f6 ecef
+0004f7 dbec                      	BZ_SRC_START _m_ram_snd_start
+0004f8 94f8                      	cli
+0004f9 dc07                      	rcall ds_isr_trig
                                  	; enter main loop
-0004fd cc6a                      	rjmp ml_l_loop
+0004fa cce8                      	rjmp ml_l_loop
                                  
                                  
                                  #undef m_tmp
@@ -4772,11 +4795,11 @@ counted separately from r26..r31 here.
 
 "ATmega2560" register use summary:
 x  :  33 y  :  12 z  :  12 r0 :   1 r1 :   0 r2 :   9 r3 :   9 r4 :   3 
-r5 :   3 r6 :   4 r7 :   4 r8 :   8 r9 :   0 r10:  10 r11:   4 r12:   0 
-r13:   0 r14:   0 r15:   0 r16: 173 r17:  64 r18:  57 r19:  30 r20: 201 
-r21:  44 r22:  24 r23:  12 r24:   7 r25:  18 r26:  41 r27:  41 r28:  65 
+r5 :   3 r6 :   4 r7 :   4 r8 :   8 r9 :   0 r10:   6 r11:   0 r12:   0 
+r13:   0 r14:   0 r15:   0 r16: 173 r17:  64 r18:  57 r19:  30 r20: 203 
+r21:  43 r22:  26 r23:  25 r24:   7 r25:   9 r26:  41 r27:  41 r28:  67 
 r29:  65 r30:  12 r31:  12 
-Registers used: 29 out of 35 (82.9%)
+Registers used: 28 out of 35 (80.0%)
 
 "ATmega2560" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :  10 add   :  18 adiw  :  25 and   :   1 
@@ -4784,27 +4807,27 @@ andi  :  14 asr   :   0 bclr  :   0 bld   :   1 brbc  :   0 brbs  :   0
 brcc  :   6 brcs  :   0 break :   0 breq  :  16 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   5 brlt  :   0 brmi  :   0 
 brne  :  19 brpl  :   1 brsh  :   6 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   1 call  :   4 cbi   :   0 cbr   :   0 
+brvs  :   0 bset  :   0 bst   :   1 call  :   0 cbi   :   0 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   7 cln   :   0 clr   :  38 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   7 cpc   :   5 
 cpi   :  11 cpse  :   0 dec   :  13 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   2 inc   :   2 jmp   :   8 ld    :  21 ldd   :   0 ldi   : 231 
+in    :   2 inc   :   2 jmp   :   8 ld    :  21 ldd   :   0 ldi   : 232 
 lds   :  69 lpm   :   0 lsl   :  10 lsr   :   5 mov   :  51 movw  :   4 
 mul   :   1 muls  :   0 mulsu :   0 neg   :   1 nop   :   0 or    :   4 
-ori   :   3 out   :  29 pop   :   2 push  :   2 rcall :  72 ret   :  14 
+ori   :   3 out   :  29 pop   :   2 push  :   2 rcall :  76 ret   :  14 
 reti  :   9 rjmp  :  41 rol   :   4 ror   :  11 sbc   :   2 sbci  :   0 
 sbi   :   6 sbic  :   3 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   2 
 sbrs  :   5 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   4 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
 st    :  33 std   :   3 sts   : 105 sub   :   9 subi  :   2 swap  :   4 
 tst   :  11 wdr   :   0 
-Instructions used: 57 out of 116 (49.1%)
+Instructions used: 56 out of 116 (48.3%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0009fc   2360      0   2360  262144   0.9%
+[.cseg] 0x000000 0x0009f6   2354      0   2354  262144   0.9%
 [.dseg] 0x000200 0x000401      0    513    513    8192   6.3%
 [.eseg] 0x000000 0x00012b      0    299    299    4096   7.3%
 
