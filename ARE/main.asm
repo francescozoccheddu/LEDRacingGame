@@ -15,7 +15,6 @@
 #include "utils.asm"
 #include "eeprom_prog.asm"
 #include "builtin_led.asm"
-#include "uart_comm.asm"
 #include "serial_prog.asm"
 #include "buzzer.asm"
 #include "led_matrix.asm"
@@ -48,13 +47,13 @@ m_l_reset:
 	cli
 	; setup stack
 	STACK_SETUP m_tmp
+	; setup serial programming
+	SP_SRC_SETUP m_tmp
 	; setup builtin LED
 	BL_SRC_SETUP m_tmp
 	BL_SRC_OFF m_tmp
 	; setup LED matrix
 	LM_SRC_SETUP m_tmp
-	; setup UART communication
-	UC_SRC_SETUP m_tmp
 	;setup distance sensor
 	DS_SRC_SETUP m_tmp
 	; setup buzzer
