@@ -18,8 +18,8 @@
 #include "uart_comm.asm"
 #include "serial_prog.asm"
 #include "buzzer.asm"
-#include "main_loop.asm"
 #include "led_matrix.asm"
+#include "main_loop.asm"
 #include "distance_sens.asm"
 
 .eseg

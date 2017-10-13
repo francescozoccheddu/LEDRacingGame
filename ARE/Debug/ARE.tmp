@@ -16,11 +16,11 @@
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart_comm.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm</FILE>
+  <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE>
-  <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm</FILE>
  </INCLUDED_FILES>
@@ -112,7 +112,7 @@
   <_g_l_oca_shift_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm</FILE><LINE>304</LINE></_g_l_oca_shift_loop>
   <ml_l_loop><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>84</LINE></ml_l_loop>
   <_ml_l_loop_update_paused><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>113</LINE></_ml_l_loop_update_paused>
-  <_ml_g_l_update><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>180</LINE></_ml_g_l_update>
+  <_ml_g_l_update><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>184</LINE></_ml_g_l_update>
   <_ml_g_update_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>91</LINE></_ml_g_update_done>
   <ds_ram_out_state><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>67</LINE></ds_ram_out_state>
   <_ml_l_update_sub><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>104</LINE></_ml_l_update_sub>
@@ -124,13 +124,11 @@
   <_ml_s_l_draw><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>164</LINE></_ml_s_l_draw>
   <_ml_p_l_draw><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>168</LINE></_ml_p_l_draw>
   <_ml_l_loop_flush><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>130</LINE></_ml_l_loop_flush>
-  <lm_l_sendcol><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm</FILE><LINE>37</LINE></lm_l_sendcol>
-  <ml_l_sendcol_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>134</LINE></ml_l_sendcol_done>
+  <_ml_lm_l_sendcol><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>176</LINE></_ml_lm_l_sendcol>
+  <_ml_l_sendcol_done><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>134</LINE></_ml_l_sendcol_done>
   <_ml_l_loop_wait><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>145</LINE></_ml_l_loop_wait>
-  <ml_l_gameover><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>176</LINE></ml_l_gameover>
+  <ml_l_gameover><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>180</LINE></ml_l_gameover>
   <ds_ram_out_val><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>66</LINE></ds_ram_out_val>
-  <_lm_l_src_send_col_row><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm</FILE><LINE>39</LINE></_lm_l_src_send_col_row>
-  <_lm_l_src_send_col_out_dot><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm</FILE><LINE>45</LINE></_lm_l_src_send_col_out_dot>
   <ee_ds_period_propf><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>54</LINE></ee_ds_period_propf>
   <ee_ds_min_ic><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>55</LINE></ee_ds_min_ic>
   <ee_ds_max_ic><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm</FILE><LINE>56</LINE></ee_ds_max_ic>

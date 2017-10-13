@@ -17,58 +17,58 @@ IO_DEF _LM, _LM_IO
 #define _LM_BIT_CLK 6 ; digital pin 31
 #define _LM_BIT_LAT 7 ; digital pin 30
 
-#define _lm_setup_tmp @0
+#define _lm_r_setup_tmp @0
 
 ; [SOURCE] setup
 ; @0 (dirty immediate register)
 .macro LM_SRC_SETUP
-	ser _lm_setup_tmp
-	out _LM_DDR, _lm_setup_tmp
+	ser _lm_r_setup_tmp
+	out _LM_DDR, _lm_r_setup_tmp
 .endmacro
 
-#undef _lm_setup_tmp
+#undef _lm_r_setup_tmp
 
-#define _lm_cl ml_cl
-#define _lm_ch ml_ch
-#define _lm_col ml_col
-#define _lm_tmp1 ml_tmp1
-#define _lm_tmp2 ml_tmp2
+#define _lm_r_col @0
+#define _lm_r_cl @1
+#define _lm_r_ch @2
+#define _lm_r_tmp1 @3
+#define _lm_r_tmp2 @4
 
-lm_l_sendcol:
-	ldi _lm_tmp1, 16
+.macro LM_SRC_SENDCOL
+	ldi _lm_r_tmp1, 16
 _lm_l_src_send_col_row:
-	ldi _lm_tmp2, (1 << _LM_BIT_G) | (1 << _LM_BIT_DI)
-	lsr _lm_ch
-	ror _lm_cl
+	ldi _lm_r_tmp2, (1 << _LM_BIT_G) | (1 << _LM_BIT_DI)
+	lsr _lm_r_ch
+	ror _lm_r_cl
 	brcc _lm_l_src_send_col_out_dot
-	ldi _lm_tmp2, (1 << _LM_BIT_G)
+	ldi _lm_r_tmp2, (1 << _LM_BIT_G)
 _lm_l_src_send_col_out_dot:
-	out _LM_PORT, _lm_tmp2
-	ori _lm_tmp2, 1 << _LM_BIT_CLK
-	out _LM_PORT, _lm_tmp2
-	andi _lm_tmp2, ~(1 << _LM_BIT_CLK)
-	out _LM_PORT, _lm_tmp2
+	out _LM_PORT, _lm_r_tmp2
+	ori _lm_r_tmp2, 1 << _LM_BIT_CLK
+	out _LM_PORT, _lm_r_tmp2
+	andi _lm_r_tmp2, ~(1 << _LM_BIT_CLK)
+	out _LM_PORT, _lm_r_tmp2
 	;loop
-	dec _lm_tmp1
+	dec _lm_r_tmp1
 	brne _lm_l_src_send_col_row
 	;send LAT
-	ldi _lm_tmp2, (1 << _LM_BIT_G) | (1 << _LM_BIT_LAT)
-	out _LM_PORT, _lm_tmp2
-	ldi _lm_tmp2, (1 << _LM_BIT_G)
-	out _LM_PORT, _lm_tmp2
+	ldi _lm_r_tmp2, (1 << _LM_BIT_G) | (1 << _LM_BIT_LAT)
+	out _LM_PORT, _lm_r_tmp2
+	ldi _lm_r_tmp2, (1 << _LM_BIT_G)
+	out _LM_PORT, _lm_r_tmp2
 	;send col
-	ldi _lm_tmp1, 15
-	sub _lm_tmp1, _lm_col
-	or _lm_tmp2, _lm_tmp1
-	out _LM_PORT, _lm_tmp2
+	ldi _lm_r_tmp1, 15
+	sub _lm_r_tmp1, _lm_r_col
+	or _lm_r_tmp2, _lm_r_tmp1
+	out _LM_PORT, _lm_r_tmp2
 	;end G
-	out _LM_PORT, _lm_tmp1
-	rjmp ml_l_sendcol_done
+	out _LM_PORT, _lm_r_tmp1
+.endmacro
 
-#undef _lm_cl
-#undef _lm_ch
-#undef _lm_col
-#undef _lm_tmp1
-#undef _lm_tmp2
+#undef _lm_r_cl
+#undef _lm_r_ch
+#undef _lm_r_col
+#undef _lm_r_tmp1
+#undef _lm_r_tmp2
 
 #endif
