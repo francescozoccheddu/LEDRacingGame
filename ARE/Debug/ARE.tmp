@@ -45,8 +45,8 @@
   <sp_sr_load_to_ram><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>96</LINE></sp_sr_load_to_ram>
   <sp_sr_store><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>108</LINE></sp_sr_store>
   <_bz_ram_ticks><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm</FILE><LINE>14</LINE></_bz_ram_ticks>
-  <_bz_isr_start><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm</FILE><LINE>127</LINE></_bz_isr_start>
-  <_bz_isr_start_mute><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm</FILE><LINE>134</LINE></_bz_isr_start_mute>
+  <_bz_isr_start><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm</FILE><LINE>136</LINE></_bz_isr_start>
+  <_bz_isr_start_mute><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm</FILE><LINE>143</LINE></_bz_isr_start_mute>
   <_ml_ram_tcs><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>53</LINE></_ml_ram_tcs>
   <ml_ram_screen><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>54</LINE></ml_ram_screen>
   <_ml_ram_pprog><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm</FILE><LINE>55</LINE></_ml_ram_pprog>
