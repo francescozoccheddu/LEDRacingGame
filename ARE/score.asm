@@ -1,3 +1,8 @@
+#ifdef _INC_S
+#error __FILE__ already included
+#else
+#define _INC_S
+
 #define _S_TIMER 5
 
 TIM_DEF _S, _S_TIMER
@@ -144,91 +149,93 @@ _s_l_draw_done:
 #define _s_r_set_tmp3 @2
 #define _s_r_set_tmp4 @3
 
-#define te1 ml_cl
-#define te2 ml_ch
-
 .macro S_SRC_SET
 	rjmp _s_l_set
 
-#define bcd_l ml_tmp1
-#define bcd_h ml_tmp2
-#define bcd_z ml_tmp3
-#define bcd_c ml_ch
+#define _s_rr_set_bcd_l ml_tmp1
+#define _s_rr_set_bcd_h ml_tmp2
+#define _s_rr_set_bcd_z ml_tmp3
+#define _s_rr_set_bcd_c ml_ch
 
 _s_sr_tobcd:
-	ldi bcd_z, HIGH(1000)
-	cpi bcd_l, LOW(1000)
-	cpc bcd_h, bcd_z
-	brsh _s_l_sr_tobcd_overflow
-	ldi bcd_z, 11
-	std Y+1, bcd_z
-	std Y+2, bcd_z
-	std Y+3, bcd_z
-_s_l_sr_tobcd_th_begin:
-	ldi bcd_c, 0
-	clr bcd_z
-_s_l_sr_tobcd_th_loop:
-	cpi bcd_l, 100
-	cpc bcd_h, bcd_z
-	brlo _s_l_sr_tobcd_th_done
-	inc bcd_c
-	subi bcd_l, 100
-	sbc bcd_h, bcd_z
-	rjmp _s_l_sr_tobcd_th_loop
-_s_l_sr_tobcd_th_done:
-	tst bcd_c
-	breq _s_l_sr_tobcd_nd_loop
-	st Y+, bcd_c
-	ldi bcd_c, 1 << 7
-_s_l_sr_tobcd_nd_loop:
-	cpi bcd_l, 10
-	brlo _s_l_sr_tobcd_nd_done
-	inc bcd_c
-	subi bcd_l, 10
-	rjmp _s_l_sr_tobcd_nd_loop
-_s_l_sr_tobcd_nd_done:
-	tst bcd_c
-	breq _s_l_sr_tobcd_rd
-	andi bcd_c, ~(1 << 7)
-	st Y+, bcd_c
-_s_l_sr_tobcd_rd:
-	st Y+, bcd_l
+	ldi _s_rr_set_bcd_z, HIGH(1000)
+	cpi _s_rr_set_bcd_l, LOW(1000)
+	cpc _s_rr_set_bcd_h, _s_rr_set_bcd_z
+	brsh _s_l_sr_to_s_rr_set_bcd_overflow
+	ldi _s_rr_set_bcd_z, 11
+	std Y+1, _s_rr_set_bcd_z
+	std Y+2, _s_rr_set_bcd_z
+	std Y+3, _s_rr_set_bcd_z
+_s_l_sr_to_s_rr_set_bcd_th_begin:
+	ldi _s_rr_set_bcd_c, 0
+	clr _s_rr_set_bcd_z
+_s_l_sr_to_s_rr_set_bcd_th_loop:
+	cpi _s_rr_set_bcd_l, 100
+	cpc _s_rr_set_bcd_h, _s_rr_set_bcd_z
+	brlo _s_l_sr_to_s_rr_set_bcd_th_done
+	inc _s_rr_set_bcd_c
+	subi _s_rr_set_bcd_l, 100
+	sbc _s_rr_set_bcd_h, _s_rr_set_bcd_z
+	rjmp _s_l_sr_to_s_rr_set_bcd_th_loop
+_s_l_sr_to_s_rr_set_bcd_th_done:
+	tst _s_rr_set_bcd_c
+	breq _s_l_sr_to_s_rr_set_bcd_nd_loop
+	st Y+, _s_rr_set_bcd_c
+	ldi _s_rr_set_bcd_c, 1 << 7
+_s_l_sr_to_s_rr_set_bcd_nd_loop:
+	cpi _s_rr_set_bcd_l, 10
+	brlo _s_l_sr_to_s_rr_set_bcd_nd_done
+	inc _s_rr_set_bcd_c
+	subi _s_rr_set_bcd_l, 10
+	rjmp _s_l_sr_to_s_rr_set_bcd_nd_loop
+_s_l_sr_to_s_rr_set_bcd_nd_done:
+	tst _s_rr_set_bcd_c
+	breq _s_l_sr_to_s_rr_set_bcd_rd
+	andi _s_rr_set_bcd_c, ~(1 << 7)
+	st Y+, _s_rr_set_bcd_c
+_s_l_sr_to_s_rr_set_bcd_rd:
+	st Y+, _s_rr_set_bcd_l
 	ret
-_s_l_sr_tobcd_overflow:
-	ldi bcd_z, 9
-	st Y+, bcd_z
-	st Y+, bcd_z
-	st Y+, bcd_z
-	ldi bcd_z, 10
-	st Y, bcd_z
+_s_l_sr_to_s_rr_set_bcd_overflow:
+	ldi _s_rr_set_bcd_z, 9
+	st Y+, _s_rr_set_bcd_z
+	st Y+, _s_rr_set_bcd_z
+	st Y+, _s_rr_set_bcd_z
+	ldi _s_rr_set_bcd_z, 10
+	st Y, _s_rr_set_bcd_z
 	ret
+
+#undef _s_rr_set_bcd_l
+#undef _s_rr_set_bcd_h
+#undef _s_rr_set_bcd_z
+#undef _s_rr_set_bcd_c
 
 _s_l_set:
 	; set state
-	ldi ml_tmp1, _S_STATE_SPLASH
-	sts _s_ram_state, ml_tmp1
+	ldi _s_r_set_tmp1, _S_STATE_SPLASH
+	sts _s_ram_state, _s_r_set_tmp1
 	; set timer
-	lds ml_tmp1, _s_ram_ttop_splash
-	lds ml_tmp2, _s_ram_ttop_splash + 1
-	sts _S_OCRAH, ml_tmp2
-	sts _S_OCRAL, ml_tmp1
-	lds ml_tmp1, _s_ram_tccrb_splash
-	sts _S_TCCRB, ml_tmp1
+	lds _s_r_set_tmp1, _s_ram_ttop_splash
+	lds _s_r_set_tmp2, _s_ram_ttop_splash + 1
+	sts _S_OCRAH, _s_r_set_tmp2
+	sts _S_OCRAL, _s_r_set_tmp1
+	lds _s_r_set_tmp1, _s_ram_tccrb_splash
+	sts _S_TCCRB, _s_r_set_tmp1
 	; save score
 	SP_SRC_LOAD ee_s_top
-	mov ml_tmp1, sp_data
+	mov _s_r_set_tmp1, sp_data
 	SP_SRC_LOAD ee_s_top + 1
-	mov ml_tmp2, sp_data
-	lds te1, g_ram_score
-	lds te2, g_ram_score + 1
-	cp ml_tmp1, te1
-	cpc ml_tmp2, te2
+	mov _s_r_set_tmp2, sp_data
+	lds _s_r_set_tmp3, g_ram_score
+	lds _s_r_set_tmp4, g_ram_score + 1
+	cp _s_r_set_tmp1, _s_r_set_tmp3
+	cpc _s_r_set_tmp2, _s_r_set_tmp4
 	brsh _s_l_set_stored
-	mov sp_data, te1
+	mov sp_data, _s_r_set_tmp3
 	SP_SRC_STORE ee_s_top
-	mov sp_data, te2
+	mov sp_data, _s_r_set_tmp4
 	SP_SRC_STORE ee_s_top + 1
-	movw ml_tmp2:ml_tmp1, te2:te1
+	movw _s_r_set_tmp2:_s_r_set_tmp1, _s_r_set_tmp4:_s_r_set_tmp3
 _s_l_set_stored:
 	; load score
 	ldi YL, LOW(_s_ram_bcd_top)
@@ -236,8 +243,8 @@ _s_l_set_stored:
 	rcall _s_sr_tobcd
 	ldi YL, LOW(_s_ram_bcd_scr)
 	ldi YH, HIGH(_s_ram_bcd_scr)
-	lds ml_tmp1, g_ram_score
-	lds ml_tmp2, g_ram_score + 1
+	lds _s_r_set_tmp1, g_ram_score
+	lds _s_r_set_tmp2, g_ram_score + 1
 	rcall _s_sr_tobcd
 .endmacro
 
@@ -283,3 +290,4 @@ _s_l_isr_oca_done:
 #undef _s_r_ocia_tmp3
 #undef _s_r_ocia_tmp4
 	
+#endif

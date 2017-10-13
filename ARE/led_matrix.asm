@@ -1,3 +1,8 @@
+#ifdef _INC_LM
+#error __FILE__ already included
+#else
+#define _INC_LM
+
 ; Francesco Zoccheddu
 ; ARE
 ; LED matrix
@@ -65,3 +70,5 @@ _lm_l_src_send_col_out_dot:
 #undef _lm_col
 #undef _lm_tmp1
 #undef _lm_tmp2
+
+#endif

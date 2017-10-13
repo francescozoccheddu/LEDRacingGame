@@ -1,3 +1,8 @@
+#ifdef _INC_UC
+#error __FILE__ already included
+#else
+#define _INC_UC
+
 ; Francesco Zoccheddu
 ; ARE
 ; UART communication
@@ -83,3 +88,5 @@ _uc_l_src_r:
 
 #undef _uc_data
 #undef _uc_tmp
+
+#endif

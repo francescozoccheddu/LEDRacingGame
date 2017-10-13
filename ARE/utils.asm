@@ -1,3 +1,8 @@
+#ifdef _INC_U
+#error __FILE__ already included
+#else
+#define _INC_U
+
 ; Francesco Zoccheddu
 ; ARE
 ; utils
@@ -282,3 +287,4 @@ t_isr_calc:
 	.equ @0_DDR = DDR@1
 .endmacro
 
+#endif

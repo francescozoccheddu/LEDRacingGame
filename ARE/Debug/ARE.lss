@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Fri Oct 13 20:22:31 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Fri Oct 13 20:55:28 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -10,9 +10,9 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(18): Including file 'C:\Users\zoc
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(19): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(20): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(75): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(76): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(77): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(80): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(81): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(82): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm'
@@ -25,9 +25,9 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(18): Including file 'C:\Users\zoc
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(19): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(20): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(75): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(76): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(77): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(80): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(81): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(82): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm'
@@ -1928,6 +1928,10 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  
                                  #include "utils.asm"
                                  
+                                 #else
+                                 #define _INC_U
+                                 
+                                 ; Francesco Zoccheddu
                                  ; ARE
                                  ; utils
                                  
@@ -2301,8 +2305,13 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  	.equ @0_DDR = DDR@1
                                  .endmacro
                                  
+                                 #endif
                                  #include "eeprom_prog.asm"
                                  
+                                 #else
+                                 #define _INC_EP
+                                 
+                                 ; Francesco Zoccheddu
                                  ; ARE
                                  ; EEPROM programming
                                  ; dirty EEPROM module and registers
@@ -2343,8 +2352,14 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  .endmacro
                                  
                                  #undef _ep_data
+                                 
+                                 #endif
                                  #include "builtin_led.asm"
                                  
+                                 #else
+                                 #define _INC_BL
+                                 
+                                 ; Francesco Zoccheddu
                                  ; ARE
                                  ; builtin LED
                                  ; dirty PORTB, DDRB, PINB
@@ -2392,8 +2407,14 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  .endmacro
                                  
                                  #undef _bl_r_tmp
+                                 
+                                 #endif
                                  #include "uart_comm.asm"
                                  
+                                 #else
+                                 #define _INC_UC
+                                 
+                                 ; Francesco Zoccheddu
                                  ; ARE
                                  ; UART communication
                                  ; dirty USART0 module and registers
@@ -2478,8 +2499,14 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  
                                  #undef _uc_data
                                  #undef _uc_tmp
+                                 
+                                 #endif
                                  #include "serial_prog.asm"
                                  
+                                 #else
+                                 #define _INC_SP
+                                 
+                                 ; Francesco Zoccheddu
                                  ; ARE
                                  ; serial programming
                                  ; dirty UART RX complete interrupt
@@ -2616,8 +2643,13 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 00010f 9af9                      	EP_SRC_FWRITE sp_data
 000110 9508                      	ret
                                  
+                                 #endif
                                  #include "buzzer.asm"
                                  
+                                 #else
+                                 #define _INC_BZ
+                                 
+                                 #define _BZ_PWM_TIMER 0
                                  #define _BZ_SQ_TIMER 1
                                  #define _BZ_IO G
                                  
@@ -2780,8 +2812,14 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 000131 9518                      	reti
                                  
                                  #undef _bz_r_sqocia_tmp
+                                 
+                                 #endif
                                  #include "main_loop.asm"
                                  
+                                 #else
+                                 #define _INC_ML
+                                 
+                                 ; Francesco Zoccheddu
                                  ; ARE
                                  ; EEPROM programming
                                  ; dirty timer 0 and registers
@@ -2857,6 +2895,10 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  
                                  #include "score.asm"
                                  
+                                 #else
+                                 #define _INC_S
+                                 
+                                 #define _S_TIMER 5
                                  
                                  TIM_DEF _S, _S_TIMER
                                  
@@ -3002,91 +3044,93 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  #define _s_r_set_tmp3 @2
                                  #define _s_r_set_tmp4 @3
                                  
-                                 #define te1 ml_cl
-                                 #define te2 ml_ch
-                                 
                                  .macro S_SRC_SET
                                  	rjmp _s_l_set
                                  
-                                 #define bcd_l ml_tmp1
-                                 #define bcd_h ml_tmp2
-                                 #define bcd_z ml_tmp3
-                                 #define bcd_c ml_ch
+                                 #define _s_rr_set_bcd_l ml_tmp1
+                                 #define _s_rr_set_bcd_h ml_tmp2
+                                 #define _s_rr_set_bcd_z ml_tmp3
+                                 #define _s_rr_set_bcd_c ml_ch
                                  
                                  _s_sr_tobcd:
-                                 	ldi bcd_z, HIGH(1000)
-                                 	cpi bcd_l, LOW(1000)
-                                 	cpc bcd_h, bcd_z
-                                 	brsh _s_l_sr_tobcd_overflow
-                                 	ldi bcd_z, 11
-                                 	std Y+1, bcd_z
-                                 	std Y+2, bcd_z
-                                 	std Y+3, bcd_z
-                                 _s_l_sr_tobcd_th_begin:
-                                 	ldi bcd_c, 0
-                                 	clr bcd_z
-                                 _s_l_sr_tobcd_th_loop:
-                                 	cpi bcd_l, 100
-                                 	cpc bcd_h, bcd_z
-                                 	brlo _s_l_sr_tobcd_th_done
-                                 	inc bcd_c
-                                 	subi bcd_l, 100
-                                 	sbc bcd_h, bcd_z
-                                 	rjmp _s_l_sr_tobcd_th_loop
-                                 _s_l_sr_tobcd_th_done:
-                                 	tst bcd_c
-                                 	breq _s_l_sr_tobcd_nd_loop
-                                 	st Y+, bcd_c
-                                 	ldi bcd_c, 1 << 7
-                                 _s_l_sr_tobcd_nd_loop:
-                                 	cpi bcd_l, 10
-                                 	brlo _s_l_sr_tobcd_nd_done
-                                 	inc bcd_c
-                                 	subi bcd_l, 10
-                                 	rjmp _s_l_sr_tobcd_nd_loop
-                                 _s_l_sr_tobcd_nd_done:
-                                 	tst bcd_c
-                                 	breq _s_l_sr_tobcd_rd
-                                 	andi bcd_c, ~(1 << 7)
-                                 	st Y+, bcd_c
-                                 _s_l_sr_tobcd_rd:
-                                 	st Y+, bcd_l
+                                 	ldi _s_rr_set_bcd_z, HIGH(1000)
+                                 	cpi _s_rr_set_bcd_l, LOW(1000)
+                                 	cpc _s_rr_set_bcd_h, _s_rr_set_bcd_z
+                                 	brsh _s_l_sr_to_s_rr_set_bcd_overflow
+                                 	ldi _s_rr_set_bcd_z, 11
+                                 	std Y+1, _s_rr_set_bcd_z
+                                 	std Y+2, _s_rr_set_bcd_z
+                                 	std Y+3, _s_rr_set_bcd_z
+                                 _s_l_sr_to_s_rr_set_bcd_th_begin:
+                                 	ldi _s_rr_set_bcd_c, 0
+                                 	clr _s_rr_set_bcd_z
+                                 _s_l_sr_to_s_rr_set_bcd_th_loop:
+                                 	cpi _s_rr_set_bcd_l, 100
+                                 	cpc _s_rr_set_bcd_h, _s_rr_set_bcd_z
+                                 	brlo _s_l_sr_to_s_rr_set_bcd_th_done
+                                 	inc _s_rr_set_bcd_c
+                                 	subi _s_rr_set_bcd_l, 100
+                                 	sbc _s_rr_set_bcd_h, _s_rr_set_bcd_z
+                                 	rjmp _s_l_sr_to_s_rr_set_bcd_th_loop
+                                 _s_l_sr_to_s_rr_set_bcd_th_done:
+                                 	tst _s_rr_set_bcd_c
+                                 	breq _s_l_sr_to_s_rr_set_bcd_nd_loop
+                                 	st Y+, _s_rr_set_bcd_c
+                                 	ldi _s_rr_set_bcd_c, 1 << 7
+                                 _s_l_sr_to_s_rr_set_bcd_nd_loop:
+                                 	cpi _s_rr_set_bcd_l, 10
+                                 	brlo _s_l_sr_to_s_rr_set_bcd_nd_done
+                                 	inc _s_rr_set_bcd_c
+                                 	subi _s_rr_set_bcd_l, 10
+                                 	rjmp _s_l_sr_to_s_rr_set_bcd_nd_loop
+                                 _s_l_sr_to_s_rr_set_bcd_nd_done:
+                                 	tst _s_rr_set_bcd_c
+                                 	breq _s_l_sr_to_s_rr_set_bcd_rd
+                                 	andi _s_rr_set_bcd_c, ~(1 << 7)
+                                 	st Y+, _s_rr_set_bcd_c
+                                 _s_l_sr_to_s_rr_set_bcd_rd:
+                                 	st Y+, _s_rr_set_bcd_l
                                  	ret
-                                 _s_l_sr_tobcd_overflow:
-                                 	ldi bcd_z, 9
-                                 	st Y+, bcd_z
-                                 	st Y+, bcd_z
-                                 	st Y+, bcd_z
-                                 	ldi bcd_z, 10
-                                 	st Y, bcd_z
+                                 _s_l_sr_to_s_rr_set_bcd_overflow:
+                                 	ldi _s_rr_set_bcd_z, 9
+                                 	st Y+, _s_rr_set_bcd_z
+                                 	st Y+, _s_rr_set_bcd_z
+                                 	st Y+, _s_rr_set_bcd_z
+                                 	ldi _s_rr_set_bcd_z, 10
+                                 	st Y, _s_rr_set_bcd_z
                                  	ret
+                                 
+                                 #undef _s_rr_set_bcd_l
+                                 #undef _s_rr_set_bcd_h
+                                 #undef _s_rr_set_bcd_z
+                                 #undef _s_rr_set_bcd_c
                                  
                                  _s_l_set:
                                  	; set state
-                                 	ldi ml_tmp1, _S_STATE_SPLASH
-                                 	sts _s_ram_state, ml_tmp1
+                                 	ldi _s_r_set_tmp1, _S_STATE_SPLASH
+                                 	sts _s_ram_state, _s_r_set_tmp1
                                  	; set timer
-                                 	lds ml_tmp1, _s_ram_ttop_splash
-                                 	lds ml_tmp2, _s_ram_ttop_splash + 1
-                                 	sts _S_OCRAH, ml_tmp2
-                                 	sts _S_OCRAL, ml_tmp1
-                                 	lds ml_tmp1, _s_ram_tccrb_splash
-                                 	sts _S_TCCRB, ml_tmp1
+                                 	lds _s_r_set_tmp1, _s_ram_ttop_splash
+                                 	lds _s_r_set_tmp2, _s_ram_ttop_splash + 1
+                                 	sts _S_OCRAH, _s_r_set_tmp2
+                                 	sts _S_OCRAL, _s_r_set_tmp1
+                                 	lds _s_r_set_tmp1, _s_ram_tccrb_splash
+                                 	sts _S_TCCRB, _s_r_set_tmp1
                                  	; save score
                                  	SP_SRC_LOAD ee_s_top
-                                 	mov ml_tmp1, sp_data
+                                 	mov _s_r_set_tmp1, sp_data
                                  	SP_SRC_LOAD ee_s_top + 1
-                                 	mov ml_tmp2, sp_data
-                                 	lds te1, g_ram_score
-                                 	lds te2, g_ram_score + 1
-                                 	cp ml_tmp1, te1
-                                 	cpc ml_tmp2, te2
+                                 	mov _s_r_set_tmp2, sp_data
+                                 	lds _s_r_set_tmp3, g_ram_score
+                                 	lds _s_r_set_tmp4, g_ram_score + 1
+                                 	cp _s_r_set_tmp1, _s_r_set_tmp3
+                                 	cpc _s_r_set_tmp2, _s_r_set_tmp4
                                  	brsh _s_l_set_stored
-                                 	mov sp_data, te1
+                                 	mov sp_data, _s_r_set_tmp3
                                  	SP_SRC_STORE ee_s_top
-                                 	mov sp_data, te2
+                                 	mov sp_data, _s_r_set_tmp4
                                  	SP_SRC_STORE ee_s_top + 1
-                                 	movw ml_tmp2:ml_tmp1, te2:te1
+                                 	movw _s_r_set_tmp2:_s_r_set_tmp1, _s_r_set_tmp4:_s_r_set_tmp3
                                  _s_l_set_stored:
                                  	; load score
                                  	ldi YL, LOW(_s_ram_bcd_top)
@@ -3094,8 +3138,8 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  	rcall _s_sr_tobcd
                                  	ldi YL, LOW(_s_ram_bcd_scr)
                                  	ldi YH, HIGH(_s_ram_bcd_scr)
-                                 	lds ml_tmp1, g_ram_score
-                                 	lds ml_tmp2, g_ram_score + 1
+                                 	lds _s_r_set_tmp1, g_ram_score
+                                 	lds _s_r_set_tmp2, g_ram_score + 1
                                  	rcall _s_sr_tobcd
                                  .endmacro
                                  
@@ -3140,7 +3184,12 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  #undef _s_r_ocia_tmp2
                                  #undef _s_r_ocia_tmp3
                                  #undef _s_r_ocia_tmp4
+                                 	
+                                 #endif
                                  #include "pause.asm"
+                                 
+                                 #else
+                                 #define _INC_P
                                  
                                  .dseg
 000289                           _p_ram_prog: .byte 1
@@ -3228,8 +3277,12 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  
                                  #undef _p_r_update_tmp1
                                  #undef _p_r_update_tmp2
+                                 
+                                 #endif
                                  #include "game.asm"
                                  
+                                 #else
+                                 #define _INC_G
                                  
                                  #define _G_TIMER 3
                                  
@@ -3558,6 +3611,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  #undef _g_sh
                                  #undef _g_sl
                                  
+                                 #endif
                                  
                                  ml_l_loop:
 000199 e170                      	ldi ml_col, 16
@@ -3824,20 +3878,20 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 00029f e010
 0002a0 de54
 0002a1 2f50
-0002a2 9180 0304
-0002a4 9190 0305
-0002a6 1748
-0002a7 0759
+0002a2 90a0 0304
+0002a4 90b0 0305
+0002a6 154a
+0002a7 055b
 0002a8 f448
-0002a9 2f08
+0002a9 2d0a
 0002aa e02a
 0002ab e010
 0002ac de5c
-0002ad 2f09
+0002ad 2d0b
 0002ae e02b
 0002af e010
 0002b0 de58
-0002b1 01ac
+0002b1 01a5
 0002b2 e1c1
 0002b3 e0d2
 0002b4 dfaf
@@ -3845,7 +3899,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 0002b6 e0d2
 0002b7 9140 0304
 0002b9 9150 0305
-0002bb dfa8                      	S_SRC_SET
+0002bb dfa8                      	S_SRC_SET rma, rmb, rm0, rm1
 0002bc cedc                      	rjmp ml_l_loop
                                  
                                  _ml_g_l_update:
@@ -3887,8 +3941,15 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 0002ec 9542
 0002ed 704f
 0002ee 9340 02d0                 	G_SRC_UPDATE
+0002f0 ceae                      	rjmp _ml_g_update_done
+                                 
+                                 #endif
                                  #include "led_matrix.asm"
-0002f0 ceae                      
+                                 
+                                 #else
+                                 #define _INC_LM
+                                 
+                                 ; Francesco Zoccheddu
                                  ; ARE
                                  ; LED matrix
                                  ; dirty PORTC, DDRC, PINC
@@ -3955,8 +4016,14 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  #undef _lm_col
                                  #undef _lm_tmp1
                                  #undef _lm_tmp2
+                                 
+                                 #endif
                                  #include "distance_sens.asm"
                                  
+                                 #else
+                                 #define _INC_DS
+                                 
+                                 ; Francesco Zoccheddu
                                  ; ARE
                                  ; distance sensor
                                  ; dirty timer 4 module and registers
@@ -4200,6 +4267,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  #undef _ds_tmp1
                                  #undef _ds_tmp2
                                  
+                                 #endif
                                  
                                  .eseg
                                  #include "bitmaps.asm"
@@ -4936,11 +5004,11 @@ counted separately from r26..r31 here.
 
 "ATmega2560" register use summary:
 x  :  33 y  :  12 z  :  12 r0 :  37 r1 :   8 r2 :  11 r3 :   9 r4 :   3 
-r5 :   3 r6 :   4 r7 :   4 r8 :   8 r9 :   0 r10:   6 r11:   0 r12:   0 
+r5 :   3 r6 :   4 r7 :   4 r8 :   8 r9 :   0 r10:  10 r11:   4 r12:   0 
 r13:   0 r14:   0 r15:   0 r16: 149 r17: 114 r18: 100 r19:  20 r20: 247 
-r21: 105 r22:  66 r23:  12 r24:  11 r25:  22 r26:  31 r27:  31 r28:   7 
+r21: 105 r22:  66 r23:  12 r24:   7 r25:  18 r26:  31 r27:  31 r28:   7 
 r29:   7 r30:  12 r31:  12 
-Registers used: 29 out of 35 (82.9%)
+Registers used: 30 out of 35 (85.7%)
 
 "ATmega2560" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :  27 add   :  18 adiw  :   2 and   :   1 

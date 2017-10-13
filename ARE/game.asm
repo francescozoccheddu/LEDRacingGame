@@ -1,4 +1,7 @@
-
+#ifdef _INC_G
+#error __FILE__ already included
+#else
+#define _INC_G
 
 #define _G_TIMER 3
 
@@ -317,3 +320,4 @@ _g_l_oca_shift_loop:
 #undef _g_sh
 #undef _g_sl
 
+#endif

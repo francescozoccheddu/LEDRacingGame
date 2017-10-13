@@ -1,3 +1,8 @@
+#ifdef _INC_BL
+#error __FILE__ already included
+#else
+#define _INC_BL
+
 ; Francesco Zoccheddu
 ; ARE
 ; builtin LED
@@ -46,3 +51,5 @@ IO_DEF _BL, _BL_IO
 .endmacro
 
 #undef _bl_r_tmp
+
+#endif

@@ -1,3 +1,8 @@
+#ifdef _INC_SP
+#error __FILE__ already included
+#else
+#define _INC_SP
+
 ; Francesco Zoccheddu
 ; ARE
 ; serial programming
@@ -111,3 +116,4 @@ sp_sr_store:
 	EP_SRC_FWRITE sp_data
 	ret
 
+#endif
