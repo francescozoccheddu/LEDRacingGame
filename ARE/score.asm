@@ -248,9 +248,9 @@ _s_l_set_stored:
 #undef _s_r_set_tmp4
 
 #define _s_r_ocia_tmp1 ria
-#define _s_r_ocia_tmp2 rib
-#define _s_r_ocia_tmp3 ric
-#define _s_r_ocia_tmp4 rid
+#define _s_r_ocia_tmp2 ri0
+#define _s_r_ocia_tmp3 ri1
+#define _s_r_ocia_tmp4 ri2
 
 ISR _S_OCAaddr
 	clr _s_r_ocia_tmp1

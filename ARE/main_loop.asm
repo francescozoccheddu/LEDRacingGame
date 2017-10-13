@@ -61,15 +61,16 @@ ee_ml_dson_sub: .db 16
 .cseg
 
 
-#define ml_col rmd
-#define ml_cl rme
-#define ml_ch rmf
-#define ml_tmp1 rma
-#define ml_tmp2 rmb
-#define ml_tmp3 rmc
-#define ml_tmp4 rm0
+#define ml_cl @0
+#define ml_ch @1
+#define ml_tmp1 @2
+#define ml_tmp2 @3
+#define ml_col @4
+#define ml_tmp3 @5
+#define ml_tmp4 @6
 
-ml_l_loop:
+.macro ML_SRC_LOOP
+_ml_l_loop:
 	ldi ml_col, 16
 
 	lds ml_tmp1, ml_ram_screen
@@ -136,7 +137,7 @@ _ml_l_loop_wait:
 
 	tst ml_col
 	brne _ml_l_loop_column
-	rjmp ml_l_loop
+	rjmp _ml_l_loop
 
 ISR _ML_OCAaddr
 	clr _ml_lock
@@ -159,19 +160,24 @@ _ml_p_l_draw:
 
 _ml_g_l_draw:
 	G_SRC_DRAW ml_col, ml_cl, ml_ch, ml_tmp1, ml_tmp2
+	lds ml_tmp1, ml_ram_screen
+	cpi ml_tmp1, ML_SCREEN_SCORE
+	breq _ml_l_gameover
 	rjmp _ml_l_loop_flush
 
 _ml_lm_l_sendcol:
 	LM_SRC_SENDCOL ml_col, ml_cl, ml_ch, ml_tmp1, ml_tmp2
 	rjmp _ml_l_sendcol_done
 
-ml_l_gameover:
-	S_SRC_SET rma, rmb, rmc, rmd
-	rjmp ml_l_loop
+_ml_l_gameover:
+	S_SRC_SET ml_tmp1, ml_tmp2, ml_cl, ml_ch
+	rjmp _ml_l_loop
 
 _ml_g_l_update:
 	G_SRC_UPDATE ml_tmp1, ml_tmp2, ml_tmp3, ml_tmp4
 	rjmp _ml_g_update_done
+
+.endmacro
 
 #undef ml_col 
 #undef ml_cl 
