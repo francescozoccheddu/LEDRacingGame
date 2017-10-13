@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Fri Oct 13 20:00:55 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Fri Oct 13 20:22:31 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -2666,78 +2666,87 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  #undef bz_cs
                                  #undef bz_top
                                  
-                                 #define _bz_start_ticks @0
+                                 #define _bz_start_ram @0
                                  
                                  .macro BZ_SRC_START
                                  	cli
-                                 	ldi ZH, HIGH( _bz_start_ticks )
-                                 	ldi ZL, LOW( _bz_start_ticks )
+                                 	ldi ZH, HIGH( _bz_start_ram )
+                                 	ldi ZL, LOW( _bz_start_ram )
                                  	call _bz_isr_start
                                  .endmacro
                                  
-                                 #undef _bz_start_ticks
+                                 #undef _bz_start_ram
                                  
-                                 #define bz_tmp1 rma
-                                 #define bz_tmp2 rmb
-                                 
-                                 #define _bz_ee @0
+                                 #define _bz_r_load_tmp1 rma
+                                 #define _bz_r_load_tmp2 rmb
+                                 #define _bz_r_load_tmp3 rmc
+                                 #define _bz_r_load_tmp4 r0
+                                 #define _bz_r_load_tmp5 r1
+                                 #define _bz_load_ee @0
                                  
                                  .macro BZ_SRC_LOAD
-                                 	ldi sp_addrl, LOW( _bz_ee )
-                                 	ldi sp_addrh, HIGH( _bz_ee )
-                                 	clr r0
-                                 	ldi ria, BZ_TICKS
-                                 	mov r1, ria
+                                 	ldi _bz_r_load_tmp1, BZ_TICKS
+                                 	mov _bz_r_load_tmp5, _bz_r_load_tmp1
+                                 	ldi sp_addrl, LOW( _bz_load_ee )
+                                 	ldi sp_addrh, HIGH( _bz_load_ee )
+                                 	clr _bz_r_load_tmp4
                                  _bz_load_loop:
                                  	rcall sp_sr_load
                                  	inc sp_addrl
-                                 	adc sp_addrh, r0
-                                 	mov rma, sp_data
+                                 	adc sp_addrh, _bz_r_load_tmp4
+                                 	mov _bz_r_load_tmp1, sp_data
                                  	rcall sp_sr_load
                                  	inc sp_addrl
-                                 	adc sp_addrh, r0
-                                 	mov rmb, sp_data
+                                 	adc sp_addrh, _bz_r_load_tmp4
+                                 	mov _bz_r_load_tmp2, sp_data
                                  
-                                 	cp rma, r0
-                                 	cpc rmb, r0
+                                 	cp _bz_r_load_tmp1, _bz_r_load_tmp4
+                                 	cpc _bz_r_load_tmp2, _bz_r_load_tmp4
                                  	brne _bz_load_calc_pwm
-                                 	clr rmc
-                                 	clr rmb
+                                 	clr _bz_r_load_tmp3
+                                 	clr _bz_r_load_tmp2
                                  	rjmp _bz_load_store_pwm
                                  _bz_load_calc_pwm:
                                  	rcall t_sr_calc
                                  _bz_load_store_pwm:
-                                 	st X+, rmc
-                                 	st X+, rmb
+                                 	st X+, _bz_r_load_tmp3
+                                 	st X+, _bz_r_load_tmp2
                                  
                                  	rcall sp_sr_load
                                  	inc sp_addrl
-                                 	adc sp_addrh, r0
-                                 	mov rma, sp_data
+                                 	adc sp_addrh, _bz_r_load_tmp4
+                                 	mov _bz_r_load_tmp1, sp_data
                                  	rcall sp_sr_load
                                  	inc sp_addrl
-                                 	adc sp_addrh, r0
-                                 	mov rmb, sp_data
+                                 	adc sp_addrh, _bz_r_load_tmp4
+                                 	mov _bz_r_load_tmp2, sp_data
                                  
-                                 	cp rma, r0
-                                 	cpc rmb, r0
+                                 	cp _bz_r_load_tmp1, _bz_r_load_tmp4
+                                 	cpc _bz_r_load_tmp2, _bz_r_load_tmp4
                                  	brne _bz_load_calc_sq
-                                 	clr rmc
-                                 	clr rmb
-                                 	clr rma
+                                 	clr _bz_r_load_tmp3
+                                 	clr _bz_r_load_tmp2
+                                 	clr _bz_r_load_tmp1
                                  	rjmp _bz_load_store_sq
                                  _bz_load_calc_sq:
                                  	rcall t_sr_calc
                                  _bz_load_store_sq:
-                                 	st X+, rmc
-                                 	st X+, rmb
-                                 	st X+, rma
+                                 	st X+, _bz_r_load_tmp3
+                                 	st X+, _bz_r_load_tmp2
+                                 	st X+, _bz_r_load_tmp1
                                  
-                                 	dec r1
+                                 	dec _bz_r_load_tmp5
                                  	brne _bz_load_loop
                                  .endmacro
                                  
-                                 #undef _bz_ee
+                                 #undef _bz_r_load_tmp1
+                                 #undef _bz_r_load_tmp2
+                                 #undef _bz_r_load_tmp3
+                                 #undef _bz_r_load_tmp4
+                                 #undef _bz_r_load_tmp5
+                                 #undef _bz_load_ee
+                                 
+                                 #define _bz_r_sqocia_tmp ria
                                  
 000022 940c 0111                 ISR _BZ_SQ_OCAaddr
                                  	; increment tick and set Z pointer
@@ -2745,31 +2754,32 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 000113 91f0 0201                 	lds ZH, _bz_ram_ticks + 1
                                  _bz_isr_start:
                                  	; set PWM
-000115 9141                      	ld bz_tmp1, Z+
-000116 bd45                      	out _BZ_PWM_TCCRB, bz_tmp1
-000117 2344                      	tst bz_tmp1
+000115 9101                      	ld _bz_r_sqocia_tmp, Z+
+000116 bd05                      	out _BZ_PWM_TCCRB, _bz_r_sqocia_tmp
+000117 2300                      	tst _bz_r_sqocia_tmp
 000118 f009                      	breq _bz_isr_start_mute
-000119 e240                      	ldi bz_tmp1, 1 << _BZ_IO_BIT
+000119 e200                      	ldi _bz_r_sqocia_tmp, 1 << _BZ_IO_BIT
                                  _bz_isr_start_mute:
-00011a bb43                      	out _BZ_DDR, bz_tmp1
-00011b 9141                      	ld bz_tmp1, Z+
-00011c bd47                      	out _BZ_PWM_OCRA, bz_tmp1
+00011a bb03                      	out _BZ_DDR, _bz_r_sqocia_tmp
+00011b 9101                      	ld _bz_r_sqocia_tmp, Z+
+00011c bd07                      	out _BZ_PWM_OCRA, _bz_r_sqocia_tmp
                                  	; set SQ
-00011d 2744                      	clr bz_tmp1
-00011e 9340 0081                 	sts _BZ_SQ_TCCRB, bz_tmp1
-000120 9340 0085                 	sts _BZ_SQ_TCNTH, bz_tmp1
-000122 9340 0084                 	sts _BZ_SQ_TCNTL, bz_tmp1
-000124 9141                      	ld bz_tmp1, Z+
-000125 9340 0081                 	sts _BZ_SQ_TCCRB, bz_tmp1
-000127 9141                      	ld bz_tmp1, Z+
-000128 9340 0089                 	sts _BZ_SQ_OCRAH, bz_tmp1
-00012a 9141                      	ld bz_tmp1, Z+
-00012b 9340 0088                 	sts _BZ_SQ_OCRAL, bz_tmp1
+00011d 2700                      	clr _bz_r_sqocia_tmp
+00011e 9300 0081                 	sts _BZ_SQ_TCCRB, _bz_r_sqocia_tmp
+000120 9300 0085                 	sts _BZ_SQ_TCNTH, _bz_r_sqocia_tmp
+000122 9300 0084                 	sts _BZ_SQ_TCNTL, _bz_r_sqocia_tmp
+000124 9101                      	ld _bz_r_sqocia_tmp, Z+
+000125 9300 0081                 	sts _BZ_SQ_TCCRB, _bz_r_sqocia_tmp
+000127 9101                      	ld _bz_r_sqocia_tmp, Z+
+000128 9300 0089                 	sts _BZ_SQ_OCRAH, _bz_r_sqocia_tmp
+00012a 9101                      	ld _bz_r_sqocia_tmp, Z+
+00012b 9300 0088                 	sts _BZ_SQ_OCRAL, _bz_r_sqocia_tmp
                                  	; store pointer
 00012d 93e0 0200                 	sts _bz_ram_ticks, ZL
 00012f 93f0 0201                 	sts _bz_ram_ticks + 1, ZH
 000131 9518                      	reti
                                  
+                                 #undef _bz_r_sqocia_tmp
                                  #include "main_loop.asm"
                                  
                                  ; ARE
@@ -4650,11 +4660,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 000478 9360 0301
 00047a e2ae
 00047b e0b3
-00047c e123
-00047d e010
-00047e 2400
-00047f e00a
-000480 2e10
+00047c e04a
+00047d 2e14
+00047e e123
+00047f e010
+000480 2400
 000481 dc73
 000482 9523
 000483 1d10
@@ -4695,11 +4705,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 0004a6 f6d1
 0004a7 e6a0
 0004a8 e0b3
-0004a9 e12f
-0004aa e010
-0004ab 2400
-0004ac e00a
-0004ad 2e10
+0004a9 e04a
+0004aa 2e14
+0004ab e12f
+0004ac e010
+0004ad 2400
 0004ae dc46
 0004af 9523
 0004b0 1d10
@@ -4740,11 +4750,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 0004d3 f6d1
 0004d4 e9a2
 0004d5 e0b3
-0004d6 e22b
-0004d7 e010
-0004d8 2400
-0004d9 e00a
-0004da 2e10
+0004d6 e04a
+0004d7 2e14
+0004d8 e22b
+0004d9 e010
+0004da 2400
 0004db dc19
 0004dc 9523
 0004dd 1d10
@@ -4854,11 +4864,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  	; play startup sound
 000556 ecaf                      	ldi XL, LOW( _m_ram_snd_start )
 000557 e0b3                      	ldi XH, HIGH( _m_ram_snd_start )
-000558 e12b
-000559 e011
-00055a 2400
-00055b e00a
-00055c 2e10
+000558 e04a
+000559 2e14
+00055a e12b
+00055b e011
+00055c 2400
 00055d db97
 00055e 9523
 00055f 1d10
@@ -4927,7 +4937,7 @@ counted separately from r26..r31 here.
 "ATmega2560" register use summary:
 x  :  33 y  :  12 z  :  12 r0 :  37 r1 :   8 r2 :  11 r3 :   9 r4 :   3 
 r5 :   3 r6 :   4 r7 :   4 r8 :   8 r9 :   0 r10:   6 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16: 140 r17: 114 r18: 100 r19:  20 r20: 256 
+r13:   0 r14:   0 r15:   0 r16: 149 r17: 114 r18: 100 r19:  20 r20: 247 
 r21: 105 r22:  66 r23:  12 r24:  11 r25:  22 r26:  31 r27:  31 r28:   7 
 r29:   7 r30:  12 r31:  12 
 Registers used: 29 out of 35 (82.9%)

@@ -47,78 +47,87 @@ _bz_ram_ticks: .byte 2
 #undef bz_cs
 #undef bz_top
 
-#define _bz_start_ticks @0
+#define _bz_start_ram @0
 
 .macro BZ_SRC_START
 	cli
-	ldi ZH, HIGH( _bz_start_ticks )
-	ldi ZL, LOW( _bz_start_ticks )
+	ldi ZH, HIGH( _bz_start_ram )
+	ldi ZL, LOW( _bz_start_ram )
 	call _bz_isr_start
 .endmacro
 
-#undef _bz_start_ticks
+#undef _bz_start_ram
 
-#define bz_tmp1 rma
-#define bz_tmp2 rmb
-
-#define _bz_ee @0
+#define _bz_r_load_tmp1 rma
+#define _bz_r_load_tmp2 rmb
+#define _bz_r_load_tmp3 rmc
+#define _bz_r_load_tmp4 r0
+#define _bz_r_load_tmp5 r1
+#define _bz_load_ee @0
 
 .macro BZ_SRC_LOAD
-	ldi sp_addrl, LOW( _bz_ee )
-	ldi sp_addrh, HIGH( _bz_ee )
-	clr r0
-	ldi ria, BZ_TICKS
-	mov r1, ria
+	ldi _bz_r_load_tmp1, BZ_TICKS
+	mov _bz_r_load_tmp5, _bz_r_load_tmp1
+	ldi sp_addrl, LOW( _bz_load_ee )
+	ldi sp_addrh, HIGH( _bz_load_ee )
+	clr _bz_r_load_tmp4
 _bz_load_loop:
 	rcall sp_sr_load
 	inc sp_addrl
-	adc sp_addrh, r0
-	mov rma, sp_data
+	adc sp_addrh, _bz_r_load_tmp4
+	mov _bz_r_load_tmp1, sp_data
 	rcall sp_sr_load
 	inc sp_addrl
-	adc sp_addrh, r0
-	mov rmb, sp_data
+	adc sp_addrh, _bz_r_load_tmp4
+	mov _bz_r_load_tmp2, sp_data
 
-	cp rma, r0
-	cpc rmb, r0
+	cp _bz_r_load_tmp1, _bz_r_load_tmp4
+	cpc _bz_r_load_tmp2, _bz_r_load_tmp4
 	brne _bz_load_calc_pwm
-	clr rmc
-	clr rmb
+	clr _bz_r_load_tmp3
+	clr _bz_r_load_tmp2
 	rjmp _bz_load_store_pwm
 _bz_load_calc_pwm:
 	rcall t_sr_calc
 _bz_load_store_pwm:
-	st X+, rmc
-	st X+, rmb
+	st X+, _bz_r_load_tmp3
+	st X+, _bz_r_load_tmp2
 
 	rcall sp_sr_load
 	inc sp_addrl
-	adc sp_addrh, r0
-	mov rma, sp_data
+	adc sp_addrh, _bz_r_load_tmp4
+	mov _bz_r_load_tmp1, sp_data
 	rcall sp_sr_load
 	inc sp_addrl
-	adc sp_addrh, r0
-	mov rmb, sp_data
+	adc sp_addrh, _bz_r_load_tmp4
+	mov _bz_r_load_tmp2, sp_data
 
-	cp rma, r0
-	cpc rmb, r0
+	cp _bz_r_load_tmp1, _bz_r_load_tmp4
+	cpc _bz_r_load_tmp2, _bz_r_load_tmp4
 	brne _bz_load_calc_sq
-	clr rmc
-	clr rmb
-	clr rma
+	clr _bz_r_load_tmp3
+	clr _bz_r_load_tmp2
+	clr _bz_r_load_tmp1
 	rjmp _bz_load_store_sq
 _bz_load_calc_sq:
 	rcall t_sr_calc
 _bz_load_store_sq:
-	st X+, rmc
-	st X+, rmb
-	st X+, rma
+	st X+, _bz_r_load_tmp3
+	st X+, _bz_r_load_tmp2
+	st X+, _bz_r_load_tmp1
 
-	dec r1
+	dec _bz_r_load_tmp5
 	brne _bz_load_loop
 .endmacro
 
-#undef _bz_ee
+#undef _bz_r_load_tmp1
+#undef _bz_r_load_tmp2
+#undef _bz_r_load_tmp3
+#undef _bz_r_load_tmp4
+#undef _bz_r_load_tmp5
+#undef _bz_load_ee
+
+#define _bz_r_sqocia_tmp ria
 
 ISR _BZ_SQ_OCAaddr
 	; increment tick and set Z pointer
@@ -126,28 +135,29 @@ ISR _BZ_SQ_OCAaddr
 	lds ZH, _bz_ram_ticks + 1
 _bz_isr_start:
 	; set PWM
-	ld bz_tmp1, Z+
-	out _BZ_PWM_TCCRB, bz_tmp1
-	tst bz_tmp1
+	ld _bz_r_sqocia_tmp, Z+
+	out _BZ_PWM_TCCRB, _bz_r_sqocia_tmp
+	tst _bz_r_sqocia_tmp
 	breq _bz_isr_start_mute
-	ldi bz_tmp1, 1 << _BZ_IO_BIT
+	ldi _bz_r_sqocia_tmp, 1 << _BZ_IO_BIT
 _bz_isr_start_mute:
-	out _BZ_DDR, bz_tmp1
-	ld bz_tmp1, Z+
-	out _BZ_PWM_OCRA, bz_tmp1
+	out _BZ_DDR, _bz_r_sqocia_tmp
+	ld _bz_r_sqocia_tmp, Z+
+	out _BZ_PWM_OCRA, _bz_r_sqocia_tmp
 	; set SQ
-	clr bz_tmp1
-	sts _BZ_SQ_TCCRB, bz_tmp1
-	sts _BZ_SQ_TCNTH, bz_tmp1
-	sts _BZ_SQ_TCNTL, bz_tmp1
-	ld bz_tmp1, Z+
-	sts _BZ_SQ_TCCRB, bz_tmp1
-	ld bz_tmp1, Z+
-	sts _BZ_SQ_OCRAH, bz_tmp1
-	ld bz_tmp1, Z+
-	sts _BZ_SQ_OCRAL, bz_tmp1
+	clr _bz_r_sqocia_tmp
+	sts _BZ_SQ_TCCRB, _bz_r_sqocia_tmp
+	sts _BZ_SQ_TCNTH, _bz_r_sqocia_tmp
+	sts _BZ_SQ_TCNTL, _bz_r_sqocia_tmp
+	ld _bz_r_sqocia_tmp, Z+
+	sts _BZ_SQ_TCCRB, _bz_r_sqocia_tmp
+	ld _bz_r_sqocia_tmp, Z+
+	sts _BZ_SQ_OCRAH, _bz_r_sqocia_tmp
+	ld _bz_r_sqocia_tmp, Z+
+	sts _BZ_SQ_OCRAL, _bz_r_sqocia_tmp
 	; store pointer
 	sts _bz_ram_ticks, ZL
 	sts _bz_ram_ticks + 1, ZH
 	reti
 
+#undef _bz_r_sqocia_tmp
