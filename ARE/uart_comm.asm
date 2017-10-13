@@ -8,40 +8,6 @@
 ; UART communication
 ; dirty USART0 module and registers
 
-#define _UC_BAUDRATE 9600
-
-#define _UC_UCSRA_VAL 0
-#define _UC_UCSRB_VAL (1 << RXCIE0) | (1 << RXEN0) | (1 << TXEN0)
-#define _UC_UCSRC_VAL (2 << UMSEL0) | (3 << UCSZ00)
-#define _UC_UDRE_VAL (1 << UDRIE0)
-#define _UC_UBRR FOSC / 16 / _UC_BAUDRATE - 1
-
-#define UC_TREADY_INTaddr UDRE0addr
-#define UC_RCOMPLETE_INTaddr URXC0addr
-
-#define _uc_tmp @0
-
-; [SOURCE] setup
-; @0 (dirty immediate register)
-.macro UC_SRC_SETUP
-	; set UBRRR
-	ldi _uc_tmp, HIGH( _UC_UBRR )
-	sts UBRR0H, _uc_tmp
-	ldi _uc_tmp, LOW( _UC_UBRR )
-	sts UBRR0L, _uc_tmp
-	; set UCSRA
-	ldi _uc_tmp, _UC_UCSRA_VAL
-	sts UCSR0A, _uc_tmp
-	; set UCSRB
-	ldi _uc_tmp, _UC_UCSRB_VAL
-	sts UCSR0B, _uc_tmp
-	; set UCSRC
-	ldi _uc_tmp, _UC_UCSRC_VAL
-	sts UCSR0C, _uc_tmp
-.endmacro
-
-#undef _uc_tmp
-
 #define _uc_data @0
 #define _uc_tmp @1
 

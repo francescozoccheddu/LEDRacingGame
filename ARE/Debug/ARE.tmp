@@ -13,7 +13,6 @@
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\utils.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\eeprom_prog.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\builtin_led.asm</FILE>
-  <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart_comm.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm</FILE>
   <FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm</FILE>
@@ -38,12 +37,14 @@
  <LABELS>
   <t_sr_calc><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\utils.asm</FILE><LINE>272</LINE></t_sr_calc>
   <t_isr_calc><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\utils.asm</FILE><LINE>275</LINE></t_isr_calc>
-  <_sp_sr_ut><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>16</LINE></_sp_sr_ut>
-  <_sp_sr_ur><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>20</LINE></_sp_sr_ur>
-  <_sp_l_isr_write><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>46</LINE></_sp_l_isr_write>
-  <sp_sr_load><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>95</LINE></sp_sr_load>
-  <sp_sr_load_to_ram><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>101</LINE></sp_sr_load_to_ram>
-  <sp_sr_store><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>113</LINE></sp_sr_store>
+  <_sp_l_rc_wait><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>51</LINE></_sp_l_rc_wait>
+  <_sp_l_rc_r1><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>55</LINE></_sp_l_rc_r1>
+  <_sp_l_rc_r2><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>62</LINE></_sp_l_rc_r2>
+  <_sp_l_isr_write><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>79</LINE></_sp_l_isr_write>
+  <_sp_l_rc_read><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>71</LINE></_sp_l_rc_read>
+  <sp_sr_load><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>127</LINE></sp_sr_load>
+  <sp_sr_load_to_ram><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>133</LINE></sp_sr_load_to_ram>
+  <sp_sr_store><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm</FILE><LINE>145</LINE></sp_sr_store>
   <_bz_ram_ticks><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm</FILE><LINE>19</LINE></_bz_ram_ticks>
   <_bz_isr_start><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm</FILE><LINE>141</LINE></_bz_isr_start>
   <_bz_isr_start_mute><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm</FILE><LINE>148</LINE></_bz_isr_start_mute>
@@ -167,8 +168,8 @@
   <ee_s_bm_splash_end><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm</FILE><LINE>24</LINE></ee_s_bm_splash_end>
   <ee_s_bm_top><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm</FILE><LINE>25</LINE></ee_s_bm_top>
   <ee_s_bm_top_end><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm</FILE><LINE>27</LINE></ee_s_bm_top_end>
-  <ee_m_snd_start><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>32</LINE></ee_m_snd_start>
-  <_m_ram_snd_start><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>40</LINE></_m_ram_snd_start>
-  <m_l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>46</LINE></m_l_reset>
+  <ee_m_snd_start><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>31</LINE></ee_m_snd_start>
+  <_m_ram_snd_start><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>39</LINE></_m_ram_snd_start>
+  <m_l_reset><FILE>C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm</FILE><LINE>45</LINE></m_l_reset>
  </LABELS>
 </ASSEMBLER_INFO>

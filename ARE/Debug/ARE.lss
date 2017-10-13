@@ -1,36 +1,34 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Fri Oct 13 21:23:58 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Fri Oct 13 21:54:57 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(15): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\utils.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(16): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\eeprom_prog.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(17): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\builtin_led.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(18): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart_comm.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(19): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(20): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(18): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(19): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(20): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(80): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(81): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(82): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(15): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\utils.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(16): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\eeprom_prog.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(17): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\builtin_led.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(18): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart_comm.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(19): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(20): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(18): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(19): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(20): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(80): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(81): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(82): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(25): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm'
                                  
                                  ; Francesco Zoccheddu
                                  
@@ -2409,98 +2407,6 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  #undef _bl_r_tmp
                                  
                                  #endif
-                                 #include "uart_comm.asm"
-                                 
-                                 #else
-                                 #define _INC_UC
-                                 
-                                 ; Francesco Zoccheddu
-                                 ; ARE
-                                 ; UART communication
-                                 ; dirty USART0 module and registers
-                                 
-                                 #define _UC_BAUDRATE 9600
-                                 
-                                 #define _UC_UCSRA_VAL 0
-                                 #define _UC_UCSRB_VAL (1 << RXCIE0) | (1 << RXEN0) | (1 << TXEN0)
-                                 #define _UC_UCSRC_VAL (2 << UMSEL0) | (3 << UCSZ00)
-                                 #define _UC_UDRE_VAL (1 << UDRIE0)
-                                 #define _UC_UBRR FOSC / 16 / _UC_BAUDRATE - 1
-                                 
-                                 #define UC_TREADY_INTaddr UDRE0addr
-                                 #define UC_RCOMPLETE_INTaddr URXC0addr
-                                 
-                                 #define _uc_tmp @0
-                                 
-                                 ; [SOURCE] setup
-                                 ; @0 (dirty immediate register)
-                                 .macro UC_SRC_SETUP
-                                 	; set UBRRR
-                                 	ldi _uc_tmp, HIGH( _UC_UBRR )
-                                 	sts UBRR0H, _uc_tmp
-                                 	ldi _uc_tmp, LOW( _UC_UBRR )
-                                 	sts UBRR0L, _uc_tmp
-                                 	; set UCSRA
-                                 	ldi _uc_tmp, _UC_UCSRA_VAL
-                                 	sts UCSR0A, _uc_tmp
-                                 	; set UCSRB
-                                 	ldi _uc_tmp, _UC_UCSRB_VAL
-                                 	sts UCSR0B, _uc_tmp
-                                 	; set UCSRC
-                                 	ldi _uc_tmp, _UC_UCSRC_VAL
-                                 	sts UCSR0C, _uc_tmp
-                                 .endmacro
-                                 
-                                 #undef _uc_tmp
-                                 
-                                 #define _uc_data @0
-                                 #define _uc_tmp @1
-                                 
-                                 ; [SOURCE] transmit '_uc_data' data without checking whether the buffer is empty
-                                 ; @0 (data register)
-                                 .macro UC_SRC_FT
-                                 	sts UDR0, _uc_data
-                                 .endmacro
-                                 
-                                 ; [SOURCE] receive to '_uc_data' register without checking whether the buffer is not empty
-                                 ; @0 (data register)
-                                 .macro UC_SRC_FR
-                                 	lds _uc_data, UDR0
-                                 .endmacro
-                                 
-                                 ; [SOURCE] transmit '_uc_data' data as soon as the buffery is empty
-                                 ; @0 (data register)
-                                 ; @1 (dirty immediate register)
-                                 .macro UC_SRC_T
-                                 _uc_l_src_t:
-                                 	lds _uc_tmp, UCSR0A
-                                 	sbrs _uc_tmp, UDRE0
-                                 	rjmp _uc_l_src_t
-                                 	UC_SRC_FT _uc_data
-                                 .endmacro
-                                 
-                                 ; [SOURCE] receive to '_uc_data' register as soon as the buffer is not empty
-                                 ; @0 (data register)
-                                 .macro UC_SRC_R
-                                 _uc_l_src_r:
-                                 	lds _uc_data, UCSR0A
-                                 	sbrs _uc_data, RXC0
-                                 	rjmp _uc_l_src_r
-                                 	UC_SRC_FR _uc_data
-                                 .endmacro
-                                 
-                                 ; [SOURCE] enable / disable transmit ready interrupt
-                                 ; @0 (boolean interrupt state)
-                                 ; @1 (dirty immediate register)
-                                 .macro UC_SRC_TREADY_INTE
-                                 	ldi _uc_tmp, _uc_data ? ( _UC_UCSRB_VAL | _UC_UDRE_VAL ) : _UC_UCSRB_VAL
-                                 	sts UCSR0B, _uc_tmp
-                                 .endmacro
-                                 
-                                 #undef _uc_data
-                                 #undef _uc_tmp
-                                 
-                                 #endif
                                  #include "serial_prog.asm"
                                  
                                  #else
@@ -2511,67 +2417,86 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  ; serial programming
                                  ; dirty UART RX complete interrupt
                                  
+                                 #define _SP_UC_BAUDRATE 9600
                                  
+                                 #define _SP_UC_UCSRA_VAL 0
+                                 #define _SP_UC_UCSRB_VAL (1 << RXCIE0) | (1 << RXEN0) | (1 << TXEN0)
+                                 #define _SP_UC_UCSRC_VAL (2 << UMSEL0) | (3 << UCSZ00)
+                                 #define _SP_UC_UDRE_VAL (1 << UDRIE0)
+                                 #define _SP_UC_UBRR FOSC / 16 / _SP_UC_BAUDRATE - 1
                                  
-                                 #define _sp_data ric
-                                 #define _sp_tmp rib
+                                 #define _SP_UC_RCOMPLETE_INTaddr URXC0addr
                                  
-                                 _sp_sr_ut:
-0000ce 9110 00c0
-0000d0 ff15
-0000d1 cffc
-0000d2 9320 00c6                 	UC_SRC_T _sp_data, _sp_tmp
-0000d4 9508                      	ret
+                                 #define _sp_r_setup_tmp @0
                                  
-                                 _sp_sr_ur:
-0000d5 9120 00c0
-0000d7 ff27
-0000d8 cffc
-0000d9 9120 00c6                 	UC_SRC_R _sp_data
-0000db 9508                      	ret
+                                 ; [SOURCE] setup
+                                 ; @0 (dirty immediate register)
+                                 .macro SP_SRC_SETUP
+                                 	; set UBRRR
+                                 	ldi _sp_r_setup_tmp, HIGH( _SP_UC_UBRR )
+                                 	sts UBRR0H, _sp_r_setup_tmp
+                                 	ldi _sp_r_setup_tmp, LOW( _SP_UC_UBRR )
+                                 	sts UBRR0L, _sp_r_setup_tmp
+                                 	; set UCSRA
+                                 	ldi _sp_r_setup_tmp, _SP_UC_UCSRA_VAL
+                                 	sts UCSR0A, _sp_r_setup_tmp
+                                 	; set UCSRB
+                                 	ldi _sp_r_setup_tmp, _SP_UC_UCSRB_VAL
+                                 	sts UCSR0B, _sp_r_setup_tmp
+                                 	; set UCSRC
+                                 	ldi _sp_r_setup_tmp, _SP_UC_UCSRC_VAL
+                                 	sts UCSR0C, _sp_r_setup_tmp
+                                 .endmacro
                                  
-                                 #define _SP_OPCODE_MSK ~(1 << _SP_OPCODE_RW)
+                                 #undef _sp_r_setup_tmp
+                                 
                                  #define _SP_OPCODE_RW 7
                                  
-                                 #define _sp_b1 ri0
-                                 #define _sp_b2 ria
+                                 #define _sp_r_rc_tmp ria
                                  
-000032 940c 00dc                 ISR UC_RCOMPLETE_INTaddr
-0000dc 2711
-0000dd b915                      	BL_SRC_OFF _sp_tmp
+000032 940c 00ce                 ISR _SP_UC_RCOMPLETE_INTaddr
+0000ce 2700
+0000cf b905                      	BL_SRC_OFF _sp_r_rc_tmp
+                                 	; wait for eeprom
+                                 _sp_l_rc_wait:
+0000d0 99f9                      	sbic EECR, EEPE
+0000d1 cffe                      	rjmp _sp_l_rc_wait
                                  	; store bit 1 in 'b1'
-0000de dff6                      	rcall _sp_sr_ur 
-0000df 2e22                      	mov _sp_b1, _sp_data
+                                 _sp_l_rc_r1:
+0000d2 9100 00c0                 	lds _sp_r_rc_tmp, UCSR0A
+0000d4 ff07                      	sbrs _sp_r_rc_tmp, RXC0
+0000d5 cffc                      	rjmp _sp_l_rc_r1
+0000d6 9100 00c6                 	lds _sp_r_rc_tmp, UDR0
+0000d8 bd01                      	out EEARL, _sp_r_rc_tmp
                                  	; store bit 2 in 'b2'
-0000e0 dff4                      	rcall _sp_sr_ur 
-0000e1 2f02                      	mov _sp_b2, _sp_data
+                                 _sp_l_rc_r2:
+0000d9 9100 00c0                 	lds _sp_r_rc_tmp, UCSR0A
+0000db ff07                      	sbrs _sp_r_rc_tmp, RXC0
+0000dc cffc                      	rjmp _sp_l_rc_r2
+0000dd 9100 00c6                 	lds _sp_r_rc_tmp, UDR0
+0000df bd02                      	out EEARH, _sp_r_rc_tmp
                                  	; eventually store bit 3 in 'data'
-0000e2 fc27                      	sbrc _sp_b1, _SP_OPCODE_RW
-0000e3 c008                      	rjmp _sp_l_isr_write
-0000e4 99f9
-0000e5 cffe                      	EP_SRC_WAIT
-0000e6 bd01
-0000e7 bd12                      	EP_SRC_ADDR _sp_b2, _sp_tmp
-0000e8 9af8
-0000e9 b520                      	EP_SRC_FREAD _sp_data
-0000ea dfe3                      	rcall _sp_sr_ut
-0000eb 9518                      	reti
+0000e0 fd07                      	sbrc _sp_r_rc_tmp, _SP_OPCODE_RW
+0000e1 c009                      	rjmp _sp_l_isr_write
+                                 _sp_l_rc_read:
+0000e2 9100 00c0                 	lds _sp_r_rc_tmp, UCSR0A
+0000e4 ff05                      	sbrs _sp_r_rc_tmp, UDRE0
+0000e5 cffc                      	rjmp _sp_l_rc_read
+0000e6 9af8                      	sbi EECR, EERE
+0000e7 b500                      	in _sp_r_rc_tmp, EEDR
+0000e8 9300 00c6                 	sts UDR0, _sp_r_rc_tmp
+0000ea 9518                      	reti
                                  _sp_l_isr_write:
-0000ec dfe8                      	rcall _sp_sr_ur
-0000ed 99f9
-0000ee cffe                      	EP_SRC_WAIT
-0000ef bd01
-0000f0 bd12                      	EP_SRC_ADDR _sp_b2, _sp_tmp
-0000f1 bd20
-0000f2 9afa
-0000f3 9af9                      	EP_SRC_FWRITE _sp_data
+0000eb 9100 00c0                 	lds _sp_r_rc_tmp, UCSR0A
+0000ed ff07                      	sbrs _sp_r_rc_tmp, RXC0
+0000ee cffc                      	rjmp _sp_l_isr_write
+0000ef 9100 00c6                 	lds _sp_r_rc_tmp, UDR0
+0000f1 bd00                      	out EEDR, _sp_r_rc_tmp
+0000f2 9afa                      	sbi EECR, EEMPE
+0000f3 9af9                      	sbi EECR, EEPE
 0000f4 9518                      	reti
                                  
-                                 #undef _sp_b1
-                                 #undef _sp_b2
-                                 
-                                 #undef _sp_data
-                                 #undef _sp_tmp
+                                 #undef _sp_r_rc_tmp
                                  
                                  #define sp_data ria
                                  #define sp_addrh rib
@@ -4556,25 +4481,25 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 000385 bf4e
 000386 ef4f
 000387 bf4d                      	STACK_SETUP m_tmp
-                                 	; setup builtin LED
-000388 e840
-000389 b944                      	BL_SRC_SETUP m_tmp
-00038a 2744
-00038b b945                      	BL_SRC_OFF m_tmp
-                                 	; setup LED matrix
-00038c ef4f
-00038d b947                      	LM_SRC_SETUP m_tmp
-                                 	; setup UART communication
+                                 	; setup serial programming
+000388 e040
+000389 9340 00c5
+00038b e647
+00038c 9340 00c4
 00038e e040
-00038f 9340 00c5
-000391 e647
-000392 9340 00c4
-000394 e040
-000395 9340 00c0
-000397 e948
-000398 9340 00c1
-00039a e846
-00039b 9340 00c2                 	UC_SRC_SETUP m_tmp
+00038f 9340 00c0
+000391 e948
+000392 9340 00c1
+000394 e846
+000395 9340 00c2                 	SP_SRC_SETUP m_tmp
+                                 	; setup builtin LED
+000397 e840
+000398 b944                      	BL_SRC_SETUP m_tmp
+000399 2744
+00039a b945                      	BL_SRC_OFF m_tmp
+                                 	; setup LED matrix
+00039b ef4f
+00039c b947                      	LM_SRC_SETUP m_tmp
                                  	;setup distance sensor
 00039d 2744
 00039e 9340 00a0
@@ -5028,9 +4953,9 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega2560" register use summary:
-x  :  33 y  :  12 z  :  12 r0 :  37 r1 :   8 r2 :  11 r3 :   9 r4 :   3 
+x  :  33 y  :  12 z  :  12 r0 :  37 r1 :   8 r2 :   9 r3 :   9 r4 :   3 
 r5 :   3 r6 :   4 r7 :   4 r8 :   8 r9 :   0 r10:  10 r11:   4 r12:   0 
-r13:   0 r14:   0 r15:   0 r16: 149 r17: 114 r18: 100 r19:  20 r20: 247 
+r13:   0 r14:   0 r15:   0 r16: 165 r17: 108 r18:  92 r19:  20 r20: 247 
 r21: 105 r22:  66 r23:  12 r24:   7 r25:  18 r26:  31 r27:  31 r28:   7 
 r29:   7 r30:  12 r31:  12 
 Registers used: 30 out of 35 (85.7%)
@@ -5047,12 +4972,12 @@ clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :  15 cpc   :  13
 cpi   :  11 cpse  :   0 dec   :  13 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
 in    :   3 inc   :  19 jmp   :   8 ld    :  21 ldd   :   0 ldi   : 224 
-lds   :  65 lpm   :   0 lsl   :  14 lsr   :   6 mov   :  65 movw  :   4 
+lds   :  69 lpm   :   0 lsl   :  14 lsr   :   6 mov   :  63 movw  :   4 
 mul   :   1 muls  :   0 mulsu :   0 neg   :   1 nop   :   0 or    :   6 
-ori   :   3 out   :  33 pop   :   2 push  :   2 rcall :  73 ret   :  20 
-reti  :   9 rjmp  :  49 rol   :   6 ror   :  12 sbc   :   2 sbci  :   0 
-sbi   :   7 sbic  :   5 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   2 
-sbrs  :   3 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   4 
+ori   :   3 out   :  31 pop   :   2 push  :   2 rcall :  69 ret   :  18 
+reti  :   9 rjmp  :  50 rol   :   6 ror   :  12 sbc   :   2 sbci  :   0 
+sbi   :   7 sbic  :   4 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   2 
+sbrs  :   5 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   4 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
 st    :  33 std   :   3 sts   : 118 sub   :   9 subi  :   2 swap  :   6 
 tst   :  11 wdr   :   0 
