@@ -8,15 +8,15 @@
 ; EEPROM programming
 ; dirty EEPROM module and registers
 
-#define _ep_addrl @0
-#define _ep_addrh @1
+#define _ep_r_addrl @0
+#define _ep_r_addrh @1
 
 ; [SOURCE] set EEPROM address to '@1:@0'
 ; @0 (eeprom address l)
 ; @1 (eeprom address h)
 .macro EP_SRC_ADDR
-	out EEARL, _ep_addrl
-	out EEARH, _ep_addrh
+	out EEARL, _ep_r_addrl
+	out EEARH, _ep_r_addrh
 .endmacro
 
 ; [SOURCE] wait until EEPROM is ready
@@ -26,12 +26,12 @@ _ep_l_src_wait:
 	rjmp _ep_l_src_wait
 .endmacro
 
-#define _ep_data @0
+#define _ep_r_data @0
 
 ; [SOURCE] immediately write '@2' to EEPROM
 ; @0 (data)
 .macro EP_SRC_FWRITE
-	out EEDR, _ep_data
+	out EEDR, _ep_r_data
 	sbi EECR, EEMPE
 	sbi EECR, EEPE
 .endmacro
@@ -40,9 +40,9 @@ _ep_l_src_wait:
 ; @0 (data out)
 .macro EP_SRC_FREAD
 	sbi EECR, EERE
-	in _ep_data, EEDR
+	in _ep_r_data, EEDR
 .endmacro
 
-#undef _ep_data
+#undef _ep_r_data
 
 #endif
