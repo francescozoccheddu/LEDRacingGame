@@ -37,15 +37,11 @@ IO_DEF _DS, _DS_IO
 	SP_SRC_LOAD_TO_RAM ee_ds_min_ic, _ds_ram_min, 2
 	SP_SRC_LOAD_TO_RAM ee_ds_max_ic, _ds_ram_max, 2
 	SP_SRC_LOAD_TO_RAM ee_ds_emax_ic, _ds_ram_emax, 2
-	SP_SRC_LOAD ee_ds_period_propf
-	mov rma, sp_data
-	SP_SRC_LOAD ee_ds_period_propf + 1
-	mov rmb, sp_data
-	call t_sr_calc
-	ori rmc, ICN_VAL | ICES_VAL
-	sts _DS_OCRAH, rmb
-	sts _DS_OCRAL, rma
-	sts _ds_ram_tccrb, rmc
+	SP_SRC_LOADI_TIME ee_ds_period_propf
+	ori sp_data, ICN_VAL | ICES_VAL
+	sts _DS_OCRAH, sp_data_th
+	sts _DS_OCRAL, sp_data_tl
+	sts _ds_ram_tccrb, sp_data
 .endmacro
 
 #undef _ds_r_setup_tmp

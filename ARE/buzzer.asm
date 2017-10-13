@@ -63,65 +63,27 @@ _bz_ram_ticks: .byte 2
 
 #undef _bz_start_ram
 
-#define _bz_r_load_tmp1 rma
-#define _bz_r_load_tmp2 rmb
-#define _bz_r_load_tmp3 rmc
-#define _bz_r_load_tmp4 r0
-#define _bz_r_load_tmp5 r1
 #define _bz_load_ee @0
+#define _bz_load_ram @1
+#define _bz_r_load_tmp @2
 
 .macro BZ_SRC_LOAD
-	ldi _bz_r_load_tmp1, BZ_TICKS
-	mov _bz_r_load_tmp5, _bz_r_load_tmp1
-	ldi sp_addrl, LOW( _bz_load_ee )
-	ldi sp_addrh, HIGH( _bz_load_ee )
-	clr _bz_r_load_tmp4
+	ldi _bz_r_load_tmp, BZ_TICKS
+	ldi YL, LOW( _bz_load_ee )
+	ldi YH, HIGH( _bz_load_ee )
+	ldi XL, LOW( _bz_load_ram )
+	ldi XH, HIGH( _bz_load_ram )
 _bz_load_loop:
-	rcall sp_sr_load
-	inc sp_addrl
-	adc sp_addrh, _bz_r_load_tmp4
-	mov _bz_r_load_tmp1, sp_data
-	rcall sp_sr_load
-	inc sp_addrl
-	adc sp_addrh, _bz_r_load_tmp4
-	mov _bz_r_load_tmp2, sp_data
-
-	cp _bz_r_load_tmp1, _bz_r_load_tmp4
-	cpc _bz_r_load_tmp2, _bz_r_load_tmp4
-	brne _bz_load_calc_pwm
-	clr _bz_r_load_tmp3
-	clr _bz_r_load_tmp2
-	rjmp _bz_load_store_pwm
-_bz_load_calc_pwm:
-	rcall t_sr_calc
-_bz_load_store_pwm:
-	st X+, _bz_r_load_tmp3
-	st X+, _bz_r_load_tmp2
-
-	rcall sp_sr_load
-	inc sp_addrl
-	adc sp_addrh, _bz_r_load_tmp4
-	mov _bz_r_load_tmp1, sp_data
-	rcall sp_sr_load
-	inc sp_addrl
-	adc sp_addrh, _bz_r_load_tmp4
-	mov _bz_r_load_tmp2, sp_data
-
-	cp _bz_r_load_tmp1, _bz_r_load_tmp4
-	cpc _bz_r_load_tmp2, _bz_r_load_tmp4
-	brne _bz_load_calc_sq
-	clr _bz_r_load_tmp3
-	clr _bz_r_load_tmp2
-	clr _bz_r_load_tmp1
-	rjmp _bz_load_store_sq
-_bz_load_calc_sq:
-	rcall t_sr_calc
-_bz_load_store_sq:
-	st X+, _bz_r_load_tmp3
-	st X+, _bz_r_load_tmp2
-	st X+, _bz_r_load_tmp1
-
-	dec _bz_r_load_tmp5
+	SP_SRC_LOAD_TIME
+	adiw YH:YL, 1
+	st X+, sp_data
+	st X+, sp_data_th
+	SP_SRC_LOAD_TIME
+	adiw YH:YL, 1
+	st X+, sp_data
+	st X+, sp_data_th
+	st X+, sp_data_tl
+	dec _bz_r_load_tmp
 	brne _bz_load_loop
 .endmacro
 

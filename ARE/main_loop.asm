@@ -38,13 +38,9 @@ TIM_DEF _ML, _ML_TIMER
 	SP_SRC_LOAD_TO_RAM ee_ml_dsoff_add, _ml_ram_pabsnc_add, 1
 	SP_SRC_LOAD_TO_RAM ee_ml_dson_sub, _ml_ram_pprsnc_sub, 1
 
-	SP_SRC_LOAD ee_ml_tim_propf
-	mov rma, sp_data
-	SP_SRC_LOAD ee_ml_tim_propf + 1
-	mov rmb, sp_data
-	call t_sr_calc
-	sts _ML_OCRA, rmb
-	sts _ml_ram_tcs, rmc
+	SP_SRC_LOADI_TIME ee_ml_tim_propf
+	sts _ML_OCRA, sp_data_th
+	sts _ml_ram_tcs, sp_data
 	; submodules
 	P_SRC_SETUP _ml_setup_tmp
 	G_SRC_SETUP _ml_setup_tmp, rmc

@@ -50,24 +50,14 @@ _g_l_setup_clear_loop:
 	SP_SRC_LOAD_TO_RAM ee_g_spawn_period, _g_ram_spawn_period, 1
 	SP_SRC_LOAD_TO_RAM ee_g_smooth, _g_ram_smooth, 1
 	SP_SRC_LOAD_TO_RAM ee_g_smooth_slow, _g_ram_smooth_slow, 1
-	SP_SRC_LOAD ee_g_tim_propf
-	mov rma, sp_data
-	SP_SRC_LOAD ee_g_tim_propf + 1
-	mov rmb, sp_data
-	rcall t_sr_calc
-	sts _G_OCRAH, rmb
-	sts _G_OCRAL, rma
-	ori rmc, WGMB_VAL(4)
-	sts _g_ram_tccrb, rmc
-	ldi XL, LOW( _g_ram_snd_pause )
-	ldi XH, HIGH( _g_ram_snd_pause )
-	BZ_SRC_LOAD ee_g_snd_pause
-	ldi XL, LOW( _g_ram_snd_resume )
-	ldi XH, HIGH( _g_ram_snd_resume )
-	BZ_SRC_LOAD ee_g_snd_resume
-	ldi XL, LOW( _g_ram_snd_over )
-	ldi XH, HIGH( _g_ram_snd_over )
-	BZ_SRC_LOAD ee_g_snd_over
+	SP_SRC_LOADI_TIME ee_g_tim_propf
+	sts _G_OCRAH, sp_data_th
+	sts _G_OCRAL, sp_data_tl
+	ori sp_data, WGMB_VAL(4)
+	sts _g_ram_tccrb, sp_data
+	BZ_SRC_LOAD ee_g_snd_pause, _g_ram_snd_pause, _g_setup_tmp1
+	BZ_SRC_LOAD ee_g_snd_resume, _g_ram_snd_resume, _g_setup_tmp1
+	BZ_SRC_LOAD ee_g_snd_over, _g_ram_snd_over, _g_setup_tmp1
 .endmacro
 
 .dseg

@@ -61,9 +61,7 @@ m_l_reset:
 	; setup draw loop
 	ML_SRC_SETUP m_tmp
 	; play startup sound
-	ldi XL, LOW( _m_ram_snd_start )
-	ldi XH, HIGH( _m_ram_snd_start )
-	BZ_SRC_LOAD ee_m_snd_start
+	BZ_SRC_LOAD ee_m_snd_start, _m_ram_snd_start, m_tmp
 	BZ_SRC_START _m_ram_snd_start
 	cli
 	rcall ds_isr_trig
