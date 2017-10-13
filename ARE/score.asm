@@ -135,43 +135,8 @@ _s_l_draw_done:
 #define te1 ml_cl
 #define te2 ml_ch
 
-s_l_set:
-	; set state
-	ldi ml_tmp1, _S_STATE_SPLASH
-	sts _s_ram_state, ml_tmp1
-	; set timer
-	lds ml_tmp1, _s_ram_ttop_splash
-	lds ml_tmp2, _s_ram_ttop_splash + 1
-	sts _S_OCRAH, ml_tmp2
-	sts _S_OCRAL, ml_tmp1
-	lds ml_tmp1, _s_ram_tccrb_splash
-	sts _S_TCCRB, ml_tmp1
-	; save score
-	SP_SRC_LOAD ee_s_top
-	mov ml_tmp1, sp_data
-	SP_SRC_LOAD ee_s_top + 1
-	mov ml_tmp2, sp_data
-	lds te1, g_ram_score
-	lds te2, g_ram_score + 1
-	cp ml_tmp1, te1
-	cpc ml_tmp2, te2
-	brsh _s_l_set_stored
-	mov sp_data, te1
-	SP_SRC_STORE ee_s_top
-	mov sp_data, te2
-	SP_SRC_STORE ee_s_top + 1
-	movw ml_tmp2:ml_tmp1, te2:te1
-_s_l_set_stored:
-	; load score
-	ldi YL, LOW(_s_ram_bcd_top)
-	ldi YH, HIGH(_s_ram_bcd_top)
-	rcall _s_sr_tobcd
-	ldi YL, LOW(_s_ram_bcd_scr)
-	ldi YH, HIGH(_s_ram_bcd_scr)
-	lds ml_tmp1, g_ram_score
-	lds ml_tmp2, g_ram_score + 1
-	rcall _s_sr_tobcd
-	rjmp s_l_set_done
+.macro S_SRC_SET
+	rjmp _s_l_set
 
 #define bcd_l ml_tmp1
 #define bcd_h ml_tmp2
@@ -225,6 +190,44 @@ _s_l_sr_tobcd_overflow:
 	ldi bcd_z, 10
 	st Y, bcd_z
 	ret
+
+_s_l_set:
+	; set state
+	ldi ml_tmp1, _S_STATE_SPLASH
+	sts _s_ram_state, ml_tmp1
+	; set timer
+	lds ml_tmp1, _s_ram_ttop_splash
+	lds ml_tmp2, _s_ram_ttop_splash + 1
+	sts _S_OCRAH, ml_tmp2
+	sts _S_OCRAL, ml_tmp1
+	lds ml_tmp1, _s_ram_tccrb_splash
+	sts _S_TCCRB, ml_tmp1
+	; save score
+	SP_SRC_LOAD ee_s_top
+	mov ml_tmp1, sp_data
+	SP_SRC_LOAD ee_s_top + 1
+	mov ml_tmp2, sp_data
+	lds te1, g_ram_score
+	lds te2, g_ram_score + 1
+	cp ml_tmp1, te1
+	cpc ml_tmp2, te2
+	brsh _s_l_set_stored
+	mov sp_data, te1
+	SP_SRC_STORE ee_s_top
+	mov sp_data, te2
+	SP_SRC_STORE ee_s_top + 1
+	movw ml_tmp2:ml_tmp1, te2:te1
+_s_l_set_stored:
+	; load score
+	ldi YL, LOW(_s_ram_bcd_top)
+	ldi YH, HIGH(_s_ram_bcd_top)
+	rcall _s_sr_tobcd
+	ldi YL, LOW(_s_ram_bcd_scr)
+	ldi YH, HIGH(_s_ram_bcd_scr)
+	lds ml_tmp1, g_ram_score
+	lds ml_tmp2, g_ram_score + 1
+	rcall _s_sr_tobcd
+.endmacro
 
 ISR _S_OCAaddr
 	clr ria

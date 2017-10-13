@@ -57,17 +57,17 @@ m_l_reset:
 	UC_SRC_SETUP m_tmp
 	;setup distance sensor
 	DS_SRC_SETUP m_tmp
-	call ds_isr_trig
 	; setup buzzer
 	BZ_SRC_SETUP m_tmp
 	; setup draw loop
 	ML_SRC_SETUP m_tmp
-	sei
 	; play startup sound
 	ldi XL, LOW( _m_ram_snd_start )
 	ldi XH, HIGH( _m_ram_snd_start )
 	BZ_SRC_LOAD ee_m_snd_start
 	BZ_SRC_START _m_ram_snd_start
+	cli
+	rcall ds_isr_trig
 	; enter main loop
 	rjmp ml_l_loop
 
