@@ -129,9 +129,9 @@ _ml_l_loop_draw_paused:
 
 _ml_l_loop_flush:
 	cli
-	rjmp lm_l_sendcol
+	rjmp _ml_lm_l_sendcol
 
-ml_l_sendcol_done:
+_ml_l_sendcol_done:
 
 #define _ml_lock ml_ch
 
@@ -172,6 +172,10 @@ _ml_p_l_draw:
 _ml_g_l_draw:
 	G_SRC_DRAW
 	rjmp _ml_l_loop_flush
+
+_ml_lm_l_sendcol:
+	LM_SRC_SENDCOL ml_col, ml_cl, ml_ch, ml_tmp1, ml_tmp2
+	rjmp _ml_l_sendcol_done
 
 ml_l_gameover:
 	S_SRC_SET rma, rmb, rm0, rm1

@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Fri Oct 13 21:18:13 2017
+AVRASM ver. 2.2.6  C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm Fri Oct 13 21:23:58 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(13): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -9,11 +9,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(17): Including file 'C:\Users\zoc
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(18): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(19): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(20): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(80): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(81): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(82): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc'
@@ -24,11 +24,11 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(17): Including file 'C:\Users\zoc
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(18): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\uart_comm.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(19): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\serial_prog.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(20): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\buzzer.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(21): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm'
+C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(80): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\score.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(81): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\pause.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main_loop.asm(82): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\game.asm'
-C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(22): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\led_matrix.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(23): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\distance_sens.asm'
 C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zocch\OneDrive\Unica\ARE\ARE\bitmaps.asm'
                                  
@@ -2814,6 +2814,80 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  #undef _bz_r_sqocia_tmp
                                  
                                  #endif
+                                 #include "led_matrix.asm"
+                                 
+                                 #else
+                                 #define _INC_LM
+                                 
+                                 ; Francesco Zoccheddu
+                                 ; ARE
+                                 ; LED matrix
+                                 ; dirty PORTC, DDRC, PINC
+                                 
+                                 #define _LM_IO C
+                                 
+                                 IO_DEF _LM, _LM_IO
+                                 #define _LM_BIT_ABCD 0 ; digital pin 34-37
+                                 #define _LM_BIT_G 4 ; digital pin 33
+                                 #define _LM_BIT_DI 5 ; digital pin 32
+                                 #define _LM_BIT_CLK 6 ; digital pin 31
+                                 #define _LM_BIT_LAT 7 ; digital pin 30
+                                 
+                                 #define _lm_r_setup_tmp @0
+                                 
+                                 ; [SOURCE] setup
+                                 ; @0 (dirty immediate register)
+                                 .macro LM_SRC_SETUP
+                                 	ser _lm_r_setup_tmp
+                                 	out _LM_DDR, _lm_r_setup_tmp
+                                 .endmacro
+                                 
+                                 #undef _lm_r_setup_tmp
+                                 
+                                 #define _lm_r_col @0
+                                 #define _lm_r_cl @1
+                                 #define _lm_r_ch @2
+                                 #define _lm_r_tmp1 @3
+                                 #define _lm_r_tmp2 @4
+                                 
+                                 .macro LM_SRC_SENDCOL
+                                 	ldi _lm_r_tmp1, 16
+                                 _lm_l_src_send_col_row:
+                                 	ldi _lm_r_tmp2, (1 << _LM_BIT_G) | (1 << _LM_BIT_DI)
+                                 	lsr _lm_r_ch
+                                 	ror _lm_r_cl
+                                 	brcc _lm_l_src_send_col_out_dot
+                                 	ldi _lm_r_tmp2, (1 << _LM_BIT_G)
+                                 _lm_l_src_send_col_out_dot:
+                                 	out _LM_PORT, _lm_r_tmp2
+                                 	ori _lm_r_tmp2, 1 << _LM_BIT_CLK
+                                 	out _LM_PORT, _lm_r_tmp2
+                                 	andi _lm_r_tmp2, ~(1 << _LM_BIT_CLK)
+                                 	out _LM_PORT, _lm_r_tmp2
+                                 	;loop
+                                 	dec _lm_r_tmp1
+                                 	brne _lm_l_src_send_col_row
+                                 	;send LAT
+                                 	ldi _lm_r_tmp2, (1 << _LM_BIT_G) | (1 << _LM_BIT_LAT)
+                                 	out _LM_PORT, _lm_r_tmp2
+                                 	ldi _lm_r_tmp2, (1 << _LM_BIT_G)
+                                 	out _LM_PORT, _lm_r_tmp2
+                                 	;send col
+                                 	ldi _lm_r_tmp1, 15
+                                 	sub _lm_r_tmp1, _lm_r_col
+                                 	or _lm_r_tmp2, _lm_r_tmp1
+                                 	out _LM_PORT, _lm_r_tmp2
+                                 	;end G
+                                 	out _LM_PORT, _lm_r_tmp1
+                                 .endmacro
+                                 
+                                 #undef _lm_r_cl
+                                 #undef _lm_r_ch
+                                 #undef _lm_r_col
+                                 #undef _lm_r_tmp1
+                                 #undef _lm_r_tmp2
+                                 
+                                 #endif
                                  #include "main_loop.asm"
                                  
                                  #else
@@ -3619,7 +3693,7 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 00019a 9140 0203                 	lds ml_tmp1, ml_ram_screen
 00019c 3040                      	cpi ml_tmp1, ML_SCREEN_GAME
 00019d f4f9                      	brne _ml_l_loop_update_paused
-00019e c11e                      	rjmp _ml_g_l_update
+00019e c135                      	rjmp _ml_g_l_update
                                  _ml_g_update_done:
                                  	
 00019f 9140 03ce                 	lds ml_tmp1, ds_ram_out_state
@@ -3666,9 +3740,9 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
                                  
                                  _ml_l_loop_flush:
 0001c9 94f8                      	cli
-0001ca c126                      	rjmp lm_l_sendcol
+0001ca c098                      	rjmp _ml_lm_l_sendcol
                                  
-                                 ml_l_sendcol_done:
+                                 _ml_l_sendcol_done:
                                  
                                  #define _ml_lock ml_ch
                                  
@@ -3818,204 +3892,155 @@ C:\Users\zocch\OneDrive\Unica\ARE\ARE\main.asm(26): Including file 'C:\Users\zoc
 00025c 9340 0203
 00025e 2744
 00025f 9340 0091
-000261 c001                      	G_SRC_DRAW
+000261 c018                      	G_SRC_DRAW
 000262 cf66                      	rjmp _ml_l_loop_flush
                                  
+                                 _ml_lm_l_sendcol:
+000263 e140
+000264 e350
+000265 9596
+000266 9587
+000267 f408
+000268 e150
+000269 b958
+00026a 6450
+00026b b958
+00026c 7b5f
+00026d b958
+00026e 954a
+00026f f7a1
+000270 e950
+000271 b958
+000272 e150
+000273 b958
+000274 e04f
+000275 1b47
+000276 2b54
+000277 b958
+000278 b948                      	LM_SRC_SENDCOL ml_col, ml_cl, ml_ch, ml_tmp1, ml_tmp2
+000279 cf51                      	rjmp _ml_l_sendcol_done
+                                 
                                  ml_l_gameover:
-000263 c027
-000264 e063
-000265 3e48
-000266 0756
-000267 f4e0
-000268 e06b
-000269 8369
-00026a 836a
-00026b 836b
-00026c e090
-00026d 2766
-00026e 3644
-00026f 0756
-000270 f020
-000271 9593
-000272 5644
-000273 0b56
-000274 cff9
-000275 2399
-000276 f011
-000277 9399
-000278 e890
-000279 304a
-00027a f018
-00027b 9593
-00027c 504a
-00027d cffb
-00027e 2399
-00027f f011
-000280 779f
-000281 9399
-000282 9349
-000283 9508
-000284 e069
-000285 9369
-000286 9369
-000287 9369
-000288 e06a
-000289 8368
-00028a 9508
-00028b e042
-00028c 9340 0207
-00028e 9140 0209
-000290 9150 020a
-000292 9350 0129
-000294 9340 0128
-000296 9140 0208
-000298 9340 0121
-00029a e02a
-00029b e010
-00029c de58
-00029d 2f40
-00029e e02b
-00029f e010
-0002a0 de54
-0002a1 2f50
-0002a2 90a0 0304
-0002a4 90b0 0305
-0002a6 154a
-0002a7 055b
-0002a8 f448
-0002a9 2d0a
-0002aa e02a
-0002ab e010
-0002ac de5c
-0002ad 2d0b
-0002ae e02b
-0002af e010
-0002b0 de58
-0002b1 01a5
-0002b2 e1c1
-0002b3 e0d2
-0002b4 dfaf
-0002b5 e1c5
-0002b6 e0d2
-0002b7 9140 0304
-0002b9 9150 0305
-0002bb dfa8                      	S_SRC_SET rma, rmb, rm0, rm1
-0002bc cedc                      	rjmp ml_l_loop
+00027a c027
+00027b e063
+00027c 3e48
+00027d 0756
+00027e f4e0
+00027f e06b
+000280 8369
+000281 836a
+000282 836b
+000283 e090
+000284 2766
+000285 3644
+000286 0756
+000287 f020
+000288 9593
+000289 5644
+00028a 0b56
+00028b cff9
+00028c 2399
+00028d f011
+00028e 9399
+00028f e890
+000290 304a
+000291 f018
+000292 9593
+000293 504a
+000294 cffb
+000295 2399
+000296 f011
+000297 779f
+000298 9399
+000299 9349
+00029a 9508
+00029b e069
+00029c 9369
+00029d 9369
+00029e 9369
+00029f e06a
+0002a0 8368
+0002a1 9508
+0002a2 e042
+0002a3 9340 0207
+0002a5 9140 0209
+0002a7 9150 020a
+0002a9 9350 0129
+0002ab 9340 0128
+0002ad 9140 0208
+0002af 9340 0121
+0002b1 e02a
+0002b2 e010
+0002b3 de41
+0002b4 2f40
+0002b5 e02b
+0002b6 e010
+0002b7 de3d
+0002b8 2f50
+0002b9 90a0 0304
+0002bb 90b0 0305
+0002bd 154a
+0002be 055b
+0002bf f448
+0002c0 2d0a
+0002c1 e02a
+0002c2 e010
+0002c3 de45
+0002c4 2d0b
+0002c5 e02b
+0002c6 e010
+0002c7 de41
+0002c8 01a5
+0002c9 e1c1
+0002ca e0d2
+0002cb dfaf
+0002cc e1c5
+0002cd e0d2
+0002ce 9140 0304
+0002d0 9150 0305
+0002d2 dfa8                      	S_SRC_SET rma, rmb, rm0, rm1
+0002d3 cec5                      	rjmp ml_l_loop
                                  
                                  _ml_g_l_update:
-0002bd c010
-0002be 1745
-0002bf f430
-0002c0 2ea5
-0002c1 1aa4
-0002c2 16a6
-0002c3 f040
-0002c4 0f46
-0002c5 9508
-0002c6 2ea4
-0002c7 1aa5
-0002c8 16a6
-0002c9 f010
-0002ca 1b46
-0002cb 9508
-0002cc 2f45
-0002cd 9508
-0002ce 9140 03ce
-0002d0 2344
-0002d1 f089
-0002d2 9150 03cd
-0002d4 9140 02cf
-0002d6 9160 02cd
-0002d8 dfe5
-0002d9 9340 02cf
-0002db 9140 02ce
-0002dd 9160 02cc
-0002df dfde
-0002e0 9340 02ce
-0002e2 c009
-0002e3 9140 02ce
-0002e5 9150 02cf
-0002e7 9160 02cc
-0002e9 dfd4
-0002ea 9340 02ce
-0002ec 9542
-0002ed 704f
-0002ee 9340 02d0                 	G_SRC_UPDATE
-0002f0 ceae                      	rjmp _ml_g_update_done
-                                 
-                                 #endif
-                                 #include "led_matrix.asm"
-                                 
-                                 #else
-                                 #define _INC_LM
-                                 
-                                 ; Francesco Zoccheddu
-                                 ; ARE
-                                 ; LED matrix
-                                 ; dirty PORTC, DDRC, PINC
-                                 
-                                 #define _LM_IO C
-                                 
-                                 IO_DEF _LM, _LM_IO
-                                 #define _LM_BIT_ABCD 0 ; digital pin 34-37
-                                 #define _LM_BIT_G 4 ; digital pin 33
-                                 #define _LM_BIT_DI 5 ; digital pin 32
-                                 #define _LM_BIT_CLK 6 ; digital pin 31
-                                 #define _LM_BIT_LAT 7 ; digital pin 30
-                                 
-                                 #define _lm_setup_tmp @0
-                                 
-                                 ; [SOURCE] setup
-                                 ; @0 (dirty immediate register)
-                                 .macro LM_SRC_SETUP
-                                 	ser _lm_setup_tmp
-                                 	out _LM_DDR, _lm_setup_tmp
-                                 .endmacro
-                                 
-                                 #undef _lm_setup_tmp
-                                 
-                                 #define _lm_cl ml_cl
-                                 #define _lm_ch ml_ch
-                                 #define _lm_col ml_col
-                                 #define _lm_tmp1 ml_tmp1
-                                 #define _lm_tmp2 ml_tmp2
-                                 
-                                 lm_l_sendcol:
-0002f1 e140                      	ldi _lm_tmp1, 16
-                                 _lm_l_src_send_col_row:
-0002f2 e350                      	ldi _lm_tmp2, (1 << _LM_BIT_G) | (1 << _LM_BIT_DI)
-0002f3 9596                      	lsr _lm_ch
-0002f4 9587                      	ror _lm_cl
-0002f5 f408                      	brcc _lm_l_src_send_col_out_dot
-0002f6 e150                      	ldi _lm_tmp2, (1 << _LM_BIT_G)
-                                 _lm_l_src_send_col_out_dot:
-0002f7 b958                      	out _LM_PORT, _lm_tmp2
-0002f8 6450                      	ori _lm_tmp2, 1 << _LM_BIT_CLK
-0002f9 b958                      	out _LM_PORT, _lm_tmp2
-0002fa 7b5f                      	andi _lm_tmp2, ~(1 << _LM_BIT_CLK)
-0002fb b958                      	out _LM_PORT, _lm_tmp2
-                                 	;loop
-0002fc 954a                      	dec _lm_tmp1
-0002fd f7a1                      	brne _lm_l_src_send_col_row
-                                 	;send LAT
-0002fe e950                      	ldi _lm_tmp2, (1 << _LM_BIT_G) | (1 << _LM_BIT_LAT)
-0002ff b958                      	out _LM_PORT, _lm_tmp2
-000300 e150                      	ldi _lm_tmp2, (1 << _LM_BIT_G)
-000301 b958                      	out _LM_PORT, _lm_tmp2
-                                 	;send col
-000302 e04f                      	ldi _lm_tmp1, 15
-000303 1b47                      	sub _lm_tmp1, _lm_col
-000304 2b54                      	or _lm_tmp2, _lm_tmp1
-000305 b958                      	out _LM_PORT, _lm_tmp2
-                                 	;end G
-000306 b948                      	out _LM_PORT, _lm_tmp1
-000307 cec3                      	rjmp ml_l_sendcol_done
-                                 
-                                 #undef _lm_cl
-                                 #undef _lm_ch
-                                 #undef _lm_col
-                                 #undef _lm_tmp1
-                                 #undef _lm_tmp2
+0002d4 c010
+0002d5 1745
+0002d6 f430
+0002d7 2ea5
+0002d8 1aa4
+0002d9 16a6
+0002da f040
+0002db 0f46
+0002dc 9508
+0002dd 2ea4
+0002de 1aa5
+0002df 16a6
+0002e0 f010
+0002e1 1b46
+0002e2 9508
+0002e3 2f45
+0002e4 9508
+0002e5 9140 03ce
+0002e7 2344
+0002e8 f089
+0002e9 9150 03cd
+0002eb 9140 02cf
+0002ed 9160 02cd
+0002ef dfe5
+0002f0 9340 02cf
+0002f2 9140 02ce
+0002f4 9160 02cc
+0002f6 dfde
+0002f7 9340 02ce
+0002f9 c009
+0002fa 9140 02ce
+0002fc 9150 02cf
+0002fe 9160 02cc
+000300 dfd4
+000301 9340 02ce
+000303 9542
+000304 704f
+000305 9340 02d0                 	G_SRC_UPDATE
+000307 ce97                      	rjmp _ml_g_update_done
                                  
                                  #endif
                                  #include "distance_sens.asm"
