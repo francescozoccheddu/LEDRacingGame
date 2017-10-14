@@ -6,9 +6,12 @@ act_read = "r"
 act_double_suffix = "d"
 act_addr_assign = "a"
 act_addr_incr = "a+"
+ret_ok = 0
+ret_err = 1
 
 try:
     import sys
+    import time
     import argparse
     import re
     import serial
@@ -47,8 +50,25 @@ def parseArgs():
                 raise argparse.ArgumentTypeError("'%s' is an invalid integer" % wval)
             if wvali < 0 or wvali >= ((1 << 16) if double else (1 << 8)):
                 raise argparse.ArgumentTypeError("'%s' is an invalid %s" % (wval, "word" if double else "byte"))
+            def act_f(serial, address, verb):
+                serialWrite(serial, address, wvali & 0xFF)
+                if double:
+                    serialWrite(serial, address + 1, wvali >> 8)
+                if verb:
+                    print("@%s <-- %s" % (address, wvali))
+                return address
+            return act_f  
         elif act_r_pat.fullmatch(value) is not None:
-            double = value.endswith(act_double_suffix)
+            def act_f(serial, address, verb):
+                data = serialRead(serial, address)
+                if value.endswith(act_double_suffix):
+                    data = data | (serialRead(serial, address + 1) << 8)
+                if verb:
+                    print("@%s = %s" % (address, data))
+                else:
+                    print(str(data))
+                return address
+            return act_f
         elif act_a_pat.fullmatch(value) is not None:
             inc = value.startswith(act_addr_incr)
             try:
@@ -58,23 +78,59 @@ def parseArgs():
                 raise argparse.ArgumentTypeError("'%s' is an invalid integer" % aval)
             if avali < eeprom_start or avali >= eeprom_end:
                 raise argparse.ArgumentTypeError("'%s' is an invalid eeprom address" % aval)
+            def act_f(serial, address, verb):
+                if inc:
+                    address += avali
+                    if address >= eeprom_end:
+                        raise RuntimeError("address overflow")
+                else:
+                    address = avali
+                return address
+            return act_f            
         else:
             raise argparse.ArgumentTypeError("'%s' is an invalid action" % value)                            
-        return value
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("ACTION", type=checkAction, help="specify next action", nargs="+")
+    parser.add_argument("action", metavar="ACTION", type=checkAction, help="specify next action", nargs="*")
     parser.add_argument("-p", "--port", action="append", type=checkRegex, help="specify port")
-    parser.add_argument("-v", "--verb", action="store_true", help="print every action")
     parser.add_argument("-l", "--list", action="store_true", help="print available ports")
+    parser.add_argument("-c", "--choose", action="store_true", help="choose first matching port ")
+    parser.add_argument("-t", "--test", action="store_true", help="validate command only, do not connect")
+    parser.add_argument("-v", "--verb", action="store_true", help="verbose")
     return parser.parse_args()
 
 def matchPort(mports, aports):
+    out = []
     for mp in mports:
         for ap in aports:
             if mp.fullmatch(ap.device):
-                return ap
-    return None
+                out += [ap]
+    return out
+
+def toByte(num):
+    return chr(num)
+
+def serialRead(serial, address):
+    serial.flush()
+    serial.write(int.to_bytes(address & 0xFF, length=1, byteorder="little"))
+    serial.flush()
+    serial.write(int.to_bytes(address >> 8, length=1, byteorder="little"))
+    serial.flush()
+    data = serial.read()
+    serial.flush()
+    if data == b'':
+        raise RuntimeError("Read error")
+    return int.from_bytes(data, byteorder="little")
+
+def serialWrite(serial, address, data):
+    serial.flush()
+    serial.write(int.to_bytes(address & 0xFF, length=1, byteorder="little"))
+    serial.flush()
+    serial.write(int.to_bytes((address >> 8) | (1 << 7), length=1, byteorder="little"))
+    serial.flush()
+    serial.write(int.to_bytes(data, length=1, byteorder="little"))
+    serial.flush()
+    time.sleep(.1)
 
 def main():
     args = parseArgs()
@@ -82,20 +138,30 @@ def main():
     aports = serial.tools.list_ports.comports()
     if len(aports) == 0:
         eprint("No port available")
-        return
+        return ret_err
 
     if args.list:
         print("Available ports:")
         for ap in aports:
             print(ap.device)
-        print()
     
-    port = matchPort(args.port if len(args.port) > 0 else [re.compile(".*")], aports)
-    if port is None:
+    ports = matchPort(args.port if args.port is not None else [re.compile(".*")], aports)
+    if len(ports) == 0:
         eprint("No port matching given constraints")
-        return
+        return ret_err
+    
+    if len(ports) > 1 and not args.choose:
+        eprint("Multiple ports matching given constraints")
+        return ret_err
 
-    return
+    if not args.test:
+        with serial.Serial(ports[0].device, 9600, timeout=2) as ser:
+            time.sleep(.1)
+            address = 0
+            for act in args.action:
+                address = act(ser, address, args.verb)
+
+    return ret_ok
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
