@@ -47,6 +47,9 @@ _g_l_setup_clear_loop:
 	SP_SRC_LOAD_TO_RAM ee_g_bm_enemy_al, _g_ram_bm_enemy_al, 16
 	SP_SRC_LOAD_TO_RAM ee_g_bm_spawns, _g_ram_bm_spawns, 2*_G_SPAWN_COUNT
 	SP_SRC_LOAD_TO_RAM ee_g_spawn_period, _g_ram_spawn_period, 1
+	SP_SRC_LOAD_TO_RAM ee_g_score_period, _g_ram_score_period, 1
+	lds _g_setup_tmp1, _g_ram_score_period
+	sts _g_ram_score_count, _g_setup_tmp1
 	SP_SRC_LOAD_TO_RAM ee_g_smooth, _g_ram_smooth, 1
 	SP_SRC_LOAD_TO_RAM ee_g_smooth_slow, _g_ram_smooth_slow, 1
 	SP_SRC_LOADI_TIME ee_g_tim_propf
@@ -70,6 +73,8 @@ _g_ram_tccrb: .byte 1
 _g_ram_spawn_countdown: .byte 1
 _g_ram_spawn_period: .byte 1
 g_ram_score: .byte 2
+_g_ram_score_period: .byte 1
+_g_ram_score_count: .byte 1
 _g_ram_bm_player_acs: .byte 16
 _g_ram_bm_enemy_al: .byte 16
 _g_ram_bm_spawns: .byte 2*_G_SPAWN_COUNT
@@ -80,6 +85,7 @@ _g_ram_snd_over: .byte BZ_SND_BYTES
 
 .eseg
 ee_g_spawn_period: .db 8
+ee_g_score_period: .db 8
 ee_g_smooth: .db 8
 ee_g_smooth_slow: .db 3
 ee_g_tim_propf: .dw int( 0.1 * T16_PROPF + 0.5 )
@@ -242,11 +248,17 @@ _g_l_draw_done:
 
 ISR _G_OCAaddr
 	; score
+	lds _g_tmp1, _g_ram_score_count
+	dec _g_tmp1
+	brne _g_l_ocia_score_updated
 	lds ZL, g_ram_score
 	lds ZH, g_ram_score + 1
 	adiw ZH:ZL, 1
 	sts g_ram_score, ZL
 	sts g_ram_score + 1, ZH
+	lds _g_tmp1, _g_ram_score_period
+_g_l_ocia_score_updated:
+	sts _g_ram_score_count, _g_tmp1
 	; spawn
 	lds _g_tmp1, _g_ram_spawn_countdown
 	dec _g_tmp1
