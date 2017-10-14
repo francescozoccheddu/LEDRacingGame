@@ -111,26 +111,21 @@ def toByte(num):
     return chr(num)
 
 def serialRead(serial, address):
-    serial.flush()
     serial.write(int.to_bytes(address & 0xFF, length=1, byteorder="little"))
-    serial.flush()
+    serial.read()
     serial.write(int.to_bytes(address >> 8, length=1, byteorder="little"))
-    serial.flush()
     data = serial.read()
-    serial.flush()
     if data == b'':
         raise RuntimeError("Read error")
     return int.from_bytes(data, byteorder="little")
 
 def serialWrite(serial, address, data):
-    serial.flush()
     serial.write(int.to_bytes(address & 0xFF, length=1, byteorder="little"))
-    serial.flush()
+    serial.read()
     serial.write(int.to_bytes((address >> 8) | (1 << 7), length=1, byteorder="little"))
-    serial.flush()
+    serial.read()
     serial.write(int.to_bytes(data, length=1, byteorder="little"))
-    serial.flush()
-    time.sleep(.1)
+    serial.read()
 
 def main():
     args = parseArgs()
@@ -155,11 +150,12 @@ def main():
         return ret_err
 
     if not args.test:
-        with serial.Serial(ports[0].device, 9600, timeout=2) as ser:
-            time.sleep(.1)
-            address = 0
-            for act in args.action:
-                address = act(ser, address, args.verb)
+        ser = serial.Serial(ports[0].device, 9600, timeout=2)
+        ser.read()
+        address = 0
+        for act in args.action:
+            address = act(ser, address, args.verb)
+        ser.close()
 
     return ret_ok
 
