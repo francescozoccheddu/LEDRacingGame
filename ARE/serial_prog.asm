@@ -37,6 +37,12 @@
 	; set UCSRC
 	ldi _sp_r_setup_tmp, _SP_UC_UCSRC_VAL
 	sts UCSR0C, _sp_r_setup_tmp
+	; send CTS signal
+_sp_l_setup_cts:
+	lds _sp_r_setup_tmp, UCSR0A
+	sbrs _sp_r_setup_tmp, UDRE0
+	rjmp _sp_l_setup_cts
+	sts UDR0, _sp_r_setup_tmp
 .endmacro
 
 #undef _sp_r_setup_tmp
@@ -58,6 +64,12 @@ _sp_l_rc_r1:
 	rjmp _sp_l_rc_r1
 	lds _sp_r_rc_tmp, UDR0
 	out EEARL, _sp_r_rc_tmp
+	; send CTS signal
+_sp_l_rc_r1_cts:
+	lds _sp_r_rc_tmp, UCSR0A
+	sbrs _sp_r_rc_tmp, UDRE0
+	rjmp _sp_l_rc_r1_cts
+	sts UDR0, _sp_r_rc_tmp
 	; store bit 2 in 'b2'
 _sp_l_rc_r2:
 	lds _sp_r_rc_tmp, UCSR0A
@@ -77,13 +89,26 @@ _sp_l_rc_read:
 	sts UDR0, _sp_r_rc_tmp
 	reti
 _sp_l_isr_write:
+	; send CTS signal
+_sp_l_rc_write_cts:
+	lds _sp_r_rc_tmp, UCSR0A
+	sbrs _sp_r_rc_tmp, UDRE0
+	rjmp _sp_l_rc_write_cts
+	sts UDR0, _sp_r_rc_tmp
+_sp_l_rc_write_ready:
 	lds _sp_r_rc_tmp, UCSR0A
 	sbrs _sp_r_rc_tmp, RXC0
-	rjmp _sp_l_isr_write
+	rjmp _sp_l_rc_write_ready
 	lds _sp_r_rc_tmp, UDR0
 	out EEDR, _sp_r_rc_tmp
 	sbi EECR, EEMPE
 	sbi EECR, EEPE
+	; send CTS signal
+_sp_l_rc_written_cts:
+	lds _sp_r_rc_tmp, UCSR0A
+	sbrs _sp_r_rc_tmp, UDRE0
+	rjmp _sp_l_rc_written_cts
+	sts UDR0, _sp_r_rc_tmp
 	reti
 
 #undef _sp_r_rc_tmp
