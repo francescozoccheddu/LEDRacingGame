@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <item
+        android:id="@+id/action_name"
+        android:icon="@drawable/you_resource_here"
+        android:orderInCategory="0"
+        android:showAsAction="always"
+        android:title="Text to be seen by user" />
+
+</menu>
