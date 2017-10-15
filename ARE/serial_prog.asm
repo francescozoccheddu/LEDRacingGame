@@ -1,12 +1,12 @@
-#ifdef _INC_SP
-#error __FILE__ already included
-#else
+#ifndef _INC_SP
 #define _INC_SP
 
 ; Francesco Zoccheddu
 ; ARE
 ; serial programming
-; dirty UART RX complete interrupt
+; dirty UART0, EEPROM
+
+#include "utils.asm"
 
 #define _SP_UC_BAUDRATE 9600
 

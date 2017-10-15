@@ -1,7 +1,15 @@
-#ifdef _INC_P
-#error __FILE__ already included
-#else
+#ifndef _INC_P
 #define _INC_P
+
+; Francesco Zoccheddu
+; ARE
+; pause
+
+#include "utils.asm"
+#include "distance_sens.asm"
+#include "main_loop.asm"
+#include "game.asm"
+#include "serial_prog.asm"
 
 .dseg
 _p_ram_prog: .byte 1

@@ -1,12 +1,12 @@
-#ifdef _INC_BL
-#error __FILE__ already included
-#else
+#ifndef _INC_BL
 #define _INC_BL
+
+#include "utils.asm"
 
 ; Francesco Zoccheddu
 ; ARE
 ; builtin LED
-; dirty PORTB, DDRB, PINB
+; dirty IO B
 
 #define _BL_IO B
 

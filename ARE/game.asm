@@ -1,7 +1,15 @@
-#ifdef _INC_G
-#error __FILE__ already included
-#else
+#ifndef _INC_G
 #define _INC_G
+
+; Francesco Zoccheddu
+; ARE
+; game
+; dirty timer 3
+
+#include "utils.asm"
+#include "main_loop.asm"
+#include "distance_sens.asm"
+#include "serial_prog.asm"
 
 #define _G_TIMER 3
 

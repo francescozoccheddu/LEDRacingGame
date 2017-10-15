@@ -1,12 +1,12 @@
-#ifdef _INC_LM
-#error __FILE__ already included
-#else
+#ifndef _INC_LM
 #define _INC_LM
 
 ; Francesco Zoccheddu
 ; ARE
 ; LED matrix
-; dirty PORTC, DDRC, PINC
+; dirty IO C
+
+#include "utils.asm"
 
 #define _LM_IO C
 
