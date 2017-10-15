@@ -79,7 +79,6 @@ m_l_reset:
 	; enter main loop
 	ML_SRC_LOOP rmla, rmlb, rmlc, rmld, rmle, rml0, rml1
 
-
 #undef m_tmp
 
 #endif

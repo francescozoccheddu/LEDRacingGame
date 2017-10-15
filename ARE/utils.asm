@@ -1,6 +1,4 @@
-#ifdef _INC_U
-#error __FILE__ already included
-#else
+#ifndef _INC_U
 #define _INC_U
 
 ; Francesco Zoccheddu

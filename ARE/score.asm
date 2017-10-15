@@ -1,7 +1,15 @@
-#ifdef _INC_S
-#error __FILE__ already included
-#else
+#ifndef _INC_S
 #define _INC_S
+
+; Francesco Zoccheddu
+; ARE
+; score
+; dirty timer 5
+
+#include "utils.asm"
+#include "main_loop.asm"
+#include "game.asm"
+#include "serial_prog.asm"
 
 #define _S_TIMER 5
 

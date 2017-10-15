@@ -1,7 +1,13 @@
-#ifdef _INC_BZ
-#error __FILE__ already included
-#else
+#ifndef _INC_BZ
 #define _INC_BZ
+
+; Francesco Zoccheddu
+; ARE
+; buzzer
+; dirty IO G, timer 0, timer 1
+
+#include "utils.asm"
+#include "serial_prog.asm"
 
 #define _BZ_PWM_TIMER 0
 #define _BZ_SQ_TIMER 1
@@ -18,10 +24,6 @@ TIM_DEF _BZ_SQ, _BZ_SQ_TIMER
 .dseg
 _bz_ram_ticks: .byte 2
 .cseg
-
-#define _BZ_WGM 2
-#define _BZ_COMA 0
-#define _BZ_COMB 1
 
 #define _bz_setup_tmp @0
 
@@ -46,16 +48,16 @@ _bz_ram_ticks: .byte 2
 
 #undef _bz_setup_tmp
 
-#define _bz_start_ram @0
+#define _bz_r_start_ram @0
 
 .macro BZ_SRC_START
 	cli
-	ldi ZH, HIGH( _bz_start_ram )
-	ldi ZL, LOW( _bz_start_ram )
+	ldi ZH, HIGH( _bz_r_start_ram )
+	ldi ZL, LOW( _bz_r_start_ram )
 	rcall _bz_isr_start
 .endmacro
 
-#undef _bz_start_ram
+#undef _bz_r_start_ram
 
 #define _bz_load_ee @0
 #define _bz_load_ram @1

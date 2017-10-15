@@ -1,12 +1,14 @@
-#ifdef _INC_DS
-#error __FILE__ already included
-#else
+#ifndef _INC_DS
 #define _INC_DS
+
+#include "utils.asm"
+#include "builtin_led.asm"
+#include "serial_prog.asm"
 
 ; Francesco Zoccheddu
 ; ARE
 ; distance sensor
-; dirty timer 4 module and registers
+; dirty IO L, timer 4, builtin_led
 
 #define _DS_TIMER 4
 #define _DS_IO L

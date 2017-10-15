@@ -1,13 +1,18 @@
-#ifdef _INC_ML
-#error __FILE__ already included
-#else
+#ifndef _INC_ML
 #define _INC_ML
 
 ; Francesco Zoccheddu
 ; ARE
-; EEPROM programming
-; dirty timer 0 and registers
+; main loop
+; dirty timer 2
 
+#include "utils.asm"
+#include "game.asm"
+#include "pause.asm"
+#include "score.asm"
+#include "distance_sens.asm"
+#include "led_matrix.asm"
+#include "serial_prog.asm"
 
 #define _ML_TIMER 2
 
