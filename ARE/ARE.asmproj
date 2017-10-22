@@ -72,8 +72,7 @@
     <OutputType>Executable</OutputType>
     <PostBuildEvent>
     </PostBuildEvent>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>python $(MSBuildProjectDirectory)\bitmaps\bitmap2bytes.py $(MSBuildProjectDirectory)\bitmaps\</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -90,6 +89,7 @@
     </ToolchainSettings>
     <OutputType>Executable</OutputType>
     <PostBuildEvent>avrdude -c usbasp -p m2560 -U flash:w:"$(OutputDirectory)\$(OutputFileName).hex":i</PostBuildEvent>
+    <PreBuildEvent>python $(MSBuildProjectDirectory)\bitmaps\bitmap2bytes.py $(MSBuildProjectDirectory)\bitmaps\</PreBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="builtin_led.asm">
