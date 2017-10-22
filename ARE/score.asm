@@ -58,10 +58,58 @@ TIM_DEF _S, _S_TIMER
 #undef _s_r_setup_tmp
 
 .eseg
+; name="Game over screen duration"
+; description=""
+; type="real"
+; size=2
+; data={"fromh":499.968,"toh":4194.24,"fromb":7812,"tob":65535,"unit":"ms"}
 ee_s_tim_splash: .dw int( 1 * T16_PROPF + 0.5)
+; name="Last score screen duration"
+; description=""
+; type="real"
+; size=2
+; data={"fromh":499.968,"toh":4194.24,"fromb":7812,"tob":65535,"unit":"ms"}
 ee_s_tim_scr: .dw int( 2 * T16_PROPF + 0.5)
+; name="Record score screen duration"
+; description=""
+; type="real"
+; size=2
+; data={"fromh":499.968,"toh":4194.24,"fromb":7812,"tob":65535,"unit":"ms"}
 ee_s_tim_top: .dw int( 1.5 * T16_PROPF + 0.5)
+; name="Record score"
+; description=""
+; type="int"
+; size=2
+; data={"from":0,"to":65535}
 ee_s_top: .dw 14
+; name="Digits bitmap"
+; description="Description"
+; type="bitmap"
+; size=48
+; data={"rows":8,"columns":4,"horizontaldata":false,"count":12}
+ee_s_bm_digits:
+#include "bitmaps/s_bm_digits.asm"
+; name="Last score bitmap"
+; description=""
+; type="bitmap"
+; size=16
+; data={"rows":8,"columns":16,"horizontaldata":false,"count":1}
+ee_s_bm_scr:
+#include "bitmaps/s_bm_scr.asm"
+; name="Game over bitmap"
+; description=""
+; type="bitmap"
+; size=16
+; data={"rows":8,"columns":16,"horizontaldata":false,"count":1}
+ee_s_bm_splash:
+#include "bitmaps/s_bm_splash.asm"
+; name="Record score bitmap"
+; description=""
+; type="bitmap"
+; size=32
+; data={"rows":16,"columns":16,"horizontaldata":false,"count":1}
+ee_s_bm_top:
+#include "bitmaps/s_bm_top.asm"
 .cseg
 
 .dseg

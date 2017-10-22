@@ -60,8 +60,23 @@ _ml_ram_pprsnc_sub: .byte 1
 .cseg
 
 .eseg
+; name="Column rendering delay"
+; description="Time between each column rendering"
+; type="real"
+; size=2
+; data={"fromh":0.025,"toh":16.38375,"fromb":1562,"tob":65535,"unit":"ms"}
 ee_ml_tim_propf: .dw int( 0.002 * T8_PROPF + 0.5 )
+; name="Play absence pause counter increase"
+; description="Pause counter increase when absent during play"
+; type="int"
+; size=1
+; data={"from":0,"to":128}
 ee_ml_dsoff_add: .db 4
+; name="Play presence pause counter decrease"
+; description="Pause counter decrease when present during play"
+; type="int"
+; size=1
+; data={"from":0,"to":128}
 ee_ml_dson_sub: .db 16
 .cseg
 

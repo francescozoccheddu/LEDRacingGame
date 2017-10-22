@@ -21,8 +21,32 @@ _p_ram_bm_resuming: .byte 2*16
 .cseg
 
 .eseg
+; name="Pause absence resume counter decrease"
+; description="Resume counter decrease when absent during pause"
+; type="int"
+; size=1
+; data={"from":0,"to":128}
 ee_p_dsoff_sub: .db 8
+; name="Pause presence resume counter increase"
+; description="Resume counter increase when present during pause"
+; type="int"
+; size=1
+; data={"from":0,"to":128}
 ee_p_dson_add: .db 4
+; name="Pause bitmap"
+; description=""
+; type="bitmap"
+; size=32
+; data={"rows":16,"columns":16,"horizontaldata":false,"count":1}
+ee_p_bm_paused:
+#include "bitmaps/p_bm_paused.asm"
+; name="Resume bitmap"
+; description=""
+; type="bitmap"
+; size=32
+; data={"rows":16,"columns":16,"horizontaldata":false,"count":1}
+ee_p_bm_resuming:
+#include "bitmaps/p_bm_resuming.asm"
 .cseg
 
 #define _p_r_setup_tmp @0

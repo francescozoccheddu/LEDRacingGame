@@ -28,17 +28,24 @@
 #include "game.asm"
 #include "main_loop.asm"
 
-.eseg
-#include "bitmaps.asm"
-.cseg
-
 ; main
 
 .eseg
+; name="Start sound"
+; description="Sound to play on start"
+; type="sound"
+; size=20
+; data={"ticks":{"from":0,"to":9,"unit":"ticks"},"pwm":{"fromh":1.25,"toh":10,"unit":"ms","fromb":5000,"tob":40000},"duration":{"fromh":49.984,"toh":2000,"fromb":781,"tob":31250,"unit":"ms"}}
 ee_m_snd_start:
 .dw 20000, int( 0.1 * T16_PROPF + 0.5)
 .dw 15000, int( 0.1 * T16_PROPF + 0.5)
 .dw 10000, int( 0.1 * T16_PROPF + 0.5)
+.dw 0, 0
+.dw 0, 0
+.dw 0, 0
+.dw 0, 0
+.dw 0, 0
+.dw 0, 0
 .dw 0, 0
 .cseg
 

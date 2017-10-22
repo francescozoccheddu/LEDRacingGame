@@ -49,9 +49,29 @@ IO_DEF _DS, _DS_IO
 #undef _ds_r_setup_tmp
 
 .eseg
+; name="Distance sensor period"
+; description="Time between each trig"
+; type="real"
+; size=2
+; data={"fromh":40,"toh":499.968,"fromb":625,"tob":7812,"unit":"ms"}
 ee_ds_period_propf: .dw int( 0.06 * T16_PROPF + 0.5)
+; name="Distance sensor minimum echo"
+; description="Minimum distance sensor echo pulse duration"
+; type="real"
+; size=2
+; data={"fromh":0,"toh":100,"fromb":0,"tob":65535,"unit":"%"}
 ee_ds_min_ic: .dw 70
+; name="Distance sensor maximum echo"
+; description="Minimum distance sensor echo pulse duration"
+; type="real"
+; size=2
+; data={"fromh":0,"toh":100,"fromb":0,"tob":65535,"unit":"%"}
 ee_ds_max_ic: .dw 250
+; name="Distance sensor timeout echo"
+; description="Minimum distance sensor echo pulse duration"
+; type="real"
+; size=2
+; data={"fromh":0,"toh":100,"fromb":0,"tob":65535,"unit":"%"}
 ee_ds_emax_ic: .dw 300
 .cseg
 
