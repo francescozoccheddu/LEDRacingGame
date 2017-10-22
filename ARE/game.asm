@@ -92,24 +92,103 @@ _g_ram_snd_over: .byte BZ_SND_BYTES
 .cseg
 
 .eseg
+; name="Enemy spawn period"
+; description="Number of shifts between each spawn"
+; type="int"
+; size=1
+; data={"from":1,"to":255,"unit":"shifts"}
 ee_g_spawn_period: .db 8
+; name="Score count period"
+; description="Number of shifts between each score point"
+; type="int"
+; size=1
+; data={"from":1,"to":255,"unit":"shifts"}
 ee_g_score_period: .db 8
+; name="Player position smooth speed"
+; description="Counter increase at each position smooth step"
+; type="int"
+; size=1
+; data={"from":1,"to":16}
 ee_g_smooth: .db 8
+; name="Player recovery position smooth speed"
+; description="Counter increase at each recovery position smooth step"
+; type="int"
+; size=1
+; data={"from":1,"to":16}
 ee_g_smooth_slow: .db 3
+; name="Shift period"
+; description="Time between each shift"
+; type="real"
+; size=2
+; data={"fromh":99.968,"toh":2000,"fromb":1562,"tob":31250,"unit":"ms"}
 ee_g_tim_propf: .dw int( 0.1 * T16_PROPF + 0.5 )
+; name="Pause sound"
+; description="Sound to play on pause"
+; type="sound"
+; size=20
+; data={"ticks":{"from":0,"to":9,"unit":"ticks"},"pwm":{"fromh":1.25,"toh":10,"unit":"ms","fromb":5000,"tob":40000},"duration":{"fromh":49.984,"toh":2000,"fromb":781,"tob":31250,"unit":"ms"}}
 ee_g_snd_pause:
 .dw 10000, int( 0.1 * T16_PROPF + 0.5)
 .dw 15000, int( 0.1 * T16_PROPF + 0.5)
 .dw 0, 0
+.dw 0, 0
+.dw 0, 0
+.dw 0, 0
+.dw 0, 0
+.dw 0, 0
+.dw 0, 0
+; name="Resume sound"
+; description="Sound to play on resume"
+; type="sound"
+; size=20
+; data={"ticks":{"from":0,"to":9,"unit":"ticks"},"pwm":{"fromh":1.25,"toh":10,"unit":"ms","fromb":5000,"tob":40000},"duration":{"fromh":49.984,"toh":2000,"fromb":781,"tob":31250,"unit":"ms"}}
 ee_g_snd_resume:
 .dw 15000, int( 0.1 * T16_PROPF + 0.5)
 .dw 10000, int( 0.1 * T16_PROPF + 0.5)
 .dw 0, 0
+.dw 0, 0
+.dw 0, 0
+.dw 0, 0
+.dw 0, 0
+.dw 0, 0
+.dw 0, 0
+; name="Game over sound"
+; description="Sound to play on game over"
+; type="sound"
+; size=20
+; data={"ticks":{"from":0,"to":9,"unit":"ticks"},"pwm":{"fromh":1.25,"toh":10,"unit":"ms","fromb":5000,"tob":40000},"duration":{"fromh":49.984,"toh":2000,"fromb":781,"tob":31250,"unit":"ms"}}
 ee_g_snd_over:
 .dw 10000, int( 0.1 * T16_PROPF + 0.5)
 .dw 15000, int( 0.1 * T16_PROPF + 0.5)
 .dw 20000, int( 0.1 * T16_PROPF + 0.5)
 .dw 0, 0
+.dw 0, 0
+.dw 0, 0
+.dw 0, 0
+.dw 0, 0
+.dw 0, 0
+.dw 0, 0
+; name="Enemy bitmap"
+; description="Enemy object bitmap left anchored"
+; type="bitmap"
+; size=16
+; data={"rows":8,"columns":16,"horizontaldata":false,"count":1}
+ee_g_bm_enemy_al:
+#include "bitmaps/g_bm_enemy_al.asm"
+; name="Player bitmap"
+; description="Player bitmap center anchored and symmetric"
+; type="bitmap"
+; size=16
+; data={"rows":8,"columns":16,"horizontaldata":false,"count":1}
+ee_g_bm_player_acs:
+#include "bitmaps/g_bm_player_acs.asm"
+; name="Enemy spawn bitmaps"
+; description="Description"
+; type="bitmap"
+; size=8
+; data={"rows":1,"columns":16,"horizontaldata":true,"count":4}
+ee_g_bm_spawns:
+#include "bitmaps/g_bm_spawns.asm"
 .cseg
 
 #undef _g_setup_tmp1

@@ -92,9 +92,6 @@
     <PostBuildEvent>avrdude -c usbasp -p m2560 -U flash:w:"$(OutputDirectory)\$(OutputFileName).hex":i</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="bitmaps.asm">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="builtin_led.asm">
       <SubType>Code</SubType>
     </Compile>
