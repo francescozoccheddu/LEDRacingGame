@@ -2,6 +2,7 @@ from PIL import Image
 import glob
 import math
 import os
+import sys
 
 def convertImage(filename):
     imgf = Image.open(filename)
@@ -26,7 +27,7 @@ def convertImage(filename):
     return out
 
 def main():
-    for file in glob.glob("./*.png"):
+    for file in glob.glob(os.path.join(sys.argv[1], "*.png")):
         outfile = open(os.path.splitext(file)[0] + ".asm", 'w')
         outfile.write(convertImage(file))
         outfile.close()
