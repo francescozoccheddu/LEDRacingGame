@@ -120,7 +120,7 @@ ee_g_smooth_slow: .db 3
 ; description="Time between each shift"
 ; type="real"
 ; size=2
-; data={"fromh":99.968,"toh":2000,"fromb":1562,"tob":31250,"unit":"ms"}
+; data={"fromh":49.984,"toh":2000,"fromb":781,"tob":31250,"unit":"ms"}
 ee_g_tim_propf: .dw int( 0.1 * T16_PROPF + 0.5 )
 ; name="Pause sound"
 ; description="Sound to play on pause"

@@ -99,15 +99,15 @@ ee_s_bm_scr:
 ; name="Game over bitmap"
 ; description=""
 ; type="bitmap"
-; size=16
-; data={"rows":8,"columns":16,"horizontaldata":false,"count":1}
+; size=32
+; data={"rows":16,"columns":16,"horizontaldata":false,"count":1}
 ee_s_bm_splash:
 #include "bitmaps/s_bm_splash.asm"
 ; name="Record score bitmap"
 ; description=""
 ; type="bitmap"
-; size=32
-; data={"rows":16,"columns":16,"horizontaldata":false,"count":1}
+; size=16
+; data={"rows":8,"columns":16,"horizontaldata":false,"count":1}
 ee_s_bm_top:
 #include "bitmaps/s_bm_top.asm"
 .cseg
