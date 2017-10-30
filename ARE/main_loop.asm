@@ -61,7 +61,7 @@ _ml_ram_pprsnc_sub: .byte 1
 
 .eseg
 ; name="Column rendering delay"
-; description="Time between each column rendering"
+; description="Time interval between each column rendering"
 ; type="real"
 ; size=2
 ; data={"fromh":0.025,"toh":16.38375,"fromb":1562,"tob":65535,"unit":"ms"}
