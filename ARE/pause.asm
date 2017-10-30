@@ -34,14 +34,14 @@ ee_p_dsoff_sub: .db 8
 ; data={"from":0,"to":128}
 ee_p_dson_add: .db 4
 ; name="Pause bitmap"
-; description=""
+; description="Paused game screen bitmap"
 ; type="bitmap"
 ; size=32
 ; data={"rows":16,"columns":16,"horizontaldata":false,"count":1}
 ee_p_bm_paused:
 #include "bitmaps/p_bm_paused.asm"
 ; name="Resume bitmap"
-; description=""
+; description="Resuming game screen bitmap"
 ; type="bitmap"
 ; size=32
 ; data={"rows":16,"columns":16,"horizontaldata":false,"count":1}

@@ -42,6 +42,7 @@ _sp_l_setup_cts:
 	lds _sp_r_setup_tmp, UCSR0A
 	sbrs _sp_r_setup_tmp, UDRE0
 	rjmp _sp_l_setup_cts
+	clr _sp_r_setup_tmp
 	sts UDR0, _sp_r_setup_tmp
 .endmacro
 

@@ -117,7 +117,7 @@ ee_g_smooth: .db 8
 ; data={"from":1,"to":16}
 ee_g_smooth_slow: .db 3
 ; name="Shift period"
-; description="Time between each shift"
+; description="Time interval between each shift"
 ; type="real"
 ; size=2
 ; data={"fromh":49.984,"toh":2000,"fromb":781,"tob":31250,"unit":"ms"}
@@ -125,7 +125,7 @@ ee_g_tim_propf: .dw int( 0.1 * T16_PROPF + 0.5 )
 ; name="Pause sound"
 ; description="Sound to play on pause"
 ; type="sound"
-; size=20
+; size=24
 ; data={"ticks":{"from":0,"to":9,"unit":"ticks"},"pwm":{"fromh":1.25,"toh":10,"unit":"ms","fromb":5000,"tob":40000},"duration":{"fromh":49.984,"toh":2000,"fromb":781,"tob":31250,"unit":"ms"}}
 ee_g_snd_pause:
 .dw 10000, int( 0.1 * T16_PROPF + 0.5)
@@ -134,13 +134,10 @@ ee_g_snd_pause:
 .dw 0, 0
 .dw 0, 0
 .dw 0, 0
-.dw 0, 0
-.dw 0, 0
-.dw 0, 0
 ; name="Resume sound"
 ; description="Sound to play on resume"
 ; type="sound"
-; size=20
+; size=24
 ; data={"ticks":{"from":0,"to":9,"unit":"ticks"},"pwm":{"fromh":1.25,"toh":10,"unit":"ms","fromb":5000,"tob":40000},"duration":{"fromh":49.984,"toh":2000,"fromb":781,"tob":31250,"unit":"ms"}}
 ee_g_snd_resume:
 .dw 15000, int( 0.1 * T16_PROPF + 0.5)
@@ -149,13 +146,10 @@ ee_g_snd_resume:
 .dw 0, 0
 .dw 0, 0
 .dw 0, 0
-.dw 0, 0
-.dw 0, 0
-.dw 0, 0
 ; name="Game over sound"
 ; description="Sound to play on game over"
 ; type="sound"
-; size=20
+; size=24
 ; data={"ticks":{"from":0,"to":9,"unit":"ticks"},"pwm":{"fromh":1.25,"toh":10,"unit":"ms","fromb":5000,"tob":40000},"duration":{"fromh":49.984,"toh":2000,"fromb":781,"tob":31250,"unit":"ms"}}
 ee_g_snd_over:
 .dw 10000, int( 0.1 * T16_PROPF + 0.5)
@@ -164,26 +158,22 @@ ee_g_snd_over:
 .dw 0, 0
 .dw 0, 0
 .dw 0, 0
-.dw 0, 0
-.dw 0, 0
-.dw 0, 0
-.dw 0, 0
 ; name="Enemy bitmap"
-; description="Enemy object bitmap left anchored"
+; description="Enemy instance sprite"
 ; type="bitmap"
 ; size=16
 ; data={"rows":8,"columns":16,"horizontaldata":false,"count":1}
 ee_g_bm_enemy_al:
 #include "bitmaps/g_bm_enemy_al.asm"
 ; name="Player bitmap"
-; description="Player bitmap center anchored and symmetric"
+; description="Player sprite"
 ; type="bitmap"
 ; size=16
 ; data={"rows":8,"columns":16,"horizontaldata":false,"count":1}
 ee_g_bm_player_acs:
 #include "bitmaps/g_bm_player_acs.asm"
 ; name="Enemy spawn bitmaps"
-; description="Description"
+; description="Enemy spawn scheme"
 ; type="bitmap"
 ; size=8
 ; data={"rows":1,"columns":16,"horizontaldata":true,"count":4}
